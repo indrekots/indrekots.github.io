@@ -46,8 +46,4 @@ pygments:    true
 markdown:    kramdown
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
-<<<<<<< HEAD
 permalink:   /:categories/:title/
-=======
-permalink:   /:categories/:title/
->>>>>>> modify config
