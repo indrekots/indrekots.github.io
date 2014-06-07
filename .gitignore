@@ -1,2 +1,6 @@
 #generated site
 _site/
+
+#Gemfile related
+Gemfile.lock
+Gemfile~
