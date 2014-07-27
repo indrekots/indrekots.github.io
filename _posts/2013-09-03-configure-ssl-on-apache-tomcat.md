@@ -8,7 +8,7 @@ image:
   credit: 
   creditlink: 
 comments: 
-share: 
+share: true
 ---
 
 Here we are going to have a look at how to set up SSL on Apache Tomcat 7.0. First of all, you must create a keystore file. This stores the server's private key and certificate. This can be achieved using the keytool bundled with Java.
