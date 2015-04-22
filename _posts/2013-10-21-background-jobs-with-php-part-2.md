@@ -9,7 +9,7 @@ image:
   creditlink: 
 comments: 
 share: true
-published: false
+published: true
 ---
 
 Previously, in [part 1]({{site.url}}/background-jobs-with-php-part-1 "Part 1"), we took a look at how to implement a basic background job with PHP using [cron](http://en.wikipedia.org/wiki/Cron "Cron Wikipedia page"). In this post, as promised, we're going to implement a queue of jobs with [Resque](https://github.com/resque/resque "Resque Github page") and [Redis](http://redis.io/ "Redis homepage").
@@ -70,3 +70,36 @@ Of course in a real application, this job would do something more important and 
 ###Workers
 
 To create a new worker, you need to provide some environment variables. Firstly, the QUEUE variable defines which queue the worker is going to poll.
+
+~~~
+QUEUE=myQueue php resque.php
+~~~
+
+This creates a worker which polls the "myQueue" queue (providing a QUEUE is mandatory). It does this in every 5 seconds. To change the interval, you need to provide the INTERVAL environment variable.
+
+~~~
+QUEUE=myQueue INTERVAL=10 php resque.php
+~~~
+
+This creates a worker which polls the "myQueue" queue. It does this in every 10 seconds.
+
+Additional variables that might be helpful:
+
+* APP_INCLUDE - path to a file. It can be an autoloader or a file with lot's of includes.
+* COUNT - number of workers to create
+* REDIS_BACKEND - address and port of your Redis server. Default value is localhost:6379.
+* VERBOSE - value 1 will enable debugging messages
+
+If you run:
+
+~~~
+QUEUE=myQueue INTERVAL=10 php resque.php
+~~~
+
+you should see some output about the created worker, it's PID (process id) and the queue it polls.
+
+<pre>
+[notice] [15:32:44 2013-10-17] Starting worker my-laptop:17720:myQueue
+[info] [15:32:44 2013-10-17] Checking default for jobs
+[info] [15:32:44 2013-10-17] Sleeping for 10
+</pre>
