@@ -103,3 +103,28 @@ you should see some output about the created worker, it's PID (process id) and t
 [info] [15:32:44 2013-10-17] Checking default for jobs
 [info] [15:32:44 2013-10-17] Sleeping for 10
 </pre>
+
+###Running a worker in the background
+
+Currently, if you close your commandline, the worker will be killed as well. To run the command  as a daemon, add an ampersand (&) at the end of the command.
+
+<code>QUEUE=myQueue INTERVAL=10 php resque.php &</code>
+
+After running the command, your terminal window is free and you can enter additional commands. But now you can not see the output. Let's log the output to a seperate file.
+
+<code>QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log &</code>
+
+Additionally we could redirect *stderr* to *stdout* with:
+
+<code>QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &</code>
+
+If the current user is logged out, then the daemon will stop as well. Let's add the following
+
+<code>nohup QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &</code>
+
+Now the daemon will run even if the user has logged out. In the previous part, i mentioned that in some situations the background job has to run as the same user as the web server. To achieve that we can use the following command:
+
+<code>nohup sudo -u www-data QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &</code> 
+
+Let's recap. This command creates a worker which polls the myQueue queue in every 10 seconds. It's output (*stderr* and *stdout*) is appended to a *workers.log* file. The worker runs with the same privileges as the web server and it runs as a daemon. The daemon is not killed if the user has logged out.
+
