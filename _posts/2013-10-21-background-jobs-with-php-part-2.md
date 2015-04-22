@@ -9,7 +9,7 @@ image:
   creditlink: 
 comments: 
 share: true
-published: true
+published: false
 ---
 
 Previously, in [part 1]({{site.url}}/background-jobs-with-php-part-1 "Part 1"), we took a look at how to implement a basic background job with PHP using [cron](http://en.wikipedia.org/wiki/Cron "Cron Wikipedia page"). In this post, as promised, we're going to implement a queue of jobs with [Resque](https://github.com/resque/resque "Resque Github page") and [Redis](http://redis.io/ "Redis homepage").
@@ -127,4 +127,12 @@ Now the daemon will run even if the user has logged out. In the previous part, i
 <code>nohup sudo -u www-data QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &</code> 
 
 Let's recap. This command creates a worker which polls the myQueue queue in every 10 seconds. It's output (*stderr* and *stdout*) is appended to a *workers.log* file. The worker runs with the same privileges as the web server and it runs as a daemon. The daemon is not killed if the user has logged out.
+
+###Adding a job to a queue (pushing)
+
+~~~ php
+Resque::enqueue("default", 'application\models\jobs\TestJob', array("arg1" => "myArg1");
+~~~
+
+The first argument is the name of the queue. The second argument is a job class and finally you can provide arguments to your job class. To access the arguments array in the job class, use `$this->args`. If your job class has a namespace then make sure you provide the class' fully qualified name. When this line is executed and you have workers running, you should see "Hello world" printed to your workers.log file.
 
