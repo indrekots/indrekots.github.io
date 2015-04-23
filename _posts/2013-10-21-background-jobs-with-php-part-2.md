@@ -18,7 +18,7 @@ Redis is an open source, BSD licensed, advanced key-value store. It is often ref
 
 ###Dependencies
 
-To follow this tutorial, the following software requirements must be met.
+Following software packages are used in this tutorial:
 
 * Redis - key-value store
 * Predis - library for accessing Redis key-value store
@@ -26,11 +26,11 @@ To follow this tutorial, the following software requirements must be met.
 
 ###Installation
 
-Redis can be downloaded at [http://redis.io/download](http://redis.io/download "Redis download link"). If you're running some flavour of Linux, then you might find Redis in it's repositories as well. Predis can be acquired at the project's [Github page](https://github.com/nrk/predis "Predis Github page"). It is also available on [Packagist](https://packagist.org/packages/predis/predis "Predis packagist page") for an easy installation using [Composer](http://getcomposer.org/ "Composer homepage"). Finally, php-resque can be found on [Github](https://github.com/chrisboulton/php-resque "php-resque Github page") as well. Composer users can find it on [Packagist](https://packagist.org/packages/chrisboulton/php-resque "php-resque on Packagist").
+Redis can be downloaded at [http://redis.io/download](http://redis.io/download "Redis download link"). If you're running some flavour of Linux, then you might find Redis in it's package repositories as well. Predis can be acquired at the project's [Github page](https://github.com/nrk/predis "Predis Github page"). It is also available on [Packagist](https://packagist.org/packages/predis/predis "Predis packagist page") for an easy installation using [Composer](http://getcomposer.org/ "Composer homepage"). Finally, php-resque can be found on [Github](https://github.com/chrisboulton/php-resque "php-resque Github page") too. Composer users can find it on [Packagist](https://packagist.org/packages/chrisboulton/php-resque "php-resque on Packagist").
 
 ###General overview
 
-We are going to create background workers who are going to process jobs. Jobs are pushed and held in a queue. Workers pull jobs from the queue and execute them. In essence, there are 4 parts to the system:
+We are going to create background workers which are going to process jobs. Jobs are pushed and held in a queue. Workers pull jobs from the queue and execute them. In essence, there are 4 parts to the system:
 
 * Queues - jobs are held here in order
 * Jobs - a unit of work to be processed
@@ -65,7 +65,7 @@ class HelloJob implements Job
 }
 ~~~
 
-Of course in a real application, this job would do something more important and probably be more complex as well. Now that we have a simple job, let's create workers, who will execute the job.
+Of course in a real world application, this job would do something more important and probably be more complex as well. Now that we have a simple job, let's create some workers.
 
 ###Workers
 
@@ -126,7 +126,7 @@ Now the daemon will run even if the user has logged out. In the previous part, i
 
 <code>nohup sudo -u www-data QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &</code> 
 
-Let's recap. This command creates a worker which polls the myQueue queue in every 10 seconds. It's output (*stderr* and *stdout*) is appended to a *workers.log* file. The worker runs with the same privileges as the web server and it runs as a daemon. The daemon is not killed if the user has logged out.
+Let's recap. This command creates a worker which polls the myQueue queue in every 10 seconds. It's output (*stderr* and *stdout*) is appended to a *workers.log* file. The worker runs with the same privileges as the web server and it runs as a daemon. The daemon is not killed if the user logs out.
 
 ###Adding a job to a queue (pushing)
 
@@ -146,12 +146,12 @@ This lists all `resque` processes currently running. To stop a worker, run:
 
 <code>kill -3 PID</code>
 
-PID is a process identifier of a process. This is the number in the second column when running `ps -u`. the `-3` flag stops the process when the work has finished. To kill a process, use the `-9` flag.
+PID is a process identifier. This is the number in the second column when running `ps -u`. The `-3` flag stops the process when the work has finished. To kill a process, use the `-9` flag.
 
 <code>kill -9 PID</code>
 
 ###Final thoughts
 
-This was a general overview on how to implement job queues with Redis and Resque. For more information on usage, one should view the php-resque [Github page](https://github.com/chrisboulton/php-resque "php-resque Github page"). As it can be seen, manual work has to be done to create workers. It would be much more convenient if they were initiated automatically. A bash script is helpful. If you are using Composer, you could use hooks to initiate all the required workers. In addition, the stopping and killing of workers could be automated as well.
+This was a general overview on how to implement job queues with Redis and Resque. For more information on usage, visit php-resque [Github page](https://github.com/chrisboulton/php-resque "php-resque Github page"). As it can be seen, manual work has to be done to create workers. It would be much more convenient if they were initiated automatically. A bash script is helpful. If you are using Composer, you could use hooks to initiate all the required workers. In addition, the stopping and killing of workers could be automated as well.
 
-During this 2 part series, only a few PHP background processing solutions were covered. But this doesn't mean there aren't any other viable solutions out there. Do some research and find a solution that works for your specific problem.
+During this 2 part series, only a few PHP background processing solutions were covered. But this doesn't mean there aren't any other options available. Do some research and find a solution that works for your specific problem.
