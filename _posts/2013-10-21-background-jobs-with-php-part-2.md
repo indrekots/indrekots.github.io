@@ -9,7 +9,7 @@ image:
   creditlink: 
 comments: 
 share: true
-published: false
+published: true
 ---
 
 Previously, in [part 1]({{site.url}}/background-jobs-with-php-part-1 "Part 1"), we took a look at how to implement a basic background job with PHP using [cron](http://en.wikipedia.org/wiki/Cron "Cron Wikipedia page"). In this post, as promised, we're going to implement a queue of jobs with [Resque](https://github.com/resque/resque "Resque Github page") and [Redis](http://redis.io/ "Redis homepage").
@@ -136,3 +136,22 @@ Resque::enqueue("default", 'application\models\jobs\TestJob', array("arg1" => "m
 
 The first argument is the name of the queue. The second argument is a job class and finally you can provide arguments to your job class. To access the arguments array in the job class, use `$this->args`. If your job class has a namespace then make sure you provide the class' fully qualified name. When this line is executed and you have workers running, you should see "Hello world" printed to your workers.log file.
 
+###Stopping/Killing a worker
+
+First and foremost, to view all the workers currently running, run:
+
+<code>ps -u | grep resque</code>
+
+This lists all `resque` processes currently running. To stop a worker, run:
+
+<code>kill -3 PID</code>
+
+PID is a process identifier of a process. This is the number in the second column when running `ps -u`. the `-3` flag stops the process when the work has finished. To kill a process, use the `-9` flag.
+
+<code>kill -9 PID</code>
+
+###Final thoughts
+
+This was a general overview on how to implement job queues with Redis and Resque. For more information on usage, one should view the php-resque [Github page](https://github.com/chrisboulton/php-resque "php-resque Github page"). As it can be seen, manual work has to be done to create workers. It would be much more convenient if they were initiated automatically. A bash script is helpful. If you are using Composer, you could use hooks to initiate all the required workers. In addition, the stopping and killing of workers could be automated as well.
+
+During this 2 part series, only a few PHP background processing solutions were covered. But this doesn't mean there aren't any other viable solutions out there. Do some research and find a solution that works for your specific problem.
