@@ -40,7 +40,7 @@ We are going to create background workers which are going to process jobs. Jobs 
 
 Job is an order for the worker to execute a certain task. To create a job with php-resque, you need to create a new class which implements a `perform()`  method. I would create a new interface which defines the `perform()` method and let concrete job classes implement the Job interface.
 
-~~~ php
+{% highlight php startinline=true %}
 /**
  * Defines a php-resque job
  */
@@ -53,9 +53,9 @@ interface Job
   public function perform();
  
 }
-~~~ 
+{% endhighlight %}
 
-~~~php
+{% highlight php startinline=true %}
 class HelloJob implements Job
 {
   public function perform()
@@ -63,7 +63,7 @@ class HelloJob implements Job
     echo "Hello world";
   }
 }
-~~~
+{% endhighlight %}
 
 Of course in a real world application, this job would do something more important and probably be more complex as well. Now that we have a simple job, let's create some workers.
 
@@ -71,15 +71,16 @@ Of course in a real world application, this job would do something more importan
 
 To create a new worker, you need to provide some environment variables. Firstly, the QUEUE variable defines which queue the worker is going to poll.
 
-~~~
+
+{% highlight bash %}
 QUEUE=myQueue php resque.php
-~~~
+{% endhighlight %}
 
 This creates a worker which polls the "myQueue" queue (providing a QUEUE is mandatory). It does this in every 5 seconds. To change the interval, you need to provide the INTERVAL environment variable.
 
-~~~
+{% highlight bash %}
 QUEUE=myQueue INTERVAL=10 php resque.php
-~~~
+{% endhighlight %}
 
 This creates a worker which polls the "myQueue" queue. It does this in every 10 seconds.
 
@@ -92,47 +93,57 @@ Additional variables that might be helpful:
 
 If you run:
 
-~~~
+{% highlight bash %}
 QUEUE=myQueue INTERVAL=10 php resque.php
-~~~
+{% endhighlight %}
 
 you should see some output about the created worker, it's PID (process id) and the queue it polls.
 
-<pre>
+{% highlight bash %}
 [notice] [15:32:44 2013-10-17] Starting worker my-laptop:17720:myQueue
 [info] [15:32:44 2013-10-17] Checking default for jobs
 [info] [15:32:44 2013-10-17] Sleeping for 10
-</pre>
+{% endhighlight %}
 
 ###Running a worker in the background
 
 Currently, if you close your commandline, the worker will be killed as well. To run the command  as a daemon, add an ampersand (&) at the end of the command.
 
-<code>QUEUE=myQueue INTERVAL=10 php resque.php &</code>
+{% highlight bash %}
+QUEUE=myQueue INTERVAL=10 php resque.php &
+{% endhighlight %}
 
 After running the command, your terminal window is free and you can enter additional commands. But now you can not see the output. Let's log the output to a seperate file.
 
-<code>QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log &</code>
+{% highlight bash %}
+QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log &
+{% endhighlight %}
 
 Additionally we could redirect *stderr* to *stdout* with:
 
-<code>QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &</code>
+{% highlight bash %}
+QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &
+{% endhighlight %}
 
 If the current user is logged out, then the daemon will stop as well. Let's add the following
 
-<code>nohup QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &</code>
+{% highlight bash %}
+nohup QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &
+{% endhighlight %}
 
 Now the daemon will run even if the user has logged out. In the previous part, i mentioned that in some situations the background job has to run as the same user as the web server. To achieve that we can use the following command:
 
-<code>nohup sudo -u www-data QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &</code> 
+{% highlight bash %}
+nohup sudo -u www-data QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/workers.log 2>&1 &
+{% endhighlight %}
 
 Let's recap. This command creates a worker which polls the myQueue queue in every 10 seconds. It's output (*stderr* and *stdout*) is appended to a *workers.log* file. The worker runs with the same privileges as the web server and it runs as a daemon. The daemon is not killed if the user logs out.
 
 ###Adding a job to a queue (pushing)
 
-~~~ php
+{% highlight php startinline=true %}
 Resque::enqueue("default", 'application\models\jobs\TestJob', array("arg1" => "myArg1");
-~~~
+{% endhighlight %}
 
 The first argument is the name of the queue. The second argument is a job class and finally you can provide arguments to your job class. To access the arguments array in the job class, use `$this->args`. If your job class has a namespace then make sure you provide the class' fully qualified name. When this line is executed and you have workers running, you should see "Hello world" printed to your workers.log file.
 
@@ -140,15 +151,21 @@ The first argument is the name of the queue. The second argument is a job class 
 
 First and foremost, to view all the workers currently running, run:
 
-<code>ps -u | grep resque</code>
+{% highlight bash %}
+ps -u | grep resque
+{% endhighlight %}
 
 This lists all `resque` processes currently running. To stop a worker, run:
 
-<code>kill -3 PID</code>
+{% highlight bash %}
+kill -3 PID
+{% endhighlight %}
 
 PID is a process identifier. This is the number in the second column when running `ps -u`. The `-3` flag stops the process when the work has finished. To kill a process, use the `-9` flag.
 
-<code>kill -9 PID</code>
+{% highlight bash %}
+kill -9 PID
+{% endhighlight %}
 
 ###Final thoughts
 
