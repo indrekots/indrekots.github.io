@@ -27,3 +27,7 @@ For example, the following was in my path:
 * C:\apache-ant-1.9.0\bin;
 * C:\Program Files (x86)\Git\bin;
 * C:\apache-maven-3.0.5\bin 
+
+As it can be seen, `apache-ant-1.9.0` is almost the last one in the list. Little did I know that Weblogic folder contanied an older version of `ant` as well. I reordered my path, and everything worked like a charm afterwards.
+
+The same thing can happen with Java. You have your `JAVA_HOME` set, but for some reason `java -version` returns a different version number. Check `windows\system32\` folder, because `java.exe` might exist there as well. Add your Java location before `windows\` path declarations.
