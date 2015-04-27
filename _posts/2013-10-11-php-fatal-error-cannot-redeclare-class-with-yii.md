@@ -11,7 +11,7 @@ comments: true
 share: true
 ---
 
-I am fairly new to PHP and Yii. Recently i struggled with a "cannot redeclare class" error. Here's a brief overview of my setup. I'm using Yii's Active Record and I have 2 models (`ParentModel` and `ChildModel`) with a one-to-many relation. Both model classes have namespaces. In addition, I'm using [Codeception](http://codeception.com/) for testing. Upon running unit tests, i received the following error:
+I am fairly new to PHP and Yii. Lately i struggled with a "cannot redeclare class" error. Here's a brief overview of my setup. I'm using Yii's Active Record and I have 2 models (`ParentModel` and `ChildModel`) with a one-to-many relation. Both model classes have namespaces. In addition, I'm using [Codeception](http://codeception.com/) for testing. Upon running unit tests, i received the following error:
 
 <pre>
 PHP Fatal error:  Cannot redeclare class application\models\ChildModel 
