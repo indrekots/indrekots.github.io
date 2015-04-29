@@ -31,7 +31,9 @@ $ crontab -e
 
 This opens a text file with a list of commands meant to be run at specified times. In this first example, we're going to add a job which prints "Hello World" to a log file in every 2 minutes. Add the following line to your crontab file and save it.
 
-<code>*/2 * * * * php /home/user/Desktop/hw.php >> /home/user/Desktop/hw.log</code>
+<div class="highlight"><pre>
+*/2 * * * * php /home/user/Desktop/hw.php >> /home/user/Desktop/hw.log
+</pre></div>
 
 A cron job is laid out as follows: minute (0-59), hour (0-23, 0 = midnight), day (1-31), month (1-12), weekday (0-6, 0 = Sunday), command. To run a script more than one time per time unit you can use the syntax described above. This runs the command every 2 minutes. For more information about cron jobs, check out [this tutorial](http://net.tutsplus.com/tutorials/other/scheduling-tasks-with-cron-jobs).
 
