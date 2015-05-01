@@ -2,7 +2,7 @@
 layout: post
 title: "XsltException caused by JRebel"
 excerpt: "XsltException caused by a seemingly missing stylesheet. Turns out JRebel was the culprit."
-modified: 2013-04-18 18:26:17 +0300
+modified: 2013-04-26 20:56:49 +0300
 categories: articles
 tags: [java, jrebel, windows, maven, pom.xml, rebel.xml]
 image:
