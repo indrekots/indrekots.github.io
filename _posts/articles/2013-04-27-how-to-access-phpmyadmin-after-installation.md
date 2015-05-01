@@ -4,7 +4,7 @@ title: "How to access phpmyadmin after installation?"
 excerpt: "You've just installed phpmyadmin from your package manager. Here's what you need to do in order to access it"
 modified: 2013-04-27 19:46:11 +0300
 categories: articles
-tags: [phpmyadmin, php, ubuntu how-to, apache]
+tags: [phpmyadmin, php, ubuntu, how-to, apache]
 image:
   feature: 
   credit: 
