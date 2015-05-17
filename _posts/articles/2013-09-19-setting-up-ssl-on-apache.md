@@ -11,7 +11,7 @@ image:
   creditlink: 
 comments: true
 share: true
-published: false
+published: true
 ---
 
 **Disclaimer:** these instructions were tested on Ubuntu 13.04 and Apache 2.2.22.
@@ -36,7 +36,7 @@ $ openssl req -new -key server.key -out server.csr
 
 You are about to be asked to enter information that will be incorporated into your certificate request. What you are about to enter is what is called a Distinguished Name or a DN. There are quite a few fields but you can leave some blank. For some fields there will be a default value, If you enter '.', the field will be left blank.
 
-The following are the questions being asked and sample answers.
+The following are the questions being asked.
 
 <pre>
 Country Name (2 letter code) [AU]:
@@ -125,3 +125,12 @@ $ /etc/init.d/apache2 restart
 {% endhighlight %}
 
 If you are running a web server on localhost, then make sure you modify your hosts file to point mysite.com to your machine. If that has been dealt with, point your browser to [https://mysite.com/](https://mysite.com/).
+
+##5. Server Name Indication
+
+Server Name Indication (SNI) is an extension to the TLS protocol that indicates what hostname the client is attempting to connect to at the start of the handshaking process. This allows a server to present multiple certificates on the same IP address and port number and hence allows multiple secure (HTTPS) websites to be served off the same IP address without requiring all those sites to use the same certificate. It is the conceptual equivalent to HTTP/1.1 virtual hosting for HTTPS.
+
+To make use of SNI, it is necessary that the vast majority of users use web browsers that support it. Users whose browsers do not support SNI will be presented with a default certificate and hence are likely to receive certificate warnings, unless the server is equipped with a wildcard certificate that matches the name of the website. As of November 2012, the only major user bases whose browsers do not support SNI appear to be users of Android 2.x (default browser), Internet Explorer (any version) on Windows XP and versions of Java before 1.7 on any operating system. If your service has users on these platforms, then it is required to run only one HTTPS site/service per IP. 
+
+###References
+* [http:en.wikipedia.org/wiki/Server_Name_Indication](http:en.wikipedia.org/wiki/Server_Name_Indication).
