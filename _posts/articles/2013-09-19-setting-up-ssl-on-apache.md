@@ -11,7 +11,7 @@ image:
   creditlink: 
 comments: true
 share: true
-published: false
+published: true
 ---
 
 **Disclaimer:** these instructions were tested on Ubuntu 13.04 and Apache 2.2.22.
@@ -53,3 +53,13 @@ An optional company name []:
 </pre>
 
 **The Common Name should be your server's DNS name.**
+
+##3. Order SSL certificate
+
+Now that you have your certificate signing request, it is time to order an SSL certificate from your favorite public certificate authority (CA).
+
+For development purposes you can generate a self-signed certificate, but it is highly recommended not to go that route for production environments.
+
+{% highlight bash %}
+$ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+{% endhighlight %}
