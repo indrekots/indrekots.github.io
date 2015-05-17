@@ -11,7 +11,7 @@ image:
   creditlink: 
 comments: true
 share: true
-published: true
+published: false
 ---
 
 **Disclaimer:** these instructions were tested on Ubuntu 13.04 and Apache 2.2.22.
@@ -63,3 +63,65 @@ For development purposes you can generate a self-signed certificate, but it is h
 {% highlight bash %}
 $ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 {% endhighlight %}
+
+##4. Configuring Apache web server
+
+Move `server.key` and `server.crt` to `/etc/apache2/ssl/key` and `/etc/apache2/crt/` respectively. If these directories don't exist, then create them (in Linux distros other than Ubuntu, the location of Apache might vary).
+
+To enable SSL on Apache, the SSL module must be enabled. This can be achieved with the following command.
+
+{% highlight bash %}
+$ a2enmod ssl
+{% endhighlight %}
+
+Now you need to restart Apache for the changes to take effect.
+
+{% highlight bash %}
+$ /etc/init.d/apache2 restart
+{% endhighlight %}
+
+Enable Apache to listen on port 443. To achieve that, you need to modify the ports.conf file which exists at /etc/apach2/ports.conf. If it does not already exist, then add the following line to ports.conf: `Listen 443`
+
+Create a new virtualhost. To begin with, a new site configuration needs to be added.
+
+{% highlight bash %}
+$ nano /etc/apache2/sites-available/mysite
+{% endhighlight %}
+
+Add a basic ssl virtualhost setup
+
+{% highlight xml %}
+NameVirtualHost *:443
+
+<VirtualHost *:443>
+    
+    DocumentRoot /var/www/mysite
+    ServerName mysite.com
+
+    SSLEngine on
+
+    SSLCertificateFile /etc/apache2/crt/server.crt
+    SSLCertificateKeyFile /etc/apache2/ssl/key/server.key
+</VirtualHost>
+{% endhighlight %}
+
+Make sure you have `mysite` folder created at `/var/www/`. If not, then create a new folder and add some test content to it.
+
+{% highlight bash %}
+$ mkdir /var/www/mysite
+$ echo -e "Hello world, SSL works" | sudo tee /var/www/mysite/index.html
+{% endhighlight %}
+
+And enable the site
+
+{% highlight bash %}
+$ a2ensite mysite
+{% endhighlight %}
+
+Restart Apache and SSL should work
+
+{% highlight bash %}
+$ /etc/init.d/apache2 restart
+{% endhighlight %}
+
+If you are running a web server on localhost, then make sure you modify your hosts file to point mysite.com to your machine. If that has been dealt with, point your browser to [https://mysite.com/](https://mysite.com/).
