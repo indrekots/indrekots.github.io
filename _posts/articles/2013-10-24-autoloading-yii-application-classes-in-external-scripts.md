@@ -2,9 +2,9 @@
 layout: post
 title: "Autoloading Yii application classes in external scripts"
 excerpt: "In order to accept Estonian ID card, Tomcat needs to be configured to accept client side certificates."
-modified: 2013-09-20 18:17:21 +0300
+modified: 2013-10-24 20:43:34 +0300
 categories: articles
-tags: [apache, tomcat, esteid, client certificates, ssl, tls, java, pki, crl, ocsp]
+tags: [yii, php, autoload, composer]
 image:
   feature: 
   credit: 
