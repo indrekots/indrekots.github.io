@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Autoloading Yii application classes in external scripts"
-excerpt: ""
+excerpt: "Sometimes I want to have access to all of my classes in a Yii application externally."
 modified: 2013-10-24 20:43:34 +0300
 categories: articles
 tags: [yii, php, autoload, composer, cron]
