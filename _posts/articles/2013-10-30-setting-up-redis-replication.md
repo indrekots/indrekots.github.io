@@ -4,14 +4,14 @@ title: "Setting up Redis replication"
 excerpt: "The goal of this post is to install Redis on both of them and set up a master-slave replication configuration"
 modified: 2013-10-24 20:43:34 +0300
 categories: articles
-tags: [redis, replication]
+tags: [redis, replication, ubuntu]
 image:
   feature: 
   credit: 
   creditlink: 
 comments: true
 share: true
-published: false
+published: true
 ---
 
 I created 2 ubuntu server virtual machines. The goal of this post is to install Redis on both of them and set up a master-slave replication configuration. [Redis](http://redis.io/ "Redis homepage") is an open source, BSD licensed, advanced key-value cache and store.
@@ -26,3 +26,9 @@ To start, follow these steps:
 ##Configuring Redis
 
 Now that we know Redis is working, let's continue configuring Redis. Configuration file is located at `/etc/redis/redis.conf`. 
+
+To make `redis-server` connectable from the outside you need to open `redis.conf` and find the place where a bind  declaration is set. Remove or comment it out. If there is no bind statements, then all network interfaces will be listened for incoming connections. Save the file, close it and restart redis-server.
+
+{% highlight bash %}
+$ service redis-server restart
+{% endhighlight %} 
