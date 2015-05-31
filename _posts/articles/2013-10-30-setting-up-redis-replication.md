@@ -4,7 +4,7 @@ title: "Setting up Redis replication"
 excerpt: "The goal of this post is to install Redis on both of them and set up a master-slave replication configuration"
 modified: 2013-10-24 20:43:34 +0300
 categories: articles
-tags: [redis, replication, ubuntu]
+tags: [redis, replication, ubuntu, master, slave, redis-cli, redis-server]
 image:
   feature: 
   credit: 
@@ -46,3 +46,35 @@ Default configuration should already contain a section for slaves which is comme
 {% highlight bash %}
 $ service redis-server restart
 {% endhighlight %} 
+
+##Redis logs
+
+To see if the configuration is working, check Redis logs. They can be found at `/var/log/redis/`. If everything succeeded, then you shoud see something like the following in your logs: 
+
+<pre>
+MASTER <-> SLAVE sync started: SYNC sent... 
+</pre> 
+ 
+If you see "unable to connect to master", then make sure you can ping the master server. 
+
+{% highlight bash %} 
+$ redis-cli -h <master-host-or-ip> ping 
+{% endhighlight %} 
+ 
+The result should be: PONG. If ping is unsuccessful, then check if master Redis server is running and it is listening on the correct network interface.
+
+##Testing
+
+On the master server, set a new value. On the slave server, get the same value with the same key.
+
+Master:
+{% highlight bash %}
+$ SET myValue "foo"
+{% endhighlight %} 
+
+Slave:
+{% highlight bash %}
+$ GET myValue
+{% endhighlight %} 
+
+And you should see "foo" as the result.  
