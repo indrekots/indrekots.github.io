@@ -30,7 +30,7 @@ jdbc:mysql://localhost:3306/?autoReconnect=true
 
 ##2. Using DBCP as connection pool with Spring
 
-Add the following entries to your datasource definition (the last 2 properties property elements):
+Add the following entries to your datasource definition (the last 2 property elements):
 
 {% highlight xml %}
 <bean id=”datasource” destroy-method=”close”>
