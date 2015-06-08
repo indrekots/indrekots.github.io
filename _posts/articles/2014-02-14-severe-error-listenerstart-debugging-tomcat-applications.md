@@ -23,4 +23,4 @@ org.apache.catalina.core.ContainerBase.[Catalina].level = INFO
 org.apache.catalina.core.ContainerBase.[Catalina].handlers = java.util.logging.ConsoleHandler
 {% endhighlight %}
 
-Now restart Tomcat and you should see a stacktrace about what went wrong.
+Now restart Tomcat and you should see a stacktrace about what went wrong in `catalina.out`.
