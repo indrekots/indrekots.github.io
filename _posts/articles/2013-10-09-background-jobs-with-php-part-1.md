@@ -68,4 +68,4 @@ If you are using [Composer](http://getcomposer.org/) in your application, you co
 
 ###End of part 1
 
-This was a simple example on how to use cron jobs for background processing for a PHP application. In the next part, we'll look at how to build a queue system with [Resque](https://github.com/resque/resque) and [Redis](http://redis.io).
+This was a simple example on how to use cron jobs for background processing for a PHP application. In the [next part](http://blog.indrek.io/articles/background-jobs-with-php-part-2/ "Part 2 of background jobs in PHP"), we'll look at how to build a queue system with [Resque](https://github.com/resque/resque) and [Redis](http://redis.io).
