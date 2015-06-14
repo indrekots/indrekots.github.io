@@ -42,3 +42,11 @@ when(userDao.getById(1L)).thenReturn(new User("Mario"));
 {% endhighlight %}
 
 This almost reads like a sentence, right? Whenever `getById()` is called with `1L`, new user `Mario` is returned.
+
+##Throwing exceptions
+
+What if instead of returning a new user you want to test an edge case. Suppose `userDao` is implemented to throw an exception when a user is not found. Mockito provides a `thenThrow()` method.
+
+{% highlight java %}
+when(userDao.getById(1L)).thenThrow(new NoResultException());
+{% endhighlight %}
