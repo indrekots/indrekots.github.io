@@ -50,3 +50,10 @@ What if instead of returning a new user you want to test an edge case. Suppose `
 {% highlight java %}
 when(userDao.getById(1L)).thenThrow(new NoResultException());
 {% endhighlight %}
+
+##Keeping internal state
+
+##Verify passed parameters
+
+##Verify number of invocations
+
