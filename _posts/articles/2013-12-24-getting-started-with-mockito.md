@@ -57,3 +57,6 @@ when(userDao.getById(1L)).thenThrow(new NoResultException());
 
 ##Verify number of invocations
 
+##Capture method parameters
+
+##Mock void methods
