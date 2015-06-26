@@ -52,6 +52,7 @@ when(userDao.getById(1L)).thenThrow(new NoResultException());
 {% endhighlight %}
 
 ##Keeping internal state
+In some cases it might be useful to keep internal state. Think of a situation where you would like to call the same method multiple times and you need it to return different results. Here's where Mockito's `Answer` interface comes into play.
 
 ##Verify passed parameters
 
