@@ -54,6 +54,16 @@ when(userDao.getById(1L)).thenThrow(new NoResultException());
 ##Keeping internal state
 In some cases it might be useful to keep internal state. Think of a situation where you would like to call the same method multiple times and you need it to return different results. Here's where Mockito's `Answer` interface comes into play.
 
+{% highlight %}
+when(mock.someMethod(anyString())).thenAnswer(new Answer() {
+     Object answer(InvocationOnMock invocation) {
+         Object[] args = invocation.getArguments();
+         Object mock = invocation.getMock();
+         return "called with arguments: " + Arrays.toString(args);
+     }
+ });
+{% endhighlight %}
+
 ##Verify passed parameters
 
 ##Verify number of invocations
