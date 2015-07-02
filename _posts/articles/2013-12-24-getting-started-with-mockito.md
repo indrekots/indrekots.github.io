@@ -52,18 +52,26 @@ when(userDao.getById(1L)).thenThrow(new NoResultException());
 {% endhighlight %}
 
 ##Keeping internal state
-In some cases it might be useful to keep internal state. Think of a situation where you would like to call the same method multiple times and you need it to return different results. Here's where Mockito's `Answer` interface comes into play.
+In some cases it might be useful to keep internal state. Think of a situation where you would like to call the same method multiple times and you need it to return different results. Here's where Mockito's `Answer` interface comes into play. It provides us a way to create stateful mocks.
 
 Let's look at the following example
-{% highlight %}
-when(mock.someMethod(anyString())).thenAnswer(new Answer() {
-     Object answer(InvocationOnMock invocation) {
-         Object[] args = invocation.getArguments();
-         Object mock = invocation.getMock();
-         return "called with arguments: " + Arrays.toString(args);
-     }
- });
+{% highlight java %}
+when(applicantQueue.getNextApplicant()).thenAnswer(new Answer<Applicant>() {
+    private int counter;
+    private String[] names = new String[] {"Mario", "Luigi", "Bowser"};
+
+    @Override
+    public Applicant answer(InvocationOnMock invocationOnMock) throws Throwable {
+        return new Applicant(names[counter++]);
+    }
+});
+
+assertEquals("Mario", appService.processNextApplicant().getApplicantName());
+assertEquals("Luigi", appService.processNextApplicant().getApplicantName());
+assertEquals("Bowser", appService.processNextApplicant().getApplicantName());
 {% endhighlight %}
+
+ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instance of `ApplicantQueue` and uses it in the `processNextApplicant` method to retrieve the next applicant. Using the `Answer` interface we can mock the behaviour of the queue and return deterministic results.
 
 ##Verify passed parameters
 
