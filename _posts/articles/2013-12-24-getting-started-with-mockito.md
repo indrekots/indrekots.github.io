@@ -11,7 +11,7 @@ image:
   creditlink: 
 comments: true
 share: true
-published: truelocalhost
+published: false
 ---
 
 [Mockito](http://mockito.org/ "Mockito homepage") is a mocking framework for unit tests written in Java. It lets you write beautiful tests with clean and simple API. This is a straightforward overview of the basic features of Mockito so you can get started with writing clean and readable tests.
