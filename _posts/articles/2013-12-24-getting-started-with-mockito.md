@@ -11,7 +11,7 @@ image:
   creditlink: 
 comments: true
 share: true
-published: false
+published: truelocalhost
 ---
 
 [Mockito](http://mockito.org/ "Mockito homepage") is a mocking framework for unit tests written in Java. It lets you write beautiful tests with clean and simple API. This is a straightforward overview of the basic features of Mockito so you can get started with writing clean and readable tests.
@@ -74,6 +74,8 @@ assertEquals("Bowser", appService.processNextApplicant().getApplicantName());
 ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instance of `ApplicantQueue` and uses it in the `processNextApplicant` method to retrieve the next applicant. Using the `Answer` interface we can mock the behaviour of the queue and return deterministic results.
 
 ##Verify passed parameters
+
+By now you should know how to mock complex objects and their behaviour in unit tests but it would be good to know how to verify the parameters passed to a mock. Mockito provides an `ArgumentCaptor` class which, as the name implies, can be used to capture arguments for further assertion.
 
 ##Verify number of invocations
 
