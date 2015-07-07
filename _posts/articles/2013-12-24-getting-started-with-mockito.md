@@ -77,6 +77,16 @@ ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instanc
 
 By now you should know how to mock complex objects and their behaviour in unit tests but it would be good to know how to verify the parameters passed to a mock. Mockito provides an `ArgumentCaptor` class which, as the name implies, can be used to capture arguments for further assertion.
 
+{% highlight java %}
+Application application = new Application("Mario");
+ArgumentCaptor<Application> captor = forClass(Application.class);
+queue.push(application);
+verify(queue).push(captor.capture());
+assertEquals("Mario", captor.getValue().getApplicantName());
+{% endhighlight %}
+
+New ArgumentCaptor is created and its `capture()` method is called inside of verification. Later it is possible to retrieve the value that was passed to the `push()` method.
+
 ##Verify number of invocations
 
 ##Capture method parameters
