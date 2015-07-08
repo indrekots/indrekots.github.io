@@ -11,7 +11,7 @@ image:
   creditlink: 
 comments: true
 share: true
-published: true
+published: false
 ---
 
 [Mockito](http://mockito.org/ "Mockito homepage") is a mocking framework for unit tests written in Java. It lets you write beautiful tests with clean and simple API. This is a straightforward overview of the basic features of Mockito so you can get started with writing clean and readable tests.
@@ -76,6 +76,23 @@ ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instanc
 ##Verify passed parameters
 
 ##Verify number of invocations
+
+Mockito's `verify()` method is going to come handy when you have a test where you need to check now many times a method was called.
+
+{% highlight java %}
+List<String> mock = (List<String>) mock(List.class);
+mock.add("first element");
+mock.add("second element");
+verify(mock, times(2)).add(anyString());
+{% endhighlight %}
+
+`times(2)` makes sure that `add()` was called on the list twice. `anyString()` is a matcher which accepts all strings. If needed, you can be very specific about what parameters were passed to `add()`. Let's take a look at the following example.
+
+{% highlight java %}
+verify(mock, never()).add("third element");
+{% endhighlight %}
+
+The test will pass because `"third element"` was never added to the list.
 
 ##Capture method parameters
 
