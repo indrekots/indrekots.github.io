@@ -14,6 +14,8 @@ share: true
 published: false
 ---
 
+![Mockito logo]({{ site.url }}/images/mockito_logo.png)
+
 [Mockito](http://mockito.org/ "Mockito homepage") is a mocking framework for unit tests written in Java. It lets you write beautiful tests with clean and simple API. This is a straightforward overview of the basic features of Mockito so you can get started with writing clean and readable tests.
 
 Mock objects mimic real and often complex objects. They're used in unit tests instead of actual objects when the actual object is impractical or impossible to instantiate. For example, testing a behavior which depends on an external webservice is non-deterministic and costly to set up in a unit test. Therefore it is a good idea to mock the service so it can respond fast and return expected results.
@@ -71,9 +73,7 @@ assertEquals("Luigi", appService.processNextApplicant().getApplicantName());
 assertEquals("Bowser", appService.processNextApplicant().getApplicantName());
 {% endhighlight %}
 
-ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instance of `ApplicantQueue` and uses it in the `processNextApplicant` method to retrieve the next applicant. Using the `Answer` interface we can mock the behaviour of the queue and return deterministic results.
-
-##Verify passed parameters
+ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instance of `ApplicantQueue` and uses it in the `processNextApplicant` method to retrieve the next applicant. Using the `Answer` interface we can mock the behaviour of the queue and return deterministic results. For a full example, checkout [this Github project](https://github.com/indrekots/mockito-examples "mockito-examples Github project").
 
 ##Verify number of invocations
 
@@ -92,7 +92,7 @@ verify(mock, times(2)).add(anyString());
 verify(mock, never()).add("third element");
 {% endhighlight %}
 
-The test will pass because `"third element"` was never added to the list.
+The test will pass because `"third element"` was never added to the list. For a full example, checkout [this Github project](https://github.com/indrekots/mockito-examples "mockito-examples Github project").
 
 ##Capture method parameters
 
@@ -106,6 +106,8 @@ verify(queue).push(captor.capture());
 assertEquals("Mario", captor.getValue().getApplicantName());
 {% endhighlight %}
 
-New ArgumentCaptor is created and its `capture()` method is called inside of verification. Later it is possible to retrieve the value that was passed to the `push()` method.
+New ArgumentCaptor is created and its `capture()` method is called inside of verification. Later it is possible to retrieve the value that was passed to the `push()` method. For a full example, checkout [this Github project](https://github.com/indrekots/mockito-examples "mockito-examples Github project").
 
-##Mock void methods
+##Summary
+Mockito is much larger than this relatively short blog post. Make sure to check out [Mockito's website](http://mockito.org "Mockito's website") for more information and documentation.
+
