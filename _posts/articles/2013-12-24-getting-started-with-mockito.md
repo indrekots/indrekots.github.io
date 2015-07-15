@@ -11,7 +11,7 @@ image:
   creditlink: 
 comments: true
 share: true
-published: false
+published: true
 ---
 
 ![Mockito logo]({{ site.url }}/images/mockito_logo.png)
@@ -73,7 +73,7 @@ assertEquals("Luigi", appService.processNextApplicant().getApplicantName());
 assertEquals("Bowser", appService.processNextApplicant().getApplicantName());
 {% endhighlight %}
 
-ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instance of `ApplicantQueue` and uses it in the `processNextApplicant` method to retrieve the next applicant. Using the `Answer` interface we can mock the behaviour of the queue and return deterministic results. For a full example, checkout [this Github project](https://github.com/indrekots/mockito-examples "mockito-examples Github project").
+ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instance of `ApplicantQueue` and uses it in the `processNextApplicant()` method to retrieve the next applicant. Using the `Answer` interface we can mock the behaviour of the queue and return deterministic results. For a full example, checkout [this Github project](https://github.com/indrekots/mockito-examples "mockito-examples Github project").
 
 ##Verify number of invocations
 
