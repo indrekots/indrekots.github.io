@@ -2,7 +2,7 @@
 layout: post
 title: "Sharing a local folder during a remote desktop session with RDesktop"
 excerpt: "Rdesktop is an open source client for Windows Remote Desktop Services, capable of natively speaking Remote Desktop Protocol (RDP) in order to present the user's Windows desktop"
-modified: 2014-02-06 07:54:24 +0300
+modified: 2014-06-02 07:54:24 +0300
 categories: articles
 tags: [rdp, remote desktop, rdesktop, linux, windows, share, remmina]
 image:
