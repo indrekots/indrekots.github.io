@@ -3,6 +3,7 @@ layout: post
 title: "Batch file in Windows Task Scheduler does not run"
 excerpt: "Creating a scheduled task in Windows Task Scheduler to run a batch file is relatively straight forward, or so I thought."
 modified: 2014-07-15 20:55:22 +0300
+categories: articles
 tags: [bat, batch, windows, windows task scheduler, schedule]
 image:
   feature: 

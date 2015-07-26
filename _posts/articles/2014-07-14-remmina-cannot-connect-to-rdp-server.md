@@ -3,6 +3,7 @@ layout: post
 title: "Remmina: cannot connect to Windows server over RDP"
 excerpt: What to do when suddenly you're unable to connecto to a Windows server with Remmina over RDP
 modified: 2014-07-14 08:57:43 +0300
+categories: articles
 tags: [rdp, remmina, freerdp, remote desktop, linux, windows, ubuntu]
 image:
   feature: 
