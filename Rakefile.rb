@@ -4,7 +4,7 @@ require "stringex"
 
 ## -- Config -- ##
 
-posts_dir       = "_posts"    # directory for blog files
+posts_dir       = "_posts/articles"    # directory for blog files
 new_post_ext    = "md"  # default new post file extension when using the new_post task
 new_page_ext    = "md"  # default new page file extension when using the new_page task
 
@@ -31,14 +31,17 @@ task :new_post, :title do |t, args|
     post.puts "---"
     post.puts "layout: post"
     post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
+    post.puts "excerpt: "
     post.puts "modified: #{Time.now.strftime('%Y-%m-%d %H:%M:%S %z')}"
+    post.puts "categories: articles"
     post.puts "tags: [#{tags}]"
     post.puts "image:"
     post.puts "  feature: "
     post.puts "  credit: "
     post.puts "  creditlink: "
-    post.puts "comments: "
-    post.puts "share: "
+    post.puts "comments: true"
+    post.puts "share: true"
+    post.puts "published: false"
     post.puts "---"
   end
 end
