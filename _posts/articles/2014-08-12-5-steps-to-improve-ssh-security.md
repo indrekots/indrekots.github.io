@@ -4,7 +4,7 @@ title: "5 steps to improve SSH security"
 excerpt: In this post you'll find some easy steps to secure your ssh server.
 modified: 2014-08-12 07:53:49 +0300
 categories: articles
-tags: [ssh, linux, security, shell, secure shell]
+tags: [ssh, linux, security, shell, secure shell, pki]
 image:
   feature: 
   credit: 
@@ -16,7 +16,7 @@ published: false
 
 SSH is something we (developers, sysadmins) use daily to connect to remote servers. Here are a few tips to keep your SSH connection secure.
 
-##Disable root login
+##1. Disable root login
 
 Allowing `root` to log in is not the safest idea. If you have a public facing server then there's a good change bots are attempting to log in. They do so by using known usernames that probably exists. One of them is `root`. Using uncommon usernames introduces an additional parameter the bots have to guess.
 
@@ -29,7 +29,7 @@ PermitRootLogin no
 AllowUsers <username>
 {% endhighlight %}
 
-##Disable password authentication
+##2. Disable password authentication
 
 The reason here is simple. People come up with bad passwords. Besides being too short and never truly random, same passwords are likely being used in multiple places. If you still must use password authentication, use something like [Fail2ban](http://www.fail2ban.org/ Fail2ban webpage) to monitor for malicious signs.
 
@@ -38,19 +38,24 @@ Disable password login in `/etc/ssh/sshd_config`
 PasswordAuthentication no
 {% endhighlight %}
 
-##Use ssh keys
+##3. Use SSH keys
 
-people come up with bad passwords and tend to reuse them
-Generate a key pair with ssh-keygen, use ssh-copy-id to move pub key to server
+I already told you a few reasons why passwords are not perfect. SSH keys on the other hand are long, random and if used correctly, a key pair is not shared between multiple services. Moreover, your private key never leaves your computer. The server creates a [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce "link to Wikipedia page about nonce") and encrypts it with your public key. This is sent to you over a secure channel and only the private key can decrypt it. After nonce has been decrypted it is sent back to the server and compared against the original. If they match, authentication is successful. This is the classic **challenge-response model**. Now looking back at passphrase based authentication, passphrases are sent to the server. If the secure channel is compromised, passwords can leak.
 
+Generate a key pair with `ssh-keygen`
+{% highlight php%}
 ssh-keygen -t rsa -C <email>
+{% endhighlight %}
 
+Use `ssh-copy-id` to move your public key to the server
+{% highlight php %}
 ssh-copy-id -i <pub key> <user>@<host> 
+{% endhighlight %}
 
-##Run ssh on non standard port
+##4. Run ssh on non standard port
 
 Although this is security by obscurity, it still helps against most script kiddies, using nmap you can find which ports are open
 
-##Run on protocol 2
+##5. Run on protocol 2
 
 Although this should be the default, it's worth checking that ssh-2 is used, check /etc/ssh/sshd_config
