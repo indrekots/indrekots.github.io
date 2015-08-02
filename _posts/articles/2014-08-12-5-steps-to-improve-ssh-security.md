@@ -43,18 +43,25 @@ PasswordAuthentication no
 I already told you a few reasons why passwords are not perfect. SSH keys on the other hand are long, random and if used correctly, a key pair is not shared between multiple services. Moreover, your private key never leaves your computer. The server creates a [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce "link to Wikipedia page about nonce") and encrypts it with your public key. This is sent to you over a secure channel and only the private key can decrypt it. After nonce has been decrypted it is sent back to the server and compared against the original. If they match, authentication is successful. This is the classic **challenge-response model**. Now looking back at passphrase based authentication, passphrases are sent to the server. If the secure channel is compromised, passwords can leak.
 
 Generate a key pair with `ssh-keygen`
-{% highlight php%}
-ssh-keygen -t rsa -C <email>
+{% highlight bash %}
+$ ssh-keygen -t rsa -C <email>
 {% endhighlight %}
 
 Use `ssh-copy-id` to move your public key to the server
-{% highlight php %}
-ssh-copy-id -i <pub key> <user>@<host> 
+{% highlight bash %}
+$ ssh-copy-id -i <pub key> <user>@<host> 
 {% endhighlight %}
 
-##4. Run ssh on non standard port
+##4. Run SSH on non-standard port
 
-Although this is security by obscurity, it still helps against most script kiddies, using nmap you can find which ports are open
+Although this is security through obscurity, it still helps against most bots and script kiddies because they're expecting that your ssh daemon is running on port 22. 
+
+In `/etc/ssh/sshd_config`
+{% highlight php %}
+Port <port number>
+{% endhighlight %}
+
+Keep in mind, using tools like `nmap` it is possible to find which ports are open and your SSH port can still be found.
 
 ##5. Run on protocol 2
 
