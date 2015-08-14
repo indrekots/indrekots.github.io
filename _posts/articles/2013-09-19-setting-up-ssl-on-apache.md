@@ -133,4 +133,4 @@ Server Name Indication (SNI) is an extension to the TLS protocol that indicates 
 To make use of SNI, it is necessary that the vast majority of users use web browsers that support it. Users whose browsers do not support SNI will be presented with a default certificate and hence are likely to receive certificate warnings, unless the server is equipped with a wildcard certificate that matches the name of the website. As of November 2012, the only major user bases whose browsers do not support SNI appear to be users of Android 2.x (default browser), Internet Explorer (any version) on Windows XP and versions of Java before 1.7 on any operating system. If your service has users on these platforms, then it is required to run only one HTTPS site/service per IP. 
 
 ###References
-* [http://en.wikipedia.org/wiki/Server_Name_Indication](http:en.wikipedia.org/wiki/Server_Name_Indication).
+* [http://en.wikipedia.org/wiki/Server_Name_Indication](http://en.wikipedia.org/wiki/Server_Name_Indication).
