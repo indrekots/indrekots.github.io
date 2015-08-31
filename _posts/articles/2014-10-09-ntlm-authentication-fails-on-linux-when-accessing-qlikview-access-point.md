@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: true
+published: false
 ---
 
 I was unable to connect to QlikView Access Point from a Linux machine. My browser presented me with a username/password prompt and after entering the correct credentials, it seemed like no authentication was made. At first I thought the web server has been misconfigured. After testing I found that using a Windows computer the authentication worked flawlessly. Later I heard that clients were unable to connect with their OS X computers.
