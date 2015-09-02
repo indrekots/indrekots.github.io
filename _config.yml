@@ -5,8 +5,8 @@ locale: en_US
 description: A software development blog
 logo: logo.png
 search: true
-url: http://blog.indrek.io
-#url: http://localhost:4000
+#url: http://blog.indrek.io
+url: http://localhost:4000
 
 # Jekyll configuration
 
@@ -49,5 +49,5 @@ owner:
     analytics: UA-62219982-1
     verify:
     ad-client:
-    ad-slot: 
+    ad-slot:
   bing-verify:
