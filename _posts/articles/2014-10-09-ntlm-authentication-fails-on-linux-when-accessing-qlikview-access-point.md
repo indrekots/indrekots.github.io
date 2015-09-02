@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "NTLM authentication fails on Linux when accessing QlikView Access Point"
-excerpt:
+excerpt: I was unable to connect to QlikView Access Point from a Linux machine. My browser presented me with a username/password prompt and after entering the correct credentials, it seemed like no authentication was made.
 modified: 2014-10-09 21:01:12 +0300
 categories: articles
 tags: [qlikview, qv, access point, ntlm, linux, ubuntu, windows]
