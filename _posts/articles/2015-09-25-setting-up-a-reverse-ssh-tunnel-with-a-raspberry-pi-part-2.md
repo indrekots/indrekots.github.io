@@ -35,3 +35,25 @@ Why connect to `localhost` on port `2222`? Recall from [part 1]({{site.url}}/art
 If you were able to connect to your Pi then the tunnel is working.
 
 ##Tunneling RDP traffic
+
+For the sake of the example I'm going to assume the IP of the Windows Server at the office network is `192.168.1.10` and the server outside of the network can be accessed via `myserver.com`. We're going to need to create two SSH tunnels, forwarding traffic from your machine to `myserver.com` and from there to the Pi.
+
+###External server -> Raspberry Pi -> Windows Server
+
+First of all, I'm going to create a tunnel to forward RDP traffic from `myserver.com` to the Windows Server.
+
+{% highlight bash %}
+$ ssh -L 3000:192.168.1.10:3389 pi@localhost -p 2222
+{% endhighlight %}
+
+This forwards all connections made to `localhost` on port `3000` to the Windows Server (`192.168.1.10`) using port `3389`. `-L` flag specifies that the given port on the local (client) host is to be forwarded to the given host and port on the remote side. It is achieved by creating an SSH tunnel to the Pi via a reverse SSH tunnel we set up previously. Note that `pi@localhost -p 2222` in the command is the same used previously to test the SSH tunnel.
+
+###User machine -> External server
+
+From your machine you should make an SSH tunnel forwarding all connections from `localhost` port `5000` (just a random port I chose) to the external server.
+
+{% highlight bash %}
+$ ssh -L 5000:localhost:3000 user@myserver.com
+{% endhighlight %}
+
+Now when you connect your RDP client to `localhost:5000`, this connection is forwarded to `myserver.com` and from there a new connection is made to `localhost:3000`. Looking at the preceding step, you can see that this will be in turn forwarded the Windows Server.
