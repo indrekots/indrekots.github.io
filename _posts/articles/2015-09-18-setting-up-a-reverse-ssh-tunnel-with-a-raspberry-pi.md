@@ -2,7 +2,7 @@
 layout: post
 title: "Setting up a reverse SSH tunnel with a Raspberry Pi part 1"
 excerpt: You need to access your work computer or network from your home. Maybe a Raspberry Pi can help you.
-modified: 2015-09-18 22:41:28 +0300
+modified: 2015-09-17 20:09:28 +0300
 categories: articles
 tags: [ssh, tunneling, raspberry pi, vpn, linux, rdp, windows]
 image:
@@ -43,4 +43,4 @@ Pi is connecting to your server using the username `user`. The `-R` flag specifi
 
 ##In the next part
 
-So far we've set up the Pi which connects out to an external server. From there it is possible to access the Pi from wherever you have access to the external server. That means you have access to your work network. In the next part let's look at an example use case on how to connect to a Windows workstation via RDP. That requires some SSH tunneling.
+So far we've set up the Pi which connects out to an external server. From there it is possible to access the Pi from wherever you have access to the external server. That means you have access to your work network. In the [next part]({{site.url}}/articles/setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi-part-2/ "link to part 2 of the article") let's look at an example use case on how to connect to a Windows workstation via RDP. That requires some SSH tunneling.
