@@ -4,21 +4,21 @@ title: "Setting up a reverse SSH tunnel with a Raspberry Pi part 2"
 excerpt: In part 2 I promised to show an example use case on how to connect to a Windows Server over RDP via a reverse SSH tunnel.
 modified: 2015-09-27 19:25:14 +0300
 categories: articles
-tags: [raspberry pi, ssh, linux, rdp, windows server]
+tags: [raspberry pi, ssh, linux, rdp, windows server, tunneling, networking]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2015-09-27-setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi-part-2/cover.jpg
+  credit: http://wallpaperstock.net/
+  creditlink: http://wallpaperstock.net/tunnel-in-zurich_wallpapers_27851_1280x800_1.html
 comments: true
 share: true
 published: true
 ---
 
-Last time we got a Raspberry Pi set up and a VPS ready and accessible via SSH. If you have not read [part 1]({{site.url}}/articles/setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi/ "part 1 of setting up a reverse ssh tunnel with a raspberry pi") then I strongly encourage you to do so. In part 2 I promised to show an example use case on how to connect to a Windows Server over RDP via a reverse SSH tunnel.
+Last time we got a Raspberry Pi set up and a VPS ready and accessible via SSH. If you have not read [part 1]({{site.url}}/articles/setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi/ "part 1 of setting up a reverse ssh tunnel with a raspberry pi") then I strongly encourage you to do that. In part 2 I promised to show an example use case on how to connect to a Windows Server over RDP via a reverse SSH tunnel.
 
 ##Testing SSH access
 
-First, let's make sure that everything is working as expected. I'm going to create an SSH session to the VPS and from there I'm going to create another SSH session to the Pi. This way I make sure that the reverse SSH tunnel is working as expected.
+First, let's make sure that the reverse SSH tunnel is working as expected. I'm going to create an SSH session to the VPS and from there I'm going to create another SSH session to the Pi.
 
 Connecting to the external server:
 {% highlight bash %}
@@ -48,7 +48,7 @@ $ ssh -L 3000:192.168.1.10:3389 pi@localhost -p 2222
 
 This forwards all connections made to `localhost` on port `3000` to the Windows Server (`192.168.1.10`) using port `3389`. `-L` flag specifies that the given port on the local (client) host is to be forwarded to the given host and port on the remote side. It is achieved by creating an SSH tunnel to the Pi via a reverse SSH tunnel we set up previously. Note that `pi@localhost -p 2222` in the command is the same used previously to test the SSH tunnel.
 
-###User machine -> External server
+###Client machine -> External server
 
 From the client machine an SSH tunnel must be created to forward all connections made to `localhost` port `5000` (just a random port I chose) to the external server.
 
@@ -68,4 +68,4 @@ In short, the following steps were done:
 
 ##Summary
 
-There are a couple of more things you need to do to make it a reliable solution. Obviously the steps need to be automated. It can get very cumbersome to create two SSH tunnels over and over again. Additionally the reverse SSH tunnel needs to be kept alive. Network errors and power outages can occur which will kill the tunnel. This means you have to physically go to the Pi and redo the tunnel. I would recommend creating a cronjob which checks if the tunnel is up and recreates it if it's not.
+There are a couple of more things you need to do to make it a reliable solution. Obviously the steps need to be automated. It can get cumbersome to create two SSH tunnels over and over again. Additionally the reverse SSH tunnel needs to be kept alive. Network errors and power outages can occur which will kill the tunnel. This means you have to physically go to the Pi and redo the tunnel. I would recommend creating a cronjob which checks if the tunnel is up and recreates it if it is not.
