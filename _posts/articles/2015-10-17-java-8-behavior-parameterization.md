@@ -14,11 +14,20 @@ share: true
 published: false
 ---
 
-##Filter with loop and if clause
+Behavior parameterization is essentially taking a block of code and making it available without executing it. It can be passed to a method for example. Since Java 8 introduced lambdas (finally), it is now possible to parameterize method's behavior. If you're familiar with Javascript, Scala, Groovy or any other language that has lambdas built in, then you probably have been using behavior parameterization all along.
 
-##Introduce predicates, filter clause in a separate function
+It might not come to you as a surprise that in software development user requirements can change. Passing behavior as a parameter can help relieve the pain of change.
+
+##Filter with loop and if clause
+###show boilerplate code
+
+##Introduce predicates, filter clause in a separate Object
+###Multiple implementations
+###anonymous classes
 
 ##Replace predicate function with a lambda
 
 ##Use streams and filter method (more functional style)
 ###parallelization, no loops
+
+##useful for flexible apis
