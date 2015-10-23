@@ -6,9 +6,9 @@ modified: 2015-10-17 21:55:09 +0300
 categories: articles
 tags: [java8, java]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2015-10-17-java-8-behavior-parameterization/cover.jpg
+  credit: http://xtom.deviantart.com/
+  creditlink: http://xtom.deviantart.com/art/Lambda-28926886
 comments: true
 share: true
 published: false
@@ -119,16 +119,49 @@ filterBooks(books, authorPredicate);
 
 Now we're not repeating ourselves but hey, that's a lot of code to write. As they say, **Java is verbose**. Initially there were 2 methods that filtered books. That's about 16 lines of code. After removing duplicate code and moving filtering logic to separate classes there's about 33 lines. Although this is not much for a small project, with a large project the lines add up. Is there anything that can be done to write more concise code?
 
-##anonymous inner classes
+##Anonymous inner classes
 
-##lambdaj
+Instead of defining a concrete implementation of a `BookPredicate`, let's create one on the fly.
 
-##Filter with loop and if clause
-###show boilerplate code
+{% highlight java %}
+filterBooks(books, new BookPredicate() {
+    @Override
+    public boolean test(Book book) {
+        return "Lewis Carrol".equals(book.getAuthor());
+    }
+});
+{% endhighlight %}
 
-##Introduce predicates, filter clause in a separate Object
-###Multiple implementations
-###anonymous classes
+That's pretty concise. It looks almost like a lambda. As a matter of fact, if you're using Java 8 with an IDE, then it will probably suggest you to replace it with a lambda. But I will get to that later. The downside of an anonymous inner class is that it comes with boilerplate code. A new object needs to be instantiated, a method is needed to be overridden and some curly braces here and there. That boilerplate makes it harder to focus on the part that's actually important - the comparison inside the `test` method.
+
+As expected, new libraries are created to overcome the shortcomings of a language. Uncle Bob writes in his [blog post](http://blog.8thlight.com/uncle-bob/2015/08/06/let-the-magic-die.html "Make the Magic go away by Uncle Bob") that we write frameworks to compensate for the lack of features that we wish were in our language. Every framework you've ever seen is really just an echo of this statement:
+
+>My language sucks!
+
+What alternatives are out there then? [Google Guava](https://github.com/google/guava "Google Guava github repository") library has predicates which allow you to do more functional style programming.
+
+{% highlight java %}
+Iterables.filter(books, new Predicate<Book>() {
+    @Override
+    public boolean apply(Book input) {
+        return "Lewis Carrol".equals(input.getAuthor());
+    }
+});
+{% endhighlight %}
+
+It is very similar to what we implemented with `filterBooks` method. In functional programming, filtering a list of items is done by applying a predicate to each element of the list. This is exactly what we have done with Java. `Filter` is a common function in functional languages. Later we'll see that Java 8 has included it as well. The benefits of using Guava is that you do not have to write list iteration code and the predicate interface.
+
+Another possible solution is to use [lambdaj](https://github.com/mariofusco/lambdaj "lambdaj github repository") with [Hamcrest](https://github.com/hamcrest/JavaHamcrest "Hamcrest github repository") matchers. lambdaj is a library that allows you to manipulate collections in a pseudo-functional and statically typed way.
+
+{% highlight java %}
+filter(having(on(Book.class).getAuthor(), equalTo("Lewis Carrol")), books);
+{% endhighlight%}
+
+Wow, all that in one line. This will get a bit messier if there's a more complicated filtering clause though.
+
+##performance
+
+##retrolambda -> lambda expression to anonymous inner class
 
 ##Replace predicate function with a lambda
 
