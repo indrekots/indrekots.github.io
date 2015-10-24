@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Java 8: Behavior parameterization - overcoming verbosity"
-excerpt:
+excerpt: Behavior parameterization is essentially taking a block of code and making it available without executing it. Here's how to do it with Java.
 modified: 2015-10-17 21:55:09 +0300
 categories: articles
-tags: [java8, java]
+tags: [java8, java, predicate, function, streams, lambda, lambdaj, guava, retrolambda]
 image:
   feature: 2015-10-17-java-8-behavior-parameterization/cover.jpg
   credit: http://xtom.deviantart.com/
@@ -159,13 +159,52 @@ filter(having(on(Book.class).getAuthor(), equalTo("Lewis Carrol")), books);
 
 Wow, all that in one line. This will get a bit messier if there's a more complicated filtering clause though.
 
-##performance
+##Java 8 lambdas
+
+Unfortunately there are applications which are not going to be upgraded to run with the latest release of Java. Therefore I have covered alternative solutions which can be used on runtimes previous to Java 8. The latest release brings some new features which will improve code readability and help the language stay competitive in the future. Let's look at the book filtering example and see how behavior parameterization can be used with lambdas built into the language.
+
+First we need to rewrite the `filterBooks` method to use `java.util.function.Predicate` which is a new interface in Java 8.
+
+{% highlight java %}
+public static List<Book> filterBooks(List<Book> books, Predicate<Book> p) {
+    List<Book> result = new ArrayList<>();
+    for (Book book : books) {
+        if (p.test(book)) {
+            result.add(book);
+        }
+    }
+    return result;
+}
+{% endhighlight %}
+
+And when calling `filterBooks`, we can pass it a lambda expression which tells it how to do the filtering.
+
+{% highlight java %}
+filterBooks(books, book -> "Lewis Carrol".equals(book.getAuthor()));
+{% endhighlight %}
+
+Although we used a lambda expression and made `filterBooks` method's behavior parameterizable, there is still this boilerplate code which iterates over a list of books. Previously I mentioned that Java 8 has included the filter idiom which is common among functional languages. Streams is a new API which helps to express sophisticated data processing queries. Among others, it includes a filter method.
+
+{% highlight java %}
+books.stream().filter(b -> "Lewis Carrol".equals(b.getAuthor())).collect(toList());
+{% endhighlight %}
+
+As it can be seen, the list of books is not passed to a method but we can call the `filter` method on it by first creating a stream from it. Iteration is handled by the Streams API and behavior is parameterizable thanks to lambdas. So instead of writing a lot of boilerplate code, Java 8 takes care of the commonly occurring tasks and you can solve the problem at hand with just one line of code.
+
+In the beginning of this post I gave an example of changing requirements. Now that lambdas can be used, let's see how the library application can handle a new feature request. It should be possible to find books that have more than 200 pages.
+
+{% highlight java %}
+books.stream().filter(b -> b.getPageCount() > 200).collect(toList());
+{% endhighlight %}
+
+Without modifying any existing code, it is very easy to filter the list of books with a new behavior.
+
+##Retrolambda
+
+[Retrolambda](https://github.com/orfjackal/retrolambda "Retrolambda Github repository")  
 
 ##retrolambda -> lambda expression to anonymous inner class
 
-##Replace predicate function with a lambda
-
-##Use streams and filter method (more functional style)
 ###parallelization, no loops
 
 ##useful for flexible apis
