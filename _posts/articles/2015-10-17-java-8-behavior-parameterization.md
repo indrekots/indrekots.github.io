@@ -11,7 +11,7 @@ image:
   creditlink: http://xtom.deviantart.com/art/Lambda-28926886
 comments: true
 share: true
-published: false
+published: true
 ---
 
 Behavior parameterization is essentially taking a block of code and making it available without executing it. It can be passed to a method for example. Since Java 8 introduced lambdas (finally), it is now possible to parameterize method's behavior. If you're familiar with Javascript, Scala, Groovy or any other language that has lambdas built in, then you probably have been using behavior parameterization all along.
@@ -201,10 +201,11 @@ Without modifying any existing code, it is very easy to filter the list of books
 
 ##Retrolambda
 
-[Retrolambda](https://github.com/orfjackal/retrolambda "Retrolambda Github repository")  
+If you're using previous versions of Java then you can still take advantage of lambdas by using [Retrolambda](https://github.com/orfjackal/retrolambda "Retrolambda Github repository"). It lets you run Java 8 code with **lambda expressions**, **method references** and **try-with-resources statements** on Java 7, 6 or 5. It does this by transforming your Java 8 compiled bytecode so that it can run on an older Java runtime. It does not backport the Streams API though. For that you should use [streamsupport](http://sourceforge.net/projects/streamsupport/ "streamsupport Sourceforge page").
 
-##retrolambda -> lambda expression to anonymous inner class
+##Summary
+
+Using idioms common in functional programming can greatly improve the readability of the code. Behavior parameterization
 
 ###parallelization, no loops
-
 ##useful for flexible apis
