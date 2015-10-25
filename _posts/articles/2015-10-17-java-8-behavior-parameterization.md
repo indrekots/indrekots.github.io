@@ -11,7 +11,7 @@ image:
   creditlink: http://xtom.deviantart.com/art/Lambda-28926886
 comments: true
 share: true
-published: true
+published: false
 ---
 
 Behavior parameterization is essentially taking a block of code and making it available without executing it. It can be passed to a method for example. Since Java 8 introduced lambdas (finally), it is now possible to parameterize method's behavior. If you're familiar with Javascript, Scala, Groovy or any other language that has lambdas built in, then you probably have been using behavior parameterization all along.
