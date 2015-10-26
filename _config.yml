@@ -5,8 +5,8 @@ locale: en_US
 description: A software development blog
 logo: logo.png
 search: true
-url: http://blog.indrek.io
-#url: http://localhost:4000
+#url: http://blog.indrek.io
+url: http://localhost:4000
 
 # Jekyll configuration
 
@@ -33,7 +33,7 @@ exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.
 # Site owner
 owner:
   name: Indrek Ots
-  avatar: avatar.png
+  avatar: avatar3.png
   email: ots.indrek@gmail.com
   disqus-shortname: thatwhichinspiresawe
   twitter: #username
