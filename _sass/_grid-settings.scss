@@ -5,6 +5,5 @@ $visual_grid: false;
 $max-width: em(960);
 
 // Define your breakpoints
-$small: new-breakpoint(max-width 600px 12);
 $medium: new-breakpoint(min-width em(768) 12);
 $large: new-breakpoint(min-width em(1000) 12);

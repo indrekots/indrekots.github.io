@@ -11,10 +11,11 @@ image:
   creditlink:
 comments: true
 share: true
-published: false
+published: true
 ---
 
-##intro
+In computer programming, an anonymous function (also function literal or lambda abstraction) is a function definition that is not bound to an identifier ([Wikipedia](https://en.wikipedia.org/wiki/Anonymous_function "Anonymous function")). Many modern programming languages have have had them for a long time. It's only Java that's a little late to the party. While being 20 years old, it has received lambda expressions relatively recently.
+
 ##benefits
 ##before - after
 ##syntax
