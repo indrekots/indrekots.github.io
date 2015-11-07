@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: false
+published: true
 ---
 
 In computer programming, an anonymous function (also function literal or lambda abstraction) is a function definition that is not bound to an identifier ([Wikipedia](https://en.wikipedia.org/wiki/Anonymous_function "Anonymous function")). Many modern programming languages have had them for a long time. It's only Java that's a little late to the party. While being 20 years old, it has received lambda expressions relatively recently.
@@ -36,7 +36,7 @@ Collections.sort(books, new Comparator<Book>() {
 **After** (using Java 8):
 
 {% highlight java %}
-books.sort((o1, o2) -> o1.getAuthor().compareTo(o2.getAuthor()));
+books.sort((b1, b2) -> b1.getAuthor().compareTo(b2.getAuthor()));
 {% endhighlight %}
 
 In this example I sorted books by their author. That can be achieved with one line using a lambda expression. Technically this example shows another feature that Java 8 introduced as well - **default methods**. But that is not the topic of this post and I'm going to cover them in the future. In addition I'm going to show how to use **method references** and improve the line even more.
@@ -45,9 +45,26 @@ In this example I sorted books by their author. That can be achieved with one li
 books.sort(comparing(Book::getAuthor));
 {% endhighlight %}
 
+##Syntax
 
+The syntax of a lambda expression is relatively easy.
 
-##syntax
+{% highlight java %}
+(Book b1, Book b2) -> b1.getAuthor().compareTo(b2.getAuthor());
+{% endhighlight %}
+
+It consists of 3 parts:
+
+* list of parameters
+* arrow
+* expression body
+
+If you have used lambda expressions in other languages you can see that the syntax is very similar. When the expression body spans multiple lines, it must be enclosed in curly braces.
+
+{% highlight java %}
+(parameters) -> { statements; }
+{% endhighlight %}
+
 ##where to use, functional interface
 ##@FunctionalInterface
 ##functional interfaces in standard library
