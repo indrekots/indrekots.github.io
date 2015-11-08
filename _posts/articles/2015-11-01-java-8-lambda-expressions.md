@@ -36,7 +36,7 @@ Collections.sort(books, new Comparator<Book>() {
 **After** (using Java 8):
 
 {% highlight java %}
-books.sort((b1, b2) -> b1.getAuthor().compareTo(b2.getAuthor()));
+books.sort((Book b1, Book b2) -> b1.getAuthor().compareTo(b2.getAuthor()));
 {% endhighlight %}
 
 In this example I sorted books by their author. That can be achieved with one line using a lambda expression. Technically this example shows another feature that Java 8 introduced as well - **default methods**. But that is not the topic of this post and I'm going to cover them in the future. In addition I'm going to show how to use **method references** and improve the line even more.
@@ -65,6 +65,26 @@ If you have used lambda expressions in other languages you can see that the synt
 (parameters) -> { statements; }
 {% endhighlight %}
 
+##Type checking and type inference
+
+The Java compiler can deduce the signature of a lambda expression. Therefore you do not have to explicitly define what types are used as parameters of a lambda expression. Looking at the book sorting example, it is possible to omit the `Book` type declarations.
+
+**With explicit type declarations**
+{% highlight java %}
+books.sort((Book b1, Book b2) -> b1.getAuthor().compareTo(b2.getAuthor()));
+{% endhighlight %}
+
+**Omitting type declarations**
+{% highlight java %}
+books.sort((b1, b2) -> b1.getAuthor().compareTo(b2.getAuthor()));
+{% endhighlight %}
+
+This improves code readability and is especially useful if there's more than 2 parameters passed to a lambda expression. If there's only one parameter used, then the enclosing parenthesis can be removed.
+
+{% highlight java %}
+filter(books, b -> "Lewis Carrol".equals(b.getAuthor()));
+{% endhighlight %}
+
 ##Where can I use a lambda expression
 
 I used a lambda expression where the method parameter list expected a `Comparator` object. In my [previous post]({{site.url}}/articles/java-8-behavior-parameterization "Java 8: Behavior parameterization") I gave an example of filtering a list of books and there I used a lambda expression where the method expected a `Predicate` object. So what's the common denominator here? What must be the type of the parameter so I can pass in a lambda expression?
@@ -82,6 +102,3 @@ Look into [`java.util.function` package](https://docs.oracle.com/javase/8/docs/a
 ##@FunctionalInterface
 
 `@FunctionalInterface` is an annotation which indicates that an interface is intended to be used as a functional interface. Additionally the compiler will give a helpful error if the interface defines more than one abstract method.
-
-##execute around pattern, behavior parameterization
-##type checking, type inference
