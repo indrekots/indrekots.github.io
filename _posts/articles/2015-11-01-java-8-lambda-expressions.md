@@ -80,6 +80,8 @@ Java 8 includes a lot of common functional interfaces which can be applied to mo
 Look into [`java.util.function` package](https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html "java.util.function package") for a longer list of available functional interfaces.
 
 ##@FunctionalInterface
-##functional interfaces in standard library
+
+`@FunctionalInterface` is an annotation which indicates that an interface is intended to be used as a functional interface. Additionally the compiler will give a helpful error if the interface defines more than one abstract method.
+
 ##execute around pattern, behavior parameterization
 ##type checking, type inference
