@@ -2,16 +2,16 @@
 layout: post
 title: "Java 8: Lambda expressions"
 excerpt: In computer programming, an anonymous function (also function literal or lambda abstraction) is a function definition that is not bound to an identifier.
-modified: 2015-11-01 18:17:27 +0200
+modified: 2015-11-12 18:17:27 +0200
 categories: articles
-tags: [java8, java, lambda]
+tags: [java8, java, lambda, functional programming]
 image:
   feature: 2015-11-01-java-8-lambda-expressions/cover.jpg
   credit: SamReidn
   creditlink: https://www.reddit.com/r/wallpapers/comments/ydx2p/an_abstract_lambda_wallpaper/
 comments: true
 share: true
-published: false
+published: true
 ---
 
 In computer programming, an anonymous function (also function literal or lambda abstraction) is a function definition that is not bound to an identifier ([Wikipedia](https://en.wikipedia.org/wiki/Anonymous_function "Anonymous function")). Many modern programming languages have had them for a long time. It's only Java that's a little late to the party. While being 20 years old, it has received lambda expressions relatively recently.
@@ -20,7 +20,7 @@ Before Java 8, Java developers could use anonymous inner classes to achieve some
 
 ##Benefits
 
-Technically lambdas do not help you do anything that you could not do prior to Java 8. Remember that anonymous inner classes can achieve the same result but with more boilerplate code. Therefore lambdas can improve your code by making it more clear on flexible.
+Technically lambdas do not help you do anything that you could not do prior to Java 8. Remember that anonymous inner classes can achieve the same result but with more boilerplate code. The benefit of lambdas is improved and more flexible code.
 
 **Before** (prior to Java 8):
 
@@ -39,7 +39,9 @@ Collections.sort(books, new Comparator<Book>() {
 books.sort((Book b1, Book b2) -> b1.getAuthor().compareTo(b2.getAuthor()));
 {% endhighlight %}
 
-In this example I sorted books by their author. That can be achieved with one line using a lambda expression. Technically this example shows another feature that Java 8 introduced as well - **default methods**. But that is not the topic of this post and I'm going to cover them in the future. In addition I'm going to show how to use **method references** and improve the line even more.
+In this example I sorted books by their author. That can be achieved with one line using a lambda expression. Technically this example shows another feature that Java 8 introduced as well - **default methods**. But that is not the topic of this post and I'm going to cover them in the future.
+
+Making use of **method references**, this line can be improved even more.
 
 {% highlight java %}
 books.sort(comparing(Book::getAuthor));
@@ -47,7 +49,7 @@ books.sort(comparing(Book::getAuthor));
 
 ##Syntax
 
-The syntax of a lambda expression is relatively easy.
+The syntax of a lambda expression in Java is relatively easy.
 
 {% highlight java %}
 (Book b1, Book b2) -> b1.getAuthor().compareTo(b2.getAuthor());
@@ -89,7 +91,7 @@ filter(books, b -> "Lewis Carrol".equals(b.getAuthor()));
 
 I used a lambda expression where the method parameter list expected a `Comparator` object. In my [previous post]({{site.url}}/articles/java-8-behavior-parameterization "Java 8: Behavior parameterization") I gave an example of filtering a list of books and there I used a lambda expression where the method expected a `Predicate` object. So what's the common denominator here? What must be the type of the parameter so I can pass in a lambda expression?
 
-You can use a lambda expression in the context of a functional interface. It is an interface with only one abstract method. `Comparator` specifies the `compare()` method and the `Predicate` from my [previous post]({{site.url}}/articles/java-8-behavior-parameterization "Java 8: Behavior parameterization") specified one method as well - `test()`. If you look at the Java 8 API and search for [`Comparator`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html "Java 8 API - Comparator") you'll see that it contains a lot of static and default methods as well. But it still specifies only one abstract method. Lambda expression's signature must match the signature of the functional interface.
+You can use a lambda expression in the context of a functional interface. It is an interface with only one abstract method. `Comparator` specifies the `compare()` method and the `Predicate` from my [previous post]({{site.url}}/articles/java-8-behavior-parameterization "Java 8: Behavior parameterization") specified one method as well - `test()`. If you look at the Java 8 API and search for [*Comparator*](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html "Java 8 API - Comparator") you'll see that it contains a lot of static and default methods as well. But it still specifies only one abstract method. Lambda expression's signature must match the signature of the functional interface.
 
 Java 8 includes a lot of common functional interfaces which can be applied to most use cases. Following are a few examples.
 
@@ -102,3 +104,7 @@ Look into [`java.util.function` package](https://docs.oracle.com/javase/8/docs/a
 ##@FunctionalInterface
 
 `@FunctionalInterface` is an annotation which indicates that an interface is intended to be used as a functional interface. Additionally the compiler will give a helpful error if the interface defines more than one abstract method.
+
+---
+
+Programming languages evolve to meet the requirements of programmers. Some might say that it took Java language designers ages to add lambda expressions - a feature which has been present in many modern languages for many years. Better late than never. All in all, I think lambdas are a great addition to the Java language and together with the Streams API, they will greatly improve code readability and developer happiness.
