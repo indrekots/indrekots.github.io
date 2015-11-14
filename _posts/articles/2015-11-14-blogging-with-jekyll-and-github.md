@@ -24,8 +24,10 @@ Jekyll is a static site generator designed for blogs and written in Ruby. You ca
 
 ##Version control with Git
 
-Since Github Pages are regular Git repositories, all you're content is version controlled. Crating or editing a post includes writing Markdown (or other supported formats) and commiting them to your repository. Each markdown file has a header which includes some metadata about the post.  
+Since Github Pages are regular Git repositories, all you're content is version controlled. Creating or editing a post includes writing Markdown (or other supported formats) and committing them to your repository.
 
 ##Writing in Markdown
+
+Blog posts can are written in Markdown. Each markdown file has a header which includes some metadata about the post (e.g.title, excerpt, published status).  
 
 ##Having your own domain
