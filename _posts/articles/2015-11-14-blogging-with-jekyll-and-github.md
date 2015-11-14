@@ -20,7 +20,7 @@ Github Pages helps you host a static webpage for your project. Technically you c
 
 ##Introducing Jekyll
 
-Jekyll is a static site generator designed for blogs and written in Ruby. You can edit your content in markdown and let Jekyll generate HTML pages from it. This is ideal if you're only producing static content. No need to set up a database and no need to install updates
+Jekyll is a static site generator designed for blogs and written in Ruby. You can edit your content in markdown and let Jekyll generate HTML pages from it. This is ideal if you're only producing static content. No need to set up a database and no need to install security updates. And most noticeable is the speed. Because there's no database queries and no templating happening, pages are served very fast.
 
 ##Version control with Git
 
