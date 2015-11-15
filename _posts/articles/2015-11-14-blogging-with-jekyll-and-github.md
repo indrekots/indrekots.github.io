@@ -30,4 +30,10 @@ Since Github Pages are regular Git repositories, all you're content is version c
 
 Blog posts can are written in Markdown. Each markdown file has a header which includes some metadata about the post (e.g.title, excerpt, published status).  
 
+For those new to Markdown, check out this tutorial:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6A5EpqqDOdk" frameborder="0"> </iframe>
+
 ##Having your own domain
+
+Although with Github Pages your page will be accessible via `username|organization.github.io`, you can still configure your own custom domain name. You just need to configure a CNAME record with your DNS provider and add a file called `CNAME` to the root of your repository containing your domain name. For more information, visit [Github Help](https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/ "Gihtub Help page").
