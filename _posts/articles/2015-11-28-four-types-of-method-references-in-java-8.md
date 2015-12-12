@@ -61,3 +61,20 @@ you could use a method reference
 {% highlight java %}
 books::size
 {% endhighlight %}
+
+##Constructor reference
+
+It is possible to reference a constructor with the following syntax `Class::new`. It works similarly to the reference to a static method. Continuing with the book theme, you can reference a no arguments constructor of a `Book` class
+
+{% highlight java %}
+Book::new;
+{% endhighlight %}
+
+But what if I want to use a constructor with arguments. A [lambda expression/method reference]({{site.url}}/articles/java-8-lambda-expressions/ "Java 8: Lambda Expressions") can be used in a context of a functional interface. The type of a no-arg constructor fits the signature `() -> Book` and matches the type `Supplier<Book>`.
+
+The signature of the `Book` constructor with one argument is `Book(String name)`. To use the one argument constructor as a method reference, you should use the `Function` interface.
+
+{% highlight java %}
+Function<String, Book> b = Book::new;
+Book book = b.apply("All Quiet on the Western Front");
+{% endhighlight %}
