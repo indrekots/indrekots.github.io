@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: true
+published: false
 ---
 
 Method references let you reuse existing method definitions and pass them just like lambdas. They can be useful in making the code more readable. Instead of writing a full lambda expression, it is possible to point to an existing method.
@@ -35,7 +35,7 @@ Class::staticMethod
 
 ##A method reference to an instance method of an arbitrary type
 
-The idea with this type of method reference is that you’re referring to a method to an object that will be supplied as one of the parameters of the lambda.
+The idea with this type of method reference is that you’re referring to a method of an object that will be supplied as one of the parameters of the lambda.
 
 For example
 {% highlight java %}
@@ -50,4 +50,14 @@ String::toUpperCase
 
 ##A method reference to an instance method of an existing object
 
-##Constructor reference
+With this method reference type you can refer to a method of an existing object. For example you might have an instance variable `books` which is of type `List<Book>`. Instead of referring to the size of the list with a full lambda expression
+
+{% highlight java %}
+() -> books.size()
+{% endhighlight %}
+
+you could use a method reference
+
+{% highlight java %}
+books::size
+{% endhighlight %}
