@@ -1,17 +1,17 @@
 ---
 layout: post
-title: "The four types of method references in Java 8"
+title: "Four types of method references in Java 8"
 excerpt:
 modified: 2015-11-28 20:55:38 +0200
 categories: articles
-tags: [java]
+tags: [java, java-8, method reference, lambda]
 image:
-  feature:
+  feature: 2015-11-28-four-types-of-method-references-in-java-8/cover.jpg
   credit:
   creditlink:
 comments: true
 share: true
-published: false
+published: true
 ---
 
 Method references let you reuse existing method definitions and pass them just like lambdas. They can be useful in making the code more readable. Instead of writing a full lambda expression, it is possible to point to an existing method.
@@ -77,4 +77,41 @@ The signature of the `Book` constructor with one argument is `Book(String name)`
 {% highlight java %}
 Function<String, Book> b = Book::new;
 Book book = b.apply("All Quiet on the Western Front");
+{% endhighlight %}
+
+##Special forms of method references
+
+**Reference to array constructor**
+
+Arrays can be constructed with the `new` keyword.
+
+{% highlight java %}
+int[] array = new int[10];
+{% endhighlight %}
+
+This can be rewritten with a method reference as follows
+
+{% highlight java %}
+IntFunction<int[]> c = int[]::new;
+int[] array = c.apply(10);
+{% endhighlight %}
+
+**This and super in method references**
+
+Methods can be referenced with the help of the `this` and `super` keyword. In the following example `this` is used in the process of creating a thread.
+
+{% highlight java %}
+//instance method in class
+private void sayHello() {
+  System.out.println("Hello World!");
+}
+
+//somewhere in the class
+new Thread(this::sayHello).start();
+{% endhighlight %}
+
+The `super` keyword can be used the same way. Imagine that the `sayHello()` method is in a superclass. Then creating a thread which uses the parent class method as a Runnable is as follows
+
+{% highlight java %}
+new Thread(super::sayHello).start();
 {% endhighlight %}
