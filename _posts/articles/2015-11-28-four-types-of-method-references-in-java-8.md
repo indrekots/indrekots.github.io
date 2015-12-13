@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Four types of method references in Java 8"
-excerpt:
+excerpt: Method references let you reuse existing method definitions and pass them just like lambdas. They can be useful in making the code more readable.
 modified: 2015-11-28 20:55:38 +0200
 categories: articles
 tags: [java, java-8, method reference, lambda]
@@ -32,6 +32,8 @@ This is probably the easiest to explain with the following example:
 {% highlight java %}
 Class::staticMethod
 {% endhighlight %}
+
+Rather than using `s -> Integer.parseInt(s)`, the same can be achieved with `Integer::parseInt`.
 
 ##A method reference to an instance method of an arbitrary type
 
@@ -67,7 +69,7 @@ books::size
 It is possible to reference a constructor with the following syntax `Class::new`. It works similarly to the reference to a static method. Continuing with the book theme, you can reference a no arguments constructor of a `Book` class
 
 {% highlight java %}
-Book::new;
+Book::new
 {% endhighlight %}
 
 But what if I want to use a constructor with arguments. A [lambda expression/method reference]({{site.url}}/articles/java-8-lambda-expressions/ "Java 8: Lambda Expressions") can be used in a context of a functional interface. The type of a no-arg constructor fits the signature `() -> Book` and matches the type `Supplier<Book>`.
