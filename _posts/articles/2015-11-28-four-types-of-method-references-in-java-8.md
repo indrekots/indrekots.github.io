@@ -81,7 +81,7 @@ Book book = b.apply("All Quiet on the Western Front");
 
 ##Special forms of method references
 
-**Reference to array constructor**
+**Reference to an array constructor**
 
 Arrays can be constructed with the `new` keyword.
 
@@ -102,7 +102,7 @@ Methods can be referenced with the help of the `this` and `super` keyword. In th
 
 {% highlight java %}
 //instance method in class
-private void sayHello() {
+void sayHello() {
   System.out.println("Hello World!");
 }
 
@@ -115,3 +115,7 @@ The `super` keyword can be used the same way. Imagine that the `sayHello()` meth
 {% highlight java %}
 new Thread(super::sayHello).start();
 {% endhighlight %}
+
+##Conclusion
+
+In a nutshell, you can think of method references as syntactic sugar for lambdas. Using them can help the code gain readability. Short, one line lambdas are easy to read, but if your code or the Java API provides a method which you can refer to, then it's better to use a method reference. Deciding if it is worth extracting a long and complex lambda to a method is up to you. It depends on the context and I think there's no definitive answer.
