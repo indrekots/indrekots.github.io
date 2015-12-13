@@ -4,7 +4,7 @@ title: "Java 8: Behavior parameterization"
 excerpt: Behavior parameterization is essentially taking a block of code and making it available without executing it. Here's how to do it with Java.
 modified: 2015-10-17 21:55:09 +0300
 categories: articles
-tags: [java8, java, predicate, function, streams, lambda, lambdaj, guava, retrolambda]
+tags: [java 8, java, predicate, function, streams, lambda, lambdaj, guava, retrolambda]
 image:
   feature: 2015-10-17-java-8-behavior-parameterization/cover.jpg
   credit: http://xtom.deviantart.com/

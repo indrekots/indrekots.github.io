@@ -4,7 +4,7 @@ title: "Java 8: Lambda expressions"
 excerpt: In computer programming, an anonymous function (also function literal or lambda abstraction) is a function definition that is not bound to an identifier.
 modified: 2015-11-12 18:17:27 +0200
 categories: articles
-tags: [java8, java, lambda, functional programming]
+tags: [java 8, java, lambda, functional programming]
 image:
   feature: 2015-11-01-java-8-lambda-expressions/cover.jpg
   credit: SamReidn
