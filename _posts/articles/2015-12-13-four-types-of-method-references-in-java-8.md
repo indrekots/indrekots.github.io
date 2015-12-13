@@ -4,7 +4,7 @@ title: "Four types of method references in Java 8"
 excerpt: Method references let you reuse existing method definitions and pass them just like lambdas. They can be useful in making the code more readable.
 modified: 2015-11-28 20:55:38 +0200
 categories: articles
-tags: [java, java 8, method reference, lambda]
+tags: [java, java 8, method reference, lambda, class, constructor]
 image:
   feature: 2015-11-28-four-types-of-method-references-in-java-8/cover.jpg
   credit:
