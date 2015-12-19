@@ -4,7 +4,7 @@ title: "Service won't start when using the service utility"
 excerpt: I debugged a service which didn't start when using the service utility but was working fine when calling the init script directly.
 modified: 2015-12-16 21:20:56 +0200
 categories: articles
-tags: [upstart, system v, service, linux, ubuntu, mule, esb]
+tags: [upstart, system v, service, linux, ubuntu, mule, esb, init]
 image:
   feature:
   credit:
@@ -37,3 +37,5 @@ export JAVA_HOME MULE_HOME RUN_AS_USER PATH
 # Invoke Mule
 $MULE_HOME/bin/mule $1
 {% endhighlight %}
+
+It sets some environment variables which are needed by Mule to run. Most notably it initializes `RUN_AS_USER` to the user I want mule to run as.
