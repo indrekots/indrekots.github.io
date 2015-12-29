@@ -42,7 +42,7 @@ An example of a collector which returns a single value is `counting()`. This cou
 
 ###Collector which groups elements
 
-A common database query might include a **group by** statement. It is possible to implement it with Java with an imperative style but it is cumbersome and very verbose. A `groupingBy()` collector can used to ease the pain of verbosity. The following is an example of a grouping collector.
+A common database query might include a *group by* statement. It is possible to implement it with Java with an imperative style but it is cumbersome and very verbose. A `groupingBy()` collector can used to ease the pain of verbosity. The following is an example of a grouping collector.
 
 {% highlight java %}
 Map<String, List<Book>> booksByAuthor = books.stream().
@@ -51,6 +51,12 @@ Map<String, List<Book>> booksByAuthor = books.stream().
 
 ###Partitioning collector
 
+Partitioning is technically a special case of grouping. A predicate (function which returns a boolean) is used to divide the stream into two groups. It returns a *Map* and its keys are booleans. So for example, to partition a stream of books into long and short ones you can use the following expression:
+
+{% highlight java %}
+Map<Boolean, List<Book>> booksByLength = books.stream().
+  collect(Collectors.partitioningBy(b -> b.getPageCount() > 500));
+{% endhighlight %}
 
 ##collector interface
 
