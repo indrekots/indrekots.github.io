@@ -58,6 +58,28 @@ Map<Boolean, List<Book>> booksByLength = books.stream().
   collect(Collectors.partitioningBy(b -> b.getPageCount() > 500));
 {% endhighlight %}
 
-##collector interface
+##Collector interface
+
+The [Collector interface](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collector.html "Collector interface javadoc page") defines a set of methods which are used during the reduction process. The following is the interface signature with the five methods it declares.
+
+{% highlight java %}
+public interface Collector<T, A, R> {
+    Supplier<A> supplier();
+    BiConsumer<A, T> accumulator();
+    Function<A, R> finisher();
+    BinaryOperator<A> combiner();
+    Set<Characteristics> characteristics();
+}
+{% endhighlight %}
+
+* T is the type of items in the stream to be collected
+* A is the type of the accumulator
+* R is the type of the result returned by the collector
+
+The `supplier()` must return a function that creates an empty accumulator. This will also represent the result of the collection process when applied on an empty stream. The job of the `accumulator()` is to return a function which performs the reduction operation. It accepts two arguments. First one being the mutable result container (accumulator) and the second one the stream element that should be folded into the result container. The `finisher()` returns a function which performs the final transformation from the intermediate result container to the final result of type R. Often times the accumulator already represents the final result, so the finisher can return *identity* function. When the stream is collected in parallel then the `combiner()` method is used to return a function which knows how to merge two accumulators. Finally, the `characteristics()` method returns an immutable set of `Characteristics` which define the behavior of the collector. This is used to check which kind of optimizations can be done during the reduction process. For example, if the set contains `CONCURRENT`, then the collection process can be performed in parallel.
+
+##Building a custom collector
+
+I gave a general overview of the *Collector* interface. This should be enough to start creating our own custom collector.
 
 ##collect vs reduce
