@@ -80,6 +80,6 @@ The `supplier()` must return a function that creates an empty accumulator. This 
 
 ##Building a custom collector
 
-I gave a general overview of the *Collector* interface. This should be enough to start creating our own custom collector.
+I gave a general overview of the *Collector* interface. This should be enough to start creating our own custom collector. The Collectors class includes static methods which return some commonly used Collectors. Let's create our own custom collector. Suppose you have a list of continuous values and you would like to create a histogram from it. A histogram is a graphical representation of the distribution of numeric data. The custom collector would need to return a data structure which holds all the required data to create a histogram.
 
 ##collect vs reduce
