@@ -80,6 +80,72 @@ The `supplier()` must return a function that creates an empty accumulator. This 
 
 ##Building a custom collector
 
-I gave a general overview of the *Collector* interface. This should be enough to start creating our own custom collector. The Collectors class includes static methods which return some commonly used Collectors. Let's create our own custom collector. Suppose you have a list of continuous values and you would like to create a histogram from it. A histogram is a graphical representation of the distribution of numeric data. The custom collector would need to return a data structure which holds all the required data to create a histogram.
+I gave a general overview of the *Collector* interface. This should be enough to start creating our own custom collector. The Collectors class includes static methods which return some commonly used Collectors. But for special cases, we would need to create our own custom collector. Suppose you have a list of continuous values and you would like to create a histogram from it. A histogram is a graphical representation of the distribution of numeric data. The custom collector would need to return a data structure which holds all the required data to create a histogram.
+
+Since the values are continuous, they need do be divided into buckets. To make things simpler, let's create a collector which can be applied to a stream of `double` values and which returns a `Map<Integer, Integer>`. The key of the map is the bucket index and the value counts the number of occurrences of values from the original stream that fit in the bucket bounds.
+
+To create a new collector, a new class needs to be created which implements the Collector interface. Let's call the class `HistogramCollector`.
+
+{% highlight java %}
+public class HistogramCollector
+    implements Collector<Double, Map<Integer, Integer>, Map<Integer, Integer>> {
+
+    private int bucketSize;
+
+    public HistogramCollector(int bucketSize) {
+        this.bucketSize = bucketSize;
+    }
+
+    //implement abstract methods defined in the Collector interface
+}
+{% endhighlight %}
+
+Its constructor accepts the size of the bucket. So for example, if the size is set to 10, values from 0 to 10 (excluding 10) will be in the 0th bucket.
+
+The methods defined by the interface need to be implemented. I'm going to implement them in the order defined in the previous paragraph. First of all, the `supplier()` method needs to return a function which returns an empty accumulator.
+
+{% highlight java %}
+@Override
+public Supplier<Map<Integer, Integer>> supplier() {
+    return HashMap::new;
+}
+{% endhighlight %}
+
+When the stream is being traversed, stream elements are being accumulated by the function returned by the `accumulator()` method.
+
+{% highlight java %}
+@Override
+public BiConsumer<Map<Integer, Integer>, Double> accumulator() {
+    return (map, val) -> map.merge((int)(val / bucketSize), 1,
+            (a, b) -> a + 1);
+}
+{% endhighlight %}
+
+The returned function accepts the accumulator map and the next element in the stream. Then it merges the element into the map. The map key is found by dividing the value by the size of the bucket.
+
+The `finisher()` method needs to return a function which transforms the accumulator to the final result. In this case, the accumulator is the final result as well. Therefore it is possible to return the identity function.
+
+>In mathematics, an identity function, also called an identity relation or identity map or identity transformation, is a function that always returns the same value that was used as its argument.
+
+{% highlight java %}
+@Override
+public Function<Map<Integer, Integer>, Map<Integer, Integer>> finisher() {
+    return Function.identity();
+}
+{% endhighlight %}
+
+Two more methods need to be implemented. The `combiner()` method is used when 2 maps are merged. This can happen when you process the stream in parallel. When merging maps, the values for the same keys should be summed.
+
+{% highlight java %}
+@Override
+public BinaryOperator<Map<Integer, Integer>> combiner() {
+    return (map1, map2) -> {
+        map2.forEach((k, v) -> map1.merge(k, v, (v1, v2) -> v1++));
+        return map1;
+    };
+}
+{% endhighlight %}
+
+The final method is `characteristics()`. This returns a Set of `Characteristics` indicating the characteristics of this Collector.
 
 ##collect vs reduce
