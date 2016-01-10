@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: false
+published: true
 ---
 
 Streams help you process collections in a declarative manner. They support two types of operations: intermediate and terminal. While intermediate operations convert a stream to another stream, terminal operations consume the stream and return the final result. Java 8 [Stream interface](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html "Java 8 API Stream interface") defines a `collect` method which performs a mutable reduction operation on the elements of the stream. It accepts a `Collector` as a parameter which encapsulates the strategy that is used to compute the final result. In this post we'll have a look at how to create a collector from scratch.
@@ -146,6 +146,28 @@ public BinaryOperator<Map<Integer, Integer>> combiner() {
 }
 {% endhighlight %}
 
-The final method is `characteristics()`. This returns a Set of `Characteristics` indicating the characteristics of this Collector.
+The final method is `characteristics()`. This returns a Set of `Characteristics` indicating the characteristics of this Collector, which are used by the collection process. In our case we can return `IDENTITY_FINISH` and `UNORDERED`.
 
-##collect vs reduce
+| Characteristic  | Description  |
+|:--|:--|
+| IDENTITY_FINISH  | Indicates that the `finisher()` function is the identity function and can be left out  |
+| UNORDERED  | Indicates that the collection operation does not commit to preserving the encounter order of input elements.  |
+
+When all methods defined by the *Collector* interface are implemented, then let's see the collector in action.
+
+{% highlight java %}
+@Test
+public void histogramCollectTest() throws Exception {
+    List<Double> numbers = Arrays.asList(1.0, 1.1, 1.4, 1.7, 1.4, 5.4, 9.9);
+    Map<Integer, Integer> histogram = numbers.stream().collect(new HistogramCollector(1));
+
+    ImmutableMap<Integer, Integer> expected = ImmutableMap.<Integer, Integer>builder().
+            put(1, 5).put(5, 1).put(9, 1).build();
+
+    assertEquals(expected, histogram);
+}
+{% endhighlight %}
+
+##Collect vs Reduce
+
+If you're somewhat familiar with Streams, then you'll probably wonder why not use the `reduce()` method. Most of the time you can achieve the same result. There's a semantic difference. The `reduce()` method should combine two values and return a new one, meaning that the reduction (folding) process should be immutable. Whereas the `collect()` method is designed to mutate a container to accumulate the result it’s supposed to produce.
