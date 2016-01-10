@@ -18,7 +18,7 @@ Streams help you process collections in a declarative manner. They support two t
 
 ##What is a collector?
 
-A collector is a recipe for how to build a summary of the elements in a Stream. If you're familiar with Streams then you have probable seen the `toList()` collector.
+A collector is a recipe for how to build a summary of the elements in a Stream. If you're familiar with Streams then you have probably seen the `toList()` collector.
 
 {% highlight java %}
 books.stream().
@@ -42,7 +42,7 @@ An example of a collector which returns a single value is `counting()`. This cou
 
 ###Collector which groups elements
 
-A common database query might include a *group by* statement. It is possible to implement it with Java with an imperative style but it is cumbersome and very verbose. A `groupingBy()` collector can used to ease the pain of verbosity. The following is an example of a grouping collector.
+A common database query might include a *group by* statement. It is possible to implement it with Java with an imperative style but it is cumbersome and very verbose. A `groupingBy()` collector can be used to ease the pain of verbosity. The following is an example of a grouping collector.
 
 {% highlight java %}
 Map<String, List<Book>> booksByAuthor = books.stream().
@@ -76,11 +76,29 @@ public interface Collector<T, A, R> {
 * A is the type of the accumulator
 * R is the type of the result returned by the collector
 
-The `supplier()` must return a function that creates an empty accumulator. This will also represent the result of the collection process when applied on an empty stream. The job of the `accumulator()` is to return a function which performs the reduction operation. It accepts two arguments. First one being the mutable result container (accumulator) and the second one the stream element that should be folded into the result container. The `finisher()` returns a function which performs the final transformation from the intermediate result container to the final result of type R. Often times the accumulator already represents the final result, so the finisher can return *identity* function. When the stream is collected in parallel then the `combiner()` method is used to return a function which knows how to merge two accumulators. Finally, the `characteristics()` method returns an immutable set of `Characteristics` which define the behavior of the collector. This is used to check which kind of optimizations can be done during the reduction process. For example, if the set contains `CONCURRENT`, then the collection process can be performed in parallel.
+###Supplier
+
+The `supplier()` must return a function that creates an empty accumulator. This will also represent the result of the collection process when applied on an empty stream.
+
+###Accumulator
+
+The job of the `accumulator()` is to return a function which performs the reduction operation. It accepts two arguments. First one being the mutable result container (accumulator) and the second one the stream element that should be folded into the result container.
+
+###Finisher
+
+The `finisher()` returns a function which performs the final transformation from the intermediate result container to the final result of type R. Often times the accumulator already represents the final result, so the finisher can return the *identity* function.
+
+###Combiner
+
+When the stream is collected in parallel then the `combiner()` method is used to return a function which knows how to merge two accumulators.
+
+###Characteristics
+
+Finally, the `characteristics()` method returns an immutable set of `Characteristics` which define the behavior of the collector. This is used to check which kind of optimizations can be done during the reduction process. For example, if the set contains `CONCURRENT`, then the collection process can be performed in parallel.
 
 ##Building a custom collector
 
-I gave a general overview of the *Collector* interface. This should be enough to start creating our own custom collector. The Collectors class includes static methods which return some commonly used Collectors. But for special cases, we would need to create our own custom collector. Suppose you have a list of continuous values and you would like to create a histogram from it. A histogram is a graphical representation of the distribution of numeric data. The custom collector would need to return a data structure which holds all the required data to create a histogram.
+In the previous paragraph a general overview of the *Collector* interface was given. This should be enough to start creating our own custom collector. The Collectors class includes static methods which return some commonly used Collectors. But for special cases, we would need to create our own custom collector. Suppose you have a list of continuous values and you would like to create a histogram from it. A histogram is a graphical representation of the distribution of numeric data. The custom collector would need to return a data structure which holds all the required data to create a histogram.
 
 Since the values are continuous, they need do be divided into buckets. To make things simpler, let's create a collector which can be applied to a stream of `double` values and which returns a `Map<Integer, Integer>`. The key of the map is the bucket index and the value counts the number of occurrences of values from the original stream that fit in the bucket bounds.
 
@@ -96,11 +114,13 @@ public class HistogramCollector
         this.bucketSize = bucketSize;
     }
 
-    //implement abstract methods defined in the Collector interface
+    //TODO: implement abstract methods defined in the Collector interface
 }
 {% endhighlight %}
 
 Its constructor accepts the size of the bucket. So for example, if the size is set to 10, values from 0 to 10 (excluding 10) will be in the 0th bucket.
+
+###Implementing the interface
 
 The methods defined by the interface need to be implemented. I'm going to implement them in the order defined in the previous paragraph. First of all, the `supplier()` method needs to return a function which returns an empty accumulator.
 
@@ -125,7 +145,7 @@ The returned function accepts the accumulator map and the next element in the st
 
 The `finisher()` method needs to return a function which transforms the accumulator to the final result. In this case, the accumulator is the final result as well. Therefore it is possible to return the identity function.
 
->In mathematics, an identity function, also called an identity relation or identity map or identity transformation, is a function that always returns the same value that was used as its argument.
+>In mathematics, an identity function, also called an identity relation or identity map or identity transformation, is a function that always returns the same value that was used as its argument -- Wikipedia
 
 {% highlight java %}
 @Override
@@ -153,13 +173,25 @@ The final method is `characteristics()`. This returns a Set of `Characteristics`
 | IDENTITY_FINISH  | Indicates that the `finisher()` function is the identity function and can be left out  |
 | UNORDERED  | Indicates that the collection operation does not commit to preserving the encounter order of input elements.  |
 
+###Final touch
+
+The *Collectors* class contains static methods for commonly used collectors. Let's create a static method in the *HistogramCollector* class as well. It should returns a new `HistogramCollector`.
+
+{% highlight java %}
+public static HistogramCollector toHistogram(int bucketSize) {
+  return new HistogramCollector(bucketSize);
+}
+{% endhighlight %}
+
+###Collector in action
+
 When all methods defined by the *Collector* interface are implemented, then let's see the collector in action.
 
 {% highlight java %}
 @Test
 public void histogramCollectTest() throws Exception {
     List<Double> numbers = Arrays.asList(1.0, 1.1, 1.4, 1.7, 1.4, 5.4, 9.9);
-    Map<Integer, Integer> histogram = numbers.stream().collect(new HistogramCollector(1));
+    Map<Integer, Integer> histogram = numbers.stream().collect(toHistogram(1));
 
     ImmutableMap<Integer, Integer> expected = ImmutableMap.<Integer, Integer>builder().
             put(1, 5).put(5, 1).put(9, 1).build();
