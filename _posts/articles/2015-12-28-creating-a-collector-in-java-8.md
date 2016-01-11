@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Creating a collector in Java 8"
-excerpt:
+title: "Creating a custom collector in Java 8"
+excerpt: A collector is a recipe for how to build a summary of the elements in a Stream. In this post you'll see how to create a custom collector in Java 8.
 modified: 2015-12-28 19:28:07 +0200
 categories: articles
-tags: [java, java 8, stream, collector]
+tags: [java, java 8, stream, collector, collect, reduce, fold]
 image:
-  feature:
+  feature: 2015-12-28-creating-a-collector-in-java-8/cover.jpg
   credit:
   creditlink:
 comments: true
@@ -14,7 +14,7 @@ share: true
 published: true
 ---
 
-Streams help you process collections in a declarative manner. They support two types of operations: intermediate and terminal. While intermediate operations convert a stream to another stream, terminal operations consume the stream and return the final result. Java 8 [Stream interface](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html "Java 8 API Stream interface") defines a `collect` method which performs a mutable reduction operation on the elements of the stream. It accepts a `Collector` as a parameter which encapsulates the strategy that is used to compute the final result. In this post we'll have a look at how to create a collector from scratch.
+Streams help you process collections in a declarative manner. They support two types of operations: intermediate and terminal. While intermediate operations convert a stream to another stream, terminal operations consume the stream and return the final result. Java 8 [Stream interface](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html "Java 8 API Stream interface") defines a `collect` method which performs a mutable reduction operation on the elements of the stream. It accepts a `Collector` as a parameter which encapsulates the strategy that is used to compute the final result. In this post we'll have a look at how to create a custom collector in Java 8 from scratch.
 
 ##What is a collector?
 
