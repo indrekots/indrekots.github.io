@@ -23,26 +23,91 @@ published: true
 * silentInstall, repair scripts -> no gui interaction
 * other tables that need to be kept in sync -> workflows and expressions
 
-SugarCRM is a web based customer relationship management system written in PHP. I'm fairly new to this piece of software and started to figure out how to manage changes and multiple environments of SugarCRM. My plan was to have my own local development environment, a staging and a production environment. In SugarCRM, users are allowed to define their own custom modules. There are essentially new tables in the database. They can define data types and add constraints to new fields. In addition to changes in the database, SugarCRM generates new PHP files as well. In order to keep 2 environments in sync, both file system level changes and database changes need to be transferred. While being very flexible towards its users, SugarCRM is at first glance difficult to handle by operations.
+SugarCRM is a web based customer relationship management system written in PHP. I'm fairly new to this piece of software and started to figure out how to manage changes and multiple environments of SugarCRM. My plan was to have my own local development environment, a staging and a production environment.
 
-I'm going to rephrase to problem a bit more clearly. Users are able to basically create new database tables and generate new PHP files without them knowing what is happening in the background. If I have my local Sugar environment and create a new module, I need to have this module be present in the staging environment for testing as well. This means the new PHP files and database changes need to be applied to the staging environment. Without knowing much about SugarCRM, this seems to be an easy task. Source code changes can be handled by version control and database changes could be handled by some kind of database migration tool (e.g. [Flyway](http://flywaydb.org/ "Flyway homepage")). But as usual, life is not as easy as it seems.
+##Problems with SugarCRM
 
-When it comes to source code changes, yes, version control is the way to go. But there are some things to keep in mind. You should not add all SugarCRM's files to source control or you'll end up in merge conflict As far as I understand, Sugar does some magic and generates new source files in the `/cache` directory which is used during runtime. So that folder can be excluded from version control. But there are others as well.
+In SugarCRM, users are allowed to define their own custom modules. There are essentially new tables in the database. They can define data types and add constraints to new fields. In addition to changes in the database, SugarCRM generates new PHP files as well. In order to keep 2 environments in sync, both file system level changes and database changes need to be transferred. While being very flexible towards its users, SugarCRM is at first glance difficult to handle by operations.
+
+I'm going to rephrase to problem a bit more clearly. Users are able to basically create new database tables and generate new PHP files without them knowing what is happening in the background. If I create a new module in my local environment, I need to have this module be present in the staging environment for testing as well. This means the new PHP files and database changes need to be applied to the staging environment. Without knowing much about SugarCRM, this seems to be an easy task. Source code changes can be handled by version control and database changes could be handled by some kind of database migration tool (e.g. [Flyway](http://flywaydb.org/ "Flyway homepage")). But as usual, life is not as easy as it seems.
+
+##Handling source code changes - version control
+
+When it comes to source code changes, yes, version control is the way to go. But there are some things to keep in mind. You should not add all SugarCRM's files to source control or you'll end up in merge conflict hell. As far as I understand, Sugar does some magic and generates new source files in the `/cache` directory which is used during runtime. So that folder can be excluded from version control. But there are others as well.
 
 ![Merge conflict]({{ site.url }}/images/2016-01-14-version-control-and-deployment-practices-for-sugarcrm/meme-merge.jpg "Merge conflict")
 
 I'm using [Git](https://git-scm.com/ "Git source code management homepage") for version control. The following is my `.gitignore` files which instructs Git from not adding the specified files and folders to version control. As you can see, a lot of files can be ignored.
 
 {% highlight bash %}
-//TODO: insert .gitignore
+/config.php
+/config_override.php
+
+/.htaccess
+/cache/
+
+/custom/history/
+/custom/modulebuilder/
+/custom/working/
+/custom/modules/*/Ext/
+/custom/application/Ext/
+
+# The silent upgrade scripts aren't needed.
+/silentUpgrade*.php
+
+*.log
+
+/upload/*
+/upload_backup/
+!/upload/.gitkeep
+
+portal2/config.js
+
+.idea/
 {% endhighlight %}
 
-Handling database changes is more difficult. You need to know which database tables are changed and which ones need to be kept in sync. Sugar does not generate migration files. After doing some testing and googling, I came to a conclusion that at first, I should track the changes in the `fields_meta_data` table. When you create a new custom module and deploy it, Sugar creates a new database table for it and is able to recreate from the generated PHP files. But when you decide to edit a deployed module, the changes are added to the `fields_meta_data` table.
+##Handling changes in the database
 
-I created a `database` folder in the root of the SugarCRM folder and I'm going to add database dumps there. To make sure I'm not going to forget to to a database dump before a commit, I created a git pre-commit hook which does it for me.
+Handling database changes is more difficult. You need to know which database tables are changed and which ones need to be kept in sync. Sugar does not generate migration files. After doing some testing and googling, I came to a conclusion that at first, I should track the changes in the `fields_meta_data` table. When you create a new custom module and deploy it, SugarCRM creates a new database table for it. Additionally, it is able to recreate that table from the generated PHP files. But when you decide to edit a deployed module, the changes are added to the `fields_meta_data` table.
+
+In addition to `fields_meta_data` table, I'm interested in the workflow related tables as well. Since some workflow information is stored in the database, I need them to be available in other environments too.
+
+I created a `database` folder in the root of the SugarCRM folder and I'm going to add database dumps there. To make sure I'm not going to forget to take a database dump before a commit, I created a git pre-commit hook which does it for me.
 
 {% highlight bash %}
-//TODO: insert git pre-commit hook
+#!/bin/bash
+RED=`tput setaf 1`
+GREEN=`tput setaf 2`
+RESET=`tput sgr0`
+
+exec < /dev/tty
+
+printf "Removing old database dumps... "
+#remove old dumps
+rm database/fields_meta_data.sql database/workflows.sql
+echo "${GREEN}Done${RESET}"
+
+printf "Starting to dump fields_meta_data and workflow related tables... \n"
+read -s -p "Enter MySql password: " mysql_password
+printf "\n"
+
+#dump important tables
+MSG="$((
+  mysqldump -u {{ mysql_root_username }} -h {{ domain_name }} --password=$mysql_password --extended-insert=FALSE --skip-dump-date {{ sugar_db_name }} fields_meta_data  > database/fields_meta_data.sql
+  mysqldump -u {{ mysql_root_username }} -h {{ domain_name }} --password=$mysql_password --extended-insert=FALSE --skip-dump-date {{ sugar_db_name }} workflow workflow_actions workflow_actionshells workflow_alerts workflow_alertshells workflow_schedules workflow_triggershells expressions > database/workflows.sql
+) 2>&1)"
+
+if [ $? -ne 0 ]; then
+  echo "${RED}$MSG"
+  echo "Commit failed${RESET}"
+  exit 1
+fi
+
+echo "${GREEN}Done${RESET}"
+
+printf "Adding database dump to commit... "
+git add database/*
+echo "${GREEN}Done${RESET}"
 {% endhighlight %}
 
 Before even starting to investigate how to manage multiple environments of Sugar, I decided to first automate the creation of a clean environment. I reckoned I was going to mess up the installation at some point. So having a quick and easy way to recreate the environment was a must for me. There are many configuration management tools out there that can do the job. I decided to use [Ansible](https://github.com/ansible/ansible "Ansible github page") since I'm most familiar with it. But you can achieve the same results with [Chef](https://www.chef.io/chef/ "Chef's homepage"), [Puppet](https://puppetlabs.com/ "Puppet's homepage") or [Salt](https://github.com/saltstack/salt "Salt's github page"). In addition, I'm using Vagrant to create my local development environment. Later I'm going to show how to use Ansible for deployment of SugarCRM.
