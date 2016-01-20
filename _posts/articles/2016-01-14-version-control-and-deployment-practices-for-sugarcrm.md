@@ -1,28 +1,18 @@
 ---
 layout: post
 title: "Version control and deployment practices for SugarCRM"
-excerpt:
+excerpt: This post will give you ideas on how to do version control with SugarCRM and how to manage multiple environments and deployments.
 modified: 2016-01-14 19:47:25 +0200
 categories: articles
 tags: [sugarcrm, vcs, version control, deployment, configuration management, ansible, php, vagrant]
 image:
-  feature:
+  feature: 2016-01-14-version-control-and-deployment-practices-for-sugarcrm/cover.jpg
   credit:
   creditlink:
 comments: true
 share: true
 published: true
 ---
-
-* intro, not an expert
-* problems with vc, changes in source code and database, both need to be in sync
-* git to the rescue, .gitinore
-* git hooks for database export
-* deployment -> git pull, apply database scripts
-* automate -> ansible
-* silentInstall, repair scripts -> no gui interaction
-* other tables that need to be kept in sync -> workflows and expressions
-
 SugarCRM is a web based customer relationship management system written in PHP. I'm fairly new to this piece of software and started to figure out how to manage changes and multiple environments of SugarCRM. My plan was to have my own local development environment, a staging and a production environment.
 
 ##Problems with SugarCRM
@@ -37,7 +27,7 @@ When it comes to source code changes, yes, version control is the way to go. But
 
 ![Merge conflict]({{ site.url }}/images/2016-01-14-version-control-and-deployment-practices-for-sugarcrm/meme-merge.jpg "Merge conflict")
 
-I'm using [Git](https://git-scm.com/ "Git source code management homepage") for version control. The following is my `.gitignore` files which instructs Git from not adding the specified files and folders to version control. As you can see, a lot of files can be ignored.
+I'm using [Git](https://git-scm.com/ "Git source code management homepage") for version control. The following is my `.gitignore` file which instructs Git from not adding the specified files and folders to version control. As you can see, a lot of files can be ignored.
 
 {% highlight bash %}
 /config.php
@@ -93,8 +83,8 @@ printf "\n"
 
 #dump important tables
 MSG="$((
-  mysqldump -u {{ mysql_root_username }} -h {{ domain_name }} --password=$mysql_password --extended-insert=FALSE --skip-dump-date {{ sugar_db_name }} fields_meta_data  > database/fields_meta_data.sql
-  mysqldump -u {{ mysql_root_username }} -h {{ domain_name }} --password=$mysql_password --extended-insert=FALSE --skip-dump-date {{ sugar_db_name }} workflow workflow_actions workflow_actionshells workflow_alerts workflow_alertshells workflow_schedules workflow_triggershells expressions > database/workflows.sql
+  mysqldump -u username -h hostname --password=$mysql_password --extended-insert=FALSE --skip-dump-date sugar_db_name fields_meta_data  > database/fields_meta_data.sql
+  mysqldump -u username -h hostname --password=$mysql_password --extended-insert=FALSE --skip-dump-date sugar_db_name workflow workflow_actions workflow_actionshells workflow_alerts workflow_alertshells workflow_schedules workflow_triggershells expressions > database/workflows.sql
 ) 2>&1)"
 
 if [ $? -ne 0 ]; then
@@ -110,10 +100,18 @@ git add database/*
 echo "${GREEN}Done${RESET}"
 {% endhighlight %}
 
-Before even starting to investigate how to manage multiple environments of Sugar, I decided to first automate the creation of a clean environment. I reckoned I was going to mess up the installation at some point. So having a quick and easy way to recreate the environment was a must for me. There are many configuration management tools out there that can do the job. I decided to use [Ansible](https://github.com/ansible/ansible "Ansible github page") since I'm most familiar with it. But you can achieve the same results with [Chef](https://www.chef.io/chef/ "Chef's homepage"), [Puppet](https://puppetlabs.com/ "Puppet's homepage") or [Salt](https://github.com/saltstack/salt "Salt's github page"). In addition, I'm using Vagrant to create my local development environment. Later I'm going to show how to use Ansible for deployment of SugarCRM.
+##Automate the creation of a new environment
+
+Before even starting to investigate how to manage multiple environments of Sugar, I decided to first automate the creation of a clean environment. I reckoned I was going to mess up the installation at some point. So having a quick and easy way to recreate the environment was a must for me. There are many configuration management tools out there that can do the job. I decided to use [Ansible](https://github.com/ansible/ansible "Ansible github page") for provisioning since I'm most familiar with it. But you can achieve the same results with [Chef](https://www.chef.io/chef/ "Chef's homepage"), [Puppet](https://puppetlabs.com/ "Puppet's homepage") or [Salt](https://github.com/saltstack/salt "Salt's github page"). In addition, I'm using Vagrant to create a new virtual machine. Later I am able to use Ansible for deployments.
+
+##Headless SugarCRM installer
 
 If you have ever installed an instance of SugarCRM you have probably used the web based installer. The downside is that it requires user interaction. My goal was to run a command and let Ansible to everything for me. In addition, the web based installer makes it harder to set up and deploy SugarCRM to multiple servers. You would have to go through each installer session separately and this is time consuming. Fortunately I was able to find [a handy SugarCRM silent installer script](https://gist.github.com/sadekbaroudi/f0f3c759df00ce1094f9 "Github gist of a silent installer script") which can be used to automate the installation process.
 
-Having Ansible in place helps me to deploy changes to new environments. Previously I showed a pre-commit hook which takes a database dump of some important tables. I created an Ansible deploy playbook which checks out the latest commit from my git repoistory and applies it to the server I specify. The commit might include source code changes and database changes. If you've ever edited a custom module you know that you must click the repair button in the SugarCRM Administration menu. I don't like human interaction which gets in the way of automation. Luckily I found a [repair script](https://gist.github.com/chicks/6084088#file-repair-php "Github gist of a repair script") which can be used to automate the deployment step.
+##Automated deployments
 
-To conclude, I use Ansible to create a fully functioning SugarCRM environment. I can create new servers with ease by calling my ansible playbook. For my local environment I use Ansible together with Vagrant to create a virtual machine. In addition, Ansible is used to to deployments as well. i keep my SugarCRM files in source control using Git. A database dump of important tables is taken before each commit by a pre-commit hook. Ansible deploy playbook checks out the latest commit, applies it to the server I specify and calls the repair script. No human interaction with SugarCRM's web interface is needed during installation and deployment.
+Having Ansible in place helps me to deploy changes to new environments. Previously I showed a pre-commit hook which takes a database dump of important tables. I created an Ansible deploy playbook which checks out the latest commit from my Git repository and applies it to the server I specify. The commit might include source code changes and database changes. If you've ever edited a custom module you know that you must click the repair button in the SugarCRM Administration menu. I don't like human interaction which gets in the way of automation. Luckily I found a [repair script](https://gist.github.com/chicks/6084088#file-repair-php "Github gist of a repair script") which can be used to automate the deployment step.
+
+##Summary
+
+To conclude, I use Ansible to create a fully functioning SugarCRM environment. I can create new servers with ease by calling my Ansible playbook. For my local environment I use Ansible together with Vagrant to create a virtual machine. In addition, Ansible is used to to deployments as well. I keep my SugarCRM files in source control using Git. A database dump of relevant tables is taken before each commit by a pre-commit hook. Ansible deploy playbook checks out the latest commit, applies it to the server I specify and calls the repair script. No human interaction with SugarCRM's web interface is needed during installation and deployment.
