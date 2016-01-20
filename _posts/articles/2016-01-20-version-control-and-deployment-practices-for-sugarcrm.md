@@ -2,7 +2,7 @@
 layout: post
 title: "Version control and deployment practices for SugarCRM"
 excerpt: This post will give you ideas on how to do version control with SugarCRM and how to manage multiple environments and deployments.
-modified: 2016-01-14 19:47:25 +0200
+modified: 2016-01-20 19:47:25 +0200
 categories: articles
 tags: [sugarcrm, vcs, version control, deployment, configuration management, ansible, php, vagrant]
 image:
