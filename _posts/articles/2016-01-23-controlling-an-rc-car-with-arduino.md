@@ -6,21 +6,21 @@ modified: 2016-01-23 18:12:45 +0200
 categories: articles
 tags: [arduino, python, rc car]
 image:
-  feature:
+  feature: 2016-01-23-controlling-an-rc-car-with-arduino/cover.jpg
   credit:
   creditlink:
 comments: true
 share: true
 published: true
 ---
-Driving an RC car is fun. But I think it's much more fun to break things apart and see what else can be done with it. I decided to buy a cheap RC car and try to control it using a keyboard and an Arduino. If you have any experience in programming but have not touched electronics before, you're still able to follow along. It's not difficult at all.
+Driving an RC car is fun. But I think it's much more fun to break things apart and see what else can be done with it. I decided to buy a cheap remote controlled car and try to control it using a keyboard and an Arduino. If you have any experience in programming but have not touched electronics before, you're still able to follow along. It's not difficult at all.
 
-The way I'm going to control an RC car is to open up its remote and plug an Arduino to it. This way i'm able to programmatically control the switches.
+The way I'm going to control an RC car is to open up its remote and plug an Arduino to it. This way I'm able to programmatically control the switches.
 
 Things you're going to need:
 
 * A cheap RC car (obviously)
-* An Arduino board
+* An Arduino board (I'm using an Arduino Uno)
 * Soldering equipment
 * Multimeter
 * Some electronic components
@@ -29,29 +29,40 @@ Things you're going to need:
   * a breadboard
   * jumper wires
 
-##Open the remote
+##What kind of a car do I need?
 
-When you have opened up the remote, you can see switches on the circuit board. The idea is that instead of pushing the switch you can simulate a switch being pressed with an Arduino. For that I'm going to use an optocoupler. They're integrated circuits which allow you to control devices that are on a different circuit. Inside an optocoupler is an LED and a light detector. When the LED is turned on the light detector closes a switch. This allows you to connect an Arduino to a different circuit and have them be electrically separated.
+I got the cheapest one I could find. The only requirement is that it should have on/off type controls. Meaning that if you press a switch, the car either drives forwards or does nothing.
+
+##Open up the RC controller
+
+The next step is to figure out how the RC controller works. It's relatively simple. When you open the controller, you can see switches on the circuit board. The idea is that instead of a human pushing a switch you can simulate a switch being pressed with an Arduino. For that I'm going to use an optocoupler. They're integrated circuits which allow you to control devices that are on a different circuit. Inside an optocoupler is an LED and a light detector. When the LED is turned on the light detector closes a switch. This allows you to connect an Arduino to a different circuit and have them be electrically separated.
 
 ![Optocoupler schematic]({{ site.url }}/images/2016-01-23-controlling-an-rc-car-with-arduino/optocoupler_diagram.jpg "Optocoupler schematic")
 
 Looking at the circuit, you need to determine which parts of the circuit are closed by the switch. Take out a multimeter, put it into diode mode and try to connect one end of the switch to ground. If you have the RC car turned on you should see a response from the car.
 
-##Solder wires
+##Soldering wires
 
 After doing some tests with a multimeter, you should have a pretty good understanding of the layout. The next step is to solder some wires to the circuit. I used 5 wires, 4 for each switch and 1 for ground. If you connect either of the four wires to ground, the corresponding switch should be closed and you should see a response from the car. Later I can plug the soldered wires to a breadboard.
 
-##Build a circuit
+The following is the result after I had finished soldering.
 
-When wires are soldered, the next step is to connect them to a breadboard and add some other electronic components there as well. I don't have a background in electrical engineering. Therefore I cannot draw you a schematic with the correct electrical symbols. But I can take a picture of the end result.
+![Wires soldered on the circuit]({{ site.url }}/images/2016-01-23-controlling-an-rc-car-with-arduino/soldered_circuit.jpg "Wires soldered on the circuit")
 
-//TODO:insert image of circuit
+##Building a circuit
 
-Arduino pins 2, 3, 4 and 5 are optocouplers through a 220k ohm resistor. In the picture, pin 2 and 3 control the backwards and forwards switch respectively. Pin number 4 and 5 are responsible for turning left or right. So for example when pin 2 outputs 5 volts, the RC car starts to drive backwards.
+When the soldering is done, the next step is to connect the wires to a breadboard and add some other electronic components there as well. I don't have a background in electrical engineering. Therefore I cannot draw you a schematic with the correct electrical symbols. But I can take a picture of the end result.
+
+![Arduino connected to a breadbord]({{ site.url }}/images/2016-01-23-controlling-an-rc-car-with-arduino/arduino_result.jpg "Arduino connected to a breadbord")
+
+![View of the circuit]({{ site.url }}/images/2016-01-23-controlling-an-rc-car-with-arduino/breadboard_result.jpg "View of the circuit")
+
+Arduino pins 2, 3, 4 and 5 are connected to optocouplers through a 220k ohm resistor. In the picture, pin 2 and 3 control the backwards and forwards switch respectively. Pin number 4 and 5 are responsible for turning left or right. So for example when pin 2 outputs 5 volts, the optocoupler closes its switch which in turn closes the switch in the remote's circuit and the car should start to drive backwards.
 
 ##Putting it into code
 
-My laptop is going to communicate with the Arduino using a serial connection over a USB cable. The goal is to send as little data as possible. I'm going to send a command only when a button is pressed or released. There's four different directions and two possible states, that means eight different commands in total.
+My laptop is going to communicate with the Arduino using a serial connection over a USB cable. The goal is to send as little data as possible. Therefore a command is sent only when a key is pressed or released. There's four different directions and two possible states (pressed and released), that means eight unique commands in total.
 
-###Python code
-###Arduino code
+On the laptop I run a Python script which starts to detect key presses and sends commands over a serial connection to an Arduino. Commands are received and processed by the Arduino. It stores whether a key is currently pressed or released and based on that sets the appropriate pins high or low.
+
+To see the source code, head over to [this Github repository](https://github.com/indrekots/rc-car-controller "Github repository containing the source code").
