@@ -49,6 +49,8 @@ The following is the result after I had finished soldering.
 
 ![Wires soldered on the circuit]({{ site.url }}/images/2016-01-23-controlling-an-rc-car-with-arduino/soldered_circuit.jpg "Wires soldered on the circuit")
 
+The bottom right wire is ground and the other four are connected to a switch. On this picture you can see a chip on the circuit. This is the RX2/TX2 chip that's found on most cheap RC cars. It uses 2 channels to control the car but apparently it has a [third unused channel](http://www.instructables.com/id/Hack-an-RC-cars-unused-5th-channel/ "third unused channel in RX2/TX2 chip"). If you're up for it you can build additional functionality to your car.
+
 ##Building a circuit
 
 When the soldering is done, the next step is to connect the wires to a breadboard and add some other electronic components there as well. I don't have a background in electrical engineering. Therefore I cannot draw you a schematic with the correct electrical symbols. But I can take a picture of the end result.
@@ -66,3 +68,7 @@ My laptop is going to communicate with the Arduino using a serial connection ove
 On the laptop I run a Python script which starts to detect key presses and sends commands over a serial connection to an Arduino. Commands are received and processed by the Arduino. It stores whether a key is currently pressed or released and based on that sets the appropriate pins high or low.
 
 To see the source code, head over to [this Github repository](https://github.com/indrekots/rc-car-controller "Github repository containing the source code").
+
+##Hack your own RC car!
+
+If you have not done anything like this before, then this is a good place to start. It is not difficult at all and it's satisfying to see the car move when you press a key on your keyboard. Make use of the source code provided. Modify it and make your own cool remote controlled car.
