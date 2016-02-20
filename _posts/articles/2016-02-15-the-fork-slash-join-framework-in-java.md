@@ -18,7 +18,7 @@ Introduced in Java 7, the fork/join framework is used to divide a parallelizable
 
 ##Getting started
 
-In essence, you need to extend the `RecursiveTask<R>` abstract class and implement the `compute()` method. The contents of the `compute()` method can be expressed with the following pseudocode.
+In essence, you need to create a task by extending the `RecursiveTask<R>` abstract class and implementing the `compute()` method. The contents of the `compute()` method can be expressed with the following pseudocode.
 
 {% highlight java %}
 if (task small enough) {
@@ -88,8 +88,3 @@ long[] numbers = LongStream.rangeClosed(1, 10000).toArray();
 LongSum longSum = new LongSum(numbers, 0, numbers.length);
 Long result = new ForkJoinPool().invoke(longSum);
 {% endhighlight %}
-##Support
-
-which java versions support it (8, 7, 6?)
-
-compare to executor service
