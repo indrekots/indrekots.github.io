@@ -12,7 +12,6 @@ url: http://blog.indrek.io
 
 permalink:   /:categories/:title/
 markdown:    kramdown
-highlighter: pygments
 sass:
   sass_dir: _sass
   style: compressed
@@ -25,6 +24,7 @@ kramdown:
   entity_output: as_char
   toc_levels: 1..2
   use_coderay: false
+  syntax_highlighter: rouge
 
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md", "vendor"]
