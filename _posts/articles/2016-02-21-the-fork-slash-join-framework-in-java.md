@@ -33,11 +33,11 @@ The implementation of [RecursiveTask](https://docs.oracle.com/javase/7/docs/api/
 
 ![fork/join diagram]({{ site.url }}/images/2016-02-15-the-fork-slash-join-framework-in-java/fork_join_diagram.png "fork/join diagram")
 
-##What if I don't want to return a result
+## What if I don't want to return a result
 
 *RecursiveTask* is a recursive result-bearing *ForkJoinTask*. If you only want to modify an existing data structure, what should be the return value of *RecursiveTask*? When your task returns no result, you should extend the [RecursiveAction](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/RecursiveAction.html "RecursiveAction documentation") abstract class which is a recursive resultless *ForkJoinTask*.
 
-##Example code
+## Example code
 
 Most of the time it's easier to just look at the code. Let's implement a very simple (and mostly useless) use case of the fork/join framework in Java. Summing the elements of an array should be a good place to start. First of all the following is an implementation of a *RecursiveTask*.
 
@@ -89,6 +89,6 @@ LongSum longSum = new LongSum(numbers, 0, numbers.length);
 Long result = new ForkJoinPool().invoke(longSum);
 {% endhighlight %}
 
-##Conclusion
+## Conclusion
 
 Concurrent programming can be difficult. If you're faced with a task that fits within the domain of the fork/join framework then you're in luck. Coming up with a multi-threaded algorithm yourself is error prone unless you're an expert in the field. When the fork/join framework does not suit your needs, you need to use other concurrency constructs provided by Java. I would definitely advise reading [Java Concurrency in Practice](http://jcip.net/ "Java Concurrency in Practice homepage") if you're interested learning more about concurrent programming in Java.
