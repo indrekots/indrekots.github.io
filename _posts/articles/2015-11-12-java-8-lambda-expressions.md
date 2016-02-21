@@ -18,7 +18,7 @@ In computer programming, an anonymous function (also function literal or lambda 
 
 Before Java 8, Java developers could use anonymous inner classes to achieve something similar to lambda expressions. [In my last post]({{site.url}}/articles/java-8-behavior-parameterization "Java 8: Behavior parameterization") I showed that this is verbose and discourages the use of passing code as a parameter.
 
-##Benefits
+## Benefits
 
 Technically lambdas do not help you do anything that you could not do prior to Java 8. Remember that anonymous inner classes can achieve the same result but with more boilerplate code. The benefit of lambdas is improved and more flexible code.
 
@@ -47,7 +47,7 @@ Making use of **method references**, this line can be improved even more.
 books.sort(comparing(Book::getAuthor));
 {% endhighlight %}
 
-##Syntax
+## Syntax
 
 The syntax of a lambda expression in Java is relatively easy.
 
@@ -67,7 +67,7 @@ If you have used lambda expressions in other languages you can see that the synt
 (parameters) -> { statements; }
 {% endhighlight %}
 
-##Type checking and type inference
+## Type checking and type inference
 
 The Java compiler can deduce the signature of a lambda expression. Therefore you do not have to explicitly define what types are used as parameters of a lambda expression. Looking at the book sorting example, it is possible to omit the `Book` type declarations.
 
@@ -87,7 +87,7 @@ This improves code readability and is especially useful if there's more than 2 p
 filter(books, b -> "Lewis Carrol".equals(b.getAuthor()));
 {% endhighlight %}
 
-##Where can I use a lambda expression
+## Where can I use a lambda expression
 
 I used a lambda expression where the method parameter list expected a `Comparator` object. In my [previous post]({{site.url}}/articles/java-8-behavior-parameterization "Java 8: Behavior parameterization") I gave an example of filtering a list of books and there I used a lambda expression where the method expected a `Predicate` object. So what's the common denominator here? What must be the type of the parameter so I can pass in a lambda expression?
 
@@ -101,7 +101,7 @@ Java 8 includes a lot of common functional interfaces which can be applied to mo
 
 Look into [`java.util.function` package](https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html "java.util.function package") for a longer list of available functional interfaces.
 
-##@FunctionalInterface
+## @FunctionalInterface
 
 `@FunctionalInterface` is an annotation which indicates that an interface is intended to be used as a functional interface. Additionally the compiler will give a helpful error if the interface defines more than one abstract method.
 

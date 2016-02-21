@@ -20,11 +20,11 @@ It might not come to you as a surprise that in software development user require
 
 Unfortunately there are applications which are not going to be upgraded to run with the latest release of Java. Therefore I'm going to cover alternative solutions which can be used on runtimes previous to Java 8. In this post I will start with examples on how to achieve behavior parameterization with previous Java versions and then compare these solutions to lambdas. In the process I'm trying to show how idioms from functional programming can make your life easier as a software developer.
 
-##TL;DR
+## TL;DR
 
 If you wish to see the end result, check out [this Github Gist](https://gist.github.com/indrekots/d2b786ec2d5a9d9e66b4 "link to super short overview") which tries to carry the essence of this post in code.
 
-##Example domain
+## Example domain
 
 Let's look at an example of filtering Java objects. More specifically, I'm going to use Java 7 to filter a list of `book` objects without using any external libraries. The book class has 3 fields: `name`, `pageCount` and `author`. Imagine we have a library application and according to requirements it should be possible to find books that have more than 200 pages.
 
@@ -52,7 +52,7 @@ public static List<Book> findLongNovels(List<Book> books) {
 }
 {% endhighlight %}
 
-##Changing requirements
+## Changing requirements
 
 Everything's fine and dandy, right? As is customary, requirements change and new requirements are added. Now the library application should be able to filter books by author. Pretty simple to accomplish. Just use the same general layout as before.
 
@@ -68,7 +68,7 @@ public static List<Book> filterBooksByAuthor(List<Book> books, String author) {
 }
 {% endhighlight %}
 
-##Code reuse
+## Code reuse
 
 If you compare `filterBooksByAuthor` to the previous `findLongNovels` method, you can clearly see that they're very similar. This is a [WET](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "Wikipedia DRY vs WET") solution. Let's [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "Wikipedia DRY vs WET") it up. The overall structure is the same. Code iterates over a list of books and applies a filtering clause. The goal is to keep the iteration and filtering separate. When using Java 7, we could create a `BookPredicate` interface which could define the logic for filtering. A [predicate](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic) "Wikipedia: Predicate (mathematical logic)") is essentially a boolean-valued function. Since Java 7 does not have lambdas, we're going to wrap the predicate in a class.
 
@@ -128,11 +128,11 @@ filterBooks(books, lengthPredicate);
 filterBooks(books, authorPredicate);
 {% endhighlight %}
 
-##Too verbose?
+## Too verbose?
 
 Now we're not repeating ourselves but hey, that's a lot of code to write. As they say, **Java is verbose**. Initially there were 2 methods that filtered books. That's about 15 lines of code. After removing duplicate code and moving filtering logic to separate classes there's more than 30 lines. Although this is not much for a small project, with a large project the lines add up. Is there anything that can be done to write more concise code?
 
-##Anonymous inner classes
+## Anonymous inner classes
 
 Instead of defining a concrete implementation of a `BookPredicate`, let's create one on the fly.
 
@@ -147,7 +147,7 @@ filterBooks(books, new BookPredicate() {
 
 That's pretty concise. It looks almost like a lambda. As a matter of fact, when using Java 8, IDEs will suggest you to replace it with a lambda.  The downside of an anonymous inner class is that it comes with boilerplate code. A new object needs to be instantiated, a method is needed to be overridden and some curly braces here and there. That boilerplate makes it harder to focus on the part that's actually important - the comparison inside the `test` method.
 
-##Using third party libraries
+## Using third party libraries
 
 As expected, libraries are created to overcome the shortcomings of a language. Uncle Bob writes in his [blog post](http://blog.8thlight.com/uncle-bob/2015/08/06/let-the-magic-die.html "Make the Magic go away by Uncle Bob") that we write frameworks to compensate for the lack of features that we wish were in our language. Every framework you've ever seen is really just an echo of this statement:
 
@@ -174,7 +174,7 @@ filter(having(on(Book.class).getAuthor(), equalTo("Lewis Carrol")), books);
 
 Wow, all that in one line. This will get a bit messier if there's a more complicated filtering clause though.
 
-##Java 8 lambdas
+## Java 8 lambdas
 
 The latest release brings some new features which will improve code readability and help the language stay competitive in the future. Let's look at the book filtering example and see how behavior parameterization can be used with lambdas built into the language.
 
@@ -206,7 +206,7 @@ books.stream().filter(b -> "Lewis Carrol".equals(b.getAuthor())).collect(toList(
 
 As it can be seen, the list of books is not passed to a method but we can call the `filter` method on it by first creating a stream from it. Iteration is handled by the Streams API and behavior is parameterizable thanks to lambdas. So instead of writing a lot of boilerplate code, Java 8 takes care of the commonly occurring tasks and you can solve the problem at hand with just one line of code.
 
-##Remember those changing requirements?
+## Remember those changing requirements?
 
 In the beginning of this post I gave an example of changing requirements. Now that lambdas can be used, let's see how the library application can handle a new feature request. It should be possible to find books that have more than 200 pages.
 
@@ -216,12 +216,12 @@ books.stream().filter(b -> b.getPageCount() > 200).collect(toList());
 
 Without modifying any existing code, it is very easy to filter the list of books with a new behavior.
 
-##Retrolambda
+## Retrolambda
 
 If you're using previous versions of Java then you can still take advantage of lambdas by using [Retrolambda](https://github.com/orfjackal/retrolambda "Retrolambda Github repository"). It lets you run Java 8 code with **lambda expressions**, **method references** and **try-with-resources statements** on Java 7, 6 or 5. It does this by transforming your Java 8 compiled bytecode so that it can run on an older Java runtime. I'm not an expert of its inner workings but from what I've read, it replaces lambdas with anonymous inner classes.
 
 Retrolambda does not backport the Streams API though. For that you could use [streamsupport](http://sourceforge.net/projects/streamsupport/ "streamsupport Sourceforge page").
 
-##Summary
+## Summary
 
 Using idioms common in functional programming can greatly improve the readability of the code. Behavior parameterization is great because it enables you to separate the code that iterates over a collection from the behavior that is applied to each element of the collection. This results in better code reuse and helps you write more flexible APIs.

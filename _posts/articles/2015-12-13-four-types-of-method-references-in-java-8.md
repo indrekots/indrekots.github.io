@@ -25,7 +25,7 @@ Java 8 includes four types of method references:
 
 Let's go over each type.
 
-##A method reference to a static method
+## A method reference to a static method
 
 This is probably the easiest to explain with the following example:
 
@@ -35,7 +35,7 @@ Class::staticMethod
 
 Rather than using `s -> Integer.parseInt(s)`, the same can be achieved with `Integer::parseInt`.
 
-##A method reference to an instance method of an arbitrary type
+## A method reference to an instance method of an arbitrary type
 
 The idea with this type of method reference is that you’re referring to a method of an object that will be supplied as one of the parameters of the lambda.
 
@@ -50,7 +50,7 @@ can be written as
 String::toUpperCase
 {% endhighlight %}
 
-##A method reference to an instance method of an existing object
+## A method reference to an instance method of an existing object
 
 With this method reference type you can refer to a method of an existing object. For example you might have an instance variable `books` which is of type `List<Book>`. Instead of referring to the size of the list with a full lambda expression
 
@@ -64,7 +64,7 @@ you could use a method reference
 books::size
 {% endhighlight %}
 
-##Constructor reference
+## Constructor reference
 
 It is possible to reference a constructor with the following syntax `Class::new`. It works similarly to the reference to a static method. Continuing with the book theme, you can reference a no arguments constructor of a `Book` class
 
@@ -81,7 +81,7 @@ Function<String, Book> b = Book::new;
 Book book = b.apply("All Quiet on the Western Front");
 {% endhighlight %}
 
-##Special forms of method references
+## Special forms of method references
 
 **Reference to an array constructor**
 
@@ -118,6 +118,6 @@ The `super` keyword can be used the same way. Imagine that the `sayHello()` meth
 new Thread(super::sayHello).start();
 {% endhighlight %}
 
-##Conclusion
+## Conclusion
 
 In a nutshell, you can think of method references as syntactic sugar for lambdas. Using them can help the code gain readability. Short, one line lambdas are easy to read, but if your code or the Java API provides a method which you can refer to, then it's better to use a method reference. Deciding if it is worth extracting a long and complex lambda to a method is up to you. It depends on the context and I think there's no definitive answer.

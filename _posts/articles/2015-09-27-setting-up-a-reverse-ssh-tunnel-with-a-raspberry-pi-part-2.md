@@ -16,7 +16,7 @@ published: true
 
 Last time we got a Raspberry Pi set up and a VPS ready and accessible via SSH. If you have not read [part 1]({{site.url}}/articles/setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi/ "part 1 of setting up a reverse ssh tunnel with a raspberry pi") then I strongly encourage you to do that. In part 2 I promised to show an example use case on how to connect to a Windows Server over RDP via a reverse SSH tunnel.
 
-##Testing SSH access
+## Testing SSH access
 
 First, let's make sure that the reverse SSH tunnel is working as expected. I'm going to create an SSH session to the VPS and from there I'm going to create another SSH session to the Pi.
 
@@ -34,11 +34,11 @@ Why connect to `localhost` on port `2222`? Recall from [part 1]({{site.url}}/art
 
 If you were able to connect to your Pi then the tunnel is working.
 
-##Tunneling RDP traffic
+## Tunneling RDP traffic
 
 For the sake of the example I'm going to assume the IP of the Windows Server at the office network is `192.168.1.10` and the server outside of the network can be accessed via `myserver.com`. Two SSH tunnels are needed to forward traffic from the client machine to `myserver.com` and from there to the Pi.
 
-###External server -> Raspberry Pi -> Windows Server
+### External server -> Raspberry Pi -> Windows Server
 
 First of all, I'm going to create a tunnel to forward RDP traffic from `myserver.com` to the Windows Server.
 
@@ -48,7 +48,7 @@ $ ssh -L 3000:192.168.1.10:3389 pi@localhost -p 2222
 
 This forwards all connections made to `localhost` on port `3000` to the Windows Server (`192.168.1.10`) using port `3389`. `-L` flag specifies that the given port on the local (client) host is to be forwarded to the given host and port on the remote side. It is achieved by creating an SSH tunnel to the Pi via a reverse SSH tunnel we set up previously. Note that `pi@localhost -p 2222` in the command is the same used previously to test the SSH tunnel.
 
-###Client machine -> External server
+### Client machine -> External server
 
 From the client machine an SSH tunnel must be created to forward all connections made to `localhost` port `5000` (just a random port I chose) to the external server.
 
@@ -58,7 +58,7 @@ $ ssh -L 5000:localhost:3000 user@myserver.com
 
 Now when you connect your RDP client to `localhost:5000`, this connection is forwarded to `myserver.com` and from there a new connection is made to `localhost:3000`. Looking at the preceding step, you can see that this will be in turn forwarded the Windows Server.
 
-##Recap
+## Recap
 
 In short, the following steps were done:
 
@@ -66,6 +66,6 @@ In short, the following steps were done:
 2. From an outside server tunnel incoming traffic to the Pi and from there to the Windows Server.
 3. From the client machine tunnel RDP traffic to an outside server.
 
-##Summary
+## Summary
 
 There are a couple of more things you need to do to make it a reliable solution. Obviously the steps need to be automated. It can get cumbersome to create two SSH tunnels over and over again. Additionally the reverse SSH tunnel needs to be kept alive. Network errors and power outages can occur which will kill the tunnel. This means you have to physically go to the Pi and redo the tunnel. I would recommend creating a cronjob which checks if the tunnel is up and recreates it if it is not.
