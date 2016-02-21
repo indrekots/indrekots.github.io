@@ -6,9 +6,9 @@ modified: 2013-10-09 14:28:17 +0300
 categories: articles
 tags: [php, background processing, cron, unix, composer, redis, resque]
 image:
-  feature: 
-  credit: 
-  creditlink: 
+  feature:
+  credit:
+  creditlink:
 comments: true
 share: true
 ---
@@ -21,7 +21,7 @@ This series of posts covers some of the solutions for implementing a background 
 
 On Windows you can use the [Task Scheduler](http://en.wikipedia.org/wiki/Windows_Task_Scheduler) but this is not going to be covered in this post.
 
-###Cron jobs
+## Cron jobs
 
 Cron is a daemon which executes commands at a specified point in time. To add a new job, let's use the `crontab` editor.
 
@@ -42,12 +42,12 @@ The contents of `hw.php` could simply look like this:
 {% highlight php %}
 <?php
   echo "Hello World\n";
-?> 
+?>
 {% endhighlight %}
 
 Now in every 2 minutes, the log file is updated with a new line. Based on this simple example, we can build a more sophisticated solution which actually does something useful for our web application. For example, the cron job could pull data from an external webservice for caching purposes.
 
-###Additional tips
+## Additional tips
 
 Depending on your setup, you might run into permission issues. To avoid that, create the cron job under your webserver's user. Apache is usually running under `www-data`.
 
@@ -66,6 +66,6 @@ Include your web application's autoloader into your PHP cron job script. This wa
 
 If you are using [Composer](http://getcomposer.org/) in your application, you could make use of [Composer hooks](http://getcomposer.org/doc/articles/scripts.md) and automate the process of adding a cron job. Finally, it is a good practice to implement some form of logging for your background job. You can redirect the standard output to a file as shown previously, or you could use a separate logging framework. In addition, setting up a monitoring environment for cron jobs does not hurt as well.
 
-###End of part 1
+## End of part 1
 
 This was a simple example on how to use cron jobs for background processing for a PHP application. In the [next part](http://blog.indrek.io/articles/background-jobs-with-php-part-2/ "Part 2 of background jobs in PHP"), we'll look at how to build a queue system with [Resque](https://github.com/resque/resque) and [Redis](http://redis.io).

@@ -6,9 +6,9 @@ modified: 2013-10-21 23:37:47 +0300
 categories: articles
 tags: [background, job, php, php-resque, phpredis, redis, resque, tutorial]
 image:
-  feature: 
-  credit: 
-  creditlink: 
+  feature:
+  credit:
+  creditlink:
 comments: true
 share: true
 published: true
@@ -18,7 +18,7 @@ Previously, in [part 1]({{site.url}}/articles/background-jobs-with-php-part-1 "P
 
 Redis is an open source, BSD licensed, advanced key-value store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets and sorted sets.
 
-###Dependencies
+## Dependencies
 
 Following software packages are used in this tutorial:
 
@@ -26,11 +26,11 @@ Following software packages are used in this tutorial:
 * Predis - library for accessing Redis key-value store
 * php-resque - PHP port of Resque
 
-###Installation
+## Installation
 
 Redis can be downloaded at [http://redis.io/download](http://redis.io/download "Redis download link"). If you're running some flavour of Linux, then you might find Redis in it's package repositories as well. Predis can be acquired at the project's [Github page](https://github.com/nrk/predis "Predis Github page"). It is also available on [Packagist](https://packagist.org/packages/predis/predis "Predis packagist page") for an easy installation using [Composer](http://getcomposer.org/ "Composer homepage"). Finally, php-resque can be found on [Github](https://github.com/chrisboulton/php-resque "php-resque Github page") too. Composer users can find it on [Packagist](https://packagist.org/packages/chrisboulton/php-resque "php-resque on Packagist").
 
-###General overview
+## General overview
 
 We are going to create background workers which are going to process jobs. Jobs are pushed and held in a queue. Workers pull jobs from the queue and execute them. In essence, there are 4 parts to the system:
 
@@ -38,7 +38,7 @@ We are going to create background workers which are going to process jobs. Jobs 
 * Jobs - a unit of work to be processed
 * Pushers - a process that  pushes  jobs into queues. This process can be anything, a request from the web server or even a worker that creates additional jobs from its previous input.
 
-###Job
+## Job
 
 Job is an order for the worker to execute a certain task. To create a job with php-resque, you need to create a new class which implements a `perform()`  method. I would create a new interface which defines the `perform()` method and let concrete job classes implement the Job interface.
 
@@ -48,12 +48,12 @@ Job is an order for the worker to execute a certain task. To create a job with p
  */
 interface Job
 {
- 
+
   /**
    * Executes the job
    */
   public function perform();
- 
+
 }
 {% endhighlight %}
 
@@ -69,7 +69,7 @@ class HelloJob implements Job
 
 Of course in a real world application, this job would do something more important and probably be more complex as well. Now that we have a simple job, let's create some workers.
 
-###Workers
+## Workers
 
 To create a new worker, you need to provide some environment variables. Firstly, the QUEUE variable defines which queue the worker is going to poll.
 
@@ -107,7 +107,7 @@ you should see some output about the created worker, it's PID (process id) and t
 [info] [15:32:44 2013-10-17] Sleeping for 10
 {% endhighlight %}
 
-###Running a worker in the background
+## Running a worker in the background
 
 Currently, if you close your commandline, the worker will be killed as well. To run the command  as a daemon, add an ampersand (&) at the end of the command.
 
@@ -141,7 +141,7 @@ nohup sudo -u www-data QUEUE=myQueue INTERVAL=10 php resque.php >> /path/to/log/
 
 Let's recap. This command creates a worker which polls the myQueue queue in every 10 seconds. It's output (*stderr* and *stdout*) is appended to a *workers.log* file. The worker runs with the same privileges as the web server and it runs as a daemon. The daemon is not killed if the user logs out.
 
-###Adding a job to a queue (pushing)
+## Adding a job to a queue (pushing)
 
 {% highlight php startinline=true %}
 Resque::enqueue("default", 'application\models\jobs\TestJob', array("arg1" => "myArg1");
@@ -149,7 +149,7 @@ Resque::enqueue("default", 'application\models\jobs\TestJob', array("arg1" => "m
 
 The first argument is the name of the queue. The second argument is a job class and finally you can provide arguments to your job class. To access the arguments array in the job class, use `$this->args`. If your job class has a namespace then make sure you provide the class' fully qualified name. When this line is executed and you have workers running, you should see "Hello world" printed to your workers.log file.
 
-###Stopping/Killing a worker
+## Stopping/Killing a worker
 
 First and foremost, to view all the workers currently running, run:
 
@@ -169,7 +169,7 @@ PID is a process identifier. This is the number in the second column when runnin
 kill -9 PID
 {% endhighlight %}
 
-###Final thoughts
+## Final thoughts
 
 This was a general overview on how to implement job queues with Redis and Resque. For more information on usage, visit php-resque [Github page](https://github.com/chrisboulton/php-resque "php-resque Github page"). As it can be seen, manual work has to be done to create workers. It would be much more convenient if they were initiated automatically. A bash script is helpful. If you are using Composer, you could use hooks to initiate all the required workers. In addition, the stopping and killing of workers could be automated as well.
 

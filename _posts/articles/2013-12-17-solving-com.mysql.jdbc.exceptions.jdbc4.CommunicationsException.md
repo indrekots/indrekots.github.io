@@ -6,9 +6,9 @@ modified: 2013-12-17 17:23:11 +0300
 categories: articles
 tags: [java, mysql, jdbc, exception, dbcp, spring]
 image:
-  feature: 
-  credit: 
-  creditlink: 
+  feature:
+  credit:
+  creditlink:
 comments: true
 share: true
 published: true
@@ -22,13 +22,13 @@ com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link fai
 
 As usual, I opened a new browser tab and started googling for possible solutions. To my amazement, I found a lot of proposed solutions. I'm going to list 2 of them that worked for me.
 
-##1. Add *?autoReconnect=true* to you JDBC URL
+## 1. Add *?autoReconnect=true* to you JDBC URL
 
 {% highlight java %}
 jdbc:mysql://localhost:3306/?autoReconnect=true
 {% endhighlight %}
 
-##2. Using DBCP as connection pool with Spring
+## 2. Using DBCP as connection pool with Spring
 
 Add the following entries to your datasource definition (the last 2 property elements):
 

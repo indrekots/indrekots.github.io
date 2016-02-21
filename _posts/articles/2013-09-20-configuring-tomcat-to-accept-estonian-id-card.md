@@ -6,9 +6,9 @@ modified: 2013-09-20 18:17:21 +0300
 categories: articles
 tags: [apache, tomcat, esteid, client certificates, ssl, tls, java, pki, crl, ocsp]
 image:
-  feature: 
-  credit: 
-  creditlink: 
+  feature:
+  credit:
+  creditlink:
 comments: true
 share: true
 published: true
@@ -16,9 +16,9 @@ published: true
 
 In order to accept Estonian ID card, Tomcat needs to be configured to accept client side certificates. But before that, [SSL needs to be configured]({{site.url}}/articles/configure-ssl-on-apache-tomcat "Configure SSL on Apache Tomcat").
 
-##Setting up client side authentication
+## Setting up client side authentication
 
-First you need all SK's root certificates. 
+First you need all SK's root certificates.
 
 > SK (Certification Centre, legal name AS Sertifitseerimiskeskus) is Estonia's primary and currently the only certification authority (CA), providing certificates for authentication and digital signing to national identity documents (ID-card, residence permit, Digi-ID, Mobiil-ID).
 
@@ -45,9 +45,9 @@ Modify your SSL connector element in the `server.xml` file.
 {% highlight xml %}
 <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
                maxThreads="150" scheme="https" secure="true"
-               clientAuth="true" sslProtocol="TLS" 
-               keystoreFile="/path/to/.keystore" keystorePass="changeit" 
-               truststoreFile="/path/to/.keystore" 
+               clientAuth="true" sslProtocol="TLS"
+               keystoreFile="/path/to/.keystore" keystorePass="changeit"
+               truststoreFile="/path/to/.keystore"
                truststorePass="changeit" />
 {% endhighlight %}
 

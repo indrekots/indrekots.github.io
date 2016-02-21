@@ -6,9 +6,9 @@ modified: 2013-12-24 13:01:32 +0300
 categories: articles
 tags: [java, mock, stub, mockito, testing, tutorial, maven, gradle]
 image:
-  feature: 
-  credit: 
-  creditlink: 
+  feature:
+  credit:
+  creditlink:
 comments: true
 share: true
 published: true
@@ -20,13 +20,13 @@ published: true
 
 Mock objects mimic real and often complex objects. They're used in unit tests instead of actual objects when the actual object is impractical or impossible to instantiate. For example, testing a behavior which depends on an external webservice is non-deterministic and costly to set up in a unit test. Therefore it is a good idea to mock the service so it can respond fast and return expected results.
 
-##Getting started
+## Getting started
 
 I'm going to assume you have Mockito already in place and ready to go. Whether you got it via a build system (e.g. [Maven](https://maven.apache.org/ "Apache Maven Project homepage") or [Gradle](https://gradle.org/ "Gradle homepage")) or manually, it does not matter.
 
 Fristly, let's look at how to stub a method. We have a user data access object which communicates with a database. In a unit test it is preferred to mock data access to get deterministic results and have a faster running test suite.
 
-To improve code readablity, use a static import	
+To improve code readablity, use a static import
 {% highlight java %}
 import static org.mockito.Mockito.*;
 {% endhighlight %}
@@ -45,7 +45,7 @@ when(userDao.getById(1L)).thenReturn(new User("Mario"));
 
 This almost reads like a sentence, right? Whenever `getById()` is called with `1L`, new user `Mario` is returned.
 
-##Throwing exceptions
+## Throwing exceptions
 
 What if instead of returning a new user you want to test an edge case. Suppose `userDao` is implemented to throw an exception when a user is not found. Mockito provides a `thenThrow()` method.
 
@@ -53,7 +53,7 @@ What if instead of returning a new user you want to test an edge case. Suppose `
 when(userDao.getById(1L)).thenThrow(new NoResultException());
 {% endhighlight %}
 
-##Keeping internal state
+## Keeping internal state
 In some cases it might be useful to keep internal state. Think of a situation where you would like to call the same method multiple times and you need it to return different results. Here's where Mockito's `Answer` interface comes into play. It provides us a way to create stateful mocks.
 
 Let's look at the following example
@@ -75,7 +75,7 @@ assertEquals("Bowser", appService.processNextApplicant().getApplicantName());
 
 ApplicantQueue is an abstraction of a JMS queue. AppService has a mocked instance of `ApplicantQueue` and uses it in the `processNextApplicant()` method to retrieve the next applicant. Using the `Answer` interface we can mock the behaviour of the queue and return deterministic results. For a full example, checkout [this Github project](https://github.com/indrekots/mockito-examples "mockito-examples Github project").
 
-##Verify number of invocations
+## Verify number of invocations
 
 Mockito's `verify()` method is going to come handy when you have a test where you need to check now many times a method was called.
 
@@ -94,7 +94,7 @@ verify(mock, never()).add("third element");
 
 The test will pass because `"third element"` was never added to the list. For a full example, checkout [this Github project](https://github.com/indrekots/mockito-examples "mockito-examples Github project").
 
-##Capture method parameters
+## Capture method parameters
 
 By now you should know how to mock complex objects and their behaviour in unit tests but it would be good to know how to capture and check the parameters passed to a mock. Mockito provides an `ArgumentCaptor` class which, as the name implies, can be used to capture arguments for further assertion.
 
@@ -108,6 +108,5 @@ assertEquals("Mario", captor.getValue().getApplicantName());
 
 New ArgumentCaptor is created and its `capture()` method is called inside of verification. Later it is possible to retrieve the value that was passed to the `push()` method. For a full example, checkout [this Github project](https://github.com/indrekots/mockito-examples "mockito-examples Github project").
 
-##Summary
+## Summary
 Mockito is much larger than this relatively short blog post. Make sure to check out [Mockito's website](http://mockito.org "Mockito's website") for more information and documentation.
-
