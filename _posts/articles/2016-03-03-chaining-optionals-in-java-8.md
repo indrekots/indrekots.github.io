@@ -43,4 +43,15 @@ A lot of other languages have introduced a *Maybe* type - something that represe
 
 ## Optional<T>
 
- 
+Optional is a container object which may or may not contain a non-null value. It has many useful methods that make programming without null checks more convenient. Let's look at a few examples.
+
+The example domain contains books. There's a method which can return a book by its title. The method itself returns an `Optional<Book>`.
+{% highlight java %}
+Optional<Book> book = findBook("The War of the Worlds");
+{% endhighlight %}
+
+To get the contents of the *Optional* container, you can call the `get()` method on it. If you're unsure if the container contains a non-null value, it is possible to use the `isPresent()` method. It returns `true` if it contains a non-null value. Be aware that checking the container for contents and then retrieving it defeats the purpose of *Optionals* in my opinion. In terms of superfluous if-statements, it is the same as checking if an object is null or not.
+
+Instead I would advise you to look at the methods provided by the [Optional class](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html "Java Optional javadoc page") and see if you can come up with a more clever solution. The following are a few useful use cases where Optional is used.
+
+#useful examples of optionals using map, flatmap, filter etc.
