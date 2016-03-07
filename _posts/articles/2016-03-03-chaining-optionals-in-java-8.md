@@ -54,4 +54,25 @@ To get the contents of the *Optional* container, you can call the `get()` method
 
 Instead I would advise you to look at the methods provided by the [Optional class](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html "Java Optional javadoc page") and see if you can come up with a more clever solution. The following are a few useful use cases where Optional is used.
 
-#useful examples of optionals using map, flatmap, filter etc.
+##useful examples of optionals using map, flatmap, filter etc.
+
+Let's look at some examples of Optionals in action. As previously mentioned, calling the `get()` method on an Optional, will return its contents. Instead of calling `get()` it's better to use the `orElse()` method to which you can pass a value that will be returned if the Optional contains a null reference.
+
+{% highlight java %}
+Optional<Book> bookOptional = findBook("The War of the Worlds");
+Book book = bookOptional.orElse(new Book());
+{% endhighlight %}
+
+If the Optional contains a null reference, a new book is returned. Depending on the situation, returning a plain Book object might not desirable since all of it's fields are empty. The API provides other useful methods  as well.
+
+{% highlight java %}
+Optional<Book> bookOptional = findBook("The War of the Worlds");
+Book book = bookOptional.orElseGet(Book::defaultBook);
+{% endhighlight %}
+
+The `orElseGet()` method expects a lambda expression which should return a new Book. In this example I provided a method reference which returns a default book.
+
+Rather than retrieving a Book object, you can get the fields from the Book object inside the Optional container.
+{% highlight java %}
+
+{% endhighlight %}
