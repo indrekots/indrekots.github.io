@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Chaining optionals in Java 8"
+title: "Optionals in Java 8"
 excerpt:
 modified: 2016-03-03 07:16:38 +0200
 categories: articles
@@ -13,23 +13,12 @@ comments: true
 share: true
 published: true
 ---
-## Intro
-What is optional
-When to use it
-Other libraries
-Similarities from other languages
 
-##Chaining optionals
-motivation
-feature missing from java 8
-what's coming in jdk9
+ifpresent, flatmap
 
-## Downsides
-https://developer.atlassian.com/blog/2015/08/optional-broken/
+## Problems with null
 
-## problems with null
-
-If you have had any experience with Java, then you probably have seen the *NullPointerException* which is thrown when an application tries to use `null` in a case where an object is required. This can lead to superfluous if-statements checking to see if a reference is null or not.
+If you have had any experience with Java, then you probably have seen the *NullPointerException* which is thrown when an application tries to use a null reference in a case where an object is required. This can lead to superfluous if-statements checking to see if a reference is null or not.
 
 Null references were implemented because they were the easiest method to implement the absence of a value. Tony Hoare, a British computer scientist, designer of the [ALGOL W programming language](https://en.wikipedia.org/wiki/ALGOL_W "Wikipedia page of ALGOL W") and the inventor of null references called it his [billion-dollar mistake](https://www.lucidchart.com/techblog/2015/08/31/the-worst-mistake-of-computer-science/ "Blog post about the worst mistake of computer science").
 
@@ -45,16 +34,19 @@ A lot of other languages have introduced a *Maybe* type - something that represe
 
 Optional is a container object which may or may not contain a non-null value. It has many useful methods that make programming without null checks more convenient. Let's look at a few examples.
 
-The example domain contains books. There's a method which can return a book by its title. The method itself returns an `Optional<Book>`.
+The example domain contains books. Creating an optional is easy. The class provides static methods to do so.
 {% highlight java %}
-Optional<Book> book = findBook("The War of the Worlds");
+//create an empty optional
+Optional<Book> empty = Optional.empty();
+//create an instance of a Book and wrap it inside an Optional
+Optional<Book> bookOptional = Optional.of(new Book());
 {% endhighlight %}
 
 To get the contents of the *Optional* container, you can call the `get()` method on it. If you're unsure if the container contains a non-null value, it is possible to use the `isPresent()` method. It returns `true` if it contains a non-null value. Be aware that checking the container for contents and then retrieving it defeats the purpose of *Optionals* in my opinion. In terms of superfluous if-statements, it is the same as checking if an object is null or not.
 
 Instead I would advise you to look at the methods provided by the [Optional class](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html "Java Optional javadoc page") and see if you can come up with a more clever solution. The following are a few useful use cases where Optional is used.
 
-##useful examples of optionals using map, flatmap, filter etc.
+##Examples of Optional
 
 Let's look at some examples of Optionals in action. As previously mentioned, calling the `get()` method on an Optional, will return its contents. Instead of calling `get()` it's better to use the `orElse()` method to which you can pass a value that will be returned if the Optional contains a null reference.
 
@@ -70,9 +62,25 @@ Optional<Book> bookOptional = findBook("The War of the Worlds");
 Book book = bookOptional.orElseGet(Book::defaultBook);
 {% endhighlight %}
 
-The `orElseGet()` method expects a lambda expression which should return a new Book. In this example I provided a method reference which returns a default book.
+The `orElseGet()` method expects a [lambda expression]({{site_url}}/articles/java-8-lambda-expressions/) which should return a new Book. In this example I provided a [method reference]({{site_url}}/articles/four-types-of-method-references-in-java-8/) which returns a default book.
 
-Rather than retrieving a Book object, you can get the fields from the Book object inside the Optional container.
+Rather than retrieving a Book object, you can extract the instance fields from the Book object inside the Optional container. In the following example we get the name of the book. If the name is not present or there's no book at all, a default value is presented.
 {% highlight java %}
-
+String name = bookOptional.map(Book::getName).orElse("Name not provided");
 {% endhighlight %}
+
+The same method can be used if there's a chain of objects.
+
+{% highlight java %}
+String name = bookOptional.map(Book::getPublisher).map(Publisher::getName).orElse("Unknown publisher");
+{% endhighlight %}
+
+If there's a null reference in the chain, "Unknown publisher" is returned.
+
+## Other useful methods
+
+I don't intend to write about all the API methods. But just so you know, there are other useful methods that might interest a Java developer (e.g. `filter()` and `flatMap()`). I'd strongly encourage you to look at the [Javadoc for the *Optional* class](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#get-- "Optional javadoc page").
+
+## Summary
+
+If you're used to checking if a value is null then Optionals require a slightly different mindset. With the support of [lambda expressions]({{site_url}}/articles/java-8-lambda-expressions/) it is possible to avoid null checks unless you're using an older Java library which does not support Optionals. The solution here would be to create a wrapper but it's up to you to decide if the effort is worth it. Optionals are not serializable and are not meant to be used as field types. Therefore if you plan to use Optionals in your domain model, I would use the actual types as field types and return Optionals from getters. This can provide you with better compatibility with ORM frameworks.
