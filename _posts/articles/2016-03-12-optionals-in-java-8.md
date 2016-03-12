@@ -46,7 +46,7 @@ To get the contents of the *Optional* container, you can call the `get()` method
 
 Instead I would advise you to look at the methods provided by the [Optional class](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html "Java Optional javadoc page") and see if you can come up with a more clever solution. The following are a few useful use cases where Optional is used.
 
-##Examples of Optional
+## Examples of Optional
 
 Let's look at some examples of Optionals in action. As previously mentioned, calling the `get()` method on an Optional, will return its contents. Instead of calling `get()` it's better to use the `orElse()` method to which you can pass a value that will be returned if the Optional contains a null reference.
 
