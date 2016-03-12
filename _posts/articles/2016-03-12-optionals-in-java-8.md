@@ -7,8 +7,8 @@ categories: articles
 tags: [java,java 8,optional,lambda,null reference]
 image:
   feature: 2016-03-12-optionals-in-java-8/cover.jpg
-  credit:
-  creditlink:
+  credit: Sebastian Unrau
+  creditlink: https://unsplash.com/photos/CoD2Q92UaEg
 comments: true
 share: true
 published: true
