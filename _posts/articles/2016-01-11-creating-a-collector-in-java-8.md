@@ -36,7 +36,7 @@ To understand what collectors do and how they work, let's have a look at existin
 * Grouping stream elements
 * Partitioning stream elements
 
-## #Collector returning a single value
+## Collector returning a single value
 
 An example of a collector which returns a single value is `counting()`. This counts the number of elements in a stream. Other notable collectors in this group include: `maxBy()`, `minBy()`, `summingInt()`.
 
