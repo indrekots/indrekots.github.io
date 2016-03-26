@@ -13,5 +13,34 @@ comments: true
 share: true
 published: true
 ---
+[Optionals in Java](({{site_url}}/articles/optionals-in-java-8/ "What are Optionals?")) can help you to write a program without *null checks*. In addition they can make your code more concise and easier to read. Let's look at an example how chaining Optionals in a *Stream* can help you avoid unnecessary *null checks*.
 
-In one of my [previous posts]({{site_url}}/articles/optionals-in-java-8/) I described what are Optionals and how to use them in Java 8. In this post I'm going to go over how to chain optionals so that the first one that's present is returned. If none are present, an empty optional is returned. This method could be used in a use case where you need to pick a value from a list of sources and always pick the first one where the value is available.
+The purpose of chaining optionals in a stream is to pick the first Optional which has a value and return it. You could have multiple service methods which return optionals. Passing them to a stream as method references allows you to process them lazily and return as soon as there's something to return.
+
+The following utility method takes *Suppliers* as arguments and returns the first Optional which has a value.
+{% highlight java %}
+public static <T> Optional<T> first(Supplier<Optional<T>>... suppliers) {
+    return Arrays.asList(suppliers).stream()
+            .map(Supplier::get)
+            .flatMap(o -> o.map(Stream::of).orElseGet(Stream::empty))
+            .findFirst();
+}
+{% endhighlight %}
+
+It is possible to use method references or lambda expressions.
+
+{% highlight java %}
+first(this::find1, this::find2, this::find3);
+{% endhighlight %}
+
+JDK8 does not provide a convenient API for converting a Stream out of an Optional. Apparently this is going to be [fixed in JDK9](https://bugs.openjdk.java.net/browse/JDK-8050820 "OpenJDK issue tracker") and the utility method could be written as
+
+{% highlight java %}
+public static <T> Optional<T> first(Supplier<Optional<T>>... suppliers) {
+return Arrays.asList(suppliers).stream()
+        .map(Supplier::get)
+        .flatMap(Optional::stream)
+        .findFirst();
+{% endhighlight %}
+
+Think about how to implement the same concept without using Optionals or lambda expressions. It would probably include multiple null checks.
