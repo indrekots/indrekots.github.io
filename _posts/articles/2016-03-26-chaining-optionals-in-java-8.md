@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Chaining Optionals in Java 8"
-excerpt: The purpose of chaining Optionals in a Stream is to pick the first Optional which has a value and return it.
+excerpt: Optionals in Java can help you to write a program without null checks. Chaining Optionals in a Stream enables to pick the first Optional which has a value and return it.
 modified: 2016-03-26 19:50:50 +0200
 categories: articles
 tags: [java, java 8, optional, lambda, functional programming]
