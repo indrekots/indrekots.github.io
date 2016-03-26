@@ -43,4 +43,4 @@ return Arrays.asList(suppliers).stream()
         .findFirst();
 {% endhighlight %}
 
-Think about how to implement the same concept without using Optionals or lambda expressions. It would probably include multiple null checks.
+Think about how to implement the same concept without using Optionals or lambda expressions. It would probably include multiple null checks. Using a more functional style can help you implement a more general solution which is hopefully easier to understand as well.
