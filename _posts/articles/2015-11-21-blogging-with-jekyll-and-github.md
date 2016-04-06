@@ -41,7 +41,7 @@ Although with Github Pages your page will be accessible via `username|organizati
 * Head over to [Github Pages](https://pages.github.com/ "Github Pages") and see how to set up a repository to host a website
 * Install Jekyll on your local machine (you need to have [Ruby installed](https://www.ruby-lang.org/en/documentation/installation/ "Instructions on how to install ruby"))
 {% highlight bash %}
-$ gem install ruby
+$ gem install jekyll
 {% endhighlight %}
 
 * Create a new Jekyll site
