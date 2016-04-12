@@ -14,7 +14,7 @@ share: true
 published: true
 ---
 
-SugarCRM is a web based customer relationship management system written in PHP. [Due to how it is designed there are some difficulties getting it into source control.]({{ site.url }}/articles/version-control-and-deployment-practices-for-sugarcrm/) Additionally there are some things to keep in mind when managing multiple environments and doing deployments. I've decided to use Ansible to manage SugarCRM environments and deployments.
+SugarCRM is a web based customer relationship management system written in PHP. [Due to how it is designed there are some difficulties getting it into source control.]({{ site.url }}/articles/version-control-and-deployment-practices-for-sugarcrm/) Additionally there are a few things to keep in mind when managing multiple environments and doing deployments. I've decided to use Ansible to manage SugarCRM environments and deployments.
 
 ## Getting started
 
