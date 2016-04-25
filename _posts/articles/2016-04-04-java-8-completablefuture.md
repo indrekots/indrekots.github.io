@@ -22,11 +22,24 @@ CompletableFuture is an implementation of the Future interface but with a modern
 
 To better understand CompletableFutures, let's have a look at Futures first. They model asynchronous computations and provide a reference to its result which might not yet be available. Methods are provided to get the result or check if the computation has finished. Calls to methods returning Futures can return immediately and the calling thread can continue to do useful work. All in all,  Futures are friendlier to use than lower-level threads.
 
-Wrap the operation in a Callable and pass it to an Executor service
-Code example
-Describe code example
+To create a future you need to wrap an operation in a Callable and pass it to an ExecutorService.
 
-.get() and .get() with timeout
+{% highlight java %}
+ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+Future<String> result = executorService.submit(() -> {
+    delay(5000); //simulate network call
+    return "{\"result\":\"success\"}";
+});
+
+IntStream.range(1, 10).forEach(i -> {
+    delay(100);
+    System.out.println("Doing useful work");
+});
+System.out.println(result.get());
+{% endhighlight %}
+
+In the previous example a Callable is passed to an ExecutorService. Since Java 8, instead of an anonymous class you can use a lambda expression to define the body of the Callable. The `delay` method is used to simulate a network call which delays the thread for 5 seconds. ExecutorService will return a Future which can be used later to retrieve the result. During the time the network call takes place, it is possible to do other useful work. Finally calling `get()` on the Future will get its result. If it's not available yet, the execution is blocked until the result becomes available. But what if the thread never finishes or takes too long to compute? The [*get* method](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html "Future JavaDoc") can accept a timeout as an argument.
 
 Downsides of future and why CompletableFuture
 
