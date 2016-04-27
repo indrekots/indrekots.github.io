@@ -13,7 +13,7 @@ comments: true
 share: true
 published: true
 ---
-[Optionals in Java](({{site_url}}/articles/optionals-in-java-8/ "What are Optionals?") can help you to write a program without *null checks*. In addition they can make your code more concise and easier to read. Let's look at an example how chaining Optionals in a *Stream* can help you **avoid unnecessary *null checks***.
+[Optionals in Java]({{site_url}}/articles/optionals-in-java-8/ "What are Optionals?") can help you to write a program without *null checks*. In addition they can make your code more concise and easier to read. Let's look at an example how chaining Optionals in a *Stream* can help you **avoid unnecessary *null checks***.
 
 ## Motivation
 
