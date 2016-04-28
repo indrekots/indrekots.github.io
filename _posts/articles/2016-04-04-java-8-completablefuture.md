@@ -45,6 +45,47 @@ But what if you'd like to take the result of an asynchronous task and immediatel
 
 ## CompletableFuture
 
+The name CompletableFuture comes from the fact that it is a Future which can be explicitly completed by calling the `complete()` method. Instead of using an ExecutorService to return a Future, completing a CompletableFuture can be done by just creating a thread.
+
+As in the previous example with a Future, let's say we're making a network call to retrieve some data.
+
+{% highlight java %}
+public Future<String> getResultOverNetwork() {
+    CompletableFuture<String> future = new CompletableFuture<>();
+    new Thread(() -> {
+        delay(5000); //simulate network call
+        future.complete("{\"result\":\"success\"}");
+    }).start();
+    return future;
+}
+{% endhighlight %}
+
+The computation (in this case a simulated network call) is done in a separate thread. A lambda expression is used to define the Runnable passed to the thread. Before returning a Future, the thread is started. The `getResultOverNetwork()` method returns almost instantaneously, leaving the calling thread free to to other useful work.
+
+{% highlight java %}
+Future<String> future = getResultOverNetwork();
+IntStream.range(1, 10).forEach(i -> {
+    delay(100);
+    System.out.println("Doing useful work");
+});
+System.out.println(future.get());
+{% endhighlight %}
+
+Technically this example is almost the same as shown previously with a regular Future. The only difference is that instead of a plain old Thread, an ExecutorService was used. To be fair though, CompletableFuture class has some static methods which make the usage a little bit easier as can be seen in the following example.
+
+{% highlight java %}
+public Future<String> getResultOverNetwork() {
+    return CompletableFuture.supplyAsync(() -> {
+        delay(5000);
+        return "{\"result\":\"success\"}";
+    });
+}
+{% endhighlight %}
+
+But still, what's so special about CompletableFutures?
+
+### Pipelining tasks
+
 Declarative features for combining results from multiple futures, dependencies between jobs.
 CompletableFuture is to a plain Future what Stream is to a Collection.
 
