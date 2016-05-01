@@ -118,7 +118,7 @@ The returned Future is of type `Void` because `thenAccept()` consumes the array.
 
 ### Async versions
 
-Pipelining methods come with asynchronous versions. Meaning that the next step in the pipeline will be executed in a new thread.
+Pipelining methods come with asynchronous versions as well. Meaning that the next step in the pipeline will be executed in a new thread. For example, the API provides `thenAcceptAsync()` which is an asynchronous version of `thenAccept()`.
 
 ## Summary
 
