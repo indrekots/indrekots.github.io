@@ -110,6 +110,20 @@ CompletableFuture<Void> future = supplyAsync(itemService::getFruits).
 future.join();
 {% endhighlight %}
 
+`getFruits()` and `getVeggies()` are implemented as follows.
+
+{% highlight java %}
+public String[] getFruits() {
+    delay(1500); //simulate network latency
+    return new String[]{"apple", "apricot", "banana"};
+}
+
+public String[] getVeggies() {
+    delay(2000); //simulate network latency
+    return new String[]{"broccoli", "brussels sprout"};
+}
+{% endhighlight %}
+
 In this example, 2 CompletableFutures are created using the `supplyAsync()` static method. They're pipelined using `thenCombine()` which accepts a lambda expression as a second argument describing how to combine the results of the 2 tasks. These tasks are run in parallel and as soon as both become available their results are combined and then the end result is consumed using `thenAccept()` (in this case consumption is done by printing out the members of the array). Method references `itemService::getFruits` and `itemService::getVeggies` simulate network calls and they return an array of strings.
 
 The returned Future is of type `Void` because `thenAccept()` consumes the array. Therefore there's no need to call `get()` (although it is possible) and calling `join()` will suffice.
