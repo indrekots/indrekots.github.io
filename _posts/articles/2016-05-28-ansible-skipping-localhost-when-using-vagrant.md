@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Ansible skipping localhost when using Vagrant"
-excerpt:
+excerpt: Vagrant Ansible provisioner skips plays that are meant to be run on localhost. There's a simple workaround for that.
 modified: 2016-05-28 16:01:38 +0300
 categories: articles
 tags: [ansible, vagrant, provisioning]
