@@ -6,15 +6,13 @@ modified: 2013-12-24 13:01:32 +0300
 categories: articles
 tags: [java, mock, stub, mockito, testing, tutorial, maven, gradle]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2013-12-24-getting-started-with-mockito/cover.jpg
+  credit: http://mockito.org/
+  creditlink: http://mockito.org/
 comments: true
 share: true
 published: true
 ---
-
-![Mockito logo]({{ site.url }}/images/mockito_logo.png)
 
 [Mockito](http://mockito.org/ "Mockito homepage") is a mocking framework for unit tests written in Java. It lets you write beautiful tests with clean and simple API. This is a straightforward overview of the basic features of Mockito so you can get started with writing clean and readable tests.
 
