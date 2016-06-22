@@ -18,11 +18,19 @@ A software design patterns is a solution to a commonly occurring problem. It is 
 
 **Observer pattern**, described in [Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612 "Design Patterns: Elements of Reusable Object-Oriented Software"), is a design pattern with an intent to define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
 
-It is easier to think of it in terms of publishing and subscribing. Subscribers (also known as observers) subscribe to the publisher (also known as the subject) such that when the state of the publisher changes, it notifies all of its subscribers.
+It is easier to think of it in terms of publishing and subscribing. Subscribers (also known as observers) subscribe to a publisher (also known as a subject or an observable) such that when the state of the publisher changes, it notifies all of its subscribers.
+
+In this post I'm first going to go over how to implement the observer pattern in Java and then show how to take advantage of Java 8 to make this classic pattern a little bit more concise.
 
 ## Example domain
 
-I'm going to use a video-sharing website (e.g. Youtube) as an example in this post. Users can *publish* new videos and *subscribe* to other users to get notified when a new video is available.
+Do you want to know how many people are in space right now? There's an app for that at [howmanypeopleareinspacerightnow.com](http://www.howmanypeopleareinspacerightnow.com/ "howmanypeopleareinspacerightnow.com"). Let's use that as our example. The website *publishes* how many people are in space and different apps can *subscribe* to get notified when the number changes.
+
+## Class diagram
+
+The following is a class diagram of the proposed solution.
+
+![Observer pattern class diagram]({{ site.url }}/images/2016-06-21-design-patterns-observer-pattern-implementation-in-java/observer_pattern.png "Observer pattern class diagram")
 
 What is it?
 What does it solve?
