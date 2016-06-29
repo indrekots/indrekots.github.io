@@ -4,7 +4,7 @@ title: "Design patterns: Observer pattern implementation in Java"
 excerpt: Observer pattern is a design pattern with an intent to define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
 modified: 2016-06-21 14:36:56 +0300
 categories: articles
-tags: [design pattern, java, java8, observer, publish-subscribe]
+tags: [design pattern, java, observer, publish-subscribe, loose coupling]
 image:
   feature: 2016-06-21-design-patterns-observer-pattern-implementation-in-java/cover.jpg
   credit: suwalls.com
@@ -53,7 +53,7 @@ public interface Observer {
 
 ## Implement interfaces
 
-Now that we have created the interfaces we need, let's implement them. I'm calling the concrete implementation of `Subject` `DataSource` since it knows how many people are currently in space.
+Now that we have created the interfaces we need, let's implement them. I'm calling the concrete implementation of the *Subject* interface *DataSource* since it is the source of the original data.
 
 {% highlight java %}
 import java.util.ArrayList;
@@ -125,7 +125,7 @@ The observer knows its subject and can get the current state of the subject.
 
 ## Running the example
 
-A quick way to see if everything is working is to create a new DataSource object and register a new HallwayDisplay as its observer. When updating the number of people in space, HallwayDisplay should print out the updated data.
+A quick way to see if everything is working is to create a new *DataSource* object and register a new *HallwayDisplay* as its observer. When updating the number of people in space, HallwayDisplay should print out the updated data.
 
 {% highlight java %}
 DataSource source = new DataSource();
@@ -134,6 +134,10 @@ source.setPeopleInSpace(5);
 
 //prints out: People in space right now: 5
 {% endhighlight %}
+
+## Loose coupling
+
+When two objects know very little of each other but are able to interact, they are considered **loosely coupled**. The observer pattern is a good example of loose coupling. The only thing the subject knows about observers is that they implement a certain interface. This is good because changes to either the subject or the observer will not affect the other. It is possible to add new types of observers at any time while never making any changes to the subject.
 
 ## Conclusion
 
