@@ -2,7 +2,7 @@
 layout: post
 title: "Design patterns: Observer pattern implementation in Java"
 excerpt: Observer pattern is a design pattern with an intent to define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
-modified: 2016-06-21 14:36:56 +0300
+modified: 2016-06-29 14:36:56 +0300
 categories: articles
 tags: [design pattern, java, observer, publish-subscribe, loose coupling]
 image:
