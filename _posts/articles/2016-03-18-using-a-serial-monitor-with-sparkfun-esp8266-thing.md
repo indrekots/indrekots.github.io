@@ -2,7 +2,7 @@
 layout: post
 title: "Using a serial monitor with SparkFun ESP8266 Thing on Linux"
 excerpt: Using Arduino IDE's serial monitor with SparkFun ESP8266 Thing does not work. In this post you'll see how to use a serial terminal with the SparkFun ESP8266 Thing on Linux.
-modified: 2016-03-18 07:19:11 +0200
+modified: 2016-06-30 12:17:11 +0200
 categories: articles
 tags: [sparkfun, esp8266, IoT, linux, arduino, SoC, gtkterm, dtr]
 image:
@@ -39,3 +39,11 @@ Toggle DTR with F7 or from the control signals menu. After that you can see the 
 ![Configuration menu]({{ site.url }}/images/2016-03-15-using-a-serial-monitor-with-sparkfun-esp8266-thing/serial_terminal.png "Serial output")
 
 Now you should be able to use a serial monitor with SparkFun ESP8266 Thing on Linux and you don't have to debug your code with LEDs.
+
+## OS X users
+
+Reader [**Kevin Hoyt**](http://www.kevinhoyt.com/) pointed out in the comments that on OS X he used [CoolTerm](http://freeware.the-meiers.org/ "CoolTerm homepage") to solve the same issue.
+
+<hr/>
+
+**Edit 30.06.2016:** added solution for OS X users pointed out by Kevin Hoyt in the comments
