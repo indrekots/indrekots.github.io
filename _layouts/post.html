@@ -42,6 +42,9 @@
         {% if page.ads == true %}{% include ad-sidebar.html %}<!-- /.google-ads -->{% endif %}
       </footer>
       <div class="entry-content">
+        {% if page.aging %}
+          {% include aging-notice.html %}
+        {% endif %}
         {{ content }}
         {% if (site.owner.disqus-shortname and page.comments) or site.comments %}
           <div id="disqus_thread"></div><!-- /#disqus_thread -->

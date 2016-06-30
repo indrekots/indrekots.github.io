@@ -6,16 +6,17 @@ modified: 2013-04-26 20:56:49 +0300
 categories: articles
 tags: [java, jrebel, windows, maven, pom.xml, rebel.xml]
 image:
-  feature: 
-  credit: 
-  creditlink: 
+  feature:
+  credit:
+  creditlink:
 comments: true
 share: true
+aging: true
 ---
 
 I stumbled upon a problem where a Java web application complained about an XsltException which was caused by a missing stylesheet. Although the stylesheet existed, it was not found for some reason.
 
-After configuring log4j to see, where the app was looking for the stylesheet, I realised that it was being looked for from the wrong location. The cause of the problem was Maven and JRebel. The following is a snippet from the pom.xml file. 
+After configuring log4j to see, where the app was looking for the stylesheet, I realised that it was being looked for from the wrong location. The cause of the problem was Maven and JRebel. The following is a snippet from the pom.xml file.
 
 {% highlight xml %}
 <webResources>
