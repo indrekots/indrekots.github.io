@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 In order to accept Estonian ID card, Tomcat needs to be configured to accept client side certificates. But before that, [SSL needs to be configured]({{site.url}}/articles/configure-ssl-on-apache-tomcat "Configure SSL on Apache Tomcat").

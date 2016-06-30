@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 Surprisingly, installing Ubuntu 13.04 on a MacbookPro10,2, almost everything seemed to work out of the box. But after upgrading to 13.10, there was a one major flaw which is *very* annoying if not fixed. Wifi connection seemed to be dropping a lot of packets. For me it was at most 50% packet loss. The issue seems to be with Broadcom’s proprietary drivers. Apparently the previous version of Ubuntu shipped with an older version of the driver which seemed to work fine.

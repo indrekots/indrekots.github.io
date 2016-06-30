@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 SugarCRM is a web based customer relationship management system written in PHP. I'm fairly new to this piece of software and I started to figure out how to manage changes and multiple environments of SugarCRM. My plan was to have my own local development environment, a staging and a production environment.

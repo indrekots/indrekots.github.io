@@ -6,12 +6,13 @@ modified: 2013-10-24 20:43:34 +0300
 categories: articles
 tags: [yii, php, autoload, composer, cron]
 image:
-  feature: 
-  credit: 
-  creditlink: 
+  feature:
+  credit:
+  creditlink:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 Sometimes I want to have access to all of my classes in a [Yii](http://www.yiiframework.com/ "Yii Framework") app externally. For example, I would like to run an external PHP script with cron and I would like to use my application classes. To achieve that, I created a separate classloader file.

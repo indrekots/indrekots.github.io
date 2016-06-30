@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 Last time we got a Raspberry Pi set up and a VPS ready and accessible via SSH. If you have not read [part 1]({{site.url}}/articles/setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi/ "part 1 of setting up a reverse ssh tunnel with a raspberry pi") then I strongly encourage you to do that. In part 2 I promised to show an example use case on how to connect to a Windows Server over RDP via a reverse SSH tunnel.

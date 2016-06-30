@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 I have a playbook which will be run on the [Ansible](https://github.com/ansible/ansible "Ansible is a simple IT automation platform") host.

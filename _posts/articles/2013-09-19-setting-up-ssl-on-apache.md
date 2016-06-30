@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 **Disclaimer:** these instructions were tested on Ubuntu 13.04 and Apache 2.2.22.

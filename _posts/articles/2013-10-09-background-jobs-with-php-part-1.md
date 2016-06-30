@@ -11,6 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
+aging: true
 ---
 
 A background job is a task that is executed "behind the scenes" and without user intervention. In a web application context, it is a task that is executed outside of the main flow. Therefore the end user has no clue of it ever happening. This is great, because you don't want to make your users wait for a computationally heavy task to finish and then load a web page. A more elegant solution would be to load the page as soon as possible, and run the time consuming tasks, which are not required for displaying the page, in the background. In addition, a background job might not even be user initiated. These include scheduled and recurring tasks.

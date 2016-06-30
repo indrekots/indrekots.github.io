@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 [ESP8266](http://www.esp8266.com/ "esp8266 community") is a low-cost system on a chip with integrated TCP/IP stack and WIFI. The SparkFun ESP8266 Thing is a breakout and a development board for for the ESP8266 chip that makes it easier to use and provides some additional features.

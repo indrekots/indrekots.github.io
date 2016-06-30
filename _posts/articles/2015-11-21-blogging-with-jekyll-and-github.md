@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 Starting a blog is easy. Find a blogging service provider or host it yourself. But did you know you can use Github to host your blog and make use of Git to version control your blog posts.

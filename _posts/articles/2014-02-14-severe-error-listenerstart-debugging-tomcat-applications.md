@@ -6,12 +6,13 @@ modified: 2014-02-14 21:19:18 +0300
 categories: articles
 tags: [tomcat, java, error, logging, apache, catalina]
 image:
-  feature: 
-  credit: 
-  creditlink: 
+  feature:
+  credit:
+  creditlink:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 When starting up Tomcat I'm sure at one point in time you've encountered a *'SEVERE: Error listenerStart'* message. This is caused by an application you have deployed. But what's the exact cause of this error?

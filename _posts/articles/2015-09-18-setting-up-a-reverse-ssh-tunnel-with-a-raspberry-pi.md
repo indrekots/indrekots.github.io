@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+aging: true
 ---
 
 Think of a following scenario. You need to access your work computer from your home. You have a small office with no dedicated IT support. Probably you don't have a VPN which you could use to connect to your work network. But you have a spare Raspberry Pi lying around. You could put that into use and create a connection to your work machine by creating a reverse SSH tunnel.
