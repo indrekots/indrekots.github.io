@@ -139,6 +139,6 @@ source.setPeopleInSpace(5);
 
 When two objects know very little of each other but are able to interact, they are considered **loosely coupled**. The observer pattern is a good example of loose coupling. The only thing the subject knows about observers is that they implement a certain interface. This is good because changes to either the subject or the observer will not affect the other. It is possible to add new types of observers at any time while never making any changes to the subject.
 
-## Conclusion
+## Final words
 
-The observer pattern is used a in a lot of frameworks and libraries. Many GUI toolkits use it under the hood. The JDK includes [Observer](https://docs.oracle.com/javase/8/docs/api/java/util/Observer.html) and [Observable](https://docs.oracle.com/javase/8/docs/api/java/util/Observable.html) interfaces so you don't have to implement everything by yourself. Keep your eyes open and you might see this pattern implemented in some shape or form. In the next post I'm going to look at a specialization of this classic pattern and show how to take advantage of [lambda expressions]({{ site.url}}/articles/java-8-lambda-expressions/ "Java 8 Lambda expressions").
+This is not the end. In the [next post]({{ site.url }}/articles/design-patterns-specialization-of-the-classic-observer-pattern/ "Specialization of the observer pattern") I'm going to look at a specialization of this classic pattern and show how to take advantage of [lambda expressions]({{ site.url}}/articles/java-8-lambda-expressions/ "Java 8 Lambda expressions").
