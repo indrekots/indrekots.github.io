@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Controlling an RC car with the Arduino"
+title: "Controlling an RC car with an Arduino"
 excerpt: Looking for an easy hardware project? Controlling an RC car with an Arduino board is relatively simple. I'll share my experience.
 modified: 2016-01-28 18:12:45 +0200
 categories: articles
