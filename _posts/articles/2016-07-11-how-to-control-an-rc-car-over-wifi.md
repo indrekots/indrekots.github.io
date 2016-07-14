@@ -73,8 +73,29 @@ Before taking out my soldering iron, I tested the motor driver on a breadboard t
 	<figcaption>Testing out the motor driver on a breadboard and connecting it with the car</figcaption>
 </figure>
 
-intro, link to prev posts
-esp8266
-set up
-tcp vs udp
+## Including other components
+
+Finally, I added the ESP8266 controller to the car, connected ground and control pins with the motor driver and attached a LiPo battery. All the required components are in place. All that is left is to write the code that is going to transmit and receive commands over WiFi.
+
+<figure>
+	<a href="{{ site.url}}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/almost_ready.jpg" class="image-popup"><img src="{{ site.url}}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/almost_ready_thumb.jpg" alt="Amost ready"></a>
+	<figcaption>Attached a LiPo battery and a SparkFun ESP8266 Thing board</figcaption>
+</figure>
+
+## Writing control logic
+
+Debugging the SparkFun ESP8266 Thing is not as easy as a regular Arduino board. You cannot use the serial monitor provided by the Arduino IDE. [Luckily there is a simple solution for that](articles/using-a-serial-monitor-with-sparkfun-esp8266-thing/ "Using a serial monitor with SparkFun ESP8266 Thing").
+
+I tested my initial ESP8266 implementations with **netcat**. For example, the following command sends a byte which corresponds to a *turn-right* command to the car. As you can see, the car has an IP address and a port it is listening on.
+
+{% highlight bash %}
+$ echo -e '\x03' | netcat 192.168.1.101 1111
+{% endhighlight %}
+
+Controlling the car with *netcat* is not fun. Therefore the next step was to implement a small Python program which would detect keyboard presses and send commands over the network to the car. I used the old Python program I wrote for [my previous project](https://github.com/indrekots/rc-car-controller) and [repurposed it](https://github.com/indrekots/esp8266-rc-car-controller/blob/master/wifi_controller_gui.py) so it could send commands over the network instead of over a serial connection.
+
+## TCP vs UDP
+
+During the first tests I discovered that the car was not very responsive. The car would continue driving when I had released all keys for example. Later I found that this was due to the fact that the communication was done over [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol "TCP Wikipedia page"). I'm guessing the TCP handshake process and acknowledgements introduce some overhead. After I had reengineered the car to use UDP everything worked flawlessly.
+
 benefits - can control speed
