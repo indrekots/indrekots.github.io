@@ -6,7 +6,7 @@ modified: 2016-07-11 14:48:29 +0300
 categories: articles
 tags: [wifi, arduino, esp8266, IoT, hardware, electronics, python]
 image:
-  feature:
+  feature: 2016-07-11-how-to-control-an-rc-car-over-wifi/cover.jpg
   credit:
   creditlink:
 comments: true
@@ -15,7 +15,7 @@ published: true
 aging: true
 ---
 
-Some time ago I bought my first Arduino. I have several years of experience as a software developer but my knowledge of electronics is pretty minimal. For my first project I decided to [control a cheap RC car with an Arduino board]({{ site.url }}/articles/controlling-an-rc-car-with-arduino/ "Control an RC car with an Arduino"). This was done by connecting the board to the car's controller and sending commands from my laptop to the Arduino over a serial connection. Basically I made the original controller programmable and the car would still receive the signal over 27MHz radio waves. It was a relatively easy project to start with because I did not have to open up the car itself. The downside is that every time I want to take the car for a spin, I have to connect my laptop to my Arduino and then connect that to the controller.
+Some time ago I bought my first Arduino. I have several years of experience as a software developer but my knowledge of electronics is pretty minimal. For my first project I decided to [control a cheap RC car with an Arduino board]({{ site.url }}/articles/controlling-an-rc-car-with-arduino/ "Control an RC car with an Arduino"). This was done by connecting the board to the car's controller and sending commands from my laptop to the Arduino over a serial connection. Basically I made the original controller programmable and the car would still receive the signal over 27MHz radio waves. It was a relatively easy project to start with because I did not have to open up the car itself. The downside is that every time I want to take the car for a spin, I have to connect my laptop to my Arduino and then connect that to the controller. This post is about the next project where I started to control the RC car over WiFi.
 
 ## Ditching the controller
 
@@ -32,14 +32,14 @@ They come in different shapes and sizes. For my project I went with the [SparkFu
 
 ## Initial plan
 
-Overall, the setup should be straightforward. The ESP8266 will be placed inside the car. Both the chip and my laptop will be connected to the same WiFi network so they can communicate freely with each other. Pressing arrow keys (or WASD keys) will trigger the car to either steer or move.
+Overall, the setup should be straightforward. The ESP8266 will be placed inside the car. Both the board and my laptop will be connected to the same WiFi network so they can communicate freely with each other. Pressing arrow keys (or WASD keys) will trigger the car to either steer or move.
 
 
 ## Getting started
 
 As mentioned previously, in my [first project]({{ site.url }}/articles/controlling-an-rc-car-with-arduino/ "Control an RC car with an Arduino") I did not open up the car itself. Obviously, if I want to start using the ESP8266 chip, I'm going to have to place it inside the car. So off I went to find a screwdriver.
 
-Having opened the car I found that it uses the standard RX-2/TX-2 chipset used in many cheap RC toys. Additionally the car came with two DC motors for moving and steering and LED head/taillights. After removing the original printed circuit board inside the car, there was enough room to place the ESP8266 chip in it.
+Having opened the car I found that it uses the standard RX-2/TX-2 chipset used in many cheap RC toys. Additionally the car came with two DC motors for moving and steering and LED head/taillights. After removing the original printed circuit board inside the car, there was enough room to place the ESP8266 board in it.
 
 <figure class="half">
   <a href="{{ site.url }}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/inside.jpg" class="image-popup">
@@ -53,20 +53,18 @@ Having opened the car I found that it uses the standard RX-2/TX-2 chipset used i
 
 ## Controlling the motors
 
-I can't just plug the power and ground wires to my ESP8266 and hope the DC motor starts working. Firstly, the chip can output only 3.3V but the motors require higher voltage. Secondly, I need to control the rotation direction of the motors. For power, I'm going to use the original batteries that are mounted under the car but the ESP8266 chip will be powered by the LiPo battery included with the SparkFun ESP8266 Thing. To control the motors I decided to use a [Pololu DRV8833 Dual Motor Driver Carrier](https://www.pololu.com/product/2130 "DRV8833 Dual Motor Driver Carrier product page"). As the name implies, it can handle two motors.
-
-[insert image of batteries]
+I can't just plug the power and ground wires to my ESP8266 and hope the DC motor starts working. Firstly, the chip can output only 3.3V but the motors require higher voltage. Secondly, I need to control the rotation direction of the motors which means reversing the polarity. For power, I'm going to use the original batteries that are mounted under the car but the ESP8266 chip will be powered by the LiPo battery included with the SparkFun ESP8266 Thing. To control the motors I decided to use a [Pololu DRV8833 Dual Motor Driver Carrier](https://www.pololu.com/product/2130 "DRV8833 Dual Motor Driver Carrier product page"). It allows me to change the rotation direction and as the name implies, it can handle two motors.
 
 ## Setting up the motor driver
 
-Reading the manual from Pololu helped me understand how to use the motor driver. They have create schematics and descriptions for each pin.
+Reading the manual from Pololu helped me understand how to use the motor driver. They have great schematics and descriptions for each pin. The following is a wiring diagram provided by Pololu. Annotations in red are provided by me to describe some parts of the setup.
 
 <figure>
-	<a href="{{ site.url}}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/wiring_diagram.png" class="image-popup"><img src="{{ site.url}}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/wiring_diagram.png" alt="Pololu DRV8833 wiring diagram"></a>
+	<a href="{{ site.url}}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/wiring_diagram.png" class="image-popup"><img src="{{ site.url}}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/wiring_diagram_thumb.png" alt="Pololu DRV8833 wiring diagram"></a>
 	<figcaption><a href="https://www.pololu.com/product/2130" title="Pololu DRV8833 wiring diagram">Pololu DRV8833 wiring diagram</a></figcaption>
 </figure>
 
-Before taking out my soldering iron, I tested the motor driver on a breadboard to make sure I understood everything correctly. At that point I had not yet implemented the code which would control the car. For the test I just turned the control pins high one by one to see if the motor started rotating. Then the next step was to connect the motor driver with the motors in the car using my limited soldering ability.
+Before taking out my soldering iron, I tested the motor driver on a breadboard to make sure I understood everything correctly. At that point I had not yet implemented the code which would eventually control the car. To test the driver I turned the control pins on the ESP8266 board high one by one to see if the motor started rotating. When I got that working I was ready to connect the motor driver with the motors in the car.
 
 <figure class="half">
   <a href="{{ site.url }}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/breadboard_test.jpg" class="image-popup">
@@ -80,7 +78,7 @@ Before taking out my soldering iron, I tested the motor driver on a breadboard t
 
 ## Including other components
 
-Finally, I added the ESP8266 controller to the car, connected ground and control pins with the motor driver and attached a LiPo battery. All the required components are in place. All that is left is to write the code that is going to transmit and receive commands over WiFi.
+Finally, I added the ESP8266 controller to the car, connected ground and control wi with the motor driver and attached a LiPo battery. All the required components are in place. All that is left is to write the code that is going to transmit and receive commands over WiFi.
 
 <figure>
 	<a href="{{ site.url}}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/almost_ready.jpg" class="image-popup"><img src="{{ site.url}}/images/2016-07-11-how-to-control-an-rc-car-over-wifi/almost_ready_thumb.jpg" alt="Amost ready"></a>
@@ -91,7 +89,7 @@ Finally, I added the ESP8266 controller to the car, connected ground and control
 
 Debugging the SparkFun ESP8266 Thing is not as easy as a regular Arduino board. You cannot use the serial monitor provided by the Arduino IDE. [Luckily there is a simple solution for that](articles/using-a-serial-monitor-with-sparkfun-esp8266-thing/ "Using a serial monitor with SparkFun ESP8266 Thing").
 
-I tested my initial ESP8266 implementations with **netcat**. For example, the following command sends a byte which corresponds to a *turn-right* command to the car. As you can see, the car has an IP address and a port it is listening on.
+I tested my initial ESP8266 code with **netcat**. For example, the following command sends a byte which corresponds to a *turn-right* command to the car. As you can see, the car has an IP address and a port it is listening on.
 
 {% highlight bash %}
 $ echo -e '\x03' | netcat 192.168.1.101 1111
@@ -103,8 +101,8 @@ You can have a look at [the source code of the project at Github](https://github
 
 ## TCP vs UDP
 
-During the first tests I discovered that the car was not very responsive. The car would continue driving when I had released all keys for example. I found that this was due to the fact that the communication was done over [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol "TCP Wikipedia page"). I'm guessing the TCP handshake process and acknowledgements introduce some overhead. After I had reengineered the car to use UDP everything worked flawlessly.
+During the first tests I discovered that the car was not very responsive. The car would continue driving even when I had released all keys for example. I found that this was due to the fact that the communication was done over [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol "TCP Wikipedia page"). I'm guessing the TCP handshake process and acknowledgements introduce some overhead. After I had reengineered the car to use UDP everything worked flawlessly.
 
 ## End result
 
-The cheap RC car (~15EUR/~17USD) which initially had only 2 channels (3rd channel) can now be controlled programmatically. Not to mention, the ESP8266 chip supports [pulse-width modulation (PWM)](https://en.wikipedia.org/wiki/Pulse-width_modulation "PWM Wikipedia page"). This means that I can control the driving speed of the car. Previously, because it had only 2 channels, it was either driving at full speed or not moving at all. Above all, since the car can be controlled over the network, I can come up with new ideas for future projects. Theoretically I could implement an app for a smartphone which would act as a custom controller.
+The cheap RC car (~15EUR/~17USD) which initially had only 2 channels (although the RX-2/TX-2 has a [third unused channel](http://www.instructables.com/id/Hack-an-RC-cars-unused-5th-channel/ "RX-2/TX-2 unused channel")) can now be controlled programmatically. Not to mention, the ESP8266 chip supports [pulse-width modulation (PWM)](https://en.wikipedia.org/wiki/Pulse-width_modulation "PWM Wikipedia page"). This means that I can control the driving speed of the car. Previously, because it had only 2 channels, it was either driving at full speed or not moving at all. Above all, since the car can be controlled over the network, I can come up with new ideas for future projects. Theoretically I could implement an app for a smartphone which would act as a custom controller.
