@@ -352,7 +352,7 @@ span + .entry-title {
 	a > span {
 		float: right;
 	}
-	.entry-date {
+	.entry-date, .entry-time {
 		@include font-size(14,no);
 		text-transform: uppercase;
 		display: none;
