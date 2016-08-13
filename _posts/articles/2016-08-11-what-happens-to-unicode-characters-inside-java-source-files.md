@@ -64,7 +64,7 @@ NewLine.java:7: error: ')' expected
 6 errors
 {% endhighlight %}
 
-What!? So many errors! My IDE doesn't show any squiggly red lines and I can't seem to find any syntax errors myself. Error on line 5? But that's a comment.
+What!? So many errors! My IDE doesn't show any squiggly red lines and I can't seem to find any syntax errors myself. Error on line 5? But that's a comment. What is going on?
 
 ![Screenshot of my IDE][ide]
 
@@ -72,7 +72,7 @@ In this post I'm going to cover Unicode escapes in Java and by the end of this p
 
 ## What are *unicode escapes*
 
-Let's start from the beginning. Unicode escapes are used to represent non-ASCII characters with ASCII characters. This will come in handy when you need to insert a character that cannot be represented in the source file's character set. According to [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 fo JLS") a *unicode escape* consists of a backslash character ('\') followed by one or more 'u' characters and four hexadecimal digits.
+Let's start from the beginning. Unicode escapes are used to represent non-ASCII characters with ASCII characters. This will come in handy when you need to insert a character that cannot be represented in the source file's character set (although most of us use UTF-8 encoding which supports all Unicode characters). According to [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 fo JLS") a *unicode escape* consists of a backslash character ('\') followed by one or more 'u' characters and four hexadecimal digits.
 
 {% highlight text %}
 UnicodeEscape:
@@ -83,6 +83,12 @@ UnicodeMarker:
     UnicodeMarker u
 {% endhighlight %}
 
-So for example `\u000A` will be treated as a line feed. You can view a list of Unicode characters from [here](http://unicode-table.com/en/).
+So for example `\u000A` will be treated as a line feed. Looking back at the second code example in this post, a Unicode escape representing the line feed was used inside a comment. You can view a list of Unicode characters from [here](http://unicode-table.com/en/).
+
+## what causes it
+## why is it designed like that
+## what should i use instead
+## windows path example
+## whole program with unicode escapes
 
 [ide]: {{ site.url }}/images/2016-08-11-unicode-escapes/ide.png "Screenshot of my IDE"
