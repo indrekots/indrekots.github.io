@@ -140,9 +140,56 @@ public class NewLine {
 
 ## Hiding code in comments
 
+If Unicode escapes are processed before everything else, then can I cleverly hide code inside comments which will later be executed? The answer to this question is yes. Looking back at the previous example, we saw that a line feed was inserted and the rest of the comment was on the next line, resulting in invalid Java code. But we could have written the following
+
+{% highlight java %}
+public class HidingCode {
+    public static void main(String[] args) {
+        //\u000A System.out.println("This is a comment");
+        System.out.println("Hello world");
+    }
+}
+
+If we replace the Unicode escape with a line feed, then it should be clear that there's actually two print statements executed.
+
+{% highlight bash %}
+native2ascii -reverse HidingCode.java
+
+public class HidingCode {
+    public static void main(String[] args) {
+        //
+ System.out.println("This is a comment");
+        System.out.println("Hello world");
+    }
+}
+{% endhighlight %}
 
 
-## why is it designed like that
+//prints out
+This is a comment
+Hello world
+{% endhighlight %}
+
+## Why does Java allow that?
+
+This all seems weird, right? Why is Java designed like that? Is it a bug that was accidentally introduced and never fixed because it would break something else? To find an answer to that question we need to look back at [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 of JLS") and also [section 3.1](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.1 "Section 3.1 of JLS").
+
+From section 3.1
+
+> The Java programming language represents text in sequences of 16-bit code units, using the UTF-16 encoding.
+
+From section 3.3
+
+> The Java programming language specifies a standard way of transforming a program written in Unicode into ASCII that changes a program into a form that can be processed by ASCII-based tools. The transformation involves converting any Unicode escapes in the source text of the program to ASCII by adding an extra u - for example, \uxxxx becomes \uuxxxx - while simultaneously converting non-ASCII characters in the source text to Unicode escapes containing a single u each.
+
+Unicode escapes were designed to ensure compatibility with a wide variety of character sets. Think of the following scenario. You receive a piece of code with an encoding your text editor does not understand (i.e. the code includes characters not available in the encoding you use). This can be solved by transforming all unknown characters with Unicode escapes. As ASCII is the lowest common denominator of character sets, it is always possible to represent Java code in any encoding by replacing characters that are not supported by the target encoding with Unicode escapes. Today Unicode is fairly common and this should not be an issue, but I guess back in the early days this was useful.
+
+The transformed version is equal to the initial version and the compiler treats them as the same. As this process is reversible, the compiler can go back to the initial version by replacing Unicode escapes with respective Unicode characters.
+
+From section 3.3
+
+> This transformed version is equally acceptable to a Java compiler and represents the exact same program. The exact Unicode source can later be restored from this ASCII form by converting each escape sequence where multiple u's are present to a sequence of Unicode characters with one fewer u, while simultaneously converting each escape sequence with a single u to the corresponding single Unicode character.
+
 ## what should i use instead
 ## windows path example
 ## whole program with unicode escapes
