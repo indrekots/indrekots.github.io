@@ -95,7 +95,7 @@ The [Java Language Specification]((https://docs.oracle.com/javase/specs/jls/se8/
 2. Divide stream of input characters into lines by recognizing line terminators (LF, CR or CR LF).
 3. Discard whitespace and comments and tokenize the result from the previous step.
 
-As you can see, the very first step processes Unicode escapes. This is done before the compiler has had the change to separate the source code into tokens. Broadly speaking, this is like applying a *search and replace* function on the source code, replacing all **well-formed** Unicode escapes with their respective Unicode characters, and then letting the compiler work on the rest of the code.
+As you can see, the very first step processes Unicode escapes. This is done before the compiler has had the change to separate the source code into tokens. Broadly speaking, this is like applying a *search and replace* function on the source code, replacing all **well formed** Unicode escapes with their respective Unicode characters, and then letting the compiler work on the rest of the code.
 
 Keep in mind, when Unicode escapes are being processed, the compiler does not differentiate comments from actual code. It can only see a sequence of characters. And this explains the erroneous code you saw in the introduction of this post. Let's have a look at it again.
 
@@ -190,8 +190,25 @@ From section 3.3
 
 > This transformed version is equally acceptable to a Java compiler and represents the exact same program. The exact Unicode source can later be restored from this ASCII form by converting each escape sequence where multiple u's are present to a sequence of Unicode characters with one fewer u, while simultaneously converting each escape sequence with a single u to the corresponding single Unicode character.
 
-## what should i use instead
-## windows path example
+## Prefer escape sequences
+
+Because Unicode escapes are processed before everything else in the compilation process, they can create a considerable amount of confusion. Therefore it is better to avoid them if possible. Prefer [escape sequences](https://docs.oracle.com/javase/tutorial/java/data/characters.html "Java escape sequences") if you need to represent line feeds, double quotes and the like in string or character literals. There's no need to use Unicode escapes for ASCII characters.
+
+## Unicode escapes have to be well formed
+
+I mentioned previously that only **well formed** Unicode escapes are replaced with Unicode characters during the compilation process. You will get an error if there's an ill-formed Unicode escape in your code. Have a look at the following example.
+
+{% highlight java %}
+public class IllFormedUnicodeEscape {
+    public static void main(String[] args) {
+        // user data is read from C:\data\users\profile
+        System.out.println("User data");
+    }
+}
+{% enghighlight %}
+
+This seems like an innocent looking piece of code. The comment tries to be helpful and communicate something important to the reader. Unfortunately there's an Unicode escape lurking in this code which is not well formed. Windows path names use backslashes as do Unicode escapes to denote the start of the escape sequence. In this example, the path name contains a folder named `users`. As you know by now, Unicode escapes start with `\u` and the compiler expects four hexadecimal digits to be followed. When this rule is not met, the compiler will throw an error.
+
 ## whole program with unicode escapes
 
 [ide]: {{ site.url }}/images/2016-08-11-unicode-escapes/ide.png "Screenshot of my IDE"
