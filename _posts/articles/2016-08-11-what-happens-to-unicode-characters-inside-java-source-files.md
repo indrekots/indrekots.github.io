@@ -205,10 +205,55 @@ public class IllFormedUnicodeEscape {
         System.out.println("User data");
     }
 }
-{% enghighlight %}
+{% endhighlight %}
 
 This seems like an innocent looking piece of code. The comment tries to be helpful and communicate something important to the reader. Unfortunately there's an Unicode escape lurking in this code which is not well formed. Windows path names use backslashes as do Unicode escapes to denote the start of the escape sequence. In this example, the path name contains a folder named `users`. As you know by now, Unicode escapes start with `\u` and the compiler expects four hexadecimal digits to be followed. When this rule is not met, the compiler will throw an error.
 
-## whole program with unicode escapes
+## Taking it to the extreme
+
+We have looked at several examples of Unicode escape misuse. Your eye should be trained enough to spot most of them by now. For the next example I'm going to show you a piece of code that I first saw when I read the book [Java Puzzlers](http://www.javapuzzlers.com/ "Java Puzzlers book") by Joshua Bloch and Neal Gafter.
+
+{% highlight java %}
+\u0070\u0075\u0062\u006c\u0069\u0063\u0020\u0020\u0020\u0020
+\u0063\u006c\u0061\u0073\u0073\u0020\u0055\u0067\u006c\u0079
+\u007b\u0070\u0075\u0062\u006c\u0069\u0063\u0020\u0020\u0020
+\u0020\u0020\u0020\u0020\u0073\u0074\u0061\u0074\u0069\u0063
+\u0076\u006f\u0069\u0064\u0020\u006d\u0061\u0069\u006e\u0028
+\u0053\u0074\u0072\u0069\u006e\u0067\u005b\u005d\u0020\u0020
+\u0020\u0020\u0020\u0020\u0061\u0072\u0067\u0073\u0029\u007b
+\u0053\u0079\u0073\u0074\u0065\u006d\u002e\u006f\u0075\u0074
+\u002e\u0070\u0072\u0069\u006e\u0074\u006c\u006e\u0028\u0020
+\u0022\u0048\u0065\u006c\u006c\u006f\u0020\u0077\u0022\u002b
+\u0022\u006f\u0072\u006c\u0064\u0022\u0029\u003b\u007d\u007d
+{% endhighlight %}
+
+What? Really? This looks like an entry to a [code obfuscation contest](http://www.ioccc.org/ "The International Obfuscated C Code Contest"). But if you think about it, this seems like it should compile, granted that all the Unicode escapes actually represent characters that make up a valid Java program. We learned that the very first thing the compiler does is look for Unicode escapes and replace them. It does not know anything about the program structure at that point.
+
+You can try it yourself. Copy the text into a file called `Ugly.java`. Then compile and run the program. By the way, there's no point trying to run it from an IDE (at least IntelliJ IDEA is baffled and is only able to show squiggly red lines). Use command line tools instead.
+
+{% highlight bash %}
+$ javac Ugly.java
+$ java Ugly
+Hello world
+{% endhighlight %}
+
+Additionally you can use the `native2ascii` tool to view what the code looks like if all Unicode escapes have been replaced.
+
+{% highlight bash %}
+$ native2ascii -reverse Ugly.java
+public
+class Ugly
+{public
+    static
+void main(
+String[]  
+    args){
+System.out
+.println(
+"Hello w"+
+"orld");}}
+{% endhighlight %}
+
+I have only one thing to say. Just because you can doesn't mean you should.
 
 [ide]: {{ site.url }}/images/2016-08-11-unicode-escapes/ide.png "Screenshot of my IDE"
