@@ -256,4 +256,10 @@ System.out
 
 I have only one thing to say. Just because you can doesn't mean you should.
 
+## Summary
+
+Even if you did or did not know about how Unicode escapes behave in Java, I'm guessing this information is of little use to you in your day to day life. That's because most of the time there's no need to insert a Unicode escape. And even if you do, [most operating systems have a method to input them](https://en.wikipedia.org/wiki/Unicode_input#In_X11_.28Linux_and_other_Unix_variants.29 "Unicode input"). Unicode is fairly common nowadays and most IDE's and text editors can display non-ASCII characters. If possible, avoid Unicode escapes because they create confusion. Prefer escape sequences instead.
+
+
+
 [ide]: {{ site.url }}/images/2016-08-11-unicode-escapes/ide.png "Screenshot of my IDE"
