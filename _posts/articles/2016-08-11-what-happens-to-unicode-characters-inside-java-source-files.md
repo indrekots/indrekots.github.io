@@ -70,11 +70,11 @@ What!? So many errors! My IDE doesn't show any squiggly red lines and I can't se
 
 In this post I'm going to cover Unicode escapes in Java and by the end of this post you'll understand what caused the error in the first place.
 
-## What are *unicode escapes*
+## What are *unicode escapes*?
 
-Let's start from the beginning. Unicode escapes are used to represent any Unicode characters with only ASCII characters. This will come in handy when you need to insert a character that cannot be represented in the source file's character set. According to [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 fo JLS") a *unicode escape* consists of a backslash character ('\') followed by one or more 'u' characters and four hexadecimal digits.
+Let's start from the beginning. Unicode escapes are used to represent Unicode symbols with only ASCII characters. This will come in handy when you need to insert a character that cannot be represented in the source file's character set. According to [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 of JLS") a *unicode escape* consists of a backslash character (\\) followed by one or more 'u' characters and four hexadecimal digits.
 
-{% highlight text %}
+{% highlight bash %}
 UnicodeEscape:
     \ UnicodeMarker HexDigit HexDigit HexDigit HexDigit
 
