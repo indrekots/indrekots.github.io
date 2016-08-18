@@ -39,32 +39,32 @@ public class NewLine {
 }
 {% endhighlight %}
 
-Can you guess what will be printed out now? The answer should be the same as before, right?. I'm sure some of you might suspect that this is a trick question and as a matter of fact, it is. The previous example will not compile at all.
+Can you guess what will be printed out now? The answer should be the same as before, right?. I'm sure some of you might suspect that this is a trick question and as a matter of fact, it is. This example will not compile at all.
 
 {% highlight bash %}
 $ javac NewLine.java
-NewLine.java:5: error: ';' expected
+NewLine.java:3: error: ';' expected
         // \u000A is a unicode escape for the line feed (LF)
                       ^
-NewLine.java:5: error: ';' expected
+NewLine.java:3: error: ';' expected
         // \u000A is a unicode escape for the line feed (LF)
                                      ^
-NewLine.java:5: error: '(' expected
+NewLine.java:3: error: '(' expected
         // \u000A is a unicode escape for the line feed (LF)
                                          ^
-NewLine.java:5: error: ';' expected
+NewLine.java:3: error: ';' expected
         // \u000A is a unicode escape for the line feed (LF)
                                                   ^
-NewLine.java:5: error: ';' expected
+NewLine.java:3: error: ';' expected
         // \u000A is a unicode escape for the line feed (LF)
                                                             ^
-NewLine.java:7: error: ')' expected
+NewLine.java:5: error: ')' expected
         System.out.println("Hello \u0055nicode".length());
                                                          ^
 6 errors
 {% endhighlight %}
 
-What!? So many errors! My IDE doesn't show any squiggly red lines and I can't seem to find any syntax errors myself. Error on line 5? But that's a comment. What is going on?
+What!? So many errors! My IDE doesn't show any squiggly red lines and I can't seem to find any syntax errors myself. Error on line 3? But that's a comment. What is going on?
 
 ![Screenshot of my IDE][ide]
 
