@@ -180,7 +180,7 @@ From section 3.3
 
 > The Java programming language specifies a standard way of transforming a program written in Unicode into ASCII that changes a program into a form that can be processed by ASCII-based tools. The transformation involves converting any Unicode escapes in the source text of the program to ASCII by adding an extra u - for example, \uxxxx becomes \uuxxxx - while simultaneously converting non-ASCII characters in the source text to Unicode escapes containing a single u each.
 
-Unicode escapes were designed to ensure compatibility with a wide variety of character sets. Think of the following scenario. You receive a piece of code with an encoding your text editor does not understand (i.e. the code includes characters not available in the encoding you use). This can be solved by transforming all unknown characters with Unicode escapes. As ASCII is the lowest common denominator of character sets, it is always possible to represent Java code in any encoding by replacing characters that are not supported by the target encoding with Unicode escapes. Today Unicode is fairly common and this should not be an issue, but I guess back in the early days this was useful.
+Unicode escapes were designed to ensure compatibility with a wide variety of character sets. Think of the following scenario. You receive a piece of code with an encoding your text editor does not understand (i.e. the code includes characters not available in the encoding you use). This can be solved by replacing all unknown characters with Unicode escapes. As ASCII is the lowest common denominator of character sets, it is always possible to represent Java code in any encoding by replacing characters that are not supported by the target encoding with Unicode escapes. Today Unicode is fairly common and this should not be an issue, but I guess back in the early days this was useful.
 
 The transformed version is equal to the initial version and the compiler treats them as the same. As this process is reversible, the compiler can go back to the initial version by replacing Unicode escapes with respective Unicode characters.
 
@@ -205,7 +205,7 @@ public class IllFormedUnicodeEscape {
 }
 {% endhighlight %}
 
-This seems like an innocent looking piece of code. The comment tries to be helpful and communicate something important to the reader. Unfortunately there's an Unicode escape lurking in this code which is not well formed. Windows path names use backslashes as do Unicode escapes to denote the start of the escape sequence. In this example, the path name contains a folder named `users`. As you know by now, Unicode escapes start with `\u` and the compiler expects four hexadecimal digits to be followed. When this rule is not met, the compiler will throw an error.
+This seems like an innocent looking piece of code. The comment tries to be helpful and communicate something important to the reader. Unfortunately there's a Unicode escape lurking in this code which is not well formed. As you know by now, Unicode escapes start with `\u` and the compiler expects four hexadecimal digits to be followed. When this rule is not met, the compiler will throw an error. Windows path names use backslashes to separate directory names. But if one of those backslashes is followed with the `u` character, you can run into unexpected situations. The problem in this example is the sequence of characters `\users` which is in fact an ill-formed Unicode escape.
 
 ## Taking it to the extreme
 
