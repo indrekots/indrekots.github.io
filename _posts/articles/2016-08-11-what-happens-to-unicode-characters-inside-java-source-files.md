@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: true
+published: false
 aging: true
 ---
 Without saying anything else, I'm going to start this post with a simple code example.
@@ -209,7 +209,7 @@ This seems like an innocent looking piece of code. The comment tries to be helpf
 
 ## Taking it to the extreme
 
-We have looked at several examples of Unicode escape misuse. Your eye should be trained enough to spot most of them by now. For the next example I'm going to show you a piece of code that I first saw when I read the book [Java Puzzlers](http://www.javapuzzlers.com/ "Java Puzzlers book") by Joshua Bloch and Neal Gafter.
+We have looked at several examples where Unicode escapes can cause harm. Your eye should be trained enough to spot most of them by now. For the next example I'm going to show you a piece of code that I first saw when I read the book [Java Puzzlers](http://www.javapuzzlers.com/ "Java Puzzlers book") by Joshua Bloch and Neal Gafter.
 
 {% highlight java %}
 \u0070\u0075\u0062\u006c\u0069\u0063\u0020\u0020\u0020\u0020
@@ -256,8 +256,6 @@ I have only one thing to say. Just because you can doesn't mean you should.
 
 ## Summary
 
-Even if you did or did not know about how Unicode escapes behave in Java, I'm guessing this information is of little use to you in your day to day life. That's because most of the time there's no need to insert a Unicode escape. And even if you do, [most operating systems have a method to input them](https://en.wikipedia.org/wiki/Unicode_input#In_X11_.28Linux_and_other_Unix_variants.29 "Unicode input"). Unicode is fairly common nowadays and most IDE's and text editors can display non-ASCII characters. If possible, avoid Unicode escapes because they create confusion. Prefer escape sequences instead.
-
-
+Professionally I have never had the need to insert a Unicode escape. Nowadays Unicode is fairly common and most IDE's and text editors can display non-ASCII characters. If I find myself in a situation where I need to insert a character that's not available on my keyboard, [I can use methods provided by most operating systems to input them](https://en.wikipedia.org/wiki/Unicode_input "Unicode input"). If possible, avoid Unicode escapes because they create confusion. Prefer escape sequences instead.
 
 [ide]: {{ site.url }}/images/2016-08-11-unicode-escapes/ide.png "Screenshot of my IDE"
