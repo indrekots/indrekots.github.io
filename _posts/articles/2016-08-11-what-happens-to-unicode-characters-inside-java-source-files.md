@@ -87,9 +87,9 @@ So for example `\u000A` will be treated as a line feed. Looking back at the seco
 
 ## What caused the error?
 
-To get a better understanding of what is going on, we need to look at [section 3.2 of the Java Language Specification - Lexical Translations](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.2 "Section 3.2 Lexical Translations"). I cannot speak for all compilers that have ever existed but usually the first job of the compiler is to take the source code of the program, treat it as a sequence of characters and produce a sequence of tokens. A token is something that has a meaning in the context of the language. For example it can be a [reserved word](https://en.wikipedia.org/wiki/Reserved_word "Wikipedia page for reserved words") (`public`, `class` or `interface`), an [operator](https://en.wikipedia.org/wiki/Operator_(computer_programming) "Wikipedia page for operators") (`+`, `>>`) or a [literal](https://en.wikipedia.org/wiki/Literal_(computer_programming) "Wikipedia page for literals") (a notation for representing a fixed value). The process of generating tokens from a sequence of characters is called [lexical analysis](https://en.wikipedia.org/wiki/Lexical_analysis "Wikipedia page for lexical analysis") (or lexical translation as it is called in the Oracle docs) and the program that performs that is called a *lexer* or a *tokenizer*.
+To get a better understanding of what is going on, we need to look at [section 3.2 of the Java Language Specification - Lexical Translations](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.2 "Section 3.2 Lexical Translations"). I cannot speak for all compilers that have ever existed but usually the first job of a compiler is to take the source code of a program, treat it as a sequence of characters and produce a sequence of tokens. A token is something that has a meaning in the context of the language. For example in Java it can be a [reserved word](https://en.wikipedia.org/wiki/Reserved_word "Wikipedia page for reserved words") (`public`, `class` or `interface`), an [operator](https://en.wikipedia.org/wiki/Operator_(computer_programming) "Wikipedia page for operators") (`+`, `>>`) or a [literal](https://en.wikipedia.org/wiki/Literal_(computer_programming) "Wikipedia page for literals") (a notation for representing a fixed value). The process of generating tokens from a sequence of characters is called [lexical analysis](https://en.wikipedia.org/wiki/Lexical_analysis "Wikipedia page for lexical analysis") (or lexical translation as it is called in the Oracle docs) and the program that performs that is called a *lexer* or a *tokenizer*.
 
-The [Java Language Specification]((https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.2 "Section 3.2 Lexical Translations")) says that lexical translation is performed in the following 3 steps, where each step is applied to the result of the previous step:
+The [Java Language Specification]((https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.2 "Section 3.2 Lexical Translations") says that lexical translation is performed in the following 3 steps, where each step is applied to the result of the previous step:
 
 1. Translation of Unicode escapes.
 2. Divide stream of input characters into lines by recognizing line terminators (LF, CR or CR LF).
@@ -149,12 +149,12 @@ public class HidingCode {
         System.out.println("Hello world");
     }
 }
+{% endhighlight %}
 
-If we replace the Unicode escape with a line feed, then it should be clear that there's actually two print statements executed.
+If the Unicode escape is replaced with a line feed, then it should be clear there's actually two print statements executed.
 
 {% highlight bash %}
-native2ascii -reverse HidingCode.java
-
+$ native2ascii -reverse HidingCode.java
 public class HidingCode {
     public static void main(String[] args) {
         //
@@ -162,10 +162,8 @@ public class HidingCode {
         System.out.println("Hello world");
     }
 }
-{% endhighlight %}
-
-
-//prints out
+$ javac HidingCode.java
+$ java HidingCode
 This is a comment
 Hello world
 {% endhighlight %}
