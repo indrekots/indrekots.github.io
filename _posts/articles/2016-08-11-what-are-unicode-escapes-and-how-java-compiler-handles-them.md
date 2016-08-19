@@ -25,9 +25,9 @@ public class HelloUnicode {
 }
 {% endhighlight %}
 
-Take a moment to think about what will be printed out? If you want, copy and paste the code to a new file, compile and run it. At first glance it looks like the program prints out `18`. There's 18 characters between the double quotes, so the length of the string should be 18. After reading the comment it should be reasonable to think that the Unicode escape will be replaced with a single character. If you run the code, you will see that the program prints out `13`. This proves the hypothesis that Unicode escape sequences are replaced with a single character inside a string literal.
+Take a moment to think about what will be printed out? If you want, copy and paste the code to a new file, compile and run it. At first glance it looks like the program prints out `18`. There's 18 characters between the double quotes, so the length of the string should be 18. But if you run the program, the output is `13`. As the comment suggests, the Unicode escape will be replaced with a single character.
 
-Now equipped with the knowledge that Unicode escapes are replaced with their respective Unicode characters, let's look at the following example.
+Equipped with the knowledge that Unicode escapes are replaced with their respective Unicode characters, let's look at the following example.
 
 {% highlight java %}
 public class NewLine {
