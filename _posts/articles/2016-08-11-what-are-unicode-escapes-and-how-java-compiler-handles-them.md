@@ -39,7 +39,7 @@ public class NewLine {
 }
 {% endhighlight %}
 
-Can you guess what will be printed out now? The answer should be the same as before, right?. I'm sure some of you might suspect that this is a trick question and as a matter of fact, it is. This example will not compile at all.
+Can you guess what will be printed out now? The answer should be the same as before, right? I'm sure some of you might suspect that this is a trick question and as a matter of fact, it is. This example will not compile at all.
 
 {% highlight bash %}
 $ javac NewLine.java
