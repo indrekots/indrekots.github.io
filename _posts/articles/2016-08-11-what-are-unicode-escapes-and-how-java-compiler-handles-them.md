@@ -68,7 +68,7 @@ What!? So many errors! My IDE doesn't show any squiggly red lines and I can't se
 
 ![Screenshot of my IDE][ide]
 
-In this post I'm going to cover Unicode escapes in Java and by the end of this post you'll understand what caused the error in the first place.
+In this post I'm going to cover Unicode escapes in Java. By the end you will understand what caused the error in the first place.
 
 ## What are *unicode escapes*?
 
