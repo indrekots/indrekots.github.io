@@ -25,7 +25,7 @@ public class HelloUnicode {
 }
 {% endhighlight %}
 
-Take a moment to think about what will be printed out? If you want, copy and paste the code to a new file, compile and run it. At first glance it looks like `18` will be printed out since there's 18 characters between the double quotes.  But after reading the comment it is reasonable to think that the Unicode escape will be replaced with a single character. If you run the code, you will see that the program prints out `13` which proves the hypothesis that Unicode escape sequences are in fact removed and replaced with a single character inside a string literal.
+Take a moment to think about what will be printed out? If you want, copy and paste the code to a new file, compile and run it. At first glance it looks like the program prints out `18`. There's 18 characters between the double quotes, so the length of the string should be 18. After reading the comment it should be reasonable to think that the Unicode escape will be replaced with a single character. If you run the code, you will see that the program prints out `13`. This proves the hypothesis that Unicode escape sequences are replaced with a single character inside a string literal.
 
 Now equipped with the knowledge that Unicode escapes are replaced with their respective Unicode characters, let's look at the following example.
 
@@ -170,8 +170,7 @@ Hello world
 
 ## Why does Java allow that?
 
-This all seems weird, right? Why is Java designed like that? Is it a bug that was accidentally introduced and never fixed because it would break something else? To find an answer to that question we need to look back at [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 of JLS") and also [section 3.1](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.1 "Section 3.1 of JLS").
-
+This all seems weird, right? Why is Java designed like that? Is it a bug that was accidentally introduced and never fixed because it would break something else? To find an answer to that question we need to look at [section 3.1](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.1 "Section 3.1 of JLS") and [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 of JLS").
 From section 3.1
 
 > The Java programming language represents text in sequences of 16-bit code units, using the UTF-16 encoding.
@@ -256,6 +255,6 @@ I have only one thing to say. Just because you can doesn't mean you should.
 
 ## Summary
 
-Professionally I have never had the need to insert a Unicode escape. Nowadays Unicode is fairly common and most IDE's and text editors can display non-ASCII characters. If I find myself in a situation where I need to insert a character that's not available on my keyboard, [I can use methods provided by most operating systems to input them](https://en.wikipedia.org/wiki/Unicode_input "Unicode input"). If possible, avoid Unicode escapes because they create confusion. Prefer escape sequences instead.
+Professionally I have never had the need to insert a Unicode escape. Nowadays Unicode is fairly common and most text editors can display non-ASCII characters. If I find myself in a situation where I need to insert a character that's not available on my keyboard, [I can use methods provided by most operating systems to input them](https://en.wikipedia.org/wiki/Unicode_input "Unicode input"). If possible, avoid Unicode escapes because they create confusion. Prefer escape sequences instead.
 
 [ide]: {{ site.url }}/images/2016-08-11-unicode-escapes/ide.png "Screenshot of my IDE"
