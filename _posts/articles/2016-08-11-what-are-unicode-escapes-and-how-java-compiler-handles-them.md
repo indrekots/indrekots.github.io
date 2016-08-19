@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Unicode escapes in Java source code are a bad idea"
+title: "What are Unicode escapes and how the Java compiler handles them"
 excerpt:
 modified: 2016-08-11 09:33:29 +0300
 categories: articles
