@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "What are Unicode escapes and how the Java compiler handles them"
-excerpt:
+title: "Java, Unicode, and the Mysterious Compiler Error"
+excerpt: This post covers how the Java compiler handles Unicode escapes and how they can cause mysterious compiler errors.
 modified: 2016-08-11 09:33:29 +0300
 categories: articles
-tags: [java, unicode]
+tags: [java, unicode, compiler]
 image:
   feature:
   credit:
@@ -14,7 +14,27 @@ share: true
 published: false
 aging: true
 ---
-Without saying anything else, I'm going to start this post with a simple code example.
+
+Unicode is a text encoding standard which supports a broad range of characters and symbols. Although the latest version of the standard is 9.0, JDK 8 supports [Unicode 6.2](https://docs.oracle.com/javase/8/docs/technotes/guides/intl/enhancements.8.html "Internationalization Enhancements in JDK 8") and JDK 9 is expected to be released with [support for Unicode 8.0](http://openjdk.java.net/jeps/267 "JEP 267: Unicode 8.0"). Java allows you to insert any supported Unicode characters with Unicode escapes. These are essentially a sequence of hexadecimal digits representing a [code point](https://en.wikipedia.org/wiki/Code_point "Wikipedia article for code point"). In this post I'm going to cover how to use Unicode escapes in Java and how to avoid unexplainable compiler errors caused by Unicode escape misuse.
+
+## What are *unicode escapes*?
+
+Let's start from the beginning. Unicode escapes are used to represent Unicode symbols with only ASCII characters. This will come in handy when you need to insert a character that cannot be represented in the source file's character set. According to [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 of JLS") a *unicode escape* consists of a backslash character (\\) followed by one or more 'u' characters and four hexadecimal digits.
+
+{% highlight bash %}
+UnicodeEscape:
+    \ UnicodeMarker HexDigit HexDigit HexDigit HexDigit
+
+UnicodeMarker:
+    u
+    UnicodeMarker u
+{% endhighlight %}
+
+So for example `\u000A` will be treated as a line feed.
+
+## Example usage
+
+The following is a piece of Java code containing a Unicode escape.
 
 {% highlight java %}
 public class HelloUnicode {
@@ -25,7 +45,9 @@ public class HelloUnicode {
 }
 {% endhighlight %}
 
-Take a moment to think about what will be printed out? If you want, copy and paste the code to a new file, compile and run it. At first glance it looks like the program prints out `18`. There's 18 characters between the double quotes, so the length of the string should be 18. But if you run the program, the output is `13`. As the comment suggests, the Unicode escape will be replaced with a single character.
+Take a moment to think about what will be printed out. If you want, copy and paste the code to a new file, compile and run it.
+
+At first glance it looks like the program prints out `18`. There's 18 characters between the double quotes, so the length of the string should be 18. But if you run the program, the output is `13`. As the comment suggests, the Unicode escape will be replaced with a single character.
 
 Equipped with the knowledge that Unicode escapes are replaced with their respective Unicode characters, let's look at the following example.
 
@@ -68,26 +90,11 @@ What!? So many errors! My IDE doesn't show any squiggly red lines and I can't se
 
 ![Screenshot of my IDE][ide]
 
-In this post I'm going to cover Unicode escapes in Java. By the end you will understand what caused the error in the first place.
-
-## What are *unicode escapes*?
-
-Let's start from the beginning. Unicode escapes are used to represent Unicode symbols with only ASCII characters. This will come in handy when you need to insert a character that cannot be represented in the source file's character set. According to [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 of JLS") a *unicode escape* consists of a backslash character (\\) followed by one or more 'u' characters and four hexadecimal digits.
-
-{% highlight bash %}
-UnicodeEscape:
-    \ UnicodeMarker HexDigit HexDigit HexDigit HexDigit
-
-UnicodeMarker:
-    u
-    UnicodeMarker u
-{% endhighlight %}
-
-So for example `\u000A` will be treated as a line feed. Looking back at the second code example in this post, a Unicode escape representing the line feed was used inside a comment. You can view a list of Unicode characters from [here](http://unicode-table.com/en/).
-
 ## What caused the error?
 
-To get a better understanding of what is going on, we need to look at [section 3.2 of the Java Language Specification - Lexical Translations](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.2 "Section 3.2 Lexical Translations"). I cannot speak for all compilers that have ever existed but usually the first job of a compiler is to take the source code of a program, treat it as a sequence of characters and produce a sequence of tokens. A token is something that has a meaning in the context of the language. For example in Java it can be a [reserved word](https://en.wikipedia.org/wiki/Reserved_word "Wikipedia page for reserved words") (`public`, `class` or `interface`), an [operator](https://en.wikipedia.org/wiki/Operator_(computer_programming) "Wikipedia page for operators") (`+`, `>>`) or a [literal](https://en.wikipedia.org/wiki/Literal_(computer_programming) "Wikipedia page for literals") (a notation for representing a fixed value). The process of generating tokens from a sequence of characters is called [lexical analysis](https://en.wikipedia.org/wiki/Lexical_analysis "Wikipedia page for lexical analysis") (or lexical translation as it is called in the Oracle docs) and the program that performs that is called a *lexer* or a *tokenizer*.
+To get a better understanding of what is going on, we need to look at [section 3.2 of the Java Language Specification - Lexical Translations](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.2 "Section 3.2 Lexical Translations"). I cannot speak for all compilers that have ever existed but usually the first job of a compiler is to take the source code of a program, treat it as a sequence of characters and produce a sequence of tokens.
+
+A *token* is something that has a meaning in the context of the language. For example in Java it can be a [reserved word](https://en.wikipedia.org/wiki/Reserved_word "Wikipedia page for reserved words") (`public`, `class` or `interface`), an [operator](https://en.wikipedia.org/wiki/Operator_(computer_programming) "Wikipedia page for operators") (`+`, `>>`) or a [literal](https://en.wikipedia.org/wiki/Literal_(computer_programming) "Wikipedia page for literals") (a notation for representing a fixed value). The process of generating tokens from a sequence of characters is called [*lexical analysis*](https://en.wikipedia.org/wiki/Lexical_analysis "Wikipedia page for lexical analysis") (or *lexical translation* as it is called in the Oracle docs) and the program that performs that is called a *lexer* or a *tokenizer*.
 
 The [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.2 "Section 3.2 Lexical Translations") says that lexical translation is performed in the following 3 steps, where each step is applied to the result of the previous step:
 
@@ -140,7 +147,7 @@ public class NewLine {
 
 ## Hiding code in comments
 
-If Unicode escapes are processed before everything else, then can I cleverly hide code inside comments which will later be executed? The answer to this question is yes. Looking back at the previous example, we saw that a line feed was inserted and the rest of the comment was on the next line, resulting in invalid Java code. But we could have written the following
+If Unicode escapes are processed before everything else, then can I cleverly hide code inside comments which will later be executed? The somewhat scary answer to this question is yes. Looking back at the previous example, we saw that a line feed was inserted and the rest of the comment was on the next line, resulting in invalid Java code. But we could have written the following
 
 {% highlight java %}
 public class HidingCode {
@@ -171,6 +178,7 @@ Hello world
 ## Why does Java allow that?
 
 This all seems weird, right? Why is Java designed like that? Is it a bug that was accidentally introduced and never fixed because it would break something else? To find an answer to that question we need to look at [section 3.1](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.1 "Section 3.1 of JLS") and [section 3.3 of the Java Language Specification (JLS)](https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.3 "Section 3.3 of JLS").
+
 From section 3.1
 
 > The Java programming language represents text in sequences of 16-bit code units, using the UTF-16 encoding.
@@ -185,11 +193,11 @@ The transformed version is equal to the initial version and the compiler treats 
 
 From section 3.3
 
-> This transformed version is equally acceptable to a Java compiler and represents the exact same program. The exact Unicode source can later be restored from this ASCII form by converting each escape sequence where multiple u's are present to a sequence of Unicode characters with one fewer u, while simultaneously converting each escape sequence with a single u to the corresponding single Unicode character.
+> This transformed version is equally acceptable to a Java compiler and represents the exact same program. The exact Unicode source can later be restored from this ASCII form by converting each [Unicode] escape sequence where multiple u's are present to a sequence of Unicode characters with one fewer u, while simultaneously converting each [Unicode] escape sequence with a single u to the corresponding single Unicode character.
 
 ## Prefer escape sequences
 
-Because Unicode escapes are processed before everything else in the compilation process, they can create a considerable amount of confusion. Therefore it is better to avoid them if possible. Prefer [escape sequences](https://docs.oracle.com/javase/tutorial/java/data/characters.html "Java escape sequences") if you need to represent line feeds, double quotes and the like in string or character literals. There's no need to use Unicode escapes for ASCII characters.
+Because Unicode escapes are processed before everything else in the compilation process, they can create a considerable amount of confusion. Therefore it is better to avoid them if possible. Instead prefer [escape sequences](https://docs.oracle.com/javase/tutorial/java/data/characters.html "Java escape sequences"), for example `\n` for line feeds or `\”` for double quotes, in string or character literals. There's no need to use Unicode escapes for ASCII characters.
 
 ## Unicode escapes have to be well formed
 
@@ -204,7 +212,9 @@ public class IllFormedUnicodeEscape {
 }
 {% endhighlight %}
 
-This seems like an innocent looking piece of code. The comment tries to be helpful and communicate something important to the reader. Unfortunately there's a Unicode escape lurking in this code which is not well formed. As you know by now, Unicode escapes start with `\u` and the compiler expects four hexadecimal digits to be followed. When this rule is not met, the compiler will throw an error. Windows path names use backslashes to separate directory names. But if one of those backslashes is followed with the `u` character, you can run into unexpected situations. The problem in this example is the sequence of characters `\users` which is in fact an ill-formed Unicode escape.
+This seems like an innocent looking piece of code. The comment tries to be helpful and communicate something important to the reader. Unfortunately there's a Unicode escape lurking in this code which is not well formed. As you know by now, Unicode escapes start with `\u` and the compiler expects four hexadecimal digits to be followed. When this rule is not met, the compiler will throw an error.
+
+Windows path names use backslashes to separate directory names. But if one of those backslashes is followed with the `u` character, you can run into unexpected situations. The problem in this example is the sequence of characters `\users` which is in fact an ill-formed Unicode escape.
 
 ## Taking it to the extreme
 
@@ -251,10 +261,8 @@ System.out
 "orld");}}
 {% endhighlight %}
 
-I have only one thing to say. Just because you can doesn't mean you should.
+I have only one thing to say. Just because you *can* doesn't mean you *should*.
 
 ## Summary
 
 Professionally I have never had the need to insert a Unicode escape. Nowadays Unicode is fairly common and most text editors can display non-ASCII characters. If I find myself in a situation where I need to insert a character that's not available on my keyboard, [I can use methods provided by most operating systems to input them](https://en.wikipedia.org/wiki/Unicode_input "Unicode input"). If possible, avoid Unicode escapes because they create confusion. Prefer escape sequences instead.
-
-[ide]: {{ site.url }}/images/2016-08-11-unicode-escapes/ide.png "Screenshot of my IDE"
