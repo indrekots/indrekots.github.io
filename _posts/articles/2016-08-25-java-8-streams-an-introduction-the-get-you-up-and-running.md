@@ -21,7 +21,9 @@ I must admit that some operations are relatively simple to achieve but if you're
 
 ## Streams
 
-Simple intro, declaratively (more readable as well) manipulate collections of data. Functional style together with lambda expressions. Pipe multiple operations together, think of cli piping -> composable
+Streams are a new API in Java 8 which allows developers to declaratively manipulate collections of data. It promotes the usage of functional style programming. Together with lambda expressions, Streams make the code more concise and readable. Additionally Streams allow to pipe multiple operations one after another. If you're familiar with Unix command-line pipes then you might find composing stream operations simple to understand. All in all, it helps the code to be more composable.
+
+Pipe multiple operations together, think of cli piping -> composable
 show before and after
 
 ## Other libraries
