@@ -46,7 +46,7 @@ for (Book book : library) {
     }
     else {
         List<Book> books = byAuthor.get(book.getAuthor());
-        books.add(book);
+        books.add(book);  
     }
 }
 
@@ -63,22 +63,42 @@ System.out.println(byAuthor2);
 //{Michael Ende=[Name: The Neverending Story, page count: 396, author: Michael Ende], H.G. Wells=[Name: The War of the Worlds, page count: 192, author: H.G. Wells], George Orwell=[Name: 1984, page count: 268, author: George Orwell, Name: Animal Farm, page count: 102, author: George Orwell], Lewis Carrol=[Name: Alice's Adventures in Wonderland, page count: 300, author: Lewis Carrol, Name: Through the Looking-Glass, and What Alice Found There, page count: 228, author: Lewis Carrol]}
 {% endhighlight %}
 
-Although they produce the same result, using Streams is easier to understand and required less work from the developer.
+Although they produce the same result (they group books by authors), using Streams is easier to understand and required less work from the developer. Don't worry if you don't understand the code. I'll go over the basics in the following paragraphs.
+
+## Creating a stream
+
+creating a stream from collections, streams from values, streams from arrays, streams from files, streams from functions
+
+## Stream operators
+
+intermediate operations vs terminal operations
+data source -> intermediate operations -> terminal operation
+
+## Examples of Stream operators
+
+functional -> map, reduce, filter, other stream usages
+truncating, limit()
+skipping, skip()
+finding
+max min
+
+## Pipelining
+
+simple diagram of stream pipelining
+
+## Specialized Streams
+
+numeric streams, specialized streams (intStream)
+
+## Parallel Streams
 
 ## Other libraries
 
 Guava, apache, lambdaj
 
+## Other
+
 traversable only once
-parallel streams
-functional -> map, reduce, filter, other stream usages
 lazy
-creating a stream from collections, streams from values, streams from arrays, streams from files, streams from functions
-simple diagram of stream pipelining
-intermediate operations vs terminal operations
-data source -> intermediate operations -> terminal operation
-truncating, limit()
-skipping, skip()
-finding
-max min
-numeric streams, specialized streams (intStream)
+
+## Summary
