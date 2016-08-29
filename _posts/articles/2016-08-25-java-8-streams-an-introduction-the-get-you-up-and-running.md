@@ -104,7 +104,9 @@ Java 8 allows to create a Stream from a file. The `java.nio.file.Files` class co
 Stream<String> lines = Files.lines(Paths.get("/tmp/data"), Charset.defaultCharset());
 {% endhighlight %}
 
-streams from files, streams from functions
+### Creating a stream from functions
+
+streams from functions
 
 ## Stream operators
 
