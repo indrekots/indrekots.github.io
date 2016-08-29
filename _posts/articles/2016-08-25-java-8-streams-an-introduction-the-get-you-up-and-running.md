@@ -96,6 +96,14 @@ Instead of creating an array or a collection and then converting it into a Strea
 Stream<String> stream = Stream.of("Lewis Carrol", "H.G. Wells", "Michael Ende");
 {% endhighlight %}
 
+### Creating a Stream from files
+
+Java 8 allows to create a Stream from a file. The `java.nio.file.Files` class contains several static methods which return a Stream of the file contents. The following example creates a Stream of Strings which represent the lines of the file.
+
+{% highlight java %}
+Stream<String> lines = Files.lines(Paths.get("/tmp/data"), Charset.defaultCharset());
+{% endhighlight %}
+
 streams from files, streams from functions
 
 ## Stream operators
