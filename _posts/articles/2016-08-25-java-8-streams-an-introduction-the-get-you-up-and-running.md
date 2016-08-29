@@ -74,10 +74,21 @@ To get started with Streams, you need a method to create them. Java 8 provides s
 Collection is the interface which lists, sets, queues and the like implement. With the introduction of Java 8 and *default methods*, a method called `stream()` was added to the Collection interface. It returns a sequential Stream with the collection as its source.
 
 {% highlight java %}
+List<Book> library = new ArrayList<>();
+library.add(new Book("Alice's Adventures in Wonderland", 300, "Lewis Carrol"));
 Stream<Book> bookStream = library.stream();
 {% endhighlight %}
 
-creating a stream from collections, streams from values, streams from arrays, streams from files, streams from functions
+### Creating a stream from arrays.
+
+Arrays don't have the same convenient methods that Collections have. Therefore to create a stream from an array, you need to use the static method `stream()` in the Arrays class. In addition to general Streams, it contains overloaded methods for specialized streams as well. Specialized streams are discussed later in this post.
+
+{% highlight java %}
+String[] names = {"Lewis Carrol", "H.G. Wells", "Michael Ende"};
+Stream<String> stream = Arrays.stream(names);
+{% endhighlight %}
+
+streams from values, streams from arrays, streams from files, streams from functions
 Stream.of
 
 ## Stream operators
