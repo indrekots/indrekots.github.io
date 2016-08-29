@@ -63,11 +63,22 @@ System.out.println(byAuthor2);
 //{Michael Ende=[Name: The Neverending Story, page count: 396, author: Michael Ende], H.G. Wells=[Name: The War of the Worlds, page count: 192, author: H.G. Wells], George Orwell=[Name: 1984, page count: 268, author: George Orwell, Name: Animal Farm, page count: 102, author: George Orwell], Lewis Carrol=[Name: Alice's Adventures in Wonderland, page count: 300, author: Lewis Carrol, Name: Through the Looking-Glass, and What Alice Found There, page count: 228, author: Lewis Carrol]}
 {% endhighlight %}
 
-Although they produce the same result (they group books by authors), using Streams is easier to understand and required less work from the developer. Don't worry if you don't understand the code. I'll go over the basics in the following paragraphs.
+Although they produce the same result (they group books by authors), using Streams is easier to understand and required significantly less work from the developer. Don't worry if you don't understand the code. I'll go over the basics in the following paragraphs.
 
-## Creating a stream
+## Creating a Stream
+
+To get started with Streams, you need a method to create them. Java 8 provides several approaches and we'll have a look at them one by one.
+
+### Creating a stream from a collection
+
+Collection is the interface which lists, sets, queues and the like implement. With the introduction of Java 8 and *default methods*, a method called `stream()` was added to the Collection interface. It returns a sequential Stream with the collection as its source.
+
+{% highlight java %}
+Stream<Book> bookStream = library.stream();
+{% endhighlight %}
 
 creating a stream from collections, streams from values, streams from arrays, streams from files, streams from functions
+Stream.of
 
 ## Stream operators
 
