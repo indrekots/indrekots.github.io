@@ -126,14 +126,35 @@ Generate accepts a [Supplier](https://docs.oracle.com/javase/8/docs/api/java/uti
 Stream<Double> randomNumbers = Stream.generate(Math::random);
 {% endhighlight %}
 
-## Stream operators
+## Stream operations
 
-intermediate operations vs terminal operations
-data source -> intermediate operations -> terminal operation
+The Stream interface defines operations that can be classified into two broad categories - intermediate and terminal operations. Intermediate operations return another stream. This makes it possible to chain multiple operations together to form a query. Terminal operations consume the stream and process the intermediate operations. This means that Streams are lazy. Intermediate operations are processed only when a terminal operation is invoked. Depending on the terminal operation used, the return value can be *void* or a non-stream value (Integer, List, Map etc.).
 
-## Examples of Stream operators
+## Examples of Stream operations
 
-functional -> map, reduce, filter, other stream usages
+Let's have a look at some of the most common stream operations and how to use them. Streams introduce many operations that are widely used in functional programming languages such as map, reduce and filter.
+
+### Map
+
+In many programming languages (especially functional programming languages) map is a [higher-order function](https://en.wikipedia.org/wiki/Higher-order_function "Wikipedia page for higher-order functions") that applies a given function to each element of a list. In the context of Java 8 Streams, map accepts a [Function](https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html "Function interface Javadoc") and returns a Stream where the given function has been applied to each element of the Stream.
+
+Although we have not yet looked at terminal operations in more detail, I'm using the `forEach()` terminal operation in the following example to illustrate what the Stream elements look like. The `library` variable is the same list that was created in the first code example of this post.
+
+{% highlight java %}
+library.stream().map(Book::getName).forEach(System.out::println);
+
+//prints out:
+//Alice's Adventures in Wonderland
+//Through the Looking-Glass, and What Alice Found There
+//The War of the Worlds
+//1984
+//Animal Farm
+//The Neverending Story
+{% endhighlight %}
+
+A [method reference]({{site.url}}/articles/four-types-of-method-references-in-java-8/) to `getName()` on the Book class is passed to map. The map operation returns a new Stream where Book objects have been replaced with Strings containing the book name. 
+
+functional -> reduce, filter, other stream usages
 truncating, limit()
 skipping, skip()
 finding
