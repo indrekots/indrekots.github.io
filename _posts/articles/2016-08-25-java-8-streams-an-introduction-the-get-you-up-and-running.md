@@ -4,7 +4,7 @@ title: "Java 8 Streams: an introduction the get you up and running"
 excerpt:
 modified: 2016-08-25 14:39:19 +0300
 categories: articles
-tags: [java, streams]
+tags: [java, java 8, streams]
 image:
   feature: 2016-08-25-java-8-streams-an-introduction-the-get-you-up-and-running/cover.jpg
   credit: Ales Krivec
@@ -106,7 +106,25 @@ Stream<String> lines = Files.lines(Paths.get("/tmp/data"), Charset.defaultCharse
 
 ### Creating a stream from functions
 
-streams from functions
+Two static methods in the Stream interface allow you to create *infinite* Streams. Yes, that's right. Unlike a Collection or an array, a Stream can have no bounds. These methods are `iterate()` and `generate()`.
+
+#### Iterate
+
+Iterate accepts an initial element and a function which is applied to the previous element to produce the next element. The following example produces an infinite Stream of even numbers.
+
+{% highlight java %}
+Stream<Integer> evenNumbers = Stream.iterate(0, n -> n + 2);
+{% endhighlight %}
+
+A [lambda expression]({{ site.url }}/articles/java-8-lambda-expressions/) of type [UnaryOperator](https://docs.oracle.com/javase/8/docs/api/java/util/function/UnaryOperator.html "UnaryOperator JavaDoc") is used to produce the next even number by adding 2 to the previous number.
+
+#### Generate
+
+Generate accepts a [Supplier](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html "Supplier JavaDoc") to generate an infinite Stream of unsorted elements. This method is good for generating a Stream of random elements as can be seen in the following example.
+
+{% highlight java %}
+Stream<Double> randomNumbers = Stream.generate(Math::random);
+{% endhighlight %}
 
 ## Stream operators
 
