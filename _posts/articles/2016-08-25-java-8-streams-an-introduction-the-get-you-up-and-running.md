@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/photos/tB-1h16ganU
 comments: true
 share: true
-published: true
+published: false
 aging: true
 ---
 
@@ -152,7 +152,7 @@ library.stream().map(Book::getName).forEach(System.out::println);
 //The Neverending Story
 {% endhighlight %}
 
-A [method reference]({{site.url}}/articles/four-types-of-method-references-in-java-8/) to `getName()` on the Book class is passed to map. The map operation returns a new Stream where Book objects have been replaced with Strings containing the book name. 
+A [method reference]({{site.url}}/articles/four-types-of-method-references-in-java-8/) to `getName()` on the Book class is passed to map. The map operation returns a new Stream where Book objects have been replaced with Strings containing the book name.
 
 functional -> reduce, filter, other stream usages
 truncating, limit()
