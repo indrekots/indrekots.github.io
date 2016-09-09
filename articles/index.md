@@ -12,7 +12,7 @@ search_omit: true
       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}
       <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span>
       <div style="clear:both;"></div>
-      {% if post.read_time != false %}<span class="entry-time">{% include read-time.html body=post %}</span>{% endif %}
+      {% if post.read_time != false %}<span class="entry-time">{% include read-time.html body=post.content %}</span>{% endif %}
       {% if post.excerpt %}
         <span class="excerpt">{{ post.excerpt }}</span>
       {% endif %}
