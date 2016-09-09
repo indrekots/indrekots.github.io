@@ -2,18 +2,19 @@
 layout: post
 title: "Java, Unicode, and the Mysterious Compiler Error"
 excerpt: This post covers how the Java compiler handles Unicode escapes and how they can cause mysterious compiler errors.
-modified: 2016-08-11 09:33:29 +0300
+modified: 2016-09-09 17:33:29 +0300
 categories: articles
 tags: [java, unicode, compiler]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2016-08-11-unicode-escapes/cover.jpg
+  credit: Raphael Schaller
+  creditlink: https://unsplash.com/photos/GkinCd2enIY
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
+*This article was originally published on [SitePoint](https://www.sitepoint.com/java-unicode-mysterious-compile-error/) on August 25, 2016. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").*
 
 Unicode is a text encoding standard which supports a broad range of characters and symbols. Although the latest version of the standard is 9.0, JDK 8 supports [Unicode 6.2](https://docs.oracle.com/javase/8/docs/technotes/guides/intl/enhancements.8.html "Internationalization Enhancements in JDK 8") and JDK 9 is expected to be released with [support for Unicode 8.0](http://openjdk.java.net/jeps/267 "JEP 267: Unicode 8.0"). Java allows you to insert any supported Unicode characters with Unicode escapes. These are essentially a sequence of hexadecimal digits representing a [code point](https://en.wikipedia.org/wiki/Code_point "Wikipedia article for code point"). In this post I'm going to cover how to use Unicode escapes in Java and how to avoid unexplainable compiler errors caused by Unicode escape misuse.
 
