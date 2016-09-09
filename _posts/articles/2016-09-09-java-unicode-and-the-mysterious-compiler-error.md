@@ -89,8 +89,6 @@ NewLine.java:5: error: ')' expected
 
 What!? So many errors! My IDE doesn't show any squiggly red lines and I can't seem to find any syntax errors myself. Error on line 3? But that's a comment. What is going on?
 
-![Screenshot of my IDE][ide]
-
 ## What caused the error?
 
 To get a better understanding of what is going on, we need to look at [section 3.2 of the Java Language Specification - Lexical Translations](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.2 "Section 3.2 Lexical Translations"). I cannot speak for all compilers that have ever existed but usually the first job of a compiler is to take the source code of a program, treat it as a sequence of characters and produce a sequence of tokens.
