@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/photos/tB-1h16ganU
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
 
@@ -141,6 +141,7 @@ In many programming languages (especially functional programming languages) map 
 Although we have not yet looked at terminal operations in more detail, I'm using the `forEach()` terminal operation in the following example to illustrate what the Stream elements look like. The `library` variable is the same list that was created in the first code example of this post.
 
 {% highlight java %}
+//library is a list containing Book objects
 library.stream().map(Book::getName).forEach(System.out::println);
 
 //prints out:
@@ -154,7 +155,37 @@ library.stream().map(Book::getName).forEach(System.out::println);
 
 A [method reference]({{site.url}}/articles/four-types-of-method-references-in-java-8/) to `getName()` on the Book class is passed to map. The map operation returns a new Stream where Book objects have been replaced with Strings containing the book name.
 
-functional -> reduce, filter, other stream usages
+//flatmap
+
+### Reduce
+
+Reduce is another higher-order function which is common in functional programming languages. Although the Java designers chose to use the name *reduce*, it is also widely known as *fold* or *accumulate*. Unlike map which returns a Stream, reduce returns a single value by applying an accumulation function to the elements of the Stream. Because a non-stream value is returned, reduce is classified as a terminal operation.
+
+{% highlight java %}
+String[] books = {"Alice's Adventures in Wonderland", "1984", "The Neverending Story"};
+String result = Arrays.stream(books).reduce("", (a, b) -> a + " " + b);
+System.out.println(result);
+
+//prints out:
+// Alice's Adventures in Wonderland 1984 The Neverending Story
+{% endhighlight%}
+
+Reduce can be used to concatenate strings. Although there is a better method to join a stream of strings, it perfectly illustrates how reduce works. It accepts an initial value which in this case is an empty string. If the stream contains no elements, then an empty string is returned. The second argument is a [BinaryOperator](https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html "Javadoc for BinaryOperator") which takes the next element in the stream and concatenates it to the accumulated value. At first the accumulated value is an empty string which was passed as the first argument.
+
+//create a diagram
+
+The Java API specifies two more overloaded reduce methods. It is possible to omit the initial value and pass only a BinaryOperator to the reduce method. But in that case the return value is going to be an [Optional]({{ site.url }}/articles/optionals-in-java-8/) since there is no way of knowing what to return if there are no elements in the stream.  
+
+{% highlight java %}
+String[] books = {"Alice's Adventures in Wonderland", "1984", "The Neverending Story"};
+Optional<String> result = Arrays.stream(books).reduce((a, b) -> a + " " + b);
+result.ifPresent(System.out::println);
+
+//prints out:
+//Alice's Adventures in Wonderland 1984 The Neverending Story
+{% endhighlight %}
+
+functional -> filter, other stream usages
 truncating, limit()
 skipping, skip()
 finding
