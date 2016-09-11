@@ -14,6 +14,8 @@ share: true
 published: true
 aging: true
 ---
+* Table of Contents
+{:toc}
 
 Even the simplest programs use some kind of collection of elements. They are an essential part in programming. Be it arrays, lists, dictionaries or maps, they're used to store data so it could be easily accessed. Depending on the use case, different data structures are chosen. Arrays are good for storing a sequence of elements. Key-value data can be stored in dictionaries or maps (some programming languages call them associative arrays). Up until Java 8, processing Collections in Java has been inconvenient.
 
@@ -185,6 +187,40 @@ result.ifPresent(System.out::println);
 //Alice's Adventures in Wonderland 1984 The Neverending Story
 {% endhighlight %}
 
+The third and final overloaded reduce method is probably the most difficult to understand. It accepts an initial value called identity, a BiFunction and a BinaryOperator.
+
+{% highlight java %}
+<U> U reduce(U identity,
+   BiFunction<U,? super T,U> accumulator,
+   BinaryOperator<U> combiner)
+{% endhighlight %}
+
+The accumulator function is used to transform the next element in the stream of type T into type U which is then *accumulated* with the result of previous accumulations. In essence, it is a combined map and reduce operation. Most of the times it can be represented more simply by explicit calling map and reduce.
+
+Although technically not needed in sequential streams, the combiner function combines two elements of type U into a single one. It is necessary to combine the intermediary results of a parallel stream (parallel streams are covered later in this post). The Streams API does not differ between parallel and sequential streams. Therefore in order to make reduce run correctly when executed parallely, it needs to know how to combine intermediate results.
+
+//explain more with an example, SO link
+
+{% highlight java %}
+//library is a list of Book objects
+String s = library.stream().reduce("", (s, b) -> s + ", " + b.getName(), (a, b) -> a + ", " + b);
+System.out.println(s);
+
+//prints out:
+// Alice's Adventures in Wonderland Through the Looking-Glass, and What Alice Found There The War of the Worlds 1984 Animal Farm The Neverending Story
+{% endhighlight %}
+
+As stated previously, to improve the readability of this reduce operation, we could explicitly call map and then reduce.
+
+{% highlight java %}
+String s = library.stream().map(Book::getName).reduce("", (a, b) -> a + " " + b);
+{% endhighlight %}
+
+But why does the Streams API provide a method that could be represented better by pipelining multiple stream operations together? The answer is efficiency. [From Oracle docs](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#reduce-U-java.util.function.BiFunction-java.util.function.BinaryOperator- "Documentation for reduce") you can find the following:
+
+>The accumulator function acts as a fused mapper and accumulator, which can sometimes be more efficient than separate mapping and reduction, such as when knowing the previously reduced value allows you to avoid some computation.
+
+
 functional -> filter, other stream usages
 truncating, limit()
 skipping, skip()
@@ -200,6 +236,7 @@ simple diagram of stream pipelining
 numeric streams, specialized streams (intStream)
 
 ## Parallel Streams
+an associative, non-interfering, stateless function
 
 ## Other libraries
 
@@ -207,7 +244,7 @@ Guava, apache, lambdaj
 
 ## Other
 
-traversable only once
+traversable only once, example
 lazy
 
 ## Summary
