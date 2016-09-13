@@ -222,7 +222,7 @@ But why does the Streams API provide a method that could be represented better b
 
 ### Filter
 
-As the name implies, filter is used to filtrate a Stream. It accepts a [predicate](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) and returns a new Stream consisting of elements that match the given predicate.
+As the name implies, *filter* is used to filtrate a Stream. It accepts a [predicate](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) and returns a new Stream consisting of elements that match the given predicate.
 
 Using the list of books that was created in the beginning of this post, I can find all book objects where the page count is greater than 300.
 
@@ -232,8 +232,34 @@ library.stream().filter(b -> b.getPageCount() > 300).forEach(System.out::println
 //The Neverending Story
 {% endhighlight %}
 
+### Distinct
 
-functional -> other stream usages
+In a situation where you have duplicate elements in a Stream, you can use *distinct* to return a new Stream with only unique elements. The uniqueness is determined using the [*hashCode*](https://www.sitepoint.com/how-to-implement-javas-hashcode-correctly/) and [*equals*](https://www.sitepoint.com/implement-javas-equals-method-correctly/) methods of the objects in the Stream.
+
+{% highlight java %}
+Arrays.asList(1, 4, 2, 1, 1, 2, 6).stream().distinct().forEach(System.out::println);
+//prints out:
+//1
+//4
+//2
+//6
+{% endhighlight %}
+
+Although the stream contains multiple ones and twos, only unique integers are printed out.
+
+### Limit
+
+A stream can be truncated with *limit*. This is handy when you don't want to use the whole stream but only a section of it.
+Limit accepts an integer specifying the maximum size of the returned stream. If the stream is created from an ordered collection (e.g. List) then the returned stream contains the first n elements of the initial stream. Limit also works if the stream is created from a collection where the order is not defined (e.g. Set). In that case don't assume any order in the stream returned by *limit*.
+
+{% highlight java %}
+Arrays.asList(1, 2, 3, 4, 5, 6).stream().limit(3).forEach(System.out::println);
+//prints out:
+//1
+//2
+//3
+{% endhighlight %}
+
 truncating, limit()
 skipping, skip()
 finding
@@ -249,6 +275,8 @@ numeric streams, specialized streams (intStream)
 
 ## Parallel Streams
 an associative, non-interfering, stateless function
+ordering, encounter order
+limit is expensive
 
 ## Other libraries
 
