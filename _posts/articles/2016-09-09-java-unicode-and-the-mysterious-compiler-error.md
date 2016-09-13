@@ -145,6 +145,23 @@ public class NewLine {
 
 {% endhighlight %}
 
+## *native2ascii* removed from JDK9
+
+Prior to JDK9, properties files in Java [use the ISO-8859-1 character set by default](https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html#load-java.io.InputStream-). Characters that cannot be represented in ISO-8859-1 are converted to Unicode escapes using the *native2ascii* tool.
+
+>  Characters not in Latin1, and certain special characters, are represented in keys and elements using Unicode escapes as defined in section 3.3 of The Java™ Language Specification.
+
+[JEP 226](http://openjdk.java.net/jeps/226) proposes to support properties files encoded in UTF-8 in JDK9. This means that the *native2ascii* tool is not needed anymore.
+
+In this post, *native2ascii* is used to demonstrate what the Java source file would look like if Unicode escapes were replaced with actual Unicode characters. For JDK9 users, I recommend to use the [*uni2ascii* package](http://billposer.org/Software/uni2ascii.html) which can achieve the same result.
+
+{% highlight bash %}
+#uni2ascii package consists of two programs: uni2ascii and ascii2uni.
+#Commandline argument -a U specifies the format of Unicode escapes
+#which matches the one used in Java
+ascii2uni -a U NewLine.java
+{% endhighlight %}
+
 ## Hiding code in comments
 
 If Unicode escapes are processed before everything else, then can I cleverly hide code inside comments which will later be executed? The somewhat scary answer to this question is yes. Looking back at the previous example, we saw that a line feed was inserted and the rest of the comment was on the next line, resulting in invalid Java code. But we could have written the following
