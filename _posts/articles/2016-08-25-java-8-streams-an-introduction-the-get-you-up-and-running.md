@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/photos/tB-1h16ganU
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
 * Table of Contents
@@ -220,8 +220,20 @@ But why does the Streams API provide a method that could be represented better b
 
 >The accumulator function acts as a fused mapper and accumulator, which can sometimes be more efficient than separate mapping and reduction, such as when knowing the previously reduced value allows you to avoid some computation.
 
+### Filter
 
-functional -> filter, other stream usages
+As the name implies, filter is used to filtrate a Stream. It accepts a [predicate](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) and returns a new Stream consisting of elements that match the given predicate.
+
+Using the list of books that was created in the beginning of this post, I can find all book objects where the page count is greater than 300.
+
+{% highlight java %}
+library.stream().filter(b -> b.getPageCount() > 300).forEach(System.out::println);
+//prints out:
+//The Neverending Story
+{% endhighlight %}
+
+
+functional -> other stream usages
 truncating, limit()
 skipping, skip()
 finding
