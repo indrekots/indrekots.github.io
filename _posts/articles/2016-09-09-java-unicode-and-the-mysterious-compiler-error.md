@@ -2,7 +2,7 @@
 layout: post
 title: "Java, Unicode, and the Mysterious Compiler Error"
 excerpt: This post covers how the Java compiler handles Unicode escapes and how they can cause mysterious compiler errors.
-modified: 2016-09-09 17:33:29 +0300
+modified: 2016-09-17 17:33:29 +0300
 categories: articles
 tags: [java, unicode, compiler]
 image:
@@ -129,7 +129,9 @@ public class NewLine {
 
 The Unicode escape representing the line feed character is replaced with a line feed and now part of the comment is on a new line. Unfortunately the new line does not start with a *double-slash* (`//`) and the rest of the line is not valid Java code. Hence the confusing compiler error shown previously.
 
-You can try it yourself. Java is bundled with a tool called *[native2ascii](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/native2ascii.html "Oracle docs about native2ascii")* which converts a file with characters in any supported character encoding to one with ASCII and/or Unicode escapes, or visa versa.
+## Quick Detour: native2ascii
+
+You can play around with Unicode conversion yourself. Up to Java 8 the JRE is bundled with a tool called *[native2ascii](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/native2ascii.html "Oracle docs about native2ascii")*, which converts a file with characters in any supported character encoding to one with ASCII and/or Unicode escapes, or visa versa.
 
 {% highlight bash %}
 $ native2ascii -reverse NewLine.java
@@ -145,15 +147,9 @@ public class NewLine {
 
 {% endhighlight %}
 
-## *native2ascii* removed from JDK9
+What about Java 9 (and later)? Prior to it, Java property files [use the ISO-8859-1 character set by default](https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html#load-java.io.InputStream-). Characters that cannot be represented in ISO-8859-1 are converted to Unicode escapes using the *native2ascii* tool. But [JEP 226](http://openjdk.java.net/jeps/226) changes that and property files can now be encoded in UTF-8, which means that the *native2ascii* tool is not needed anymore.
 
-Prior to JDK9, properties files in Java [use the ISO-8859-1 character set by default](https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html#load-java.io.InputStream-). Characters that cannot be represented in ISO-8859-1 are converted to Unicode escapes using the *native2ascii* tool.
-
->  Characters not in Latin1, and certain special characters, are represented in keys and elements using Unicode escapes as defined in section 3.3 of The Java™ Language Specification.
-
-[JEP 226](http://openjdk.java.net/jeps/226) proposes to support properties files encoded in UTF-8 in JDK9. This means that the *native2ascii* tool is not needed anymore.
-
-In this post, *native2ascii* is used to demonstrate what the Java source file would look like if Unicode escapes were replaced with actual Unicode characters. For JDK9 users, I recommend to use the [*uni2ascii* package](http://billposer.org/Software/uni2ascii.html) which can achieve the same result.
+In this post, *native2ascii* is used to demonstrate what the Java source file would look like if Unicode escapes were replaced with actual Unicode characters. For Java 9 users, I recommend to use *[uni2ascii](http://billposer.org/Software/uni2ascii.html)*, which can achieve the same result.
 
 {% highlight bash %}
 #uni2ascii package consists of two programs: uni2ascii and ascii2uni.
