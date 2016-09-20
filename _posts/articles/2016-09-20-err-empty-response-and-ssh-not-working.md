@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "ERR_EMPTY_RESPONSE and SSH not working"
-excerpt: 
+excerpt: Chrome is returning ERR_EMPTY_RESPONSE, Git and SSH connection hangs at expecting SSH2_MSG_KEX_ECDH_REPLY. Seems to be an MTU/fragmentation problem.
 modified: 2016-09-20 16:17:38 +0200
 categories: articles
 tags: [ssh, chromium, chrome, git, mtu, ifconfig]
 image:
-  feature:
+  feature: 2016-09-19-err-empty-response-and-ssh-not-working/cover.png
   credit:
   creditlink:
 comments: true
