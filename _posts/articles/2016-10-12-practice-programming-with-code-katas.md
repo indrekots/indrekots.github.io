@@ -163,3 +163,38 @@ function chop(int, array) {
 The trick here is to return the original index from the array. This means I had to store the index in a tree node. The solution is kind of similar to the solution on day 3 where I had to keep track of the original index. For all to the right or the parent, I had to add the parent's node index +1.
 
 ## Day 5
+
+I already went the length to create a binary search tree and traverse the tree recursively to find the correct solution. What if i did that without recursion. Actually it's not that difficult at all. Since the tree is already sorted, there's no need to backtrack up the tree. The algorithm has to choose to go left or right. If there's no where to go, this means the target element is not in the tree.
+
+By the way, I'm using the same tree building code that was displayed on day 4.
+
+{% highlight javascript %}
+function search(int, node) {
+  while(node != null) {
+    if (int === node.value) {
+      return node.index;
+    }
+    else if (int > node.value) {
+      node = node.right;
+    }
+    else {
+      node = node.left;
+    }
+  }
+
+  return -1;
+}
+
+function chop(int, array) {
+  var root = bst.buildTree(array, 0);
+  return search(int, root);
+}
+{% endhighlight %}
+
+## Summary
+
+Day 1 to 3 where relatively easy. But after that, coming up with more solutions took some time. I guess it's hard to think outside the box if you're used to only look inside it. Writing these kind of algorithms you can encounter off by one errors and infinite loops, so be aware.
+
+In general, good way to practice.
+
+Practice makes perfect.
