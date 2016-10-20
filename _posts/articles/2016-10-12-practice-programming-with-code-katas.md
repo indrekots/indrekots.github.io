@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Practice programming with code katas"
-excerpt:
+excerpt: Kata is an exercise where the novice repeatedly tries to emulate a master.
 modified: 2016-10-12 14:05:22 +0200
 categories: articles
 tags: [kata, javascript, binary search, binary tree, algorithm, data structure]
@@ -11,27 +11,31 @@ image:
   creditlink:
 comments: true
 share: true
-published: false
+published: true
 aging: false
 ---
 
-Dave Thomas @PragDave proposes the idea of code katas.
+Dave Thomas (a.k.a. [@PragDave](https://twitter.com/pragdave "@PragDave Twitter profile")) proposes the idea of code katas.
 
 > [Kata](https://en.wikipedia.org/wiki/Kata "Kata Wikipedia page") (Japanese for form or pattern) are an exercise where the novice repeatedly tries to emulate a master. In karate, these kata are a sequence of basic moves (kicks, blocks, punches, and so on), strung together in a way that makes sense. You’ll never be attacked in such a way that you could repeat a kata to defend yourself: that isn’t the idea. Instead the idea is to practice the feel and to internalize the moves. (Interestingly, kata are not just used in the martial arts. Calligraphers also learn using kata, copying their masters’ brush strokes.)
 
-The idea is that just like in martial arts, we should practice programming just for the sake of writing code.
+The idea is that just like in martial arts, we should practice programming just for the sake of practicing. During each exercise you need to look for feedback so you could make improvements the next time.
 
-He has a website (codekata) which lists a number of example katas. I'm going to be looking the one which involves implementing a binary search algorithm (something you should be familiar with if you have attended an algorithms and data structures course) 5 days in a row. The caveat is that every day it should be implemented differently. At the same time you should observe what kind of common errors you encounter and do you improve over the period of 5 days.
+PragDave has a [website](http://codekata.com/ "CodeKata") on which he lists a number of example exercises. I'm going to be looking at the one that involves [implementing a binary search algorithm 5 days in a row](http://codekata.com/kata/kata02-karate-chop/ "Karate Chop Kata") . The caveat is that every day it should be implemented differently. At the same time you should observe what kind of common errors you encounter and how do you improve over the course of 5 days.
 
 ## Binary search in short
 
+[Binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm "Binary search Wikipedia page") is a search algorithm which finds the target element in a **sorted array** by comparing the target value to the middle element of the array. If they are unequal, half of the array is discarded and the search continues on the half where the element may still be found. Since the array is sorted, the algorithm can always determine which part of the array to eliminate. For example, if the target element is greater than the middle element, then the target element cannot be to the left of the middle element.
+
 ## Specification
 
-I needed to write a function that accepts an integer and a sorted array. It should return -1 if the integer is not present in the array. Otherwise it should return the index of the integer in the array.
+I needed to write a function that accepts an integer and a sorted array. It should return `-1` if the integer is not present in the array. Otherwise it should return the index of the integer in the array.
 
 ## Day 1
 
-The first day was easy because I had at least two techniques in mind—loops and recursion. I decided to implement a binary search algorithm with a while loop. The program would take the middle element of the array and at each iteration choose if the target element is to the left or to the right of the selected element, essentially halving the search space. The next iteration would only consider the sub-array that was either to the left or to the right of the initial middle element. This loop continues until the selected middle element of a sub-array is the target element or the sub-array is empty, in which case -1 is returned.
+The first day was easy because I had at least two techniques in mind—loops and recursion. I decided to implement a binary search algorithm with a while loop. The program would take the middle element of the array and at each iteration choose if the target element is to the left or to the right of the selected element, essentially halving the search space.
+
+Each iteration after the first would only consider the sub-array that was either to the left or to the right of the previous middle element. This loop continues until the selected middle element of a sub-array is the target element or the sub-array is empty, in which case `-1` is returned.
 
 {% highlight javascript %}
 function chop(int, array) {
@@ -59,8 +63,8 @@ Beware of infinite loops. It's easy to use a wrong boolean expression for the wh
 
 ## Day 2
 
-Since I already implemented a solution with a while loop, the next logical step was to use recursion. Initially I implemented a recursive function which accepted slices of arrays. For example, when the target element was to the left of the middle point, a sub-array from index 0 to middle point was passed to the recursive function. Apparently I could not get this to work initially.
-This returned wrong results when the searched element was to the right of the middle point. That's because a new sub-array was passed to the recursive function and hence returned an index from the sub-array, not from the original array.
+Since I already implemented a solution with a while loop, the next logical step was to use recursion. Initially I implemented a recursive function which accepted slices of arrays. For example, when the target element was to the left of the middle point, a sub-array from index 0 to middle point was passed to the recursive function. Apparently I could not get this to work.
+It returned an index from the sub-array but the goal is to get an index from the original array.
 
 I knew there was a solution for this but it was late in the evening and I decided to fall back to a backup solution. I changed the function signature to accept the left and right indexes of an array. They represent the sub-array where the target element might be found.
 
@@ -86,9 +90,9 @@ function chop(int, array) {
 
 ## Day 3
 
-I was starting to run out of ideas. Then I remembered that on day 2 I failed to implement my initial idea. Instead of passing left and right indexes to the recursive function, I wanted to pass a sub-array. But when the recursive algorithm returned a result, it returned an index from the sub-array, not from the initial array. It would only return a correct result if the target element was always to the left of the middle element.
+I was starting to run out of ideas. Then I remembered that on day 2 I failed to implement my initial idea. Instead of passing left and right indexes to the recursive function, I wanted to pass a sub-array. But the recursive algorithm returned an incorrect result. It returned an index from the sub-array but it should return an index from the original array.
 
-When the target element is to the right of the middle element, I needed to add the middle element index +1 to the result of the recursive call. This assured that I would get a result that corresponds to an index in the original array. There's one exception though. When the target element does not exist the function has to return -1. So there has to be an explicit check for a missing result and -1 needs to be propagated up the call stack.
+When the target element is to the right of the middle element, I needed to add the middle element index + 1 to the result of the recursive call. This assured that I would get a result that corresponds to an index in the original array. There's one exception though. When the target element does not exist the function has to return `-1`. So there has to be an explicit check for a missing result and `-1` needs to be propagated up the call stack.
 
 {% highlight javascript %}
 function chop(int, array) {
@@ -160,11 +164,11 @@ function chop(int, array) {
 }
 {% endhighlight %}
 
-The trick here is to return the original index from the array. This means I had to store the index in a tree node. The solution is kind of similar to the solution on day 3 where I had to keep track of the original index. For all to the right or the parent, I had to add the parent's node index +1.
+The trick here is to return the original index from the array. This means I had to store the index in a tree node. The solution is kind of similar to the solution on day 3 where I had to keep track of the original index. For all nodes to the right or the parent, I had to add the parent's node index + 1.
 
 ## Day 5
 
-I already went the length to create a binary search tree and traverse the tree recursively to find the correct solution. What if i did that without recursion. Actually it's not that difficult at all. Since the tree is already sorted, there's no need to backtrack up the tree. The algorithm has to choose to go left or right. If there's no where to go, this means the target element is not in the tree.
+I already went the length to create a binary search tree and traverse the tree recursively to find the correct solution. What if I did that without recursion. Actually it's not that difficult at all. Since the tree is already sorted, there's no need to backtrack up the tree. The algorithm has to choose to go left or right. If there's no where to go, this means the target element is not in the tree.
 
 By the way, I'm using the same tree building code that was displayed on day 4.
 
@@ -193,8 +197,8 @@ function chop(int, array) {
 
 ## Summary
 
-Day 1 to 3 where relatively easy. But after that, coming up with more solutions took some time. I guess it's hard to think outside the box if you're used to only look inside it. Writing these kind of algorithms you can encounter off by one errors and infinite loops, so be aware.
+Day 1 to 3 where relatively easy. But after that, coming up with additional solutions took some time. I guess it's hard to think outside the box if you're used to thinking inside it. When writing these kind of algorithms you can encounter off-by-one errors and infinite loops, so be aware.
 
-In general, good way to practice.
+It is not necessary to arrive at a correct solution. In most cases I think there is no correct answer. What's important is what you learn along the way. After all, the goal is to practice.
 
-Practice makes perfect.
+*All solutions can be found on [Github](https://github.com/indrekots/katas/tree/master/kata02-karate-chop "Binary chop repository").*
