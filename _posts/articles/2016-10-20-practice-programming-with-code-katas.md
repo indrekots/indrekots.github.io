@@ -2,13 +2,13 @@
 layout: post
 title: "Practice programming with code katas"
 excerpt: Kata is an exercise where the novice repeatedly tries to emulate a master. In karate, these kata are a sequence of basic moves, strung together in a way that makes sense. PragDave proposes the idea of doing the same with programming.
-modified: 2016-10-12 14:05:22 +0200
+modified: 2016-10-20 14:05:22 +0200
 categories: articles
 tags: [kata, javascript, binary search, binary tree, algorithm, data structure]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2016-10-20-practice-programming-with-code-katas/cover.jpg
+  credit: Fervent Jan
+  creditlink: https://unsplash.com/search/martial-art?photo=kKLEgX-Z_O4
 comments: true
 share: true
 published: true
