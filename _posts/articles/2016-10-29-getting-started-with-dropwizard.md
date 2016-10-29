@@ -2,7 +2,7 @@
 layout: post
 title: "Getting started with Dropwizard"
 excerpt: Dropwizard is a framework for building RESTful web services in Java. In this tutorial we're going to have a look at how to get started with developing a Dropwizard application by building a new service from scratch.
-modified: 2016-10-27 10:36:38 +0300
+modified: 2016-10-29 10:36:38 +0300
 categories: articles
 tags: [dropwizard, rest, java, web service, jersey, jackson]
 image:
@@ -11,7 +11,7 @@ image:
   creditlink: http://gunshowcomic.com/316
 comments: true
 share: true
-published: false
+published: true
 aging: true
 canonical-url: https://www.sitepoint.com/tutorial-getting-started-dropwizard/
 ---
