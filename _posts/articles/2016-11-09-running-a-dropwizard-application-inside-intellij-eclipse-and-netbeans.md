@@ -1,25 +1,25 @@
 ---
 layout: post
-title: "Running a Dropwizard application inside IntelliJ, Eclipse and NetBeans"
-excerpt: In addition to executing a Dropwizard application from the command line, you can configure your IDE to do that for you. This post is going to be looking at how to run a Dropwizard application in IntelliJ IDEA, Eclipse and NetBeans.
+title: "Running a Dropwizard application inside IntelliJ IDEA, Eclipse and NetBeans"
+excerpt: In addition to executing a Dropwizard application from the command line, you can increase your productivity by configuring your IDE to do that for you. This post is going to be looking at how to run a Dropwizard application in IntelliJ IDEA, Eclipse and NetBeans.
 modified: 2016-11-09 16:33:22 +0200
 categories: articles
 tags: [intellij, eclipse, netbeans, dropwizard, java]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2016-11-09-running-a-dropwizard-application-inside-intellij-eclipse-and-netbeans/cover.jpg
+  credit: Farzad Nazifi
+  creditlink: https://unsplash.com/photos/p-xSl33Wxyc
 comments: true
 share: true
 published: true
 aging: true
 ---
 
-[Dropwizard](http://www.dropwizard.io) is a framework for building [RESTful](https://www.sitepoint.com/what-does-restful-really-mean/) web services in Java. Similar to [Spring Boot](https://projects.spring.io/spring-boot/), Dropwizard applications are packaged into an executable *fat* JAR file. All external libraries your application depends on are present in a single file. The same artifact can be promoted from test to staging to production while being sure there’s no version changes in libraries used. In addition to executing a Dropwizard application from the command line, you can configure your IDE to do that for you. I'm going to be looking at how to run a Dropwizard application in [IntelliJ IDEA](https://www.jetbrains.com/idea/), [Eclipse](https://eclipse.org/downloads/) and [NetBeans](https://netbeans.org/).
+[Dropwizard](http://www.dropwizard.io) is a framework for building [RESTful](https://www.sitepoint.com/what-does-restful-really-mean/) web services in Java. Similar to [Spring Boot](https://projects.spring.io/spring-boot/), Dropwizard applications are packaged into an executable *fat* JAR file. All external libraries your application depends on are present in a single file. The same artifact can be promoted from test to staging to production while being sure there’s no version changes in libraries used. In addition to executing a Dropwizard application from the command line, you can increase your productivity by configuring your IDE to do that for you. I'm going to be looking at how to run a Dropwizard application in [IntelliJ IDEA](https://www.jetbrains.com/idea/), [Eclipse](https://eclipse.org/downloads/) and [NetBeans](https://netbeans.org/).
 
 To execute a Dropwizard application, its `main` method needs to be called with the correct arguments. When you execute a JAR file from the command line, the JVM reads the entry point to your application from the `MANIFEST.MF` file. It contains key-value pairs and the key we're interested in is `Main-Class`. In a Dropwizard application, this is set to your `Applicaiton` class.
 
-Equipped with this knowledge, it should be relatively easy to instruct your IDE to run a Dropwizard application during development. I'm going to be looking at the three most popular Java IDEs based on [Zeroturnaround's Java Tools and Technologies Landscape Report 2016](http://zeroturnaround.com/rebellabs/java-tools-and-technologies-landscape-2016/ "Java Tools and Technologies Landscape Report 2016")
+Equipped with this knowledge, it should be relatively easy to instruct your IDE to run a Dropwizard application during development. I'm going to be looking at how to do that in the three most popular Java IDEs based on [Zeroturnaround's Java Tools and Technologies Landscape Report 2016](http://zeroturnaround.com/rebellabs/java-tools-and-technologies-landscape-2016/ "Java Tools and Technologies Landscape Report 2016")
 
 ## IntelliJ IDEA
 
@@ -66,3 +66,7 @@ Equipped with this knowledge, it should be relatively easy to instruct your IDE 
 	<a href="{{ site.url}}/images/2016-11-09-running-a-dropwizard-application-inside-intellij-eclipse-and-netbeans/netbeans.png" class="image-popup"><img src="{{ site.url}}/images/2016-11-09-running-a-dropwizard-application-inside-intellij-eclipse-and-netbeans/netbeans.png" alt="NetBeans' project properties"></a>
 	<figcaption>NetBeans' project properties</figcaption>
 </figure>
+
+## Final words
+
+If the IDE you use is not listed here, you can still apply the same principles. The key is to instruct the IDE to call the `main` method with the desired arguments.
