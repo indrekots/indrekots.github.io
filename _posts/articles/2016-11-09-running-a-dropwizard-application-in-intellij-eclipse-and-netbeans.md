@@ -15,7 +15,7 @@ published: true
 aging: true
 ---
 
-[Dropwizard](http://www.dropwizard.io) is a framework for building [RESTful](https://www.sitepoint.com/what-does-restful-really-mean/) web services in Java. Similar to [Spring Boot](https://projects.spring.io/spring-boot/), Dropwizard applications are packaged into an executable *fat* JAR file. All external libraries your application depends on are present in a single file. The same artifact can be promoted from test to staging to production while being sure there’s no version changes in libraries used. In addition to executing a Dropwizard application from the command line, you can increase your productivity by configuring your IDE to do that for you. I'm going to be looking at how to run a Dropwizard application in [IntelliJ IDEA](https://www.jetbrains.com/idea/), [Eclipse](https://eclipse.org/downloads/) and [NetBeans](https://netbeans.org/).
+[Dropwizard](http://www.dropwizard.io) is a framework for building [RESTful](https://www.sitepoint.com/what-does-restful-really-mean/) web services in Java. Similar to [Spring Boot](https://projects.spring.io/spring-boot/), Dropwizard applications are packaged into an executable *fat* JAR file. In addition to executing a Dropwizard application from the command line, you can increase your productivity by configuring your IDE to do that for you. I'm going to be looking at how to run a Dropwizard application in [IntelliJ IDEA](https://www.jetbrains.com/idea/), [Eclipse](https://eclipse.org/downloads/) and [NetBeans](https://netbeans.org/).
 
 To execute a Dropwizard application, its `main` method needs to be called with the correct arguments. When you execute a JAR file from the command line, the JVM reads the entry point to your application from the `MANIFEST.MF` file. It contains key-value pairs and the key we're interested in is `Main-Class`. In a Dropwizard application, this is set to your `Applicaiton` class.
 
@@ -69,4 +69,4 @@ Equipped with this knowledge, it should be relatively easy to instruct your IDE 
 
 ## Final words
 
-If the IDE you use is not listed here, you can still apply the same principles. The key is to instruct the IDE to call the `main` method with the desired arguments.
+If the IDE you use is not listed here, you can still apply the same principles. The key is to instruct the IDE to call the `main` method with the desired arguments. Following the same steps it is very easy to attach a debugger as well. Instead of selecting the *run* option, you need to run the applicaiton in *debug* mode. For instance, in IntelliJ, instead of pressing Shift+F10 to run the application, press Shift+F9. In Eclipse and NetBeans the key combinations are F11 and Ctrl+F5 respectively.
