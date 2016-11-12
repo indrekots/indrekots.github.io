@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Running a Dropwizard application inside IntelliJ IDEA, Eclipse and NetBeans"
+title: "Running a Dropwizard application in IntelliJ IDEA, Eclipse and NetBeans"
 excerpt: In addition to executing a Dropwizard application from the command line, you can increase your productivity by configuring your IDE to do that for you. This post is going to be looking at how to run a Dropwizard application in IntelliJ IDEA, Eclipse and NetBeans.
 modified: 2016-11-09 16:33:22 +0200
 categories: articles
