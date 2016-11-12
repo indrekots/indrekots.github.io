@@ -2,7 +2,7 @@
 layout: post
 title: "Running a Dropwizard application in IntelliJ IDEA, Eclipse and NetBeans"
 excerpt: In addition to executing a Dropwizard application from the command line, you can increase your productivity by configuring your IDE to do that for you. This post is going to be looking at how to run a Dropwizard application in IntelliJ IDEA, Eclipse and NetBeans.
-modified: 2016-11-09 16:33:22 +0200
+modified: 2016-11-12 16:33:22 +0200
 categories: articles
 tags: [intellij, eclipse, netbeans, dropwizard, java]
 image:
@@ -69,4 +69,4 @@ Equipped with this knowledge, it should be relatively easy to instruct your IDE 
 
 ## Final words
 
-If the IDE you use is not listed here, you can still apply the same principles. The key is to instruct the IDE to call the `main` method with the desired arguments. Following the same steps it is very easy to attach a debugger as well. Instead of selecting the *run* option, you need to run the applicaiton in *debug* mode. For instance, in IntelliJ, instead of pressing Shift+F10 to run the application, press Shift+F9. In Eclipse and NetBeans the key combinations are F11 and Ctrl+F5 respectively.
+If the IDE you use is not listed here, you can still apply the same principles. The key is to instruct the IDE to call the `main` method with the desired arguments. Following the same steps it is very easy to attach a debugger as well. Instead of selecting the *run* option, you need to start the applicaiton in *debug* mode. For instance, in IntelliJ, instead of pressing Shift+F10 to run the application, press Shift+F9. In Eclipse and NetBeans the key combinations are F11 and Ctrl+F5 respectively.
