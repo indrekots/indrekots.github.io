@@ -2,7 +2,7 @@
 layout: post
 title: "5 ways to create a Stream in Java 8"
 excerpt: Java 8 introduced the Streams API which allows developers to declaratively manipulate collections. Here are five ways to create a Stream in Java 8.
-modified: 2016-12-12 20:18:17 +0200
+modified: 2016-12-18 20:18:17 +0200
 categories: articles
 tags: [java, java 8, streams api]
 image:
@@ -11,7 +11,7 @@ image:
     creditlink: https://unsplash.com/photos/tB-1h16ganU
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
 
@@ -88,3 +88,7 @@ Generate accepts a [Supplier](https://docs.oracle.com/javase/8/docs/api/java/uti
 {% highlight java %}
 Stream<Double> randomNumbers = Stream.generate(Math::random);
 {% endhighlight %}
+
+## Conclusion
+
+Learning the Streams API will help you to express complex ideas succinctly. The first step to getting started is creating a new stream object. We covered several methods of stream creation. In future articles we'll dive deeper into stream operations. 
