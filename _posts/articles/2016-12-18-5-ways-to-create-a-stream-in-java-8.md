@@ -17,7 +17,7 @@ aging: true
 
 Even the simplest programs use some kind of collection of elements. They are an essential part in programming. Be it arrays, lists, dictionaries or maps, they're used to store data so it could be easily accessed and manipulated. Depending on the use case, different data structures are chosen. Arrays are good for storing a sequence of elements. Key-value data can be stored in dictionaries or maps (some programming languages call them associative arrays).
 
-Java 8 introduced the Streams API which allows developers to declaratively manipulate collections. It promotes the usage of functional style programming. Together with [lambda expressions]({{site.url}}/articles/java-8-lambda-expressions/ "Overview of lambda expressions in Java 8") and [method references]({{site.url}}/articles/four-types-of-method-references-in-java-8/ "4 types of method references in Java 8"), Streams make the code more concise and readable. Additionally Streams allow to pipe multiple operations one after another. If you're familiar with Unix [command-line pipes](http://www.westwind.com/reference/os-x/commandline/pipes.html "Command-line pipes") then you might find composing stream operations simple to understand. To get started with Streams, you need a method to create them. Here are five ways to create a Stream in Java 8.
+Java 8 introduced the Streams API which allows developers to declaratively manipulate collections. It promotes the usage of functional style programming. Together with [lambda expressions]({{site.url}}/articles/java-8-lambda-expressions/ "Overview of lambda expressions in Java 8") and [method references]({{site.url}}/articles/four-types-of-method-references-in-java-8/ "4 types of method references in Java 8"), Streams make code more concise and readable. Additionally Streams allow to pipe multiple operations one after another. If you're familiar with Unix [command-line pipes](http://www.westwind.com/reference/os-x/commandline/pipes.html "Command-line pipes") then you might find composing stream operations simple to understand. To get started with Streams, you need a method to create them. Here are five ways to create a Stream in Java 8.
 
 ## Creating a Stream from a Collection
 
@@ -91,4 +91,4 @@ Stream<Double> randomNumbers = Stream.generate(Math::random);
 
 ## Conclusion
 
-Learning the Streams API will help you to express complex ideas succinctly. The first step to getting started is creating a new stream object. We covered several methods of stream creation. In future articles we'll dive deeper into stream operations. 
+Learning the Streams API will help you to express complex ideas succinctly. The first step to getting started is creating a new stream object. We covered several methods of stream creation. In future articles we'll dive deeper into stream operations.
