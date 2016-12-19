@@ -107,4 +107,4 @@ Look into [`java.util.function` package](https://docs.oracle.com/javase/8/docs/a
 
 ---
 
-Programming languages evolve to meet the requirements of programmers. Some might say that it took Java language designers ages to add lambda expressions - a feature which has been present in many modern languages for many years. Better late than never. All in all, I think lambdas are a great addition to the Java language and together with the Streams API, they will greatly improve code readability and developer happiness.
+Programming languages evolve to meet the requirements of programmers. Some might say that it took Java language designers ages to add lambda expressions - a feature which has been present in many modern languages for many years. Better late than never. All in all, I think lambdas are a great addition to the Java language and together with the [Streams API]({{site.url}}/articles/5-ways-to-create-a-stream-in-java-8/ "5 ways to create a Stream in Java 8"), they will greatly improve code readability and developer happiness.

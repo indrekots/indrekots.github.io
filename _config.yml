@@ -6,8 +6,8 @@ description: A software development blog
 logo: logo.png
 search: true
 words_per_minute: 200
-url: http://blog.indrek.io
-#url: http://localhost:4000
+#url: http://blog.indrek.io
+url: http://localhost:4000
 
 # Jekyll configuration
 
