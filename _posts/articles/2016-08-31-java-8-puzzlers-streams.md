@@ -31,7 +31,7 @@ list.add("eggs, don't forget eggs!");
 stream.forEach(System.out::println);
 {% endhighlight %}
 
-Can you guess what the output will be? As you can see, the stream is created before the final item is added to the list. Then the contents of the stream are printed out using a [method reference]({{site.url}}/articles/four-types-of-method-references-in-java-8/ "Method references in Java") to `System.out::println`.
+Can you guess what the output will be? As you can see, the [stream]({{site.url}}/articles/5-ways-to-create-a-stream-in-java-8/ "5 ways to create a Stream in Java 8") is created before the final item is added to the list. Then the contents of the stream are printed out using a [method reference]({{site.url}}/articles/four-types-of-method-references-in-java-8/ "Method references in Java") to `System.out::println`.
 
 **I challenge you to guess the output before reading further.**
 

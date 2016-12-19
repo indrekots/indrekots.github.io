@@ -17,7 +17,7 @@ published: true
 
 ## Motivation
 
-The purpose of chaining Optionals in a Stream is to pick the first Optional which has a value and return it. You could have multiple service methods which return Optionals. Passing them to a Stream as [method references]({{site_url}}/articles/four-types-of-method-references-in-java-8/ "Method references in Java 8") allows you to **process them lazily and return as soon as there's something to return**.
+The purpose of chaining Optionals in a [Stream]({{site.url}}/articles/5-ways-to-create-a-stream-in-java-8/ "5 ways to create a Stream in Java 8") is to pick the first Optional which has a value and return it. You could have multiple service methods which return Optionals. Passing them to a Stream as [method references]({{site_url}}/articles/four-types-of-method-references-in-java-8/ "Method references in Java 8") allows you to **process them lazily and return as soon as there's something to return**.
 
 The following utility method takes *Suppliers* as arguments and returns the first Optional which has a value.
 {% highlight java %}
