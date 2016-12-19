@@ -198,13 +198,13 @@ And when calling `filterBooks`, we can pass it a lambda expression which tells i
 filterBooks(books, book -> "Lewis Carrol".equals(book.getAuthor()));
 {% endhighlight %}
 
-Although we used a lambda expression and made `filterBooks` method's behavior parameterizable, there is still this boilerplate code which iterates over a list of books. Previously I mentioned that Java 8 has included the filter idiom which is common among functional languages. Streams is a new API which helps to express sophisticated data processing queries. Among others, it includes a filter method.
+Although we used a lambda expression and made `filterBooks` method's behavior parameterizable, there is still this boilerplate code which iterates over a list of books. Previously I mentioned that Java 8 has included the filter idiom which is common among functional languages. [Streams]({{site.url}}/articles/5-ways-to-create-a-stream-in-java-8/ "5 ways to create a Stream in Java 8") is a new API which helps to express sophisticated data processing queries. Among others, it includes a filter method.
 
 {% highlight java %}
 books.stream().filter(b -> "Lewis Carrol".equals(b.getAuthor())).collect(toList());
 {% endhighlight %}
 
-As it can be seen, the list of books is not passed to a method but we can call the `filter` method on it by first creating a stream from it. Iteration is handled by the Streams API and behavior is parameterizable thanks to lambdas. So instead of writing a lot of boilerplate code, Java 8 takes care of the commonly occurring tasks and you can solve the problem at hand with just one line of code.
+As it can be seen, the list of books is not passed to a method but we can call the `filter` method on it by first creating a stream from it. Iteration is handled by the [Streams API]({{site.url}}/articles/5-ways-to-create-a-stream-in-java-8/ "5 ways to create a Stream in Java 8") and behavior is parameterizable thanks to lambdas. So instead of writing a lot of boilerplate code, Java 8 takes care of the commonly occurring tasks and you can solve the problem at hand with just one line of code.
 
 ## Remember those changing requirements?
 
