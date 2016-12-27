@@ -15,6 +15,7 @@ published: true
 aging: true
 canonical-url: https://www.sitepoint.com/tutorial-getting-started-dropwizard-crud/
 ---
+*This article was originally published on [SitePoint](https://www.sitepoint.com/tutorial-getting-started-dropwizard-crud/) on December 12, 2016. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").*
 
 [Dropwizard](http://www.dropwizard.io/ "Dropwizard homepage") is a Java framework for building RESTful web services.
 In essence, it is a *glue* framework which bundles together popular and battle-tested Java libraries and frameworks to make it easier to start building new RESTful web services.
