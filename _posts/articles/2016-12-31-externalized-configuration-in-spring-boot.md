@@ -6,7 +6,7 @@ modified: 2016-12-31 16:19:06 +0200
 categories: articles
 tags: [spring, spring boot, configuration, java]
 image:
-  feature:
+  feature: 2016-12-31-externalized-configuration-in-spring-boot/cover.jpg
   credit:
   creditlink:
 comments: true
@@ -15,7 +15,7 @@ published: true
 aging: true
 ---
 
-Externalized configuration is essential if you wish to deploy the same deployable unit to different environments without modifying the source code. I'm certain you have aspects in your program that should change based on the execution environment. For starters, common parameters that need adjusting are the database connection strings or some cache specific values. Spring Boot provides several easy methods of externalizing configuration.
+Externalized configuration is essential if you wish to deploy the same deployable unit to different environments without modifying the source code. I'm certain you have aspects in your program that should change based on the execution environment. For starters, common parameters that need adjusting are the database connection strings or some cache specific values. [Spring Boot](https://projects.spring.io/spring-boot/) provides several easy methods of externalizing configuration.
 
 ## Properties file
 
@@ -40,17 +40,21 @@ name=My Spring application in test
 
 When you run your Spring Boot application, by default, property values from `application.properties` will be picked up. But when you start Spring Boot with `-Dspring.profiles.active=test`, you instruct Spring to look for properties form `application-test.properties`. I intentionally did not define a value for `greeting` in `application-test.properties`. When running with the `test` profile, Spring will first look into `application-test.properties` and for values which are not found there, it will use `applicaiton.properties`. Essentially profile-specific properties override non-specific ones.
 
+## Properties files outside of your packaged jar
 
-The naive approach would be to pass the JVM an argument pointing to your external configuration file (e.g. `-Dconfig.location=external.properties`) and inside your application code read the properties from the specified file. This definitely works but Spring Boot offers a much simpler solution. Place your `application.properties` outside your packaged jar file. Spring Boot will look in the same directory for properties and the values can be accessed using Spring's `Environment` or injected into beans via the `@Value` annotation.
+Up until now we've looked how to handle properties files that are packaged inside the jar. But what if my settings are provided by a configuration management system (e.g. [Ansible](https://www.ansible.com/), [Puppet](https://puppet.com/), [Chef](https://www.chef.io/chef/)) after the jar file has been packaged? Rather than looking into the classpath, this would require the application to read the file from the file system.
 
+A naive approach would be to pass the JVM an argument pointing to your external configuration file (e.g. `-Dconfig.location=/path/to/external.properties`) and inside your application code read the properties from the specified file. This definitely works but Spring Boot offers a much simpler solution. Place your `application.properties` outside of your packaged jar file. Spring Boot will look in the same directory for properties and the values can be accessed as if the file was inside the classpath. The same applies for profile-specific properties files.
 
+## Evaluation order
 
+Properties files that are placed outside of your packaged jar override the ones inside your jar. Profile-specific files always take precedence. Properties are considered in the following order:
 
-application.properties in classpath
-application.properties in outside of packaged jar
-application.properties for each environment
-spring devtools properties
-application configuration in YAML format
-environment variables
+* Profile-specific application properties outside of your packaged jar
+* Profile-specific application properties packaged inside your jar
+* Application properties outside of your packaged jar
+* Application properties packaged inside your jar
 
-commandline arguments
+## Final words
+
+You learned how to use configuration files with Spring Boot. As you can see, the framework takes care of externalized configuration for you. The developer's job is to place the property values in correct files. I strongly encourage you [to read more about configuration in Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html "Externalized Configuration"). You'll find that there are more ways of externalizing configuration than you saw it this post.
