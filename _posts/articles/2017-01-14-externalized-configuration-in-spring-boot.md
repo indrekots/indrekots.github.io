@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Externalized configuration in Spring Boot"
-excerpt:
-modified: 2016-12-31 16:19:06 +0200
+excerpt: Externalized configuration is essential if you wish to deploy the same deployable unit to different environments without modifying the source code. Spring Boot provides several easy methods of doing that.
+modified: 2017-01-14 16:19:06 +0200
 categories: articles
 tags: [spring, spring boot, configuration, java]
 image:
@@ -57,4 +57,4 @@ Properties files that are placed outside of your packaged jar override the ones 
 
 ## Final words
 
-You learned how to use configuration files with Spring Boot. As you can see, the framework takes care of externalized configuration for you. The developer's job is to place the property values in correct files. I strongly encourage you [to read more about configuration in Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html "Externalized Configuration"). You'll find that there are more ways of externalizing configuration than you saw it this post.
+You learned how to use configuration files with Spring Boot. As you can see, the framework takes care of externalized configuration for you. The developer's job is to place the property values in correct files. I strongly encourage you [to read more about configuration in Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html "Externalized Configuration"). You'll find that there are more ways of externalizing configuration than you saw in this post.
