@@ -14,3 +14,12 @@ share: true
 published: false
 aging: true
 ---
+
+Spring Boot makes is very easy to read values from an external properties/yml file. Without any configuration, you are able to inject values to instance fields using the `@Value` annotation or use Spring's `Environment` abstraction. But both of these solutions require you to specify the property value as a string. Spring Boot also provides a type-safe way to handle configuration.
+
+validation, strongly typed
+
+@ConfigurationProperties("foo")
+class
+
+inject bean to other beans
