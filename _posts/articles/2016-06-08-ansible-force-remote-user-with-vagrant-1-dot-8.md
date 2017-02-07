@@ -17,7 +17,7 @@ aging: true
 
 I have an [Ansible playbook](https://docs.ansible.com/ansible/playbooks.html "Ansible Playbooks documentation") that I use to provision my virtual machine. Using the Ansible provisioner for [Vagrant](https://www.vagrantup.com/ "Vagrant homepage") worked fine for me. But when I upgraded to Vagrant 1.8, Ansible failed because it could not SSH into the VM. On the other hand, running the playbook with `anisble-playbook` command seemed to work fine.
 
-I was able to solve the problem by adding the `force_remove_user` setting to my `Vagrantfile`.
+I was able to solve the problem by adding the `force_remote_user` setting to my `Vagrantfile`.
 
 {% highlight ruby %}
 a.vm.provision :ansible do |ansible|
