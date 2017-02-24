@@ -12,10 +12,23 @@ image:
 comments: true
 share: true
 published: false
-aging: true
+aging: false
 ---
 
-* used to use field injection with autowired, did not even consider other approaches
+I think I'm late to the party and understand this is a somewhat controversial topic (add link mabye?) but recently I have switched to favor constructor injection over field injection. I understand that this topic has been discussed many times before (links to previous articles). Nevertheless, I'd like to go over the arguments that made me prefer constructor injection.
+
+* used to use field injection with autowired, did not even consider other approaches, although I was well aware of other approaches
+
+I used to use Spring's field injection all the time. Although I was well aware, that Spring framework supports constructor and setter injection, I did not consider using them. There were multiple reasons. But mainly I liked the conciseness of adding `@Autowired` or `@Inject` annotation to a private field. The Spring framework would do the heavy lifting. Required dependencies were injected to classes without me having to do much work at all. That's what frameworks are for, right? To save us from doing the ugly work.
+
+New classes started out small. Maybe they had one or two dependencies. But over time, like in many code bases, they grew larger. I needed to add support for a new feature. No problem. Let's take the existing class, and add another dependency to it. Spring makes it quite convenient. Just *autowire* it. This process was repeated multiple times until, lo and behold, we have created a monolith. But that's normal? Right? Raise your hand if you've seen a service class with ten or more dependencies.
+
+At least I thought this was normal. Maybe it was cargo cult programming (link), but I did what everybody else did, without considering whether it was good or bad.
+
+Today I would argue that field injection encourages classes to become god objects. It's so easy to add a new dependency. 
+
+
+
 * service classes with 10+ dependencies seemed to be "normal", this is what everybody does right? one service class per domain object and all domain object related business code is in the service class, grows super large over time, but it's okay right? (https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/)
 * tests used either the spring container (kind of slow) or reflection (kind of a workaround) to inject mocks
 * cargo cult programming, did what everybody else did, without considering if it is good or bad
