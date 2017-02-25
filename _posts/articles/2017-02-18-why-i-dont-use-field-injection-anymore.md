@@ -25,8 +25,7 @@ New classes started out small. Maybe they had one or two dependencies. But over 
 
 At least I thought this was normal. Maybe it was cargo cult programming (link), but I did what everybody else did, without considering whether it was good or bad.
 
-Today I would argue that field injection encourages classes to become god objects. It's so easy to add a new dependency. 
-
+Today I would argue that field injection encourages classes to become god objects. It's so easy to add a new dependency.
 
 
 * service classes with 10+ dependencies seemed to be "normal", this is what everybody does right? one service class per domain object and all domain object related business code is in the service class, grows super large over time, but it's okay right? (https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/)
@@ -43,12 +42,25 @@ Today I would argue that field injection encourages classes to become god object
 * as I understand, this can create a never ending discussion/argument/flame war (has created)
 * major influencers in the industry (e.g. Spring team) are moving towards discouraging field injection
 
-* field injection -> NPE about to happen
-* invalid state when dependency not in constructor
-* force clients to provide the required dependencies
-* if you have many dependencies, constructor gets awkwardly big, that's a clear indication that your class/component is doing way to much (Single Responsibility Principle)
+## What's wrong with field injection?
 
-> You want to really cure the pain, not blindly apply pain killers to it, don’t you?
+As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-injection-is-evil/), it's NullPointerExceptions beginning to happen. Say you create an instance of your class without a DI container. You don't know without looking at the source which dependencies are needed for the class to behave correctly. So it's just a matter of time until you call a method which in turn calls a dependency that is not initialized.
+
+The problem at hand is that you are allowed to instantiate a class in an invalid state. The class does not force invariants. If the required dependencies were forced to be passed in via the constructor, this issue would be solved.
+
+//when will I be ever instantiating my class myself, DI container will take care of it -> what about unit tests?
+
+## Constructor gets awkwardly big
+
+I have a class with 10+ dependencies. Refactoring to use constructor injection would create a considerable amount of boilerplate code and now my constructor would so big that it gets unusable. I'll never remember the order of the parameters that need to be passed to the constructor.
+
+But that's actually a good thing. This is a [clear indication that your class has probably too many responsibilities](http://vojtechruzicka.com/field-dependency-injection-considered-harmful/). [Robert C. Martin (a.k.a Uncle Bob)](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) has said the following
+
+> A class should have only one reason to change
+
+Meaning that if a class as multiple responsibilities, it also has multiple reasons to change. And that is a violation of the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle). Field injection makes it very easy to add new dependencies. At the same time, it makes it very easy to grow your class until it becomes a god object.
+
+> [You want to really cure the pain, not blindly apply pain killers to it, don’t you?](http://olivergierke.de/2013/11/why-field-injection-is-evil/)
 
 * immutability, field injection would require dependencies to be non final (verify it)
 * if you want to enforce that dependencies are never changed, make the fields final, setter injection does not work here because final fields can only be set in the constructor (find reference)
