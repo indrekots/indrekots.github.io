@@ -25,13 +25,45 @@ But how would you unit test that class? If your implementation retrieves the cur
 
 ## `java.time.Clock`
 
-Java 8 introduced a new date and time API. It includes a [Clock](https://docs.oracle.com/javase/8/docs/api/java/time/Clock.html) class which is specifically designed to be used as a dependency.
+Java 8 introduced a [new date and time API](http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html "Java SE 8 Date and Time"). It includes a replaceable [Clock](https://docs.oracle.com/javase/8/docs/api/java/time/Clock.html) which is specifically designed to be used as a dependency.
 
 > Instances of this class are used to find the current instant, which can be interpreted using the stored time-zone to find the current date and time. As such, a clock can be used instead of `System.currentTimeMillis()` and `TimeZone.getDefault()`.
 
+Instead of retrieving the current time from the system, you can ask the time from the clock object.
+
 > The primary purpose of this abstraction is to allow alternate clocks to be plugged in as and when required. Applications use an object to obtain the current time rather than a static method. This can simplify testing.
 
+During testing you can use the `Clock.fixed` static method to get a clock that always reports a fixed time.
+
 ## Example
+
+To make things more clear, let's have a look at a simple example of a class which has a replaceable clock.
+
+{% highlight java %}
+public class ReplaceableClockDemo {
+
+    public static void main(String[] args) {
+        ReplaceableClockDemo demo = new ReplaceableClockDemo(Clock.systemUTC());
+        System.out.println(demo.isNowBefore(LocalDateTime.of(2017, 3, 1, 12, 0)));
+    }
+
+    private final Clock clock;
+
+    public ReplaceableClockDemo(Clock clock) {
+        this.clock = clock;
+    }
+
+    public boolean isNowBefore(LocalDateTime dateTime) {
+        return LocalDateTime.now(clock).isBefore(dateTime);
+    }
+
+}
+{% endhighlight %}
+
+`ReplaceableClockDemo` has an instance field to hold a reference to a `Clock`. It can be passed in via the class' constructor. This allows the client to provide its own clock implementation. In the main method you can see how this class could be used in a production environment. When the class is instantiated, a reference to a system clock is provided.
+
+As you might have already though, 
+
 
 * code example of clock being injected
 
