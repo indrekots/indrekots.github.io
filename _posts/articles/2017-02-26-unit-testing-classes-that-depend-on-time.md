@@ -6,9 +6,9 @@ modified: 2017-02-26 20:24:27 +0200
 categories: articles
 tags: [java, time, clock, testing, dependency injection]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2017-02-26-unit-testing-classes-that-depend-on-time/cover.jpg
+  credit: Wil Stewart
+  creditlink: https://unsplash.com/@wilstewart3?photo=tB4-ftQ4zyI
 comments: true
 share: true
 published: false
@@ -19,7 +19,7 @@ Sometimes in unit testing you need to have control of the current time. But when
 
 ## Current time as a dependency
 
-Consider the following situation. You design a class which needs to check the current time. Let's say you're working on a message board (e.g. [Discourse](https://www.discourse.org/)) and you would like to congratulate the user on his or her birthday when they log in. The class would need to check the current date and compare it against the user's entered birthday. If they're equal, it should display birthday congratulations.
+Think of the following situation. You design a class which needs to check the current time. Let's say you're working on a message board (e.g. [Discourse](https://www.discourse.org/)) and you would like to congratulate the user on his or her birthday when they log in. The class would need to check the current date and compare it against the user's entered birthday. If they're equal, it should display birthday congratulations.
 
 But how would you unit test that class? If your implementation retrieves the current system time, then you have tightly coupled your class to the server's clock. To avoid that, think of the current time as one of many dependencies your class has. You can use familiar techniques such as [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection "Dependency Injection") to pass a replaceable clock to your class. In a production environment, your class can use a clock that retrieves the current system time. In unit tests, you can pass in a clock that reports a given fixed time.
 
@@ -65,8 +65,10 @@ public class ReplaceableClockDemo {
 As you might have already though,
 
 
-* code example of clock being injected
+* code example of clock being injected in unit test
 
 ## What about setting the current time via a static method?
 
-If you've been using [Joda-Time](http://www.joda.org/joda-time/ "Joda-Time"), then you're probably familiar with the `DateTimeUtils.setCurrentMillisFixed()` static method. It sets the current time but it does this globally (view docs). In theory, this approach works but it has some flaws in my opinion. First of all, you need to make sure you reset the time after each test. Otherwise, some tests that come afterwards might use the static resource and get a time they did not expect to receive, resulting in test failures. And when this happens, you are dependent on the order of your tests. You should not expect the order of your tests to always be the same. Tests should be independent => easier to maintain and run them separately. Secondly, when using a static resource to set the current time disables you to run your tests in parallel. Since the static resource is a shared resource, you have no control on when it is being accessed. You have a dependency on the static resource.
+If you've ever used [Joda-Time](http://www.joda.org/joda-time/ "Joda-Time"), then you're probably familiar with the `DateTimeUtils.setCurrentMillisFixed()` static method. It sets the current time but it does this globally. Whenever `currentTimeMillis()` is queried, the same fixed millisecond time will be returned.
+
+In theory, this approach works but it has some flaws in my opinion. First of all, [you need to make sure you reset the time after each test](http://blog.indrek.io/articles/using-joda-time-in-unit-tests/ "Using Joda-Time in unit tests"). Otherwise, some tests that come afterwards might use the static resource and get a time they did not expect to receive, resulting in test failures. You should not depend on the order of your tests to always be the same. Tests, that are independent are easier to maintain and you also have the added benefit of being able to run them separately. Secondly, your tests cannot be run reliably in parallel, when they set and get the current time from a shared resource.
