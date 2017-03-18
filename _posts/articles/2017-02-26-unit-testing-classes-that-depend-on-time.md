@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/@wilstewart3?photo=tB4-ftQ4zyI
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
 
@@ -65,7 +65,28 @@ public class ReplaceableClockDemo {
 As you might have already though,
 
 
-* code example of clock being injected in unit test
+{% highlight java %}
+public class ReplaceableClockDemoTest {
+
+    @Test
+    public void shouldBeBeforeStPatricksDay2017() throws Exception {
+        Clock now = Clock.fixed(LocalDateTime.of(2017, 2, 15, 12, 34)
+                .toInstant(ZoneOffset.UTC), ZoneId.of("UTC"));
+        LocalDateTime stPatricksDay = LocalDateTime.of(2017, 3, 17, 0, 0);
+        ReplaceableClockDemo demo = new ReplaceableClockDemo(now);
+        assertTrue(demo.isNowBefore(stPatricksDay));
+    }
+
+    @Test
+    public void shouldNotBeBeforePiDay2017() throws Exception {
+        Clock now = Clock.fixed(LocalDateTime.of(2017, 5, 18, 9, 45)
+                .toInstant(ZoneOffset.UTC), ZoneId.of("UTC"));
+        LocalDateTime piDay = LocalDateTime.of(2017, 3, 14, 0, 0);
+        ReplaceableClockDemo demo = new ReplaceableClockDemo(now);
+        assertFalse(demo.isNowBefore(piDay));
+    }
+}
+{% endhighlight %}
 
 ## What about setting the current time via a static method?
 
