@@ -4,7 +4,7 @@ title: "Design patterns: Specialization of the classic observer pattern"
 excerpt: In the typical case, the observer is responsible of getting the updated state from the subject. This means that the observer has to hold a reference to the subject (also the subject holds a reference to the observer, meaning we have created a circular reference).
 modified: 2016-07-04 11:19:40 +0300
 categories: articles
-tags: [design pattern, java, java8, observer, lambda]
+tags: [design pattern, java, java 8, observer, lambda]
 image:
   feature: 2016-06-21-design-patterns-observer-pattern-implementation-in-java/cover.jpg
   credit: suwalls.com

@@ -2,9 +2,9 @@
 layout: post
 title: "Unit testing classes that depend on time"
 excerpt: Dependency inversion principle states that we should depend upon abstractions. Taking that into account, time should also be considered as a dependency.
-modified: 2017-02-26 20:24:27 +0200
+modified: 2017-03-18 17:01:27 +0200
 categories: articles
-tags: [java, time, clock, testing, dependency injection]
+tags: [java, java 8, time, clock, testing, dependency injection]
 image:
   feature: 2017-02-26-unit-testing-classes-that-depend-on-time/cover.jpg
   credit: Wil Stewart

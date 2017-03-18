@@ -34,7 +34,7 @@ exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.
 # Site owner
 owner:
   name: Indrek Ots
-  avatar: avatar_small.jpg
+  avatar: avatar4.jpg
   email: ots.indrek@gmail.com
   disqus-shortname: thatwhichinspiresawe
   twitter: otsindrek
