@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: false
+published: true
 aging: false
 ---
 
@@ -26,6 +26,10 @@ New classes started out small. Maybe they had one or two dependencies. But over 
 At least I thought this was normal. Maybe it was cargo cult programming (link), but I did what everybody else did, without considering whether it was good or bad.
 
 Today I would argue that field injection encourages classes to become god objects. It's so easy to add a new dependency.
+
+Steve McConnell, in his book [Code Complete](https://www.goodreads.com/book/show/4845.Code_Complete "Code Complete"), mentions low-to-medium [fan-out](http://it.toolbox.com/blogs/enterprise-solutions/design-principles-fanin-vs-fanout-16088 "Design Principles: Fan-In vs Fan-Out") as a desirable characteristic of a design.
+
+> Low-to-medium fan-out means having a given class use a log-to-medium number of other classes. High fan-out (more than about seven) indicates that a class uses a large number of other classes and may therefore be overly complex.
 
 
 * service classes with 10+ dependencies seemed to be "normal", this is what everybody does right? one service class per domain object and all domain object related business code is in the service class, grows super large over time, but it's okay right? (https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/)
