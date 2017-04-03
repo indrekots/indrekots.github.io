@@ -54,7 +54,7 @@ But what about testing? How will you be providing the required dependencies duri
 
 ## Constructor gets awkwardly big
 
-I have a class with 10+ dependencies. Refactoring to use constructor injection would create a considerable amount of boilerplate code and now my constructor would so big that it gets unusable. I'll never remember the order of the parameters that need to be passed to the constructor. And above all, it's ugly to look at a constructor with so many parameters.
+I have a class with 10+ dependencies. Refactoring to use constructor injection would create a considerable amount of boilerplate code and now my constructor would so big that it is unusable. I'll never remember the order of the parameters that need to be passed to the constructor. And above all, it's ugly to look at a constructor with so many parameters.
 
 But that's actually a good thing. This is a [clear indication that your class has probably too many responsibilities](http://vojtechruzicka.com/field-dependency-injection-considered-harmful/). [Robert C. Martin (a.k.a Uncle Bob)](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) has said the following
 
@@ -70,10 +70,16 @@ Meaning that if a class as multiple responsibilities, it also has multiple reaso
 
 Seeing a big constructor is a good opportunity to think about splitting the class into smaller pieces.
 
+## Immutability
+
+In his book [Effective Java](https://www.goodreads.com/book/show/105099.Effective_Java_Programming_Language_Guide "Effective Java 2nd Edition"), [Joshua Bloch](https://twitter.com/joshbloch) recommends to favor immutable classes.
+
+> Classes should be immutable unless there's a very good reason to make them mutable....If a class cannot be made immutable, limit its mutability as much as possible.
+
+When we use field injection, we are required that our classes are mutable. We cannot declare our private fields to be `final` since this would break field injection (verify). If you want to enforce that the dependencies are never changed, you need to use the `final` keyword and initialize the fields in the constructor.
+
 * immutability, field injection would require dependencies to be non final (verify it)
 * if you want to enforce that dependencies are never changed, make the fields final, setter injection does not work here because final fields can only be set in the constructor (find reference)
-
-* messy constructor is good, it's a sign that it needs refactoring
 
 * using field injection is [hiding dependencies](https://twitter.com/olivergierke/status/314704198908403713), you don't know what your class depends on when you instantiate it, you only rely on the DI container
 * you need to check the source code for the class to see what its dependencies are
