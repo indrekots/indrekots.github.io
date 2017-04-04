@@ -44,9 +44,13 @@ Today I would argue that field injection encourages classes to become god object
 
 As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-injection-is-evil/), it's NullPointerExceptions beginning to happen. Say you create an instance of your class without a DI container. You don't know, without looking at the source, which dependencies are needed for the class to behave correctly. So it's just a matter of time until you call a method which in turn calls a dependency that is not initialized. He argues that [dependencies need to be communicated publically](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/#comment-2825180814).
 
-The problem with field injection is that you are allowed to instantiate a class in an invalid state. The class does not force invariants. If the required dependencies were forced to be passed in via the constructor, this issue would be solved.
+The problem with field injection is that you are allowed to instantiate a class in an invalid state. The class does not force invariants. I personally feel that objects should be ready to be worked with after construction. Everything the object needs to do its job should be provided via the constructor. If the object needs a dependency to behave correctly, it seems only logical that it publicly advertises it as one of the required constructor parameters. It's like making a promise. As long as you provide me the required tools to work with, I make sure the job is done.
+
+Admittedly when using Spring IoC, this isn't a problem since in application code you won't be instantiating objects yourself. But you will do it in unit tests.
 
 ## DI container will inject the required dependencies, not me
+
+//smooth transition from the previous paragraph
 
 When will I be ever instantiating my classes myself? My DI container will take care of it. Frameworks should make our lives easier. I don't need the public interface of my class telling me what pieces it needs to work correctly. As long as the DI container does the job, I'm good with that.
 
@@ -78,8 +82,7 @@ In his book [Effective Java](https://www.goodreads.com/book/show/105099.Effectiv
 
 When we use field injection, we are required that our classes are mutable. We cannot declare our private fields to be `final` since this would break field injection (verify). If you want to enforce that the dependencies are never changed, you need to use the `final` keyword and initialize the fields in the constructor.
 
-* immutability, field injection would require dependencies to be non final (verify it)
-* if you want to enforce that dependencies are never changed, make the fields final, setter injection does not work here because final fields can only be set in the constructor (find reference)
+## To hide or expose dependencies
 
 * using field injection is [hiding dependencies](https://twitter.com/olivergierke/status/314704198908403713), you don't know what your class depends on when you instantiate it, you only rely on the DI container
 * you need to check the source code for the class to see what its dependencies are
@@ -96,6 +99,10 @@ When we use field injection, we are required that our classes are mutable. We ca
 * constructors become messy if many dependencies exist (maybe you should break the class apart?)
 * [Very little boilerplate code to use field injection](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/). All you need is a simple annotation on the field.
 * super convenient and boilerplate-less to add a new dependency via field injection
+
+## Does constructor injection brake encapsulation
+
+https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-the-expense-of-encapsulation
 
 ## drawbacks of field injection
 
