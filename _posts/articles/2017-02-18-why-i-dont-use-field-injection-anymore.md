@@ -104,6 +104,12 @@ When we use field injection, we are required that our classes are mutable. We ca
 
 https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-the-expense-of-encapsulation
 
+## Formalize class contracts
+
+From code complete by Steve McConnell on class contracts.
+
+> At a more detailed level, thinking of each class's interface as a contract with the rest of the program can yield good insights. Typically, the contract is something like "If you promise to provide data x, y and z and you promise they'll have characteristics a, b and c, I promise to perform operations 1, 2 and 3 within constraints 8, 9 and 10." The promises the clients of the class make to the class are typically called "preconditions," and the promises the object makes to its clients are called the "postconditions."
+
 ## drawbacks of field injection
 
 * cannot create immutable objects, fields cannot be final (verify this)
@@ -125,7 +131,7 @@ https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-th
 
 
 * don't be a cargo cult programmer, consider the pros and cons and make up your mind
-* following constructor injection might be a "purist" way of thinking, and real world is not pure,
+* following constructor injection might be a "purist" way of thinking, and real world is not pure, pragmatics over theoretical purity, getting things done is more important than arguing about theoretical correctness, don’t want to argue endlessly about academic points of theory, I want to get stuff done, which is a valid point
 
 ## to read
 
