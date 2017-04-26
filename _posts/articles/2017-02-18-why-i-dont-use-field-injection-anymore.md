@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: false
+published: true
 aging: false
 ---
 
@@ -64,7 +64,7 @@ But that's actually a good thing. This is a [clear indication that your class ha
 
 > A class should have only one reason to change
 
-Meaning that if a class as multiple responsibilities, it also has multiple reasons to change. And that is clear a violation of the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle). Field injection makes it very easy to add new dependencies. At the same time, it makes it very easy to grow your class until it becomes a god object.
+Meaning that if a class as multiple responsibilities, it also has multiple reasons to change. And that is clear a violation of the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle). Field injection makes it very easy to add new dependencies. At the same time, it makes it very easy to grow your class until it becomes a [god object](https://en.wikipedia.org/wiki/God_object "God Object").
 
 > [You want to really cure the pain, not blindly apply pain killers to it, don’t you?](http://olivergierke.de/2013/11/why-field-injection-is-evil/)
 
@@ -123,8 +123,6 @@ From code complete by Steve McConnell on class contracts.
 * [as of Spring 4.3](https://spring.io/blog/2016/03/04/core-container-refinements-in-spring-framework-4-3), implicit constructor injection for single-constructor classes is available, meaning that no need to provide `@Autowired`/`@Inject` annotations (`@Configuration` classes support constructor injection as well) (demo, verify)
 * Lombok to reduce boilerplate
 
-* maybe it's my confirmation bias at play here but i see this popping up in a lot of places (IntelliJ IDEA warning, JHipster removed field injection, blog posts)
-
 * http://olivergierke.de/2013/11/why-field-injection-is-evil/
 * https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
 * http://vojtechruzicka.com/field-dependency-injection-considered-harmful/
@@ -139,13 +137,6 @@ From code complete by Steve McConnell on class contracts.
 * https://softwareengineering.stackexchange.com/questions/300706/dependency-injection-field-injection-vs-constructor-injection
 * https://github.com/olivergierke/ninjector
 
-## from spring docs
-
-http://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection
-
-> The Spring team generally advocates constructor injection as it enables one to implement application components as immutable objects and to ensure that required dependencies are not null. Furthermore constructor-injected components are always returned to client (calling) code in a fully initialized state. As a side note, a large number of constructor arguments is a bad code smell, implying that the class likely has too many responsibilities and should be refactored to better address proper separation of concerns.
-Setter injection should primarily only be used for optional dependencies that can be assigned reasonable default values within the class. Otherwise, not-null checks must be performed everywhere the code uses the dependency. One benefit of setter injection is that setter methods make objects of that class amenable to reconfiguration or re-injection later.
-
 * for mandatory dependencies use constructor injection
 * for optional dependencies, use setter injection
 * avoid field injection in most cases
@@ -154,5 +145,24 @@ Setter injection should primarily only be used for optional dependencies that ca
 
 * field injection in spring configuration classes?
 * field injection in JUnit tests with Spring?
+
+## Where the industry is moving?
+
+Maybe it's my [confirmation bias](https://en.wikipedia.org/wiki/Confirmation_bias) at play here but I have seen the theme of favoring constructor injection popping up in many places. At first I started to notice that IntelliJ IDEA begin to display warnings if I was using field injection.
+
+//image of a warning
+
+It says that the Spring team recommends to use constructor injection instead. Out of curiosity, I scanned through [Spring's reference manual](http://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection "Spring's reference manual") and found the following section.
+
+> The Spring team generally advocates constructor injection as it enables one to implement application components as immutable objects and to ensure that required dependencies are not `null`. Furthermore constructor-injected components are always returned to client (calling) code in a fully initialized state. As a side note, a large number of constructor arguments is a bad code smell, implying that the class likely has too many responsibilities and should be refactored to better address proper separation of concerns.
+Setter injection should primarily only be used for optional dependencies that can be assigned reasonable default values within the class. Otherwise, not-null checks must be performed everywhere the code uses the dependency. One benefit of setter injection is that setter methods make objects of that class amenable to reconfiguration or re-injection later.
+
+In the release notes of [JHipster 4.0.0](https://jhipster.github.io/2017/02/02/jhipster-release-4.0.0.html), an application generator for creating Spring Boot + Angular projects, we can find that they have moved away from field-based injection as well.
+
+>JHipster is a complete upgrade of Spring libraries, with some major refactoring. The most important one is our switch from field-based injection to constructor-based injection.
+
+One of the reasons for the change is pointed out to be the following.
+
+>Constructor-based injection is considered cleaner by many people, in particular as it eases testing
 
 ## further reading
