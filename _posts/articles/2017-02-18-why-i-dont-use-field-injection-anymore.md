@@ -17,6 +17,12 @@ aging: false
 
 I think I'm late to the party and understand this is a somewhat controversial topic (add link mabye?) but recently I have switched to favor constructor injection over field injection. I understand that this topic has been discussed many times before (links to previous articles). Nevertheless, I'd like to go over the arguments that made me prefer constructor injection.
 
+//story
+
+Let me tell you a story. A software engineer joins a team of Java developers. They're working on a Spring app. ... Joins another team, same thing. That developer was me.
+
+I'd like to tell a story of my experience with Spring dependency injection. Join team/project which has been worked on for several years already. Classes are fairly big. DI is
+
 I used to use Spring's field injection all the time. Although I was well aware, that Spring framework supports constructor and setter injection, I did not consider using them. There were multiple reasons. But mainly I liked the conciseness of adding `@Autowired` or `@Inject` annotation to a private field. The Spring framework would do the heavy lifting. Required dependencies were injected to classes without me having to do much work at all. That's what frameworks are for, right? To save us from doing the ugly work.
 
 New classes started out small. Maybe they had one or two dependencies. But over time, like in many code bases, they grew larger. I needed to add support for a new feature. No problem. Let's take the existing class, and add another dependency to it. Spring makes it quite convenient. Just *autowire* it. This process was repeated multiple times until, lo and behold, I had created a monolith. But that's normal? Right? Raise your hand if you've seen a service class with ten or more dependencies and line count approaching to several hundred.
@@ -58,9 +64,9 @@ But what about testing? How will you be providing the required dependencies duri
 
 ## Constructor gets awkwardly big
 
-I have a class with 10+ dependencies. Refactoring to use constructor injection would create a considerable amount of boilerplate code and now my constructor would so big that it is unusable. I'll never remember the order of the parameters that need to be passed to the constructor. And above all, it's ugly to look at a constructor with so many parameters.
+I have a class with 10 or more dependencies. Refactoring to use constructor injection would create a considerable amount of boilerplate code and now my constructor would be so big that it is unusable. I'll never remember the order of the parameters that need to be passed to the constructor. And above all, it's ugly to look at a constructor with so many parameters. Field injection seems much easier, why should I use constructor injection instead?
 
-But that's actually a good thing. This is a [clear indication that your class has probably too many responsibilities](http://vojtechruzicka.com/field-dependency-injection-considered-harmful/). [Robert C. Martin (a.k.a Uncle Bob)](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) has said the following
+The fact that your constructor is so big is actually a good thing. This is a [clear indication that your class has probably too many responsibilities](http://vojtechruzicka.com/field-dependency-injection-considered-harmful/). [Robert C. Martin (a.k.a Uncle Bob)](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) has said the following
 
 > A class should have only one reason to change
 
@@ -82,10 +88,22 @@ In his book [Effective Java](https://www.goodreads.com/book/show/105099.Effectiv
 
 When we use field injection, we are required that our classes are mutable. We cannot declare our private fields to be `final` since this would break field injection (verify). If you want to enforce that the dependencies are never changed, you need to use the `final` keyword and initialize the fields in the constructor.
 
-## To hide or expose dependencies
+## To hide or expose dependencies?
 
-* using field injection is [hiding dependencies](https://twitter.com/olivergierke/status/314704198908403713), you don't know what your class depends on when you instantiate it, you only rely on the DI container
-* you need to check the source code for the class to see what its dependencies are
+When you use field injection, you're essentially [hiding dependencies](https://twitter.com/olivergierke/status/314704198908403713). Without looking at the source code, you don't really know what collaborators a class needs when you instantiate it. This job is left for the DI container. Now, whether this is a good thing or not, is another question.
+
+I'm going to reference [Code Complete](https://www.goodreads.com/book/show/4845.Code_Complete "Code Complete") again. [Steve McConnell](https://en.wikipedia.org/wiki/Steve_McConnell "Steve McConnell") wrote the following on formalizing class contracts.
+
+> At a more detailed level, thinking of each class's interface as a contract with the rest of the program can yield good insights. Typically, the contract is something like "If you promise to provide data x, y and z and you promise they'll have characteristics a, b and c, I promise to perform operations 1, 2 and 3 within constraints 8, 9 and 10." The promises the clients of the class make to the class are typically called "preconditions," and the promises the object makes to its clients are called the "postconditions."
+
+If you think of a contract of any kind, I'm 100% sure that you agree that it should clearly state the responsibilities of all the parties involved. When we take this metaphor to class design, the contract should declare what the class needs from the client and what the class promises to the client. And as part of the contract, the client needs to know what collaborators the class needs to fill its promises. For that reason dependencies should be communicated publicly.
+
+On the other hand, maybe collaborators are just an implementation detail and the calling code should not know anything about them? We'll now turn our attention to encapsulation and see if we can come to a conclusion.
+
+## Does constructor injection break encapsulation?
+
+https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-the-expense-of-encapsulation
+
 * and to set them, you must use reflection
 * constructor injection exposes dependencies to the outside world, the client of the class knows what the target depends on
 
@@ -100,17 +118,7 @@ When we use field injection, we are required that our classes are mutable. We ca
 * [Very little boilerplate code to use field injection](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/). All you need is a simple annotation on the field.
 * super convenient and boilerplate-less to add a new dependency via field injection
 
-## Does constructor injection brake encapsulation
-
-https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-the-expense-of-encapsulation
-
-## Formalize class contracts
-
-From code complete by Steve McConnell on class contracts.
-
-> At a more detailed level, thinking of each class's interface as a contract with the rest of the program can yield good insights. Typically, the contract is something like "If you promise to provide data x, y and z and you promise they'll have characteristics a, b and c, I promise to perform operations 1, 2 and 3 within constraints 8, 9 and 10." The promises the clients of the class make to the class are typically called "preconditions," and the promises the object makes to its clients are called the "postconditions."
-
-## drawbacks of field injection
+## Drawbacks of field injection
 
 * cannot create immutable objects, fields cannot be final (verify this)
 * classes are tightly coupled to a DI container and cannot be used outside of it, only the DI container knows how to inject fields into your bean, you might think that I'm never going to use my application classes outside of my DI container, I'm not writing a general purpose library, this is some internal application for an enterprise, but what about testing then? you do write tests, right? do you use reflection to inject beans? or set up a spring container for tests?
