@@ -44,7 +44,6 @@ Today I would argue that field injection encourages classes to become god object
 
 * controversial topic, I'm sure there's many who use field injection and are quite OK with it
 * as I understand, this can create a never ending discussion/argument/flame war (has created)
-* major influencers in the industry (e.g. Spring team) are moving towards discouraging field injection
 
 ## What's wrong with field injection?
 
@@ -96,13 +95,9 @@ I'm going to reference [Code Complete](https://www.goodreads.com/book/show/4845.
 
 > At a more detailed level, thinking of each class's interface as a contract with the rest of the program can yield good insights. Typically, the contract is something like "If you promise to provide data x, y and z and you promise they'll have characteristics a, b and c, I promise to perform operations 1, 2 and 3 within constraints 8, 9 and 10." The promises the clients of the class make to the class are typically called "preconditions," and the promises the object makes to its clients are called the "postconditions."
 
-If you think of a contract of any kind, I'm 100% sure that you agree that it should clearly state the responsibilities of all the parties involved. When we take this metaphor to class design, the contract should declare what the class needs from the client and what the class promises to the client. And as part of the contract, the client needs to know what collaborators the class needs to fill its promises. For that reason dependencies should be communicated publicly.
+If you think of a contract of any kind, I'm 100% sure that you agree that it should clearly state the responsibilities of all the parties involved. When we take this metaphor to class design, the contract should declare what the class *needs from* the client and what the class *promises to* the client. As part of the contract, the client needs to know what collaborators the class needs to fill its promises. For that reason dependencies should be communicated publicly.
 
-On the other hand, maybe collaborators are just an implementation detail and the calling code should not know anything about them? We'll now turn our attention to encapsulation and see if we can come to a conclusion.
-
-## Does constructor injection break encapsulation?
-
-https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-the-expense-of-encapsulation
+On the other hand, maybe collaborators are just an implementation detail and the calling code should not know anything about them? [Does dependency injection break encapsulation?](https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-the-expense-of-encapsulation "Must Dependency Injection come at the expense of Encapsulation?"). I guess this is a more wider topic which I don't want to touch in this article.
 
 * and to set them, you must use reflection
 * constructor injection exposes dependencies to the outside world, the client of the class knows what the target depends on
