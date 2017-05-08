@@ -21,23 +21,19 @@ Whether you're a new to [Spring Framework](https://projects.spring.io/spring-fra
 
 If you're wondering what downsides I'm referring to, then you're like me. Let me explain.
 
-I used to use Spring's field injection all the time. Although I was well aware, that Spring framework supports constructor and setter injection, I did not consider using them. There were multiple reasons. But mainly I liked the brevity of adding `@Autowired` or `@Inject` annotation to a private field. The Spring framework would do the heavy lifting. Required dependencies were injected to instances of classes without me having to do much work at all. That's what frameworks are supposed to do, right? To save us from doing the ugly work.
+I used to use Spring's field injection all the time. Although I was well aware that Spring framework supports constructor and setter injection, I did not consider using them. There were multiple reasons. But mainly I liked the brevity of adding `@Autowired` or `@Inject` annotation to a private field. Spring Framework would do the heavy lifting. Required dependencies were injected to instances of classes without me having to do much work at all. That's what frameworks are supposed to do, right? To save us from doing the ugly work.
 
-New classes started out small. Maybe they had one or two dependencies but not more than that. Over time though, like in many code bases, classes grew larger. I needed to add support for a new feature. No problem. Let's take the existing class, and add another dependency to it. Spring makes it quite convenient. Just *autowire* it. This process was repeated multiple times until, lo and behold, I had created a monolith. But that's normal? Right? Raise your hand if you've seen a service class with ten or more dependencies and line count approaching to several hundred.
+New classes started out small. Maybe they had one or two dependencies but not more than that. Over time though, like in many code bases, classes started to grow larger. And the larger the class, the more dependencies it had. Spring makes it quite convenient. Just *autowire* them. This process continued until, lo and behold, I realized I had created a monolith. But that's normal? Right? Raise your hand if you've seen a service class with ten or more dependencies with no single responsibility.
 
 ## Large classes aren't the fault of field injection
 
-I don't think I'm in the position to list all the reasons why classes grow too large. Certainly field injection is not the main reason for it but I think it contributes to it. I guess large classes are created due to multiple bad programming practices. [But I see this happening especially in many Spring applications](https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/).
+I don't think I'm in the position to list all the reasons why classes grow too large. Certainly field injection is not the main reason, but I think it contributes to it. I guess large classes are created due to multiple bad programming practices. [But I see this happening especially in many Spring applications](https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/).
 
-I'm sure you you've seen this before. Let's imagine a Spring application with an `Invoice` entity. An entity class is not useful unless you have a way to persist it. Therefore our imaginary Spring app has an `InvoiceRepository`. Where do we put our business logic? Let's create an `InvoiceService`. And what usually ends up happening is that everything that is slightly related to invoices is implemented in `InvoiceService` and the service class grows out of hand.
+I'm sure you've seen this before. Let's imagine a Spring application with an `Invoice` entity. An entity class is not useful unless you have a way to persist it. Therefore our imaginary Spring app has an `InvoiceRepository`. Where do we put our business logic? Let's create an `InvoiceService`. And what usually ends up happening is that everything that is slightly related to invoices is implemented in `InvoiceService` and the service class grows out of hand.
 
 //question this architecture pattern, anemic domain model
 
 Field injection only amplifies that in my opinion. It takes away the pain of introducing a new dependency. I'm not saying that programming should be painful but *autowiring* a new field is so easy that we stop thinking about whether we should actually do it. More on that later.
-
-At least I thought this was normal. Maybe it was [cargo cult programming](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). I did what everybody else did, without considering whether it was good or bad.
-
-Today I would argue that field injection encourages classes to become god objects. It's so easy to add a new dependency.
 
 * service classes with 10+ dependencies seemed to be "normal", this is what everybody does right? one service class per domain object and all domain object related business code is in the service class, grows super large over time, but it's okay right? (https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/)
 * tests used either the spring container (kind of slow) or reflection (kind of a workaround) to inject mocks
@@ -58,15 +54,17 @@ As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-inje
 
 **The problem with field injection is that you are allowed to instantiate a class in an invalid state**. The class does not force invariants. I personally feel that objects should be ready to be worked with after construction. Everything the object needs to do its job should be provided via the constructor. If the object needs a dependency to behave correctly, it seems only logical that it publicly advertises it as one of the required constructor parameters. It's like making a promise. As long as you provide me the required tools to work with, I make sure the job is done.
 
-Admittedly when using Spring IoC, this isn't a problem since in application code you won't be instantiating objects yourself. But you will do it in unit tests.
+## To hide or expose dependencies?
 
-## DI container will inject the required dependencies, not me
+When you use field injection, you're essentially [hiding dependencies](https://twitter.com/olivergierke/status/314704198908403713). Without looking at the source code, you don't really know what collaborators a class needs when you instantiate it. This job is left for the DI container. Now, whether this is a good thing or not, is another question.
 
-//smooth transition from the previous paragraph
+I'm going to reference [Code Complete](https://www.goodreads.com/book/show/4845.Code_Complete "Code Complete"). [Steve McConnell](https://en.wikipedia.org/wiki/Steve_McConnell "Steve McConnell") wrote the following on formalizing class contracts.
 
-When will I be ever instantiating my classes myself? My DI container will take care of it. Frameworks should make our lives easier. I don't need the public interface of my class telling me what pieces it needs to work correctly. As long as the DI container does the job, I'm good with that.
+> At a more detailed level, thinking of each class's interface as a contract with the rest of the program can yield good insights. Typically, the contract is something like "If you promise to provide data x, y and z and you promise they'll have characteristics a, b and c, I promise to perform operations 1, 2 and 3 within constraints 8, 9 and 10." The promises the clients of the class make to the class are typically called "preconditions," and the promises the object makes to its clients are called the "postconditions."
 
-But what about testing? How will you be providing the required dependencies during unit tests for example?
+If you think of a contract of any kind, I'm 100% sure that you agree that it should clearly state the responsibilities of all the parties involved. When we take this metaphor to class design, the contract should declare what the class *needs from* the client and what the class *promises to* the client. As part of the contract, the client needs to know what collaborators the class needs to fill its promises. For that reason dependencies should be communicated publicly.
+
+On the other hand, maybe collaborators are just an implementation detail and the calling code should not know anything about them? [Does dependency injection break encapsulation?](https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-the-expense-of-encapsulation "Must Dependency Injection come at the expense of Encapsulation?"). I guess this is a more wider topic which I don't want to touch in this article.
 
 ## Constructor gets awkwardly big
 
@@ -84,7 +82,7 @@ Meaning that if a class as multiple responsibilities, it also has multiple reaso
 
 > Low-to-medium fan-out means having a given class use a low-to-medium number of other classes. High fan-out (more than about seven) indicates that a class uses a large number of other classes and may therefore be overly complex.
 
-Seeing a big constructor is a good opportunity to think about splitting the class into smaller pieces.
+Seeing a big constructor is a sign that your class has too many collaborators and it is a good opportunity to think about splitting the class into smaller pieces.
 
 ## Immutability
 
@@ -94,17 +92,11 @@ In his book [Effective Java](https://www.goodreads.com/book/show/105099.Effectiv
 
 When we use field injection, we are required that our classes are mutable. We cannot declare our private fields to be `final` since this would break field injection (verify). If you want to enforce that the dependencies are never changed, you need to use the `final` keyword and initialize the fields in the constructor.
 
-## To hide or expose dependencies?
+## Testing
 
-When you use field injection, you're essentially [hiding dependencies](https://twitter.com/olivergierke/status/314704198908403713). Without looking at the source code, you don't really know what collaborators a class needs when you instantiate it. This job is left for the DI container. Now, whether this is a good thing or not, is another question.
+You may ask, when will I be ever instantiating my application classes myself? The DI container will take care of it. Frameworks should make our lives easier. I don't need the public interface of my class telling me what pieces it needs to work correctly. As long as the DI container does the job, I'm good with that.
 
-I'm going to reference [Code Complete](https://www.goodreads.com/book/show/4845.Code_Complete "Code Complete") again. [Steve McConnell](https://en.wikipedia.org/wiki/Steve_McConnell "Steve McConnell") wrote the following on formalizing class contracts.
-
-> At a more detailed level, thinking of each class's interface as a contract with the rest of the program can yield good insights. Typically, the contract is something like "If you promise to provide data x, y and z and you promise they'll have characteristics a, b and c, I promise to perform operations 1, 2 and 3 within constraints 8, 9 and 10." The promises the clients of the class make to the class are typically called "preconditions," and the promises the object makes to its clients are called the "postconditions."
-
-If you think of a contract of any kind, I'm 100% sure that you agree that it should clearly state the responsibilities of all the parties involved. When we take this metaphor to class design, the contract should declare what the class *needs from* the client and what the class *promises to* the client. As part of the contract, the client needs to know what collaborators the class needs to fill its promises. For that reason dependencies should be communicated publicly.
-
-On the other hand, maybe collaborators are just an implementation detail and the calling code should not know anything about them? [Does dependency injection break encapsulation?](https://stackoverflow.com/questions/1005473/must-dependency-injection-come-at-the-expense-of-encapsulation "Must Dependency Injection come at the expense of Encapsulation?"). I guess this is a more wider topic which I don't want to touch in this article.
+But what about unit testing? How will you be providing the required dependencies?
 
 * and to set them, you must use reflection
 * constructor injection exposes dependencies to the outside world, the client of the class knows what the target depends on
@@ -136,10 +128,6 @@ On the other hand, maybe collaborators are just an implementation detail and the
 * http://olivergierke.de/2013/11/why-field-injection-is-evil/
 * https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
 * http://vojtechruzicka.com/field-dependency-injection-considered-harmful/
-
-
-* don't be a cargo cult programmer, consider the pros and cons and make up your mind
-* following constructor injection might be a "purist" way of thinking, and real world is not pure, pragmatics over theoretical purity, getting things done is more important than arguing about theoretical correctness, don’t want to argue endlessly about academic points of theory, I want to get stuff done, which is a valid point
 
 ## to read
 
@@ -175,4 +163,21 @@ One of the reasons for the change is pointed out to be the following.
 
 >Constructor-based injection is considered cleaner by many people, in particular as it eases testing
 
+## Drawbacks of constructor injection
+
 ## further reading
+
+http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/
+https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/
+https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
+
+## Summary
+
+Use what works for you. Just keep in mind the pros and cons.
+
+* don't be a cargo cult programmer, consider the pros and cons and make up your mind
+* following constructor injection might be a "purist" way of thinking, and real world is not pure, pragmatics over theoretical purity, getting things done is more important than arguing about theoretical correctness, don’t want to argue endlessly about academic points of theory, I want to get stuff done, which is a valid point
+
+At least I thought this was normal. Maybe it was [cargo cult programming](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). I did what everybody else did, without considering whether it was good or bad.
+
+Today I would argue that field injection encourages classes to become god objects. It's so easy to add a new dependency.
