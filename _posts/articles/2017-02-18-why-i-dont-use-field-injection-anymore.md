@@ -35,19 +35,6 @@ I'm sure you've seen this before. Let's imagine a Spring application with an `In
 
 Field injection only amplifies that in my opinion. It takes away the pain of introducing a new dependency. I'm not saying that programming should be painful but *autowiring* a new field is so easy that we stop thinking about whether we should actually do it. More on that later.
 
-* service classes with 10+ dependencies seemed to be "normal", this is what everybody does right? one service class per domain object and all domain object related business code is in the service class, grows super large over time, but it's okay right? (https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/)
-* tests used either the spring container (kind of slow) or reflection (kind of a workaround) to inject mocks
-* cargo cult programming, did what everybody else did, without considering if it is good or bad
-* I'm kind of late to the game I think, always did what others around me did
-* classes start out small, 1 or 2 dependencies injected, but it is super easy to add another dependency, just autowire it
-* classes grew larger, just add another dependency, easy
-* classes grow to a monolith
-* violation of single responsibility principle (separation of concerns), but I did not think that would be a problem, did not see it (if constructor is messy, you can feel the pain and want to refactor it)
-* a counter argument might be that it does not violate SRP because the class does everything related to the domain object, right? wrong. I'm pretty sure the the class touches other domain entities as well, e.g. save different domain entities in a single transaction
-
-* controversial topic, I'm sure there's many who use field injection and are quite OK with it
-* as I understand, this can create a never ending discussion/argument/flame war (has created)
-
 ## What's wrong with field injection?
 
 As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-injection-is-evil/), it's NullPointerExceptions beginning to happen. Say you create an instance of your class without a DI container. You don't know, without looking at the source, which dependencies are needed for the class to behave correctly. So it's just a matter of time until you call a method which in turn calls a dependency that is not initialized. He argues that [dependencies need to be communicated publically](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/#comment-2825180814).
@@ -96,29 +83,7 @@ When we use field injection, we are required that our classes are mutable. We ca
 
 You may ask, when will I be ever instantiating my application classes myself? The DI container will take care of it. Frameworks should make our lives easier. I don't need the public interface of my class telling me what pieces it needs to work correctly. As long as the DI container does the job, I'm good with that.
 
-But what about unit testing? How will you be providing the required dependencies?
-
-* and to set them, you must use reflection
-* constructor injection exposes dependencies to the outside world, the client of the class knows what the target depends on
-
-* setter injection for optional dependencies
-* optional dependencies - if not provided, the class can do its work without them, maybe has a reasonable default behavior
-
-* Testability, easy to inject mocks via constructor
-* Alternative would be to use reflection but it kind of seems like a workaround
-
-* cons, too verbose maybe? Java is very verbose as is, constructor injection increases it
-* constructors become messy if many dependencies exist (maybe you should break the class apart?)
-* [Very little boilerplate code to use field injection](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/). All you need is a simple annotation on the field.
-* super convenient and boilerplate-less to add a new dependency via field injection
-
-## Drawbacks of field injection
-
-* cannot create immutable objects, fields cannot be final (verify this)
-* classes are tightly coupled to a DI container and cannot be used outside of it, only the DI container knows how to inject fields into your bean, you might think that I'm never going to use my application classes outside of my DI container, I'm not writing a general purpose library, this is some internal application for an enterprise, but what about testing then? you do write tests, right? do you use reflection to inject beans? or set up a spring container for tests?
-* what's wrong with setting up a spring container during unit tests? I would argue that these are not unit tests then, you're not testing a single focused unit of code
-* dependencies are hidden from the public
-* it's easy to violate the single responsibility principle, super easy to add a new dependency, suddenly you discover you have 10+ dependencies injected to a single class, I'm quite sure you're class has more than one responsibility then, you have created a [god object](https://en.wikipedia.org/wiki/God_object)
+This leads us to testing. How to provide mocked dependencies in unit tests when field injection is used? I have seen that in this case, reflection is used a lot to assign private values fields. Come to think of it, doesn't this seem like a workaround? When the class is designed with constructor injection in mind, you can just create a new instance of the class and pass in the required mocks. No need to import a reflection library.
 
 ## reducing boilerplate
 
@@ -134,15 +99,6 @@ But what about unit testing? How will you be providing the required dependencies
 * https://www.martinfowler.com/articles/injection.html
 * https://softwareengineering.stackexchange.com/questions/300706/dependency-injection-field-injection-vs-constructor-injection
 https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
-
-* for mandatory dependencies use constructor injection
-* for optional dependencies, use setter injection
-* avoid field injection in most cases
-
-## other topics
-
-* field injection in spring configuration classes?
-* field injection in JUnit tests with Spring?
 
 ## Where the industry is moving?
 
@@ -165,11 +121,22 @@ One of the reasons for the change is pointed out to be the following.
 
 ## Drawbacks of constructor injection
 
+* cons, too verbose maybe? Java is very verbose as is, constructor injection increases it
+* boilerplate code
+
+## Drawbacks of field injection
+
+* classes are tightly coupled to a DI container and cannot be used outside of it, only the DI container knows how to inject fields into your bean, you might think that I'm never going to use my application classes outside of my DI container, I'm not writing a general purpose library, this is some internal application for an enterprise, but what about testing then? you do write tests, right? do you use reflection to inject beans? or set up a spring container for tests?
+* what's wrong with setting up a spring container during unit tests? I would argue that these are not unit tests then, you're not testing a single focused unit of code
+* it's easy to violate the single responsibility principle, super easy to add a new dependency, suddenly you discover you have 10+ dependencies injected to a single class, I'm quite sure you're class has more than one responsibility then, you have created a [god object](https://en.wikipedia.org/wiki/God_object)
+
 ## further reading
 
 http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/
 https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/
 https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
+
+* [Very little boilerplate code to use field injection](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/). All you need is a simple annotation on the field.
 
 ## Summary
 
@@ -177,6 +144,7 @@ Use what works for you. Just keep in mind the pros and cons.
 
 * don't be a cargo cult programmer, consider the pros and cons and make up your mind
 * following constructor injection might be a "purist" way of thinking, and real world is not pure, pragmatics over theoretical purity, getting things done is more important than arguing about theoretical correctness, don’t want to argue endlessly about academic points of theory, I want to get stuff done, which is a valid point
+* cargo cult programming, did what everybody else did, without considering if it is good or bad
 
 At least I thought this was normal. Maybe it was [cargo cult programming](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). I did what everybody else did, without considering whether it was good or bad.
 
