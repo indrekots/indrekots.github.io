@@ -17,6 +17,8 @@ aging: false
 
 Whether you're a new to [Spring Framework](https://projects.spring.io/spring-framework/ "Spring Framework") or have been using it for some time, you're probably familiar with one of it's most notable features—[dependency injection](https://martinfowler.com/articles/injection.html "Inversion of Control Containers and the Dependency Injection pattern"). Nearly all Spring projects that I have worked with make heavy use of field injection, that is using `@Autowired`/`@Inject` annotation on an instance field. I guess this is a popular approach because it is concise and reads well. But have you ever considered the downsides of field injection?
 
+Keep in mind that I'm not writing this in hopes that you will rewrite your Spring app to only use constructor injection.
+
 ## What downsides?
 
 If you're wondering what downsides I'm referring to, then you're like me. Let me explain.
@@ -27,19 +29,21 @@ New classes started out small. Maybe they had one or two dependencies but not mo
 
 ## Large classes aren't the fault of field injection
 
-I don't think I'm in the position to list all the reasons why classes grow too large. Certainly field injection is not the main reason, but I think it contributes to it. I guess large classes are created due to multiple bad programming practices. [But I see this happening especially in many Spring applications](https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/).
+Of course, field injection is not *the* reason why classes grow too large. I don't think I'm in the position to list all the reasons here but on the whole it comes down to bad programming practices. But when it comes to field injection, I think it can contribute to it. [I see this happening especially in many Spring applications](https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/).
 
-I'm sure you've seen this before. Let's imagine a Spring application with an `Invoice` entity. An entity class is not useful unless you have a way to persist it. Therefore our imaginary Spring app has an `InvoiceRepository`. Where do we put our business logic? Let's create an `InvoiceService`. And what usually ends up happening is that everything that is slightly related to invoices is implemented in `InvoiceService` and the service class grows out of hand.
-
-//question this architecture pattern, anemic domain model
+I'm sure you've seen this before. Let's imagine a Spring application with an `Invoice` entity. An entity class is not useful unless you have a way to persist it. Therefore our imaginary Spring app has an `InvoiceRepository`. Where do we put our business logic? Let's create an `InvoiceService`. What usually ends up happening is that everything that is slightly related to invoices is implemented in `InvoiceService` and the service class grows out of hand.
 
 Field injection only amplifies that in my opinion. It takes away the pain of introducing a new dependency. I'm not saying that programming should be painful but *autowiring* a new field is so easy that we stop thinking about whether we should actually do it. More on that later.
 
-## What's wrong with field injection?
+//question this architecture pattern, anemic domain model
 
-As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-injection-is-evil/), it's NullPointerExceptions beginning to happen. Say you create an instance of your class without a DI container. You don't know, without looking at the source, which dependencies are needed for the class to behave correctly. So it's just a matter of time until you call a method which in turn calls a dependency that is not initialized. He argues that [dependencies need to be communicated publically](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/#comment-2825180814).
+## So, is there anything else?
 
-**The problem with field injection is that you are allowed to instantiate a class in an invalid state**. The class does not force invariants. I personally feel that objects should be ready to be worked with after construction. Everything the object needs to do its job should be provided via the constructor. If the object needs a dependency to behave correctly, it seems only logical that it publicly advertises it as one of the required constructor parameters. It's like making a promise. As long as you provide me the required tools to work with, I make sure the job is done.
+The fact that a class can grow out of hand if we *autowire* too much collaborators into a single class is, of course, a weak argument against field injection. Good discipline can prevent issues like that. So is there anything else?
+
+As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-injection-is-evil/), using field injection is begging for NullPointerExceptions to happen. Say you create an instance of your class without a DI container. You don't know, without looking at the source, which dependencies are needed for the class to behave correctly. So it's just a matter of time until you call a method which in turn calls a dependency that is not initialized. He argues that [dependencies need to be communicated publically](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/#comment-2825180814).
+
+**The problem with field injection is that you are allowed to instantiate a class in an invalid state**. The class does not force invariants. I personally feel that objects should be ready to be worked with after construction. Everything the object needs to do its job should be provided via the constructor. If the object needs a dependency to behave correctly, it seems only logical that it publicly advertises it as one of the required constructor parameters. It's like making a promise. As long as *you* provide me the required tools to work with, *I* make sure the job is done.
 
 ## To hide or expose dependencies?
 
@@ -55,9 +59,9 @@ On the other hand, maybe collaborators are just an implementation detail and the
 
 ## Constructor gets awkwardly big
 
-I have a class with 10 or more dependencies. Refactoring to use constructor injection would create a considerable amount of boilerplate code and now my constructor would be so big that it is unusable. I'll never remember the order of the parameters that need to be passed to the constructor. And above all, it's ugly to look at a constructor with so many parameters. Field injection seems much easier, why should I use constructor injection instead?
+Let's say you decide to refactor a class to use constructor injection instead. To make it more challenging, suppose that you chose a class that has ten or more dependencies. You'll quickly realize that using constructor injection would create a considerable amount of boilerplate code and in the end the constructor looks uncomfortably massive. It would be very difficult to remember the order of the parameters that need to be passed to the constructor. And above all, it just looks ugly. Field injection seems much easier, doesn't it?
 
-The fact that your constructor is so big is actually a good thing. This is a [clear indication that your class has probably too many responsibilities](http://vojtechruzicka.com/field-dependency-injection-considered-harmful/). [Robert C. Martin (a.k.a Uncle Bob)](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) has said the following
+The fact that a constructor is big is actually a good thing. Well, kind of. This is a [clear indication that your class has probably too many responsibilities](http://vojtechruzicka.com/field-dependency-injection-considered-harmful/). [Robert C. Martin (a.k.a Uncle Bob)](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) has said the following
 
 > A class should have only one reason to change
 
@@ -69,7 +73,7 @@ Meaning that if a class as multiple responsibilities, it also has multiple reaso
 
 > Low-to-medium fan-out means having a given class use a low-to-medium number of other classes. High fan-out (more than about seven) indicates that a class uses a large number of other classes and may therefore be overly complex.
 
-Seeing a big constructor is a sign that your class has too many collaborators and it is a good opportunity to think about splitting the class into smaller pieces.
+Seeing a big constructor is a sign that your class has too many collaborators and it is a good opportunity to think about splitting the class into smaller pieces. Consider the opposite for a second. Arguably, field injection does not give you a visual cue that a class might be overly complex. On the other hand experience, good developer discipline and potentially static analysis tools could be useful in this situation.
 
 ## Immutability
 
@@ -84,6 +88,8 @@ When we use field injection, we are required that our classes are mutable. We ca
 You may ask, when will I be ever instantiating my application classes myself? The DI container will take care of it. Frameworks should make our lives easier. I don't need the public interface of my class telling me what pieces it needs to work correctly. As long as the DI container does the job, I'm good with that.
 
 This leads us to testing. How to provide mocked dependencies in unit tests when field injection is used? I have seen that in this case, reflection is used a lot to assign private values fields. Come to think of it, doesn't this seem like a workaround? When the class is designed with constructor injection in mind, you can just create a new instance of the class and pass in the required mocks. No need to import a reflection library.
+
+http://rapaul.com/2011/07/10/constructor-injection-unit-tests/
 
 ## reducing boilerplate
 
