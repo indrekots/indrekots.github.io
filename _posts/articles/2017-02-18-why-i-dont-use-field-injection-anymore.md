@@ -45,6 +45,10 @@ As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-inje
 
 **The problem with field injection is that you are allowed to instantiate a class in an invalid state**. The class does not force invariants. I personally feel that objects should be ready to be worked with after construction. Everything the object needs to do its job should be provided via the constructor. If the object needs a dependency to behave correctly, it seems only logical that it publicly advertises it as one of the required constructor parameters. It's like making a promise. As long as *you* provide me the required tools to work with, *I* make sure the job is done.
 
+Why would you want to be upfront about your collaborators, Steve Freeman & Nat Price (GOOS) have this to say:
+
+>Partially creating an object and then finishing it off by setting properties is brittle because the programmer has to remember to set all the dependencies. When the object changes to add new dependencies, the existing client code will still compile even though it no longer constructs a valid instance. At best this will cause a NullPointerException, at worst it will fail misleadingly.
+
 ## To hide or expose dependencies?
 
 When you use field injection, you're essentially [hiding dependencies](https://twitter.com/olivergierke/status/314704198908403713). Without looking at the source code, you don't really know what collaborators a class needs when you instantiate it. This job is left for the DI container. Now, whether this is a good thing or not, is another question.
@@ -85,11 +89,9 @@ When we use field injection, we are required that our classes are mutable. We ca
 
 ## Testing
 
-You may ask, when will I be ever instantiating my application classes myself? The DI container will take care of it. Frameworks should make our lives easier. I don't need the public interface of my class telling me what pieces it needs to work correctly. As long as the DI container does the job, I'm good with that.
+You may be thinking that you will never have the need to instantiate your application classes yourself. Therefore you cannot accidentally create an object in an invalid state. The DI container will make sure all the required collaborators are injected. After all, frameworks should make our lives easier. I think this is a completely valid argument. In the end, the classes you're designing are not supposed to be used outside of the application you're working on.
 
-This leads us to testing. How to provide mocked dependencies in unit tests when field injection is used? I have seen that in this case, reflection is used a lot to assign private values fields. Come to think of it, doesn't this seem like a workaround? When the class is designed with constructor injection in mind, you can just create a new instance of the class and pass in the required mocks. No need to import a reflection library.
-
-http://rapaul.com/2011/07/10/constructor-injection-unit-tests/
+This leads us to my next topic—testing. How will you provide mocked dependencies in unit tests when field injection is used? I have seen that in this case reflection is used a lot to assign values to private fields. Come to think of it, doesn't this seem like a workaround? [What if the class was designed with constructor injection in mind?](http://rapaul.com/2011/07/10/constructor-injection-unit-tests/ "Constructor Injection, and How It Simplifies Unit Test Setup") Then you would be able to create a new instance of the class and pass in the required mocks. No need to perform *magic* with reflection. It's as if the class was designed to be testable.
 
 ## reducing boilerplate
 
@@ -141,6 +143,7 @@ One of the reasons for the change is pointed out to be the following.
 http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/
 https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/
 https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
+http://misko.hevery.com/2009/02/19/constructor-injection-vs-setter-injection/
 
 * [Very little boilerplate code to use field injection](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/). All you need is a simple annotation on the field.
 
