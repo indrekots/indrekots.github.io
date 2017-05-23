@@ -149,12 +149,8 @@ http://misko.hevery.com/2009/02/19/constructor-injection-vs-setter-injection/
 
 ## Summary
 
-Use what works for you. Just keep in mind the pros and cons.
+I have this impression that in Spring applications, field injection is the *de facto* way to inject dependencies and we don't even consider the alternatives. Maybe I have encountered a bad set of projects.
 
-* don't be a cargo cult programmer, consider the pros and cons and make up your mind
-* following constructor injection might be a "purist" way of thinking, and real world is not pure, pragmatics over theoretical purity, getting things done is more important than arguing about theoretical correctness, don’t want to argue endlessly about academic points of theory, I want to get stuff done, which is a valid point
-* cargo cult programming, did what everybody else did, without considering if it is good or bad
+The goal of this post is not to persuade you to convert your application to use constructor injection but to make you aware of the benefits that constructor injection provides. I know that for some of you, field injection is a completely fine method of injecting dependencies. And constructor injection can be considered a *purist* way of thinking. Real life is far from pure and at the end of the day, what's most important is getting the job done.
 
-At least I thought this was normal. Maybe it was [cargo cult programming](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). I did what everybody else did, without considering whether it was good or bad.
-
-Today I would argue that field injection encourages classes to become god objects. It's so easy to add a new dependency.
+Don't be a [cargo cult programmer](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). Consider the pros and cons and use what works for you in your situation.
