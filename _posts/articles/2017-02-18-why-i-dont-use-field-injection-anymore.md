@@ -147,10 +147,14 @@ http://misko.hevery.com/2009/02/19/constructor-injection-vs-setter-injection/
 
 * [Very little boilerplate code to use field injection](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/). All you need is a simple annotation on the field.
 
+quote from uncle bob, every framework is written because of the deficiencies in the language
+
 ## Summary
 
-I have this impression that in Spring applications, field injection is the *de facto* way to inject dependencies and we don't even consider the alternatives. Maybe I have encountered a bad set of projects.
+I have this impression that the *de facto* way to inject dependencies in Spring applications is via field injection and we don't even consider the alternatives. But maybe it's just me. Maybe I have encountered a bad set of projects where constructor injection has been avoided.
 
-The goal of this post is not to persuade you to convert your application to use constructor injection but to make you aware of the benefits that constructor injection provides. I know that for some of you, field injection is a completely fine method of injecting dependencies. And constructor injection can be considered a *purist* way of thinking. Real life is far from pure and at the end of the day, what's most important is getting the job done.
+The goal of this post was not to persuade you to convert your application to use constructor injection but to make you aware of the benefits that constructor injection provides. Arguably, it makes testing easier and a large constructor, in most cases, is an indication of a violation of the single responsibility principle.
 
-Don't be a [cargo cult programmer](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). Consider the pros and cons and use what works for you in your situation.
+I know that for some of you field injection is a completely fine method of injecting dependencies and constructor injection can be considered a *purist* way of thinking. Real life is far from pure and at the end of the day, what's most important is getting the job done.
+
+Don't be a [cargo cult programmer](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). Understand the pros and cons and use what works for you in your situation.
