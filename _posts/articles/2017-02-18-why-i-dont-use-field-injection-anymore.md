@@ -17,8 +17,6 @@ aging: false
 
 Whether you're a new to [Spring Framework](https://projects.spring.io/spring-framework/ "Spring Framework") or have been using it for some time, you're probably familiar with one of it's most notable features—[dependency injection](https://martinfowler.com/articles/injection.html "Inversion of Control Containers and the Dependency Injection pattern"). Nearly all Spring projects that I have worked with make heavy use of field injection, that is using `@Autowired`/`@Inject` annotation on an instance field. I guess this is a popular approach because it is concise and reads well. But have you ever considered the downsides of field injection?
 
-Keep in mind that I'm not writing this in hopes that you will rewrite your Spring app to only use constructor injection.
-
 ## What downsides?
 
 If you're wondering what downsides I'm referring to, then you're like me. Let me explain.
@@ -85,7 +83,7 @@ In his book [Effective Java](https://www.goodreads.com/book/show/105099.Effectiv
 
 > Classes should be immutable unless there's a very good reason to make them mutable....If a class cannot be made immutable, limit its mutability as much as possible.
 
-When we use field injection, we are required that our classes are mutable. We cannot declare our private fields to be `final` since this would break field injection (verify). If you want to enforce that the dependencies are never changed, you need to use the `final` keyword and initialize the fields in the constructor.
+When we use field injection, we are required that our classes are mutable. We cannot declare our private fields to be `final` and initialize them after construction. This would result in a compiler error saying that a variable might not have been initialized. If you want to enforce that the dependencies are never changed, you need to use the `final` keyword and initialize the fields in the constructor.
 
 ## Testing
 
@@ -93,7 +91,7 @@ You may be thinking that you will never have the need to instantiate your applic
 
 This leads us to my next topic—testing. How will you provide mocked dependencies in unit tests when field injection is used? I have seen that in this case reflection is used a lot to assign values to private fields. Come to think of it, doesn't this seem like a workaround? [What if the class was designed with constructor injection in mind?](http://rapaul.com/2011/07/10/constructor-injection-unit-tests/ "Constructor Injection, and How It Simplifies Unit Test Setup") Then you would be able to create a new instance of the class and pass in the required mocks. No need to perform *magic* with reflection. It's as if the class was designed to be testable.
 
-## reducing boilerplate
+## Reducing boilerplate
 
 * [as of Spring 4.3](https://spring.io/blog/2016/03/04/core-container-refinements-in-spring-framework-4-3), implicit constructor injection for single-constructor classes is available, meaning that no need to provide `@Autowired`/`@Inject` annotations (`@Configuration` classes support constructor injection as well) (demo, verify)
 * Lombok to reduce boilerplate
@@ -112,7 +110,7 @@ https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mi
 
 Maybe it's my [confirmation bias](https://en.wikipedia.org/wiki/Confirmation_bias) at play here but I have seen the theme of favoring constructor injection popping up in many places. At first I started to notice that IntelliJ IDEA begin to display warnings if I was using field injection.
 
-//image of a warning
+![images/2017-05-28-to-field-inject-or-not-to/idea.jpg]
 
 It says that the Spring team recommends to use constructor injection instead. Out of curiosity, I scanned through [Spring's reference manual](http://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection "Spring's reference manual") and found the following section.
 
