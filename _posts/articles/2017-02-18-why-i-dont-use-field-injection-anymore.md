@@ -144,6 +144,7 @@ http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-inje
 https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/
 https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
 http://misko.hevery.com/2009/02/19/constructor-injection-vs-setter-injection/
+http://www.yegor256.com/2016/06/27/singletons-must-die.html
 
 * [Very little boilerplate code to use field injection](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/). All you need is a simple annotation on the field.
 
@@ -151,9 +152,9 @@ quote from uncle bob, every framework is written because of the deficiencies in 
 
 ## Summary
 
-I have this impression that the *de facto* way to inject dependencies in Spring applications is via field injection and we don't even consider the alternatives. But maybe it's just me. Maybe I have encountered a bad set of projects where constructor injection has been avoided.
+I have this impression that field injection has become the *de facto* way to inject dependencies in Spring applications  and we don't even consider the alternatives. But maybe it's just me. Maybe I have encountered a bad set of projects where constructor injection has been avoided.
 
-The goal of this post was not to persuade you to convert your application to use constructor injection but to make you aware of the benefits that constructor injection provides. Arguably, it makes testing easier and a large constructor, in most cases, is an indication of a violation of the single responsibility principle.
+The goal of this post was not to persuade you to convert your application to use constructor injection but to make you aware of the benefits that constructor injection provides. Arguably, it makes testing easier and a large constructor, in most cases, is an indication of a violation of the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
 
 I know that for some of you field injection is a completely fine method of injecting dependencies and constructor injection can be considered a *purist* way of thinking. Real life is far from pure and at the end of the day, what's most important is getting the job done.
 
