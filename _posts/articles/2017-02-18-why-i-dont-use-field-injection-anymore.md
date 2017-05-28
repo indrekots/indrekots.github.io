@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "To field inject, or not to field inject?"
+title: "To field inject, or not to field inject in Spring?"
 excerpt:
 modified: 2017-02-18 22:22:57 +0200
 categories: articles
@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/@3amcoffeebuns?photo=j3SZYtfIjLM
 comments: true
 share: true
-published: true
+published: false
 aging: false
 ---
 
@@ -27,11 +27,11 @@ New classes started out small. Maybe they had one or two dependencies but not mo
 
 ## Large classes aren't the fault of field injection
 
-Of course, field injection is not *the* reason why classes grow too large. I don't think I'm in the position to list all the reasons here but on the whole it comes down to bad programming practices. But when it comes to field injection, I think it can contribute to it. [I see this happening especially in many Spring applications](https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/).
+Of course, field injection is not *the* reason why classes grow too large. On the whole, I guess it comes down to bad programming practices. But I think field injection can contribute to it. [I see this happening especially in many Spring applications](https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/).
 
 I'm sure you've seen this before. Let's imagine a Spring application with an `Invoice` entity. An entity class is not useful unless you have a way to persist it. Therefore our imaginary Spring app has an `InvoiceRepository`. Where do we put our business logic? Let's create an `InvoiceService`. What usually ends up happening is that everything that is slightly related to invoices is implemented in `InvoiceService` and the service class grows out of hand.
 
-Field injection only amplifies that in my opinion. It takes away the pain of introducing a new dependency. I'm not saying that programming should be painful but *autowiring* a new field is so easy that we stop thinking about whether we should actually do it. More on that later.
+Field injection only amplifies that in my opinion. It takes away the pain of introducing a new dependency. I'm not saying that programming should be painful but *autowiring* a new field is so easy that we stop thinking about whether we should actually do it.
 
 //question this architecture pattern, anemic domain model
 
@@ -45,7 +45,7 @@ As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-inje
 
 In [Growing Object-Oriented Software, Guided by Tests](https://www.goodreads.com/book/show/4268826-growing-object-oriented-software-guided-by-tests "Growing Object-Oriented Software, Guided by Tests"), the authors [Steve Freeman](http://higherorderlogic.com/ "Higher order logic") & [Nat Price](http://www.natpryce.com/) have this to say:
 
->Partially creating an object and then finishing it off by setting properties is brittle because the programmer has to remember to set all the dependencies. When the object changes to add new dependencies, the existing client code will still compile even though it no longer constructs a valid instance. At best this will cause a NullPointerException, at worst it will fail misleadingly.
+>Partially creating an object and then finishing it off by setting properties is brittle because the programmer has to remember to set all the dependencies. When the object changes to add new dependencies, the existing client code will still compile even though it no longer constructs a valid instance. At best this will cause a `NullPointerException`, at worst it will fail misleadingly.
 
 ## To hide or expose dependencies?
 
@@ -77,13 +77,17 @@ Meaning that if a class as multiple responsibilities, it also has multiple reaso
 
 Seeing a big constructor is a sign that your class has too many collaborators and it is a good opportunity to think about splitting the class into smaller pieces. Consider the opposite for a second. Arguably, field injection does not give you a visual cue that a class might be overly complex. On the other hand experience, good developer discipline and potentially static analysis tools could be useful in this situation.
 
-## Immutability
+## Declaring instance fields `final`
 
 In his book [Effective Java](https://www.goodreads.com/book/show/105099.Effective_Java_Programming_Language_Guide "Effective Java 2nd Edition"), [Joshua Bloch](https://twitter.com/joshbloch) recommends to favor immutable classes.
 
 > Classes should be immutable unless there's a very good reason to make them mutable....If a class cannot be made immutable, limit its mutability as much as possible.
 
-When we use field injection, we are required that our classes are mutable. We cannot declare our private fields to be `final` and initialize them after construction. This would result in a compiler error saying that a variable might not have been initialized. If you want to enforce that the dependencies are never changed, you need to use the `final` keyword and initialize the fields in the constructor.
+In Java, we usually [achieve immutability by not providing setters and declaring fields with the `final` keyword](http://www.journaldev.com/129/how-to-create-immutable-class-in-java "How to Create immutable Class in java?"). In Spring, however, [we usually don't care about immutability because most Spring beans are singletons](https://stackoverflow.com/questions/5732195/mutability-and-spring) with no real state (except the injected dependencies) and, most of the time, we know that we should not mutate a Spring bean. Setters are only provided for optional dependencies.
+
+But I think there's still a benefit from using the `final` keyword in your Spring beans. [Readers of the class can clearly distinguish between mandatory (`final`) and optional dependencies (non-`final`)](http://olivergierke.de/2013/11/why-field-injection-is-evil/).
+
+When we use field injection, we are required that our instance fields are non-`final`. We cannot declare our private fields to be `final` and not initialize them in the construction. This would result in a compiler error saying that a variable might not have been initialized.
 
 ## Testing
 
@@ -93,8 +97,10 @@ This leads us to my next topic—testing. How will you provide mocked dependenci
 
 ## Reducing boilerplate
 
+First, is your constructor too big. Think about splitting the class.
+
 * [as of Spring 4.3](https://spring.io/blog/2016/03/04/core-container-refinements-in-spring-framework-4-3), implicit constructor injection for single-constructor classes is available, meaning that no need to provide `@Autowired`/`@Inject` annotations (`@Configuration` classes support constructor injection as well) (demo, verify)
-* Lombok to reduce boilerplate
+* Lombok to reduce boilerplate, @RequiredArgsConstructor
 
 * http://olivergierke.de/2013/11/why-field-injection-is-evil/
 * https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
@@ -103,7 +109,7 @@ This leads us to my next topic—testing. How will you provide mocked dependenci
 ## to read
 
 * https://softwareengineering.stackexchange.com/questions/300706/dependency-injection-field-injection-vs-constructor-injection
-https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
+* https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
 
 ## Where the industry is moving?
 
