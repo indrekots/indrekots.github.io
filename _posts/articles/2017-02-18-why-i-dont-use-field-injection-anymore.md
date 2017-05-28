@@ -6,12 +6,12 @@ modified: 2017-02-18 22:22:57 +0200
 categories: articles
 tags: [java, spring, autowire, inject, dependency injection]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2017-05-28-to-field-inject-or-not-to/cover.jpg
+  credit: Pauline Tayag
+  creditlink: https://unsplash.com/@3amcoffeebuns?photo=j3SZYtfIjLM
 comments: true
 share: true
-published: false
+published: true
 aging: false
 ---
 
@@ -102,7 +102,6 @@ This leads us to my next topic—testing. How will you provide mocked dependenci
 
 ## to read
 
-* https://www.martinfowler.com/articles/injection.html
 * https://softwareengineering.stackexchange.com/questions/300706/dependency-injection-field-injection-vs-constructor-injection
 https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
 
@@ -110,7 +109,7 @@ https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mi
 
 Maybe it's my [confirmation bias](https://en.wikipedia.org/wiki/Confirmation_bias) at play here but I have seen the theme of favoring constructor injection popping up in many places. At first I started to notice that IntelliJ IDEA begin to display warnings if I was using field injection.
 
-![images/2017-05-28-to-field-inject-or-not-to/idea.jpg]
+![IntelliJ IDEA warning]({{site.url}}/images/2017-05-28-to-field-inject-or-not-to/idea.jpg)
 
 It says that the Spring team recommends to use constructor injection instead. Out of curiosity, I scanned through [Spring's reference manual](http://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection "Spring's reference manual") and found the following section.
 
