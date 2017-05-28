@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "To field inject, or not to field inject in Spring?"
-excerpt:
+excerpt: Nearly all Spring projects that I have worked with make heavy use of field injection. This must be a popular approach because it is concise and reads well. But have you ever considered the downsides of field injection?
 modified: 2017-02-18 22:22:57 +0200
 categories: articles
 tags: [java, spring, autowire, inject, dependency injection]
