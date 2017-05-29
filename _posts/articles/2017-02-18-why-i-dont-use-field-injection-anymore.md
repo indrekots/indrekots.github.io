@@ -97,10 +97,11 @@ This leads us to my next topic—testing. How will you provide mocked dependenci
 
 ## Reducing boilerplate
 
-First, is your constructor too big. Think about splitting the class.
+You have to add additional lines of code to replace field injection with constructor injection. Java is considered a verbose language already, so why bother adding the extra weight?
 
-* [as of Spring 4.3](https://spring.io/blog/2016/03/04/core-container-refinements-in-spring-framework-4-3), implicit constructor injection for single-constructor classes is available, meaning that no need to provide `@Autowired`/`@Inject` annotations (`@Configuration` classes support constructor injection as well) (demo, verify)
-* Lombok to reduce boilerplate, @RequiredArgsConstructor
+Firstly, constructors are an integral part of the language. I think it's completely fine to include a constructor in a class. But I do agree that a large constructor looks like it should not belong there. Which lead me to my next point. If a constructor is too big, take a step back and examine your class from a higher level. Ask yourself, is the class overly complex perhaps? Does it violate the single responsibility principle? Could I split the class into smaller ones?
+
+If your answer to those questions was "no", then read further. There's a couple of tricks which you can use to remedy the ugly looking constructor. [As of Spring 4.3](https://spring.io/blog/2016/03/04/core-container-refinements-in-spring-framework-4-3), implicit constructor injection for single-constructor classes is available. This means that there's no need to provide `@Autowired`/`@Inject` annotations on constructors. And if you're a fan of [Lombok](https://projectlombok.org/features/Constructor.html "@NoArgsConstructor, @RequiredArgsConstructor, @AllArgsConstructor") and code generation, you could use the `@RequiredArgsConstructor` to generate a constructor for all your `final` fields. Of couse this implies you use the `final` keyword for all your required dependencies.
 
 * http://olivergierke.de/2013/11/why-field-injection-is-evil/
 * https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
