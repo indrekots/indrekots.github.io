@@ -15,7 +15,7 @@ published: false
 aging: false
 ---
 
-Whether you're a new to [Spring Framework](https://projects.spring.io/spring-framework/ "Spring Framework") or have been using it for some time, you're probably familiar with one of it's most notable features—[dependency injection](https://martinfowler.com/articles/injection.html "Inversion of Control Containers and the Dependency Injection pattern"). Nearly all Spring projects that I have worked with make heavy use of field injection, that is using `@Autowired`/`@Inject` annotation on an instance field. I guess this is a popular approach because it is concise and reads well. But have you ever considered the downsides of field injection?
+Whether you're a new to [Spring Framework](https://projects.spring.io/spring-framework/ "Spring Framework") or have been using it for some time, you're probably familiar with one of it's most notable features—[dependency injection](https://martinfowler.com/articles/injection.html "Inversion of Control Containers and the Dependency Injection pattern"). Nearly all Spring projects that I have worked with make heavy use of field injection, that is using `@Autowired`/`@Inject` annotation on an instance field. I guess this is a popular approach because it is concise and reads well. But have you ever considered the [downsides of field injection](https://softwareengineering.stackexchange.com/questions/300706/dependency-injection-field-injection-vs-constructor-injection "Dependency Injection: Field Injection vs Constructor Injection?")?
 
 ## What downsides?
 
@@ -33,19 +33,19 @@ I'm sure you've seen this before. Let's imagine a Spring application with an `In
 
 Field injection only amplifies that in my opinion. It takes away the pain of introducing a new dependency. I'm not saying that programming should be painful but *autowiring* a new field is so easy that we stop thinking about whether we should actually do it.
 
-//question this architecture pattern, anemic domain model
-
 ## So, is there anything else?
 
 The fact that a class can grow out of hand if we *autowire* too much collaborators into a single class is, of course, a weak argument against field injection. Good discipline can prevent issues like that. So is there anything else?
 
-As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-injection-is-evil/), using field injection is begging for NullPointerExceptions to happen. Say you create an instance of your class without a DI container. You don't know, without looking at the source, which dependencies are needed for the class to behave correctly. So it's just a matter of time until you call a method which in turn calls a dependency that is not initialized. He argues that [dependencies need to be communicated publically](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/#comment-2825180814).
+As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-injection-is-evil/), using field injection is begging for *NullPointerExceptions* to happen. Say you create an instance of your class without a DI container. You don't know, without looking at the source, which dependencies are needed for the class to behave correctly. So it's just a matter of time until you call a method which in turn calls a dependency that is not initialized. He argues that [dependencies need to be communicated publically](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/#comment-2825180814).
 
 **The problem with field injection is that you are allowed to instantiate a class in an invalid state**. The class does not enforce invariants. I personally feel that objects should be ready to be worked with after construction. Everything the object needs to do its job should be provided via the constructor. If the object needs a dependency to behave correctly, it seems only logical that it publicly advertises it as one of the required constructor parameters. It's like making a promise. As long as *you* provide me the required tools to work with, *I* make sure the job is done.
 
 In [Growing Object-Oriented Software, Guided by Tests](https://www.goodreads.com/book/show/4268826-growing-object-oriented-software-guided-by-tests "Growing Object-Oriented Software, Guided by Tests"), the authors [Steve Freeman](http://higherorderlogic.com/ "Higher order logic") & [Nat Price](http://www.natpryce.com/) have this to say:
 
 >Partially creating an object and then finishing it off by setting properties is brittle because the programmer has to remember to set all the dependencies. When the object changes to add new dependencies, the existing client code will still compile even though it no longer constructs a valid instance. At best this will cause a `NullPointerException`, at worst it will fail misleadingly.
+
+If we're talking about the Spring Framework, you might be thinking that there's no need to instantiate Spring beans manually. More on that later.
 
 ## To hide or expose dependencies?
 
@@ -75,7 +75,7 @@ Meaning that if a class as multiple responsibilities, it also has multiple reaso
 
 > Low-to-medium fan-out means having a given class use a low-to-medium number of other classes. High fan-out (more than about seven) indicates that a class uses a large number of other classes and may therefore be overly complex.
 
-Seeing a big constructor is a sign that your class has too many collaborators and it is a good opportunity to think about splitting the class into smaller pieces. Consider the opposite for a second. Arguably, field injection does not give you a visual cue that a class might be overly complex. On the other hand experience, good developer discipline and potentially static analysis tools could be useful in this situation.
+Seeing a big constructor is a sign that your class has too many collaborators and it is a good opportunity to think about splitting the class into smaller pieces. Arguably, field injection does not give you a visual cue that a class might be overly complex. Of course, experience, good developer discipline and potentially static analysis tools could remedy this situation as well.
 
 ## Declaring instance fields `final`
 
@@ -83,7 +83,7 @@ In his book [Effective Java](https://www.goodreads.com/book/show/105099.Effectiv
 
 > Classes should be immutable unless there's a very good reason to make them mutable....If a class cannot be made immutable, limit its mutability as much as possible.
 
-In Java, we usually [achieve immutability by not providing setters and declaring fields with the `final` keyword](http://www.journaldev.com/129/how-to-create-immutable-class-in-java "How to Create immutable Class in java?"). In Spring, however, [we usually don't care about immutability because most Spring beans are singletons](https://stackoverflow.com/questions/5732195/mutability-and-spring) with no real state (except the injected dependencies) and, most of the time, we know that we should not mutate a Spring bean. Setters are only provided for optional dependencies.
+In Java, we usually [achieve immutability by not providing setters and declaring fields with the `final` keyword](http://www.journaldev.com/129/how-to-create-immutable-class-in-java "How to Create immutable Class in java?"). In Spring, however, [we usually don't care about immutability because nearly all Spring beans are singletons](https://stackoverflow.com/questions/5732195/mutability-and-spring) with no real state (except the injected dependencies) and, most of the time, we know that we should not mutate a Spring bean. Setters are only provided for optional dependencies.
 
 But I think there's still a benefit from using the `final` keyword in your Spring beans. [Readers of the class can clearly distinguish between mandatory (`final`) and optional dependencies (non-`final`)](http://olivergierke.de/2013/11/why-field-injection-is-evil/).
 
@@ -91,37 +91,27 @@ When we use field injection, we are required that our instance fields are non-`f
 
 ## Testing
 
-You may be thinking that you will never have the need to instantiate your application classes yourself. Therefore you cannot accidentally create an object in an invalid state. The DI container will make sure all the required collaborators are injected. After all, frameworks should make our lives easier. I think this is a completely valid argument. In the end, the classes you're designing are not supposed to be used outside of the application you're working on.
+You may be thinking that you will never have the need to instantiate your application classes yourself. Therefore you cannot accidentally create an object in an invalid state. The DI container will make sure all the required collaborators are injected. After all, frameworks should make our lives easier. I think this is a completely valid argument. In the end, the classes you're designing are probably never used outside of the application you're working on.
 
-This leads us to my next topic—testing. How will you provide mocked dependencies in unit tests when field injection is used? I have seen that in this case reflection is used a lot to assign values to private fields. Come to think of it, doesn't this seem like a workaround? [What if the class was designed with constructor injection in mind?](http://rapaul.com/2011/07/10/constructor-injection-unit-tests/ "Constructor Injection, and How It Simplifies Unit Test Setup") Then you would be able to create a new instance of the class and pass in the required mocks. No need to perform *magic* with reflection. It's as if the class was designed to be testable.
+This leads us to my next topic—testing. [How will you provide mocked dependencies in unit tests when field injection is used?](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/ "The One Correct Way to do Dependency Injection"). I have seen that in this case reflection is used a lot to assign values to private fields. Come to think of it, doesn't this seem like a workaround? [What if a class was designed with constructor injection in mind?](http://rapaul.com/2011/07/10/constructor-injection-unit-tests/ "Constructor Injection, and How It Simplifies Unit Test Setup") Then you would be able to create a new instance of a class and pass in the required mocks. No need to perform *magic* with reflection. It's as if the class was designed to be testable.
 
 ## Reducing boilerplate
 
 You have to add additional lines of code to replace field injection with constructor injection. Java is considered a verbose language already, so why bother adding the extra weight?
 
-Firstly, constructors are an integral part of the language. I think it's completely fine to include a constructor in a class. But I do agree that a large constructor looks like it should not belong there. Which lead me to my next point. If a constructor is too big, take a step back and examine your class from a higher level. Ask yourself, is the class overly complex perhaps? Does it violate the single responsibility principle? Could I split the class into smaller ones?
+Firstly, constructors are an integral part of the language. I think it's completely fine to include a constructor in a class. But I do agree that a large constructor looks like it should not belong there. Which leads me to my next point. [If a constructor is too big, take a step back and examine your class from a higher level](https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/). Ask yourself, is the class overly complex perhaps? Does it violate the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle "Single Responsibility Principle")? Could I split the class into smaller ones?
 
-If your answer to those questions was "no", then read further. There's a couple of tricks which you can use to remedy the ugly looking constructor. [As of Spring 4.3](https://spring.io/blog/2016/03/04/core-container-refinements-in-spring-framework-4-3), implicit constructor injection for single-constructor classes is available. This means that there's no need to provide `@Autowired`/`@Inject` annotations on constructors. And if you're a fan of [Lombok](https://projectlombok.org/features/Constructor.html "@NoArgsConstructor, @RequiredArgsConstructor, @AllArgsConstructor") and code generation, you could use the `@RequiredArgsConstructor` to generate a constructor for all your `final` fields. Of couse this implies you use the `final` keyword for all your required dependencies.
-
-* http://olivergierke.de/2013/11/why-field-injection-is-evil/
-* https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
-* http://vojtechruzicka.com/field-dependency-injection-considered-harmful/
-
-## to read
-
-* https://softwareengineering.stackexchange.com/questions/300706/dependency-injection-field-injection-vs-constructor-injection
-* https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
+If your answer to those questions was "no", then read further. There's a couple of tricks which you can use to remedy the ugly looking constructor. [As of Spring 4.3](https://spring.io/blog/2016/03/04/core-container-refinements-in-spring-framework-4-3), implicit constructor injection for single-constructor classes is available. This means that there's no need to provide `@Autowired`/`@Inject` annotations on constructors. And if you're a fan of [Lombok](https://projectlombok.org/features/Constructor.html "@NoArgsConstructor, @RequiredArgsConstructor, @AllArgsConstructor") and code generation in general, you could use the `@RequiredArgsConstructor` to generate a constructor for all your `final` fields. Of course this implies you use the `final` keyword for all your required dependencies.
 
 ## Where the industry is moving?
 
-Maybe it's my [confirmation bias](https://en.wikipedia.org/wiki/Confirmation_bias) at play here but I have seen the theme of favoring constructor injection popping up in many places. At first I started to notice that IntelliJ IDEA begin to display warnings if I was using field injection.
+Maybe it's my [confirmation bias](https://en.wikipedia.org/wiki/Confirmation_bias) at play here but I have seen the theme of favoring constructor injection popping up in many places. At first I started to notice that IntelliJ IDEA began to display warnings if I was using field injection.
 
 ![IntelliJ IDEA warning]({{site.url}}/images/2017-05-28-to-field-inject-or-not-to/idea.jpg)
 
 It says that the Spring team recommends to use constructor injection instead. Out of curiosity, I scanned through [Spring's reference manual](http://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection "Spring's reference manual") and found the following section.
 
 > The Spring team generally advocates constructor injection as it enables one to implement application components as immutable objects and to ensure that required dependencies are not `null`. Furthermore constructor-injected components are always returned to client (calling) code in a fully initialized state. As a side note, a large number of constructor arguments is a bad code smell, implying that the class likely has too many responsibilities and should be refactored to better address proper separation of concerns.
-Setter injection should primarily only be used for optional dependencies that can be assigned reasonable default values within the class. Otherwise, not-null checks must be performed everywhere the code uses the dependency. One benefit of setter injection is that setter methods make objects of that class amenable to reconfiguration or re-injection later.
 
 In the release notes of [JHipster 4.0.0](https://jhipster.github.io/2017/02/02/jhipster-release-4.0.0.html), an application generator for creating Spring Boot + Angular projects, we can find that they have moved away from field-based injection as well.
 
@@ -131,35 +121,12 @@ One of the reasons for the change is pointed out to be the following.
 
 >Constructor-based injection is considered cleaner by many people, in particular as it eases testing
 
-## Drawbacks of constructor injection
-
-* cons, too verbose maybe? Java is very verbose as is, constructor injection increases it
-* boilerplate code
-
-## Drawbacks of field injection
-
-* classes are tightly coupled to a DI container and cannot be used outside of it, only the DI container knows how to inject fields into your bean, you might think that I'm never going to use my application classes outside of my DI container, I'm not writing a general purpose library, this is some internal application for an enterprise, but what about testing then? you do write tests, right? do you use reflection to inject beans? or set up a spring container for tests?
-* what's wrong with setting up a spring container during unit tests? I would argue that these are not unit tests then, you're not testing a single focused unit of code
-* it's easy to violate the single responsibility principle, super easy to add a new dependency, suddenly you discover you have 10+ dependencies injected to a single class, I'm quite sure you're class has more than one responsibility then, you have created a [god object](https://en.wikipedia.org/wiki/God_object)
-
-## further reading
-
-http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/
-https://www.petrikainulainen.net/software-development/design/the-biggest-flaw-of-spring-web-applications/
-https://www.petrikainulainen.net/software-development/design/why-i-changed-my-mind-about-field-injection/
-http://misko.hevery.com/2009/02/19/constructor-injection-vs-setter-injection/
-http://www.yegor256.com/2016/06/27/singletons-must-die.html
-
-* [Very little boilerplate code to use field injection](http://blog.schauderhaft.de/2012/01/01/the-one-correct-way-to-do-dependency-injection/). All you need is a simple annotation on the field.
-
-quote from uncle bob, every framework is written because of the deficiencies in the language
-
 ## Summary
 
-I have this impression that field injection has become the *de facto* way to inject dependencies in Spring applications  and we don't even consider the alternatives. But maybe it's just me. Maybe I have encountered a bad set of projects where constructor injection has been avoided.
+I have this impression that field injection has become the *de facto* way to inject dependencies in Spring applications and we don't even consider the alternatives. But maybe it's just me. Maybe I have encountered a bad set of projects where constructor injection has been avoided.
 
 The goal of this post was not to persuade you to convert your application to use constructor injection but to make you aware of the benefits that constructor injection provides. Arguably, it makes testing easier and a large constructor, in most cases, is an indication of a violation of the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
 
-I know that for some of you field injection is a completely fine method of injecting dependencies and constructor injection can be considered a *purist* way of thinking. Real life is far from pure and at the end of the day, what's most important is getting the job done.
+I know the world is not black and white. For some of you field injection is a completely fine method of injecting dependencies and constructor injection could be considered a *purist* way of thinking. Real life is far from pure and at the end of the day, what's most important is getting the job done.
 
-Don't be a [cargo cult programmer](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). Understand the pros and cons and use what works for you in your situation.
+Don't be a [cargo cult programmer](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo Cult Programming"). Understand the pros and cons and use what works for you in your particular situation.
