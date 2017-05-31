@@ -2,16 +2,16 @@
 layout: post
 title: "To field inject, or not to field inject in Spring?"
 excerpt: Nearly all Spring projects that I have worked with make heavy use of field injection. This must be a popular approach because it is concise and reads well. But have you ever considered the downsides of field injection?
-modified: 2017-02-18 22:22:57 +0200
+modified: 2017-05-31 22:22:57 +0200
 categories: articles
 tags: [java, spring, autowire, inject, dependency injection]
 image:
-  feature: 2017-05-28-to-field-inject-or-not-to/cover.jpg
+  feature: 2017-05-31-to-field-inject-or-not-to/cover.jpg
   credit: Pauline Tayag
   creditlink: https://unsplash.com/@3amcoffeebuns?photo=j3SZYtfIjLM
 comments: true
 share: true
-published: false
+published: true
 aging: false
 ---
 
@@ -107,7 +107,7 @@ If your answer to those questions was "no", then read further. There's a couple 
 
 Maybe it's my [confirmation bias](https://en.wikipedia.org/wiki/Confirmation_bias) at play here but I have seen the theme of favoring constructor injection popping up in many places. At first I started to notice that IntelliJ IDEA began to display warnings if I was using field injection.
 
-![IntelliJ IDEA warning]({{site.url}}/images/2017-05-28-to-field-inject-or-not-to/idea.jpg)
+![IntelliJ IDEA warning]({{site.url}}/images/2017-05-31-to-field-inject-or-not-to/idea.jpg)
 
 It says that the Spring team recommends to use constructor injection instead. Out of curiosity, I scanned through [Spring's reference manual](http://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection "Spring's reference manual") and found the following section.
 
