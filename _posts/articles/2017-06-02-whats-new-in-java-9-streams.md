@@ -6,9 +6,9 @@ modified: 2017-06-02 07:24:52 +0300
 categories: articles
 tags: [java, java 9, streams]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2017-06-02-whats-new-in-java-9-streams/cover.jpg
+  credit: Caleb George
+  creditlink: https://unsplash.com/@seemoris?photo=zZzKLzKP24o
 comments: true
 share: true
 published: false
