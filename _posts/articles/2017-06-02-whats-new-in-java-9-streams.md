@@ -46,7 +46,28 @@ numbers.stream()
 // an empty set is also a subset
 {% endhighlight %}
 
+// prefix
+// parallel streams
+
 ## `dropWhile`
+
+`dropWhile` is essentially the opposite of `takeWhile`. Instead of *taking* elements from the stream until the first element which does not match the predicate, `dropWhile` *drops* these elements and includes the rest in the returned stream.
+
+//longest contiguous prefix
+
+The following is the same example we used previously with one noteworthy difference. `takeWhile` has been replaced with `dropWhile`.
+
+{% highlight java %}
+Stream.of(2, 4, 6, 8, 9, 10, 12)
+    .dropWhile(n -> n % 2 == 0)
+    .forEach(System.out::println);
+// prints out:
+// 9
+// 10
+// 12
+{% endhighlight %}
+
+In an ordered stream, `dropWhile` removes the longest contiguous sequence of elements that match the given predicate. In this example, `2`, `4`, `6` and `8` are removed because they're applying the predicate on them returns `true`. `9` isn't an even number and is not included in the result. `10` and `12`, even though they're even numbers, they came after the first failed element in the sequence, therefore are not included in the result as well.
 
 * Stream of nullable
 * Stream iterate finite
