@@ -73,11 +73,41 @@ numbers.stream()
 
 You can expect a similar behavior if you replace `takeWhile` with `dropWhile`. It's free to drop any subset of matching elements. That includes the empty set.
 
-## All elements match or none match
+## All elements match
+
+Regardless of whether the stream is ordered or unordered, if all elements match the given predicate then `takeWhile` *takes* and `dropWhile` *drops* all elements. The result of `takeWhile` is the same as the input stream. On the other hand, when all elements match, the result of `dropWhile` will be an empty stream.
+
+The following is an example of `takeWhile` applied on an unordered stream where all the elements match the predicate.
+
+{% highlight java %}
+Set<Integer> numbers = Set.of(2, 4, 6, 8);
+numbers.stream()
+    .takeWhile(n -> n % 2 == 0)
+    .forEach(System.out::println);
+// always prints out 2, 4, 6, 8
+// the order of course is nondeterministic because the stream is unordered
+{% endhighlight %}
+
+## No elements match
+
+I bet you can already guess what happens if no elements match the given predicate. You're right if you guessed that the result of `takeWhile` will be an empty stream. Since no elements matched, there's nothing to *take*. `dropWhile`, on the other hand, returns the input stream if there's nothing to *drop*.
+
+{% highlight java %}
+Stream.of(2, 4, 6, 8)
+    .dropWhile(n -> n % 2 != 0)
+    .forEach(System.out::println);
+// prints out:
+// 2
+// 4
+// 6
+// 8
+{% endhighlight %}
 
 ## Parallel streams
 
 `takeWhile` and `dropWhile` are expensive operations on ordered parallel streams. Threads have to cooperate to find the longest contiguous sequence of matching elements in encounter order and this can significantly impact performance. Using a sequential stream may give you better results.
+
+## Summary
 
 * Stream of nullable
 * Stream iterate finite
