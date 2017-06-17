@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "What's new in Java 9 Streams?"
-excerpt:
-modified: 2017-06-02 07:24:52 +0300
+title: "takeWhile and dropWhile in Java 9 Streams"
+excerpt: Arguably one of the most noteworthy new features introduced in Java 8 was the Streams API. Java 9 offers two new stream operations—takeWhile and dropWhile.
+modified: 2017-06-17 07:24:52 +0300
 categories: articles
 tags: [java, java 9, streams]
 image:
@@ -15,7 +15,7 @@ published: false
 aging: true
 ---
 
-Arguably one of the most noteworthy new features introduced in Java 8 was the Streams API. It allowed developers to declaratively manipulate collections using functional style programming. Since the [release of Java 9](http://www.java9countdown.xyz/ "Countdown to Java 9 Release Date") is just around the corner, let's have a look at some of the improvements that have been made to the Streams API in Java 9.
+Arguably one of the most noteworthy new features introduced in Java 8 was the [Streams API]({{site.url}}/articles/5-ways-to-create-a-stream-in-java-8/). It allowed developers to declaratively manipulate collections using functional style programming. Since the [release of Java 9](http://www.java9countdown.xyz/ "Countdown to Java 9 Release Date") is just around the corner, let's have a look at two new stream operations in Java 9—`takeWhile` and `dropWhile`.
 
 ## `takeWhile`
 
@@ -33,16 +33,11 @@ Stream.of(2, 4, 6, 8, 9, 10, 12)
 // 8
 {% endhighlight %}
 
-In this example, we're taking all even numbers from the initial stream until the first odd number is encountered. The stream returned by `takeWhile` contains `2`, `4`, `6`, `8`. It does not contain `9` since it did not match the predicate. Although `10` and `12` are even, they're not included in the returned stream as well because the stream operation was cut off when `9` was encountered.
-
-// prefix
-// parallel stream
+In this example, we're taking even numbers from the initial stream until the first odd number is encountered. The stream returned by `takeWhile` contains `2`, `4`, `6`, `8`. It does not contain `9` since it did not match the predicate. Although `10` and `12` are even, they're not included in the returned stream as well because the stream operation was cut off when `9` was encountered.
 
 ## `dropWhile`
 
 `dropWhile` is essentially the opposite of `takeWhile`. Instead of *taking* elements from the stream until the first element which does not match the predicate, `dropWhile` *drops* these elements and includes the remaining elements in the returned stream.
-
-//longest contiguous prefix
 
 The following is the same example we used previously with one noteworthy difference. `takeWhile` has been replaced with `dropWhile`.
 
@@ -109,5 +104,4 @@ Stream.of(2, 4, 6, 8)
 
 ## Summary
 
-* Stream of nullable
-* Stream iterate finite
+`takeWhile` and `dropWhile` are new additions to the Streams API introduced in Java 9. In ordered streams, they *take* or *drop* the longest contiguous sequence of elements from the stream based on the given predicate. However, in unordered streams, their behavior is nondeterministic. They're free to *take* or *drop* an arbitrary subset of elements.
