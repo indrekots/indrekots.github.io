@@ -2,7 +2,7 @@
 layout: post
 title: "takeWhile and dropWhile in Java 9 Streams"
 excerpt: Arguably one of the most noteworthy new features introduced in Java 8 was the Streams API. Java 9 offers two new stream operations—takeWhile and dropWhile.
-modified: 2017-06-17 07:24:52 +0300
+modified: 2017-06-18 07:24:52 +0300
 categories: articles
 tags: [java, java 9, streams]
 image:
@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/@seemoris?photo=zZzKLzKP24o
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
 
@@ -104,4 +104,4 @@ Stream.of(2, 4, 6, 8)
 
 ## Summary
 
-`takeWhile` and `dropWhile` are new additions to the Streams API introduced in Java 9. In ordered streams, they *take* or *drop* the longest contiguous sequence of elements from the stream based on the given predicate. However, in unordered streams, their behavior is nondeterministic. They're free to *take* or *drop* an arbitrary subset of elements.
+`takeWhile` and `dropWhile` are new additions to the Streams API introduced in Java 9. In ordered streams, they *take* or *drop* the longest contiguous sequence of elements from the stream based on the given predicate. However, in unordered streams, their behavior is nondeterministic. They're free to *take* or *drop* any arbitrary subset of elements.
