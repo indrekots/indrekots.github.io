@@ -77,13 +77,14 @@ written for other developers—or for the future you—so they could understand 
 
 ## What makes up a good commit message?
 
-First and foremost, I think the most important piece of information is why this commit was introduced. Describe your motivation for the change. For example, a commit might add a new feature, fix a bug, improve readability etc.
+Hopefully by now I have convinced you of the importance of good commit messages. Without further ado, let's move on to what exactly should a commit message contain. I'm going to reference an [old but good blog post Peter Hutterer](https://who-t.blogspot.com.ee/2009/12/on-commit-messages.html) on writing good commit messages.
 
-Secondly, for commits that might be difficult to follow, you can give a brief overview what approach was taken to implement a feature, fix a bug etc. Here it's useful to contrast your implementation with the previous behavior.
+>A good commit message should answer three questions about a patch:
+**Why is it necessary?** It may fix a bug, it may add a feature, it may improve performance, reliabilty, stability, or just be a change for the sake of correctness.
+**How does it address the issue?** For short obvious patches this part can be omitted, but it should be a high level description of what the approach was.
+**What effects does the patch have?** (In addition to the obvious ones, this may include benchmarks, side effects, etc.)
 
-Other useful info, e.g. side effects that might not be obvious, performance related ...
-
-Put yourself in the position of a future developer and try to think what they should know about your change.
+Put yourself in the position of a future developer and try to think what they should know about your change. Also try to avoid a large commit. If you don't know what to write, maybe the commit is too large. [Try to keep your commits atomic](https://www.freshconsulting.com/atomic-commits/).
 
 ## Benefits of good commit messages
 - speeds up code reviews
