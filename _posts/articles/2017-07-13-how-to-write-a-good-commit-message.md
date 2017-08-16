@@ -48,7 +48,7 @@ a future developer of the project. After all, we should write commit messages no
 for others to read.
 
 Imagine yourself as a developer who is tasked to maintain a relatively large codebase. You need to hunt down
-a bug and while doing that, you come across a line of code that looks interesting. You start to wonder
+a bug and while doing that, you come across a line of code that looks interesting, to say the least. You start to wonder
 why the original author implemented it like that. Maybe there was a very specific and rational reason.
 Or maybe, just maybe, this is the source of that dreaded bug that you've been trying to catch for hours.
 
@@ -71,20 +71,32 @@ author.
 includes why the change was introduced and also explains the peculiarities of the line of code that prompted you to take this journey.
 
 If you're like me, you'd choose the third option. The main takeaway is that commit messages should be
-written for other developers—or for the future you—so they could understand you and why you introduced these changes. Writing code is a team effort. Software projects can last years and see many developers joining and leaving. A lot of times it is impossible for a new developer to go and ask a previous developer what was on his/her mind when a piece of code was written. Good commit messages can help here. They're like a trail of breadcrumbs you leave behind for future developers who might stumble on the same twisted path you once took; hopefully leading them to clarity.
+written for other developers—or for the future you—so they could understand you and why you introduced these changes. Writing code is a team effort. Software projects can last years and see many developers joining and leaving. A lot of times it is impossible for a new developer to go and ask a previous developer what was on his/her mind when a piece of code was written. Good commit messages can help here. They're like a trail of breadcrumbs you leave behind for future developers who might stumble on the same twisted path you once took; hopefully leading them out of the dark forest.
 
 //Commit history is a collaborative journal.  
+//saves time to review/re-establish context
 
 ## What makes up a good commit message?
 
-Hopefully by now I have convinced you of the importance of good commit messages. Without further ado, let's move on to what exactly should a commit message contain. I'm going to reference an [old but good blog post Peter Hutterer](https://who-t.blogspot.com.ee/2009/12/on-commit-messages.html) on writing good commit messages.
+Hopefully by now I have convinced you of the importance of good commit messages. Without further ado, let's move on and look at what a commit message should contain.  
 
->A good commit message should answer three questions about a patch:
-**Why is it necessary?** It may fix a bug, it may add a feature, it may improve performance, reliabilty, stability, or just be a change for the sake of correctness.
-**How does it address the issue?** For short obvious patches this part can be omitted, but it should be a high level description of what the approach was.
-**What effects does the patch have?** (In addition to the obvious ones, this may include benchmarks, side effects, etc.)
+Overall, a commit message should explain what was changed and why. There's no need for a detailed description on how a patch was implemented. That's what source code is for. It's also good to compare the current implementation to how things were before the change. This usually gives enough context so the reader can understand why the change was necessary.
 
-Put yourself in the position of a future developer and try to think what they should know about your change. Also try to avoid a large commit. If you don't know what to write, maybe the commit is too large. [Try to keep your commits atomic](https://www.freshconsulting.com/atomic-commits/).
+[Peter Hutterer writes](https://who-t.blogspot.com.ee/2009/12/on-commit-messages.html "On commit messages") that a good commit message should answer three questions about a patch:
+
+* **Why is it necessary?** It may fix a bug, it may add a feature, it may improve performance, reliabilty, stability, or just be a change for the sake of correctness.
+
+* **How does it address the issue?** For short obvious patches this part can be omitted, but it should be a high level description of what the approach was.
+
+* **What effects does the patch have?** (In addition to the obvious ones, this may include benchmarks, side effects, etc.)
+
+Put yourself in the position of a future developer or maintainer and try to think of what they should know about your patch. In addition, try to avoid large commits. Checking in a day's worth of work at the end of the day is usually not a good practice. If you don't know what to write, your commit might be too large. [Try to keep your commits atomic](https://www.freshconsulting.com/atomic-commits/).
+
+## Technical details of a commit message
+
+- 50/72 rule
+- blank line
+- present tense
 
 ## Benefits of good commit messages
 - speeds up code reviews
