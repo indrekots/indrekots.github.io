@@ -94,8 +94,56 @@ Put yourself in the position of a future developer or maintainer and try to thin
 
 ## Technical details of a commit message
 
-- 50/72 rule
-- blank line
+An equally important aspect of commit messages is formatting.
+To make your commits easy to read, there's a few things to keep in mind.
+First of all, [the very first line of the commit message is the subject line](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project).
+Use it to briefly describe the changeset.
+The subject line should be followed with a blank line and starting from the third line, you can add a more detailed description of the patch.
+Begin the summary line with a Capital letter and do not end it with a period. This can be considered a title. You would not want to have a heading with a small letter and ending with a period, do you?
+
+Git tooling expects that the first line of a commit message is the title. For example, when running `git log --oneline`, Git prints out only the commit hash and the first line of the commit message, giving you a quick overview of the commit history.
+
+The following example is from the [Spring Framework](https://github.com/spring-projects/spring-framework "Spring Framework") project.
+
+{% highlight bash %}
+9aa369f402 Data class construction supports field default/marker parameters
+18f42f9667 Fix typo
+47a7475898 Resolve remaining nullability warnings
+ac5e2599f7 Consistent overriding for all variants of init/destroy method inheritance
+b94302b5bd Enforce non-null value from getBean and at injection points
+10dcaa9bf6 Update introduction to Spring Web MVC
+{% endhighlight %}
+
+But if you're interested in a more detailed view of the history, you could run `git log` and the output will include the full commit message.
+
+{% highlight bash %}
+commit da8d50f91fed1470c69baa0cbaeeffc4b31a0e8b
+Author: Sam Brannen <sam@sambrannen.com>
+Date:   Thu Aug 3 23:19:57 2017 +0300
+
+    Revise SpringExtension based on recent changes in JUnit Jupiter
+
+    This commit revises the implementation of the SpringExtension to use
+    the getRequired*() methods in the ExtensionContext which are now built
+    into JUnit Jupiter thanks to inspiration from the initial "convenience"
+    methods implemented here.
+
+commit fabc9c28d7e115431e25da81a0dca47787a683aa
+Author: Juergen Hoeller <jhoeller@pivotal.io>
+Date:   Thu Aug 3 14:21:00 2017 +0200
+
+    Align new FileSystemUtils NIO implementation with original behavior
+
+    Issue: SPR-15845
+    Issue: SPR-15846
+{% endhighlight %}
+
+[Multiple](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project) [resources](https://medium.com/@preslavrachev/what-s-with-the-50-72-rule-8a906f61f09c "What’s with the 50/72 rule?") advise to follow the 50/72 rule.
+It says that your title line should be 50 characters or less and you should wrap lines in the message body around the 72 character mark.
+Although, I don't think this is a hard requirement but it has its merits.
+A short title forces you to give a brief overview.
+Limiting the line length in your body [greatly improves readability of text](https://baymard.com/blog/line-length-readability "Readability: the Optimal Line Length").
+
 - present tense
 
 ## Benefits of good commit messages
@@ -109,10 +157,6 @@ I like how Peter Hutterer put in a blog post https://who-t.blogspot.com.ee/2009/
 > A commit message shows whether a developer is a good collaborator.
 
 ## Rules on how to write
-
-* summary 50 chars, then blank line, this is useful if you use git tools, git log --oneline for example. If it is difficult to use no more than 50 chars, could it be that your commiting too much in a single commit? Keeping commits fairly small benefits the reviewer of the commit and the ones who might be interested later to understand what this particular commit did, why was it introduced. Having too much going on in a single commit, is difficult to understand, even though you can see everything that had been changed.
-
-Begin the summary line with a Capital letter and do not end it with a period. This can be considered a title. You would not want to have a heading with a small letter and ending with a period, do you?
 
 Summary is also used when sending patches with e-mails, then the summary becomes the email subject.
 
