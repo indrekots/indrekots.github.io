@@ -144,12 +144,16 @@ Although, I don't think this is a hard requirement but it has its merits.
 A short title forces you to give a brief overview.
 Limiting the line length in your body [greatly improves readability of text](https://baymard.com/blog/line-length-readability "Readability: the Optimal Line Length").
 
-- present tense
+[Use imperative style for commit summary](https://chris.beams.io/posts/git-commit/#imperative). Instead of writing *Adding/added support for markdown*, use *Add support for markdown*. Git's generated commits use this convention too. Think of the subject line not as what you did, but what this commit will do if it is applied to my history. For example, this commit will *add support for markdown*. When reviewing a pull request or merging branches, you can have a look at the summary of the commits and read them as follows: if I accept commit `bc43a2d`, then this will *remove unused variables in controller*. The same is true if you're cherry picking commits. This would not work if the commit summary was written as something that has happened in the past.
 
-## Benefits of good commit messages
-- speeds up code reviews
-- project maintainability, you can understand why a developer has done the given change
-- possible source for release notes
+## Other benefits
+
+In addition to leaving behind a trail of intent, well written commit messages have other benefits as well.
+If you do [code reviews](https://en.wikipedia.org/wiki/Code_review), an informative commit message can be of great help to the reviewer.
+Instead of trying to understand the committers intentions by reading the changes in source code and possibly asking further questions, dedicating a bit of your time to write a good commit message can save the reviewers time.
+
+When a team has a consistent commit message style, the commit log could be used as a source for release notes. Without much effort you'd have a quick way to generate release notes for your upcoming release.
+
 
 ## Summary
 
@@ -159,8 +163,6 @@ I like how Peter Hutterer put in a blog post https://who-t.blogspot.com.ee/2009/
 ## Rules on how to write
 
 Summary is also used when sending patches with e-mails, then the summary becomes the email subject.
-
-Use imperative style for commit summary, e.g. merge..., add something, fix something else..., Git's generated commits use it, so should you. Think of the subject line not as what you did, but what this commit will to if this is applied to my history. E.g. this commit will *add support for markdown*. When reviewing a pull request or merging branches, you can have a look at the summary of the commits and read them as follows: If I accept commit bc43a2d, then this will *remove unused variables in controller*. The same is true if you're cherry picking commits. This would not work if the commit summary was written as something that has happened in the past.
 
 wrap commit body lines at the 72 char mark. Git commands add 4 chars of padding, so when you follow the 72 char rule, commits can be easily viewed in a 80char wide terminal window.
 
