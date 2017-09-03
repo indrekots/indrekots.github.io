@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: false
+published: false 
 aging: false
 ---
 A [version control system](https://en.wikipedia.org/wiki/Version_control "Version Control") is an essential collaboration tool used in software engineering. I think for most developers, it is a tool for sharing
@@ -79,32 +79,61 @@ They're like a trail of breadcrumbs you leave behind for future developers who m
 
 ## What makes up a good commit message?
 
-Hopefully by now I have convinced you of the importance of good commit messages. Without further ado, let's move on and look at what a commit message should contain.  
+Hopefully by now I have convinced you of the importance of good commit messages.
+Without further ado, let's move on and look at what a commit message should contain.  
 
-Overall, a commit message should explain what was changed and why. There's no need for a detailed description on how a patch was implemented. That's what source code is for. It's also good to compare the current implementation to how things were before the change. This usually gives enough context so the reader can understand why the change was necessary.
+Overall, a commit message should explain what was changed and why.
+There's no need for a detailed description on how a patch was implemented.
+That's what source code is for.
+
+But what if the code is not clear enough?
+Then I think you might have bigger problems.
+Read [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by Robert C. Martin.
+
+It's also good to compare the current implementation to how things were before the change.
+This usually gives enough context so the reader can understand why the change was necessary.
 
 [Peter Hutterer writes](https://who-t.blogspot.com.ee/2009/12/on-commit-messages.html "On commit messages") that a good commit message should answer three questions about a patch:
 
 * **Why is it necessary?** It may fix a bug, it may add a feature, it may improve performance, reliabilty, stability, or just be a change for the sake of correctness.
+*My boss told me to do it* is not a good reason.
 
 * **How does it address the issue?** For short obvious patches this part can be omitted, but it should be a high level description of what the approach was.
 
 * **What effects does the patch have?** (In addition to the obvious ones, this may include benchmarks, side effects, etc.)
 
-Put yourself in the position of a future developer or maintainer and try to think of what they should know about your patch. In addition, try to avoid large commits. Checking in a day's worth of work at the end of the day is usually not a good practice. If you don't know what to write, your commit might be too large. [Try to keep your commits atomic](https://www.freshconsulting.com/atomic-commits/).
+Put yourself in the position of a future developer or maintainer and try to think of what they should know about your patch.
+In addition, try to avoid large commits.
+Checking in a day's worth of work at the end of the day is usually not a good practice.
+If you don't know what to write, your commit might be too large.
+[Try to keep your commits atomic](https://www.freshconsulting.com/atomic-commits/).
 
-## Technical details of a commit message
+Don't be too verbose.
+Writing a good commit summary is difficult.
+Keeping it short and meaningful can be a challenge.
+It's like naming a variable or a method.
+You don't want it to be too long, but you want to convey a meaning that's easy to understand.
+
+## Commit message formatting
 
 An equally important aspect of commit messages is formatting.
 To make your commits easy to read, there's a few things to keep in mind.
 First of all, [the very first line of the commit message is the subject line](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project).
 Use it to briefly describe the changeset.
 The subject line should be followed with a blank line and starting from the third line, you can add a more detailed description of the patch.
-Begin the summary line with a Capital letter and do not end it with a period. This can be considered a title. You would not want to have a heading with a small letter and ending with a period, do you?
 
-Git tooling expects that the first line of a commit message is the title. For example, when running `git log --oneline`, Git prints out only the commit hash and the first line of the commit message, giving you a quick overview of the commit history.
+Don't use `git commit -m "my commit message"` to write commit messages.
+It won't allow you to write a more detailed description on the third line.
+[Configure Git to open a text editor](https://stackoverflow.com/a/2596835/2928051) to write a commit message.
 
-The following example is from the [Spring Framework](https://github.com/spring-projects/spring-framework "Spring Framework") project.
+Begin the summary line with a Capital letter and do not end it with a period.
+This can be considered as a title.
+You would not want to have a heading with a small letter and ending with a period, would you?
+
+Git tooling expects that the first line of a commit message is the title.
+For example, when running `git log --oneline`, Git prints out only the commit hash and the first line of the commit message, giving you a quick overview of the commit history.
+
+The following is an example of `git log --oneline` when applied on the [Spring Framework](https://github.com/spring-projects/spring-framework "Spring Framework") project.
 
 {% highlight bash %}
 9aa369f402 Data class construction supports field default/marker parameters
@@ -145,15 +174,23 @@ Although, I don't think this is a hard requirement but it has its merits.
 A short title forces you to give a brief overview.
 Limiting the line length in your body [greatly improves readability of text](https://baymard.com/blog/line-length-readability "Readability: the Optimal Line Length").
 
-[Use imperative style for commit summary](https://chris.beams.io/posts/git-commit/#imperative). Instead of writing *Adding/added support for markdown*, use *Add support for markdown*. Git's generated commits use this convention too. Think of the subject line not as what you did, but what this commit will do if it is applied to my history. For example, this commit will *add support for markdown*. When reviewing a pull request or merging branches, you can have a look at the summary of the commits and read them as follows: if I accept commit `bc43a2d`, then this will *remove unused variables in controller*. The same is true if you're cherry picking commits. This would not work if the commit summary was written as something that has happened in the past.
+[Use imperative style for commit summary](https://chris.beams.io/posts/git-commit/#imperative).
+Instead of writing *Adding/added support for markdown*, use *Add support for markdown*.
+Git's generated commits use this convention too.
+Think of the subject line not as what you did, but what this commit will do if it is applied to my history.
+For example, this commit will *add support for markdown*.
+When reviewing a pull request or merging branches, you can have a look at the summary of the commits and read them as follows: if I accept commit `bc43a2d`, then this will *remove unused variables in controller*.
+The same is true if you're cherry picking commits.
+This would not work if the commit summary was written as something that has happened in the past.
 
 ## Other benefits
 
 In addition to leaving behind a trail of intent, well written commit messages have other benefits as well.
 If you do [code reviews](https://en.wikipedia.org/wiki/Code_review), an informative commit message can be of great help to the reviewer.
-Instead of trying to understand the committers intentions by reading the changes in source code and possibly asking further questions, dedicating a bit of your time to write a good commit message can save the reviewers time.
+Instead of trying to understand the committers intentions by reading the changes in source code and possibly asking further questions, dedicating a bit of your time to write a good commit message can save the reviewer's time.
 
-When a team has a consistent commit message style, the commit log could be used as a source for release notes. Without much effort you'd have a quick way to generate release notes for your upcoming release.
+When a team has a consistent commit message style, the commit log could be used as a source for release notes.
+Without much effort you'd have a quick way to generate release notes for your upcoming release.
 
 
 ## Summary
@@ -161,40 +198,16 @@ When a team has a consistent commit message style, the commit log could be used 
 I like how Peter Hutterer put in a blog post https://who-t.blogspot.com.ee/2009/12/on-commit-messages.html
 > A commit message shows whether a developer is a good collaborator.
 
-## Rules on how to write
+Good commit messages contribute to the overall project log.
+Writing good commit messages makes it easier to decipher why a change was introduced in the first place (hopefully) a month/year after it was introduced.
 
-Summary is also used when sending patches with e-mails, then the summary becomes the email subject.
+As developers, we agree that the projects code should follow a similar style.
+Consistency is better than having each participant write using their own style. https://chris.beams.io/posts/git-commit/.
 
-wrap commit body lines at the 72 char mark. Git commands add 4 chars of padding, so when you follow the 72 char rule, commits can be easily viewed in a 80char wide terminal window.
+Commit log should be the same.
+Commit log can be a valuable project artifact, so let's treat it as we treat our code.
 
-Commit body should include, what what changed and why this change was introduced (my boss told me to do it is not a reason). It's not usually needed to explain how the patch was implemented. Hopefully your code is self explanatory, if not, read clean code. Contrast the current implementation with the way thing were before your commit and what was wrong with the previous implementation (e.g. this caused an unexpected exception when doing ... ).
+If you're interested in Git, how to use it and its internals, then read [Pro git](https://git-scm.com/book/en/v2).
 
-## How
-''
-First line is your title, it can include your ticket name as well (50 chars) https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project. Then leave a blank line and starting from the third line, you can write additional text.
-
-// show examples how this is displayed in git log
-
-50/72 rule https://medium.com/@preslavrachev/what-s-with-the-50-72-rule-8a906f61f09c
-from git commit manpage -> subject 50 chars
-super small commits probably do not need a body, because they're self explanatory
-
-write good commit message with a proper text editor.
-
-http://www.commitlogsfromlastnight.com/
-
-Don't be too verbose
-Writing a good commit summary is difficult. Keeping it short and meaningful can be a challenge. It's like naming a variable, you don't want it to be too long, but you want to convey a meaning that's easy to understand.
-
-A diff will show you what changed, a commit message will tell you why this change was done.
-
-Good commit messages contribute to the overall project log. Writing good commit messages makes it easier to decipher why a change was introduced in the first place (hopefully) a month/year after it was introduced.
-
-As developers, we agree that the projects code should follow a similar style. Consistency is better than having each participant write using their own style. https://chris.beams.io/posts/git-commit/.
-
-Commit log should be the same. Commit log can be a valuable project artifact, so let's treat it as we treat our code.
-
-// show good commit messages from open source projects, and bad ones.
-
-Pro git, read it, it's good stuff.
 http://whatthecommit.com/
+http://www.commitlogsfromlastnight.com/
