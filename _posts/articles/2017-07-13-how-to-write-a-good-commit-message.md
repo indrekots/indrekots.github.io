@@ -6,9 +6,9 @@ modified: 2017-07-13 19:47:17 +0300
 categories: articles
 tags: [vcs, git, version control]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2017-09-03-how-to-write-a-good-commit-message/cover.jpg
+  credit: Cathryn Lavery
+  creditlink: https://unsplash.com/@cathrynlavery?photo=fMD_Cru6OTk
 comments: true
 share: true
 published: true
