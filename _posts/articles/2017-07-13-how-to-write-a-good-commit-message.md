@@ -11,13 +11,16 @@ image:
   creditlink: https://unsplash.com/@cathrynlavery?photo=fMD_Cru6OTk
 comments: true
 share: true
-published: true
+published: false
 aging: false
 ---
-A [version control system](https://en.wikipedia.org/wiki/Version_control "Version Control") is an essential collaboration tool used in software engineering. I think for most developers, it is a tool for sharing
-work in a collaborative manner. For the most part, this is correct. But VCSs also play an important role—something
-that cannot be understated—in tracking the history of changes in a codebase. This leads me to the topic of this
-post—commit messages and how to write a good one.
+A [version control system](https://en.wikipedia.org/wiki/Version_control "Version Control") is an essential collaboration tool used in software engineering.
+I think for most developers, it is a tool for sharing work in a collaborative manner.
+For the most part, this is correct.
+But VCSs also play an important role—something that cannot be understated—in tracking the history of changes in a codebase.
+This leads me to the topic of this post—commit messages and how to write a good one.
+
+This post centered around [Git](https://git-scm.com/ "Git"), but the basic concepts apply to other VCSs as well.
 
 ## How to write good commit messages
 
