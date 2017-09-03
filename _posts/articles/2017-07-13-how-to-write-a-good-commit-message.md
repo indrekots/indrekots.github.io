@@ -74,9 +74,6 @@ A lot of times it is impossible for a new developer to go and ask a previous dev
 Good commit messages can help here.
 They're like a trail of breadcrumbs you leave behind for future developers who might stumble on the same twisted path you once took; hopefully leading them out of the dark forest.
 
-//Commit history is a collaborative journal.  
-//saves time to review/re-establish context
-
 ## What makes up a good commit message?
 
 Hopefully by now I have convinced you of the importance of good commit messages.
