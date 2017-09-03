@@ -11,7 +11,7 @@ image:
   creditlink:
 comments: true
 share: true
-published: false 
+published: true
 aging: false
 ---
 A [version control system](https://en.wikipedia.org/wiki/Version_control "Version Control") is an essential collaboration tool used in software engineering. I think for most developers, it is a tool for sharing
@@ -195,19 +195,23 @@ Without much effort you'd have a quick way to generate release notes for your up
 
 ## Summary
 
-I like how Peter Hutterer put in a blog post https://who-t.blogspot.com.ee/2009/12/on-commit-messages.html
+I like how Peter Hutterer put in a [blog post](https://who-t.blogspot.com.ee/2009/12/on-commit-messages.html)
+
 > A commit message shows whether a developer is a good collaborator.
 
-Good commit messages contribute to the overall project log.
-Writing good commit messages makes it easier to decipher why a change was introduced in the first place (hopefully) a month/year after it was introduced.
+A commit message should make it easy to understand why a change was introduced in the first place.
+There's no need to describe how the change was implemented.
+Leave that for the source code.
 
-As developers, we agree that the projects code should follow a similar style.
-Consistency is better than having each participant write using their own style. https://chris.beams.io/posts/git-commit/.
+Treat the first line in your commit message as the title.
+After that, leave a blank line and write a more thorough description starting from the third line.
 
-Commit log should be the same.
-Commit log can be a valuable project artifact, so let's treat it as we treat our code.
+As developers, we agree that source code should follow a similar style.
+Consistency is better than having [each participant use their own style](https://chris.beams.io/posts/git-commit/).
+This should apply to the commit log as well.
+Project's commit history is a valuable artifact, so let's treat it as we treat our code.
 
-If you're interested in Git, how to use it and its internals, then read [Pro git](https://git-scm.com/book/en/v2).
+If you're interested in Git, how to use it and its internals, then I suggest you to read [Pro Git](https://git-scm.com/book/en/v2).
 
 http://whatthecommit.com/
 http://www.commitlogsfromlastnight.com/
