@@ -20,20 +20,15 @@ that cannot be understated—in tracking the history of changes in a codebase. T
 post—commit messages and how to write a good one.
 
 ## How to write good commit messages
-- what you should write
-- 50/72 rule
-- git tooling benefiting from 50/72 rule
-- bad examples
-- good examples
 
 To understand what's a good commit message, let's start with a few examples of bad ones.
 I dug through some old git repositories and found some gems that I have written.
 I'm sure you've seen similar messages.
 
-* started working on feature X
-* some testing stuff
-* little fix
-* TICKET-66
+* `started working on feature X`
+* `some testing stuff`
+* `little fix`
+* `TICKET-66`
 * very big commit but a short commit message
 
 All of them would receive a high ranking in [the commit messages hall of shame](http://www.codelord.net/2015/03/16/bad-commit-messages-hall-of-shame/ "Bad Commit Messages Hall of Shame").
@@ -47,9 +42,9 @@ To understand how to write a good commit message, let's put ourselves in the pla
 a future developer of the project. After all, we should write commit messages not for our pleasure but
 for others to read.
 
-Imagine yourself as a developer who is tasked to maintain a relatively large codebase. You need to hunt down
-a bug and while doing that, you come across a line of code that looks interesting, to say the least. You start to wonder
-why the original author implemented it like that. Maybe there was a very specific and rational reason.
+Imagine yourself as a developer who is tasked to maintain a relatively large codebase.
+You need to hunt down a bug and while doing that, you come across a line of code that looks interesting, to say the least.
+You start to wonder why the original author implemented it like that. Maybe there was a very specific and rational reason.
 Or maybe, just maybe, this is the source of that dreaded bug that you've been trying to catch for hours.
 
 As a curious code detective, you whip out your handy Swiss Army knife—Git—like MacGyver and proceed
@@ -71,7 +66,13 @@ author.
 includes why the change was introduced and also explains the peculiarities of the line of code that prompted you to take this journey.
 
 If you're like me, you'd choose the third option. The main takeaway is that commit messages should be
-written for other developers—or for the future you—so they could understand you and why you introduced these changes. Writing code is a team effort. Software projects can last years and see many developers joining and leaving. A lot of times it is impossible for a new developer to go and ask a previous developer what was on his/her mind when a piece of code was written. Good commit messages can help here. They're like a trail of breadcrumbs you leave behind for future developers who might stumble on the same twisted path you once took; hopefully leading them out of the dark forest.
+written for other developers—or for the future you—so they could understand why you introduced these changes.
+Writing code is a team effort.
+Even your hobby project has at least two developers working on it—you and the future you.
+Software projects can last years and see many developers joining and leaving.
+A lot of times it is impossible for a new developer to go and ask a previous developer what was on his/her mind when a piece of code was written.
+Good commit messages can help here.
+They're like a trail of breadcrumbs you leave behind for future developers who might stumble on the same twisted path you once took; hopefully leading them out of the dark forest.
 
 //Commit history is a collaborative journal.  
 //saves time to review/re-establish context
@@ -179,13 +180,6 @@ from git commit manpage -> subject 50 chars
 super small commits probably do not need a body, because they're self explanatory
 
 write good commit message with a proper text editor.
-
-## Other benefits
-
-* Basis for release notes
-* Speed up code reviews
-
-If it seems that it is difficult to summarize your commit, maybe your commit is too big?
 
 http://www.commitlogsfromlastnight.com/
 
