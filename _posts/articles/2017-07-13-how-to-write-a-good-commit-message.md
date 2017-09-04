@@ -15,7 +15,7 @@ published: false
 aging: false
 ---
 A [version control system](https://en.wikipedia.org/wiki/Version_control "Version Control") is an essential collaboration tool used in software engineering.
-I think for most developers, it is a tool for sharing work in a collaborative manner.
+I think for most developers, it is a tool for sharing work in a co-operative manner.
 For the most part, this is correct.
 But VCSs also play an important role—something that cannot be understated—in tracking the history of changes in a codebase.
 This leads me to the topic of this post—commit messages and how to write a good one.
@@ -36,8 +36,8 @@ I'm sure you've seen similar messages.
 
 All of them would receive a high ranking in [the commit messages hall of shame](http://www.codelord.net/2015/03/16/bad-commit-messages-hall-of-shame/ "Bad Commit Messages Hall of Shame").
 They're vague and don't say anything about why the particular change was introduced. Looking at them now,
-they're almost as good as having no commit messages at all. Let's turn our attention to what to look for
-in a good commit message.
+they're almost as good as having no commit messages at all.
+To understand what's wrong, let's turn our attention to what to look for in a good commit message.
 
 ## The story of a good commit message
 
