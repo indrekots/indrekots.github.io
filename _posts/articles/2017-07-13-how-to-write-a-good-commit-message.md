@@ -17,12 +17,14 @@ aging: false
 A [version control system](https://en.wikipedia.org/wiki/Version_control "Version Control") is an essential collaboration tool used in software engineering.
 I think for most developers, it is a tool for sharing work in a co-operative manner.
 For the most part, this is correct.
+Multiple developers can work on the same codebase without overwriting each other's work.
 But VCSs also play an important role—something that cannot be understated—in tracking the history of changes in a codebase.
+But a history is only good if it's well documented.
 This leads me to the topic of this post—commit messages and how to write a good one.
 
 This post centered around [Git](https://git-scm.com/ "Git"), but the basic concepts apply to other VCSs as well.
 
-## How to write good commit messages
+## Bad commit messages
 
 To understand what's a good commit message, let's start with a few examples of bad ones.
 I dug through some old git repositories and found some gems that I have written.
@@ -35,11 +37,11 @@ I'm sure you've seen similar messages.
 * very big commit but a short commit message
 
 All of them would receive a high ranking in [the commit messages hall of shame](http://www.codelord.net/2015/03/16/bad-commit-messages-hall-of-shame/ "Bad Commit Messages Hall of Shame").
-They're vague and don't say anything about why the particular change was introduced. Looking at them now,
-they're almost as good as having no commit messages at all.
+For the most part, they're vague and don't say anything about why the particular change was introduced.
+Looking at them now, they're almost as good as having no commit messages at all.
 To understand what's wrong, let's turn our attention to what to look for in a good commit message.
 
-## The story of a good commit message
+## Understanding good commit messages
 
 To understand how to write a good commit message, let's put ourselves in the place of a maintainer or
 a future developer of the project. After all, we should write commit messages not for our pleasure but
