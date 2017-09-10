@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to write a good commit message"
-excerpt:
+excerpt: Version control systems play a vital role in tracking the history of changes in a codebase. Knowing how to write good commit messages is an essential skill if you wish to have your project's history well documented.
 modified: 2017-07-13 19:47:17 +0300
 categories: articles
 tags: [vcs, git, version control]
@@ -37,7 +37,7 @@ I'm sure you've seen similar messages.
 * very big commit but a short commit message
 
 All of them would receive a high ranking in [the commit messages hall of shame](http://www.codelord.net/2015/03/16/bad-commit-messages-hall-of-shame/ "Bad Commit Messages Hall of Shame").
-For the most part, they're vague and don't say anything about why the particular change was introduced.
+In general, they're vague and don't say anything about why the particular change was introduced.
 Looking at them now, they're almost as good as having no commit messages at all.
 To understand what's wrong, let's turn our attention to what to look for in a good commit message.
 
@@ -48,13 +48,13 @@ a future developer of the project. After all, we should write commit messages no
 for others to read.
 
 Imagine yourself as a developer who is tasked to maintain a relatively large codebase.
-You need to hunt down a bug and while doing that, you come across a line of code that looks interesting, to say the least.
+You need to hunt down a bug and while doing that, you come across a line of code that looks interesting to say the least.
 You start to wonder why the original author implemented it like that. Maybe there was a very specific and rational reason.
-Or maybe, just maybe, this is the source of that dreaded bug that you've been trying to catch for hours.
+Or maybe—just maybe—this is the source of that dreaded bug that you've been trying to catch for hours.
 
 As a curious code detective, you whip out your handy Swiss Army knife—Git—like MacGyver and proceed
 to unravel the mystery. Using `git blame` you try to understand who was the author of the line of code in question
-and what was the original intent. After some time spent on [reading up on how `git blame` works](https://git-scm.com/docs/git-blame "Git blame documentation") you read the commit message
+and what was the original intent. After some time spent on [reading how `git blame` works](https://git-scm.com/docs/git-blame "Git blame documentation") you read the commit message
 of the revision the line of code was part of.
 
 If this were a *choose your own adventure* book, you would be presented with the following options:
@@ -72,12 +72,13 @@ includes why the change was introduced and also explains the peculiarities of th
 
 If you're like me, you'd choose the third option. The main takeaway is that commit messages should be
 written for other developers—or for the future you—so they could understand why you introduced these changes.
+
 Writing code is a team effort.
 Even your hobby project has at least two developers working on it—you and the future you.
 Software projects can last years and see many developers joining and leaving.
 A lot of times it is impossible for a new developer to go and ask a previous developer what was on his/her mind when a piece of code was written.
-Good commit messages can help here.
-They're like a trail of breadcrumbs you leave behind for future developers who might stumble on the same twisted path you once took; hopefully leading them out of the dark forest.
+Fortunately, good commit messages can help here.
+They're like a trail of breadcrumbs you leave behind for future developers who might stumble on the same twisted path you once took, hopefully leading them out of the dark forest.
 
 ## What makes up a good commit message?
 
@@ -87,7 +88,6 @@ Without further ado, let's move on and look at what a commit message should cont
 Overall, a commit message should explain what was changed and why.
 There's no need for a detailed description on how a patch was implemented.
 That's what source code is for.
-
 But what if the code is not clear enough?
 Then I think you might have bigger problems.
 Read [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by Robert C. Martin.
@@ -128,13 +128,11 @@ Don't use `git commit -m "my commit message"` to write commit messages.
 It won't allow you to write a more detailed description on the third line.
 [Configure Git to open a text editor](https://stackoverflow.com/a/2596835/2928051) to write a commit message.
 
-Begin the summary line with a Capital letter and do not end it with a period.
-This can be considered as a title.
-You would not want to have a heading with a small letter and ending with a period, would you?
-
 Git tooling expects that the first line of a commit message is the title.
-For example, when running `git log --oneline`, Git prints out only the commit hash and the first line of the commit message, giving you a quick overview of the commit history.
+Therefore, the first letter should be capitalized and it should not end with a period.
+You would not want to have a lower case heading that ends with a period, would you?
 
+For example, when running `git log --oneline`, Git prints out only the commit hash and the first line of the commit message, giving you a quick overview of the commit history.
 The following is an example of `git log --oneline` when applied on the [Spring Framework](https://github.com/spring-projects/spring-framework "Spring Framework") project.
 
 {% highlight bash %}
@@ -172,13 +170,14 @@ Date:   Thu Aug 3 14:21:00 2017 +0200
 
 [Multiple](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project) [resources](https://medium.com/@preslavrachev/what-s-with-the-50-72-rule-8a906f61f09c "What’s with the 50/72 rule?") advise to follow the 50/72 rule.
 It says that your title line should be 50 characters or less and you should wrap lines in the message body around the 72 character mark.
-Although, I don't think this is a hard requirement but it has its merits.
+Although, I don't think this is a hard requirement, it has its merits.
 A short title forces you to give a brief overview.
 Limiting the line length in your body [greatly improves readability of text](https://baymard.com/blog/line-length-readability "Readability: the Optimal Line Length").
 
 [Use imperative style for commit summary](https://chris.beams.io/posts/git-commit/#imperative).
 Instead of writing *Adding/added support for markdown*, use *Add support for markdown*.
 Git's generated commits use this convention too.
+
 Think of the subject line not as what you did, but what this commit will do if it is applied to my history.
 For example, this commit will *add support for markdown*.
 When reviewing a pull request or merging branches, you can have a look at the summary of the commits and read them as follows: if I accept commit `bc43a2d`, then this will *remove unused variables in controller*.
@@ -214,6 +213,3 @@ This should apply to the commit log as well.
 Project's commit history is a valuable artifact, so let's treat it as we treat our code.
 
 If you're interested in Git, how to use it and its internals, then I suggest you to read [Pro Git](https://git-scm.com/book/en/v2).
-
-http://whatthecommit.com/
-http://www.commitlogsfromlastnight.com/
