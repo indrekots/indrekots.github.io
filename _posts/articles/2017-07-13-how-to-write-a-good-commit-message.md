@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/@cathrynlavery?photo=fMD_Cru6OTk
 comments: true
 share: true
-published: false
+published: true
 aging: false
 ---
 A [version control system](https://en.wikipedia.org/wiki/Version_control "Version Control") is an essential collaboration tool used in software engineering.
@@ -52,8 +52,8 @@ You need to hunt down a bug and while doing that, you come across a line of code
 You start to wonder why the original author implemented it like that. Maybe there was a very specific and rational reason.
 Or maybe—just maybe—this is the source of that dreaded bug that you've been trying to catch for hours.
 
-As a curious code detective, you whip out your handy Swiss Army knife—Git—like MacGyver and proceed
-to unravel the mystery. Using `git blame` you try to understand who was the author of the line of code in question
+Being a good [software archeologist](https://en.wikipedia.org/wiki/Software_archaeology "Software Archeology"), you whip out your handy Swiss Army knife—Git—like MacGyver and proceed to unravel the mystery.
+Using `git blame` you try to understand who was the author of the line of code in question
 and what was the original intent. After some time spent on [reading how `git blame` works](https://git-scm.com/docs/git-blame "Git blame documentation") you read the commit message
 of the revision the line of code was part of.
 
@@ -78,7 +78,7 @@ Even your hobby project has at least two developers working on it—you and the 
 Software projects can last years and see many developers joining and leaving.
 A lot of times it is impossible for a new developer to go and ask a previous developer what was on his/her mind when a piece of code was written.
 Fortunately, good commit messages can help here.
-They're like a trail of breadcrumbs you leave behind for future developers who might stumble on the same twisted path you once took, hopefully leading them out of the dark forest.
+They're like a trail of breadcrumbs you leave behind for others who might stumble on the same twisted path you once took, hopefully leading them out of the dark forest.
 
 ## What makes up a good commit message?
 
