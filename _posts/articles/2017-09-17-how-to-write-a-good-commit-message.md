@@ -2,7 +2,7 @@
 layout: post
 title: "How to write a good commit message"
 excerpt: Version control systems play a vital role in tracking the history of changes in a codebase. Knowing how to write good commit messages is an essential skill if you wish to have your project's history well documented.
-modified: 2017-07-13 19:47:17 +0300
+modified: 2017-09-17 19:47:17 +0300
 categories: articles
 tags: [vcs, git, version control]
 image:
