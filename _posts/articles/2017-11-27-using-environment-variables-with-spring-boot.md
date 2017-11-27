@@ -31,3 +31,27 @@ So when you have an environment property called `DB_URL`, you can inject it to a
 @Value("${DB_URL}")
 private String dbUrl;
 {% endhighlight %}
+
+## Setting `application.properties` values from environment
+
+Similar to the previous approach, it is possible to assign values to properties in your `application.properties` file from the environment.
+
+{% highlight yml %}
+api.key=${API_KEY}
+{% endhighlight %}
+
+As with the `@Value` annotation, you can provide a default value which will be used if the environment variable is not found.
+
+{% highlight yml %}
+api.key=${API_KEY:123abc}
+{% endhighlight %}
+
+## SPRING_APPLICATION_JSON
+
+At application startup, Spring Boot will look for an environment variable called `SPRING_APPLICATION_JSON`.
+It can be used to provide a set of application properties using inline JSON.
+For example, you can set `ec2.public.url` property as follows.
+
+{% highlight bash  %}
+SPRING_APPLICATION_JSON='{"ec2":{"public":{"url":"http://mydomain.com"}}}'
+{% endhighlight %}
