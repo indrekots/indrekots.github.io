@@ -7,18 +7,18 @@ categories: articles
 tags: [spring, spring boot, java]
 image:
   feature:
-  credit:
-  creditlink:
+  credit: Gustavo Quepón
+  creditlink: https://unsplash.com/photos/pF_2lrjWiJE
 comments: true
 share: true
 published: false
 aging: true
 ---
 
-Spring Boot applications [can be easily configured via properties files]({{site.url}}/articles/externalized-configuration-in-spring-boot/ "Externalized configuration in Spring Boot").
+Spring Boot applications [can be easily configured via property files]({{site.url}}/articles/externalized-configuration-in-spring-boot/ "Externalized configuration in Spring Boot").
 But sometimes you need more flexibility in terms of how the configuration is provided to the application.
 A popular approach next to configuration files is to use environment variables.
-This post will cover how you can use OS environment variables to pass configuration values to a Spring Boot applicaiton.
+This post will cover how you can use OS environment variables to pass configuration values to a Spring Boot application.
 
 ## Injecting environment variables
 
@@ -55,3 +55,6 @@ For example, you can set `ec2.public.url` property as follows.
 {% highlight bash  %}
 SPRING_APPLICATION_JSON='{"ec2":{"public":{"url":"http://mydomain.com"}}}'
 {% endhighlight %}
+
+To get a more thorough overview of all the ways Spring Boot allows you to configure applications, you should definitely look at [the official docs]()https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html.
+You can find an example Sprint Boot application from [Github](https://github.com/indrekots/spring-boot-envvariables) that demonstrates the approaches covered in this post.
