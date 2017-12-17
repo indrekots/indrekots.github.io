@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using environment variables with Spring Boot"
-excerpt:
+excerpt: This post will cover how you can use OS environment variables to pass configuration values to a Spring Boot application.
 modified: 2017-12-17 07:17:09 +0200
 categories: articles
 tags: [spring, spring boot, java]
