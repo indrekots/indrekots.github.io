@@ -2,16 +2,16 @@
 layout: post
 title: "Using environment variables with Spring Boot"
 excerpt:
-modified: 2017-11-27 07:17:09 +0200
+modified: 2017-12-17 07:17:09 +0200
 categories: articles
 tags: [spring, spring boot, java]
 image:
-  feature:
+  feature: 2017-12-17-using-environment-variables-with-spring-boot/cover.jpg
   credit: Gustavo Quepón
   creditlink: https://unsplash.com/photos/pF_2lrjWiJE
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
 
@@ -36,13 +36,13 @@ private String dbUrl;
 
 Similar to the previous approach, it is possible to assign values to properties in your `application.properties` file from the environment.
 
-{% highlight yml %}
+{% highlight yaml %}
 api.key=${API_KEY}
 {% endhighlight %}
 
 As with the `@Value` annotation, you can provide a default value which will be used if the environment variable is not found.
 
-{% highlight yml %}
+{% highlight yaml %}
 api.key=${API_KEY:123abc}
 {% endhighlight %}
 
@@ -56,5 +56,5 @@ For example, you can set `ec2.public.url` property as follows.
 SPRING_APPLICATION_JSON='{"ec2":{"public":{"url":"http://mydomain.com"}}}'
 {% endhighlight %}
 
-To get a more thorough overview of all the ways Spring Boot allows you to configure applications, you should definitely look at [the official docs]()https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html.
+To get a more thorough overview of all the ways Spring Boot allows you to configure applications, you should definitely look at [the official docs](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html).
 You can find an example Sprint Boot application from [Github](https://github.com/indrekots/spring-boot-envvariables) that demonstrates the approaches covered in this post.
