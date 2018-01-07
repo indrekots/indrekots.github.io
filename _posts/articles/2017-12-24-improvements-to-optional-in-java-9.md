@@ -34,6 +34,8 @@ Otherwise an empty `Stream` is returned.
 You might be thinking how can that be useful?
 We use Streams to manipulate collections of data.
 How can an a stream that contains at most one element be useful?
+
+In a stream processing pipeline we can transform optionals into streams and `flatmap` them into a single stream containing only the values that are present.
 Let's look at the following example.
 
 {% highlight java %}
@@ -45,10 +47,20 @@ List<Author> ghostwriters = books.stream()
   .collect(toList());
 {% endhighlight %}
 
-Some books are written by [ghostwriters](https://en.wikipedia.org/wiki/Ghostwriter).
-The Book class has a getter getGhostWriter that returns an Optional of Author (Optional<Author>).
-Then we can apply transform the stream of optionals into a stream of streams and flatmap them back into a flat stream.
-The key here is that we got rid of empty optionals and can continue our stream processing with existing Authors.
+Since every book doesn't have a [ghostwriter](https://en.wikipedia.org/wiki/Ghostwriter), `getGhostWriter` returns an `Optional` of `Author` (`Optional<Author>`).
+For each book, `Optional::stream` creates a new stream and `flatmap` will ensure that all streams are merged together.
+Essentially, we're getting rid of empty optionals.
+
+You could do it in Java 8 as well with a [lambda expressions]({{site.url}}/articles/java-8-lambda-expressions/).
+
+{% highlight java %}
+List<Book> books = ...
+
+List<Author> ghostwriters = books.stream()
+  .map(Book::getGhostWriter)
+  .flatMap(o -> o.map(Stream::of).orElseGet(Stream::empty))
+  .collect(toList());
+{% endhighlight %}
 
 ## Optional::or
 
