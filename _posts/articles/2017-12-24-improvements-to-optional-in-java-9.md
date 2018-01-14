@@ -6,9 +6,9 @@ modified: 2017-12-24 16:46:57 +0200
 categories: articles
 tags: [java, java 9, optional]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2018-01-14-improvements-to-optional-in-java-9/cover.jpg
+  credit: Matija Mestrovic
+  creditlink: https://unsplash.com/photos/D2rJ0RlDZ58
 comments: true
 share: true
 published: false
@@ -51,7 +51,7 @@ Since every book doesn't have a [ghostwriter](https://en.wikipedia.org/wiki/Ghos
 For each book, `Optional::stream` creates a new stream and `flatmap` will ensure that all streams are merged together.
 Essentially, we're getting rid of empty optionals.
 
-You could do it in Java 8 as well with a [lambda expressions]({{site.url}}/articles/java-8-lambda-expressions/).
+You could do it in Java 8 with a [lambda expressions]({{site.url}}/articles/java-8-lambda-expressions/) but `Optional::stream` is more succinct.
 
 {% highlight java %}
 List<Book> books = ...
@@ -64,15 +64,38 @@ List<Author> ghostwriters = books.stream()
 
 ## Optional::or
 
-[Optional::or](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#or-java.util.function.Supplier-) will either return the current Optional if a value is present.
+[`Optional::or`](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#or-java.util.function.Supplier-) will either return the current Optional if a value is present.
 Otherwise an Optional produced by the provided supplier function is returned.
-To make things more clear, lets look at the following example.
+To make things more clear, let's have a look at the following example.
 
 {% highlight java %}
-
+findBook().or(() -> findBookFromWeb());
 {% endhighlight %}
 
-This is probably my favourite addition.
+If `findBook()` does not find anything, `findBookFromWeb()` gets called.
+Since the return value is always an `Optional`, we can build a lazily loaded chain of method calls.
 
-allows to chain optionals come in handy when you need to lazily evaluate the functions and stop when the first one returns something useful
+{% highlight java %}
+public Optional<Book> findBook(String title) {
+  return findBookFromDatabase(title)
+    .or(() -> findBookFromLocalLibrary(title))
+    .or(() -> findBookFromWeb(title));
+}
+{% endhighlight %}
+
 Back in [Java 8 you had to go through some ceremony]({{site.url}}/articles/chaining-optionals-in-java-8/) to achieve something similar.
+
+## Optional::ifPresentOrElse
+
+The final addition to Optionals in Java 9 is the [`ifPresentOrElse`](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#ifPresentOrElse-java.util.function.Consumer-java.lang.Runnable-) method.
+By accepting a consumer function and a runnable, it can be used to cover the case where the value is present as well as the case where the `Optional` is empty.
+
+{% highlight java %}
+findBook(title).ifPresentOrElse(
+    this::increaseReaderCount,
+    () -> log.warn("Tried to look for a book which does not exist!"));
+{% endhighlight %}
+
+## Summary
+
+Three new methods were added to the `Optional` class in Java 9. `Optional::stream` allows you to transform an Optional into a stream of one element or an empty stream. `Optional::or` returns the current Optional if a value is present, otherwise an Optional produced by the supplier function is returned. `Optional::ifPresentOrElse` can be used to cover the value present as well as the value missing cases.
