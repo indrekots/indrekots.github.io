@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Improvements to Optional in Java 9"
-excerpt:
+excerpt: Java 9 introduced three new methods to the Optional class. This post covers what they do and how to use them.
 modified: 2017-12-24 16:46:57 +0200
 categories: articles
 tags: [java, java 9, optional]
