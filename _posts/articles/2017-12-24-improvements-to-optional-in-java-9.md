@@ -26,7 +26,7 @@ Book book = bookOptional.orElseGet(Book::defaultBook);
 
 Java 9 introduced a couple of improvements to the [Optional](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html) class.
 
-## Stream from optional
+## `Stream` from `Optional`
 
 [`Optional::stream`](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#stream-- "Optional javadoc for Java 9") allows you to transform an `Optional` to a `Stream`.
 If a value is present, the returned `Stream` will contain that value.
@@ -47,7 +47,7 @@ List<Author> ghostwriters = books.stream()
   .collect(toList());
 {% endhighlight %}
 
-Since every book doesn't have a [ghostwriter](https://en.wikipedia.org/wiki/Ghostwriter), `getGhostWriter` returns an `Optional` of `Author` (`Optional<Author>`).
+Since every book doesn't have a [ghostwriter](https://en.wikipedia.org/wiki/Ghostwriter), `getGhostWriter()` returns an `Optional` of `Author` (`Optional<Author>`).
 For each book, `Optional::stream` creates a new `Stream` and `flatmap` will ensure that all `Stream`s are merged together.
 Essentially, we're getting rid of empty `Optional`s.
 
@@ -64,8 +64,8 @@ List<Author> ghostwriters = books.stream()
 
 ## Optional::or
 
-[`Optional::or`](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#or-java.util.function.Supplier-) will either return the current Optional if a value is present.
-Otherwise an Optional produced by the provided supplier function is returned.
+[`Optional::or`](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#or-java.util.function.Supplier-) will either return the current `Optional` if a value is present.
+Otherwise an `Optional` produced by the provided supplier function is returned.
 To make things more clear, let's have a look at the following example.
 
 {% highlight java %}
