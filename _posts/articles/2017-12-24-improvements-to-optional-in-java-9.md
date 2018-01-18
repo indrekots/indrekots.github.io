@@ -87,7 +87,7 @@ Back in [Java 8 you had to go through some ceremony]({{site.url}}/articles/chain
 
 ## Optional::ifPresentOrElse
 
-The final addition to Optionals in Java 9 is the [`ifPresentOrElse`](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#ifPresentOrElse-java.util.function.Consumer-java.lang.Runnable-) method.
+The final addition to `Optional`s in Java 9 is the [`Optional::ifPresentOrElse`](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#ifPresentOrElse-java.util.function.Consumer-java.lang.Runnable-) method.
 By accepting a consumer function and a runnable, it can be used to cover the case where the value is present as well as the case where the `Optional` is empty.
 
 {% highlight java %}
@@ -98,4 +98,4 @@ findBook(title).ifPresentOrElse(
 
 ## Summary
 
-Three new methods were added to the `Optional` class in Java 9. `Optional::stream` allows you to transform an Optional into a stream of one element or an empty stream. `Optional::or` returns the current Optional if a value is present, otherwise an Optional produced by the supplier function is returned. `Optional::ifPresentOrElse` can be used to cover the value present as well as the value missing cases.
+Three new methods were added to the `Optional` class in Java 9. `Optional::stream` allows you to transform an `Optional` into a `Stream` of one element or an empty `Stream`. `Optional::or` returns the current `Optional` if a value is present, otherwise an `Optional` produced by the supplier function is returned. `Optional::ifPresentOrElse` can be used to cover the value present as well as the value missing cases.
