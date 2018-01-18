@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/photos/D2rJ0RlDZ58
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
 [Optionals were introduced to Java in version 8]({{site.url}}/articles/optionals-in-java-8/).
@@ -28,14 +28,14 @@ Java 9 introduced a couple of improvements to the [Optional](https://docs.oracle
 
 ## Stream from optional
 
-`Optional::stream` allows you to transform an `Optional` to a `Stream`.
+[`Optional::stream`](https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html#stream-- "Optional javadoc for Java 9") allows you to transform an `Optional` to a `Stream`.
 If a value is present, the returned `Stream` will contain that value.
 Otherwise an empty `Stream` is returned.
 You might be thinking how can that be useful?
 We use Streams to manipulate collections of data.
-How can an a stream that contains at most one element be useful?
+How can a `Stream` that contains at most one element be useful?
 
-In a stream processing pipeline we can transform optionals into streams and `flatmap` them into a single stream containing only the values that are present.
+In a `Stream` processing pipeline we can transform `Optional`s into `Stream`s and `flatmap` them into a single `Stream` containing only the values that are present.
 Let's look at the following example.
 
 {% highlight java %}
@@ -48,10 +48,10 @@ List<Author> ghostwriters = books.stream()
 {% endhighlight %}
 
 Since every book doesn't have a [ghostwriter](https://en.wikipedia.org/wiki/Ghostwriter), `getGhostWriter` returns an `Optional` of `Author` (`Optional<Author>`).
-For each book, `Optional::stream` creates a new stream and `flatmap` will ensure that all streams are merged together.
-Essentially, we're getting rid of empty optionals.
+For each book, `Optional::stream` creates a new `Stream` and `flatmap` will ensure that all `Stream`s are merged together.
+Essentially, we're getting rid of empty `Optional`s.
 
-You could do it in Java 8 with a [lambda expressions]({{site.url}}/articles/java-8-lambda-expressions/) but `Optional::stream` is more succinct.
+You could do it in Java 8 with a [lambda expression]({{site.url}}/articles/java-8-lambda-expressions/) but `Optional::stream` is more succinct.
 
 {% highlight java %}
 List<Book> books = ...
