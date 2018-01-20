@@ -2,7 +2,7 @@
 layout: post
 title: "Optionals in Java 8"
 excerpt: If you have had any experience with Java, then you most likely have seen the NullPointerException. Optional in Java 8 are a way to fight them.
-modified: 2016-03-03 07:16:38 +0200
+modified: 2018-01-20 07:16:38 +0200
 categories: articles
 tags: [java,java 8,optional,lambda,null reference]
 image:
@@ -90,3 +90,5 @@ I don't intend to write about all the API methods. But just so you know, there a
 ## Summary
 
 If you're used to checking if a value is null then Optionals require a slightly different mindset. With the support of [lambda expressions]({{site_url}}/articles/java-8-lambda-expressions/) it is possible to avoid null checks unless you're using an older Java library which does not support Optionals. The solution here would be to create a wrapper but it's up to you to decide if the effort is worth it. Optionals are not serializable and are not meant to be used as field types. Therefore if you plan to use Optionals in your domain model, I would use the actual types as field types and return Optionals from getters. This can provide you with better compatibility with ORM frameworks.
+
+If you want to learn more about `Optional`s, you should have a look at what [new features were added to the `Optional` class in Java 9]({{site.url}}/articles/improvements-to-optional-in-java-9/ "Improvements to Optional in Java 9").

@@ -2,7 +2,7 @@
 layout: post
 title: "Chaining Optionals in Java 8"
 excerpt: Optionals in Java can help you to write a program without null checks. Chaining Optionals in a Stream enables to pick the first Optional which has a value and return it.
-modified: 2016-03-26 19:50:50 +0200
+modified: 2018-01-20 19:50:50 +0200
 categories: articles
 tags: [java, java 8, optional, lambda, functional programming]
 image:
@@ -37,7 +37,7 @@ first(this::find1, this::find2, this::find3);
 
 ## Improvements in JDK9
 
-JDK8 does not provide a convenient API for creating a Stream out of an Optional. Apparently this is going to be [fixed in JDK9](https://bugs.openjdk.java.net/browse/JDK-8050820 "OpenJDK issue tracker") and the utility method could be written as
+JDK8 does not provide a convenient API for creating a Stream out of an Optional. Apparently this is [fixed in JDK9](https://bugs.openjdk.java.net/browse/JDK-8050820 "OpenJDK issue tracker") and the utility method could be written as follows.
 
 {% highlight java %}
 public static <T> Optional<T> first(Supplier<Optional<T>>... suppliers) {
@@ -48,6 +48,7 @@ return Arrays.asList(suppliers).stream()
 {% endhighlight %}
 
 Notice how the `flatmap` method has changed.
+[JDK9 introduced additional methods to the `Optional` class that are worth looking at]({{site.url}}/articles/improvements-to-optional-in-java-9/ "Improvements to Optional in Java 9") and are not covered in this post.
 
 ## Food for thought
 
