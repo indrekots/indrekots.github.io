@@ -2,7 +2,7 @@
 layout: post
 title: "Creating a custom collector in Java 8"
 excerpt: A collector is a recipe for how to build a summary of the elements in a Stream. In this post you'll see how to create a custom collector in Java 8.
-modified: 2018-03-10 11:32:07 +0200
+modified: 2018-03-11 11:32:07 +0200
 categories: articles
 tags: [java, java 8, stream, collector, collect, reduce, fold]
 image:
