@@ -6,3 +6,6 @@ codekit-config.json
 node_modules
 .sass-cache
 npm-debug.log
+
+.bundle/
+vendor/bundle
