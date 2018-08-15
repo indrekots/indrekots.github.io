@@ -15,7 +15,7 @@ published: false
 aging: false
 ---
 
-Multiple levels of organisation:
+Multiple levels of organization:
 1) methods
 2) classes
 3) packages
@@ -23,9 +23,9 @@ Multiple levels of organisation:
 If you look at a typical Spring web application, most likely you see the following top level package names.
 
 ```
-web/rest/controller
+controller (or web, or rest)
 service
-repository/dao
+repository (or dao)
 ```
 
 This clearly indicates that a [three-tiered layered architecture is used](https://en.wikipedia.org/wiki/Multitier_architecture#Three-tier_architecture "Three-tier architecture")
@@ -34,35 +34,41 @@ We have a package for controllers that accept incoming HTTP requests.
 And finally, `repository` contains data access functionality.
 From a technical perspective, this separation makes sense.
 This is a widely used approach that is familiar to developers.
-Packages are organised in a fashion that makes it easy to understand where a specific class may be.
+Packages are organized in a fashion that makes it easy to understand where a specific class may be.
 But is it a good approach to structure software?
 
-In Java we can use packages to organise classes into logical groups.
+In Java we can use packages to organize classes into logical groups.
 Packages are also used to namespace classes so that two classes with the same name have a distinct fully qualified name.
 A third, and in my opinion a less used, function of packages is encapsulation.
-Packages are not just folders on disk that organise classes the way you might organise your photo collection.
+Packages are not just folders on disk that organize classes the way you might organize your photo collection.
 They can be used to define boundaries in code and hide classes from other parts of the system that don't need to know about them.
 
-I hope you understand the principle [information hiding](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
+I hope you understand the principle of [information hiding](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
 When designing a method in Java, we declare a name and a list of parameters.
 Everything done inside the method is hidden from the outside.
 When designing a class, we declare some fields and methods `private`.
 This is because we don't want that anybody from the outside world to use them.
 But why don't we use the same approach in designing packages?
 
-A layered software architecture defined with packages has one big drawback - all of our classes need to be public.
-If a controller class inside the `controller` package wants to call a method in a service class that's in a `service` package
+A layered software architecture defined with packages has one big drawback—all of our classes need to be public.
+If a controller class inside the `controller` package wants to call a method in a service class that's in a `service` package, the latter needs to be public.
+Again, a repository class needs to be public because we want to access it from the service layer.
+What's bad about having a public repository class you might ask?
+Having it publicly accessible can be beneficial, because there might be other service layer classes that want to operate on the same repository, right?
+Unless you're dealing with a demo application, most of the time, accessing a repository means that other operations need to take place as well.
+You might need to introduce logging, check permissions or start other business specific processes.
+For example, whenever a new user is created, you might want to send them a welcome e-mail.
+If `UserRepository` was publicly accessible, its easy to bypass all of it without even knowing that you might have done something wrong.
+
+Although it might not make sense to access the repository from anywhere else than a specific service class.
+We have grown accustomed to starting every Java class with `public class ...`.
+We could enforce this by having them in the same package and making the repository package-private.
 
 * Tightly coupled classes belong in the same package
 
 We use public access modifier all the time because we package our classes by layers.
 We have to possibility to encapsulate classes inside packages.
 Using a layered approach, we intentionally give this benefit away.
-
-Because we use layers, everything needs to be public.
-A repository class needs to be public because we want to access it from the service layer.
-Although it might not make sense to access the repository from anywhere else than a specific service class.
-We could enforce this by having them in the same package and making the repository package-private.
 
 When we have everything public, we lose the benefit of encapsulation.
 It becomes hard to enforce what classes can use what other classes.
