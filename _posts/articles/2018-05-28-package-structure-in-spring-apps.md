@@ -37,18 +37,23 @@ This is a widely used approach that is familiar to developers.
 Packages are organized in a fashion that makes it easy to understand where a specific class may be.
 But is it a good approach to structure software?
 
-In Java we can use packages to organize classes into logical groups.
-Packages are also used to namespace classes so that two classes with the same name have a distinct fully qualified name.
+## Quick recap of packages
+
+In Java we can use [packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html "Creating and Using Packages") to organize classes into logical groups.
+Packages are also used to avoid naming conflicts.
+If we have two types with the same name, we can put them into separate packages which gives them a distinct fully qualified name.
 A third, and in my opinion a less used, function of packages is encapsulation.
 Packages are not just folders on disk that organize classes the way you might organize your photo collection.
 They can be used to define boundaries in code and hide classes from other parts of the system that don't need to know about them.
 
-I hope you understand the principle of [information hiding](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
-When designing a method in Java, we declare a name and a list of parameters.
-Everything done inside the method is hidden from the outside.
-When designing a class, we declare some fields and methods `private`.
-This is because we don't want that anybody from the outside world to use them.
-But why don't we use the same approach in designing packages?
+When designing a class, we need to consider what parts of it to hide and what to make `public`.
+Essentially, we're are creating an [interface](https://en.wikipedia.org/wiki/Interface_(computing)) (in general OO sense) that describes how the class must be used.
+Details of the inner workings of a class are [hidden from the outside world](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
+Programming to the interface reduces coupling between classes because we're not depending on internal implementation details.
+If we honor the interface by not changing it, class' implementation specifics can be changed without having to make modifications to the class' users.
+But why not take this approach a step further and use it with packages?
+
+low coupling and high cohesion
 
 A layered software architecture defined with packages has one big drawback—all of our classes need to be public.
 If a controller class inside the `controller` package wants to call a method in a service class that's in a `service` package, the latter needs to be public.
@@ -58,7 +63,7 @@ Having it publicly accessible can be beneficial, because there might be other se
 Unless you're dealing with a demo application, most of the time, accessing a repository means that other operations need to take place as well.
 You might need to introduce logging, check permissions or start other business specific processes.
 For example, whenever a new user is created, you might want to send them a welcome e-mail.
-If `UserRepository` was publicly accessible, its easy to bypass all of it without even knowing that you might have done something wrong.
+If `UserRepository` was publicly accessible, it's easy to bypass all of it without even knowing that you might have done something wrong.
 
 Although it might not make sense to access the repository from anywhere else than a specific service class.
 We have grown accustomed to starting every Java class with `public class ...`.
