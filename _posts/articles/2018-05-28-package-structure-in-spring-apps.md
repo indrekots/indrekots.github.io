@@ -6,35 +6,32 @@ modified: 2018-05-28 18:56:18 +0300
 categories: articles
 tags: [spring, java]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: 2018-05-28-package-structure/cover.jpg
+  credit: Rubén Bagüés
+  creditlink: https://unsplash.com/photos/ZzApzgh5lxo
 comments: true
 share: true
 published: false
 aging: false
 ---
 
-Multiple levels of organization:
-1) methods
-2) classes
-3) packages
-
-If you look at a typical Spring web application, most likely you see the following top level package names.
+If you look at a typical Spring web application, most likely you have seen the following top level packages (or something similar).
 
 ```
-controller (or web, or rest)
-service
-repository (or dao)
+.
+├── controller
+├── service
+└── repository
 ```
 
 This clearly indicates that a [three-tiered layered architecture is used](https://en.wikipedia.org/wiki/Multitier_architecture#Three-tier_architecture "Three-tier architecture")
 We have a package for controllers that accept incoming HTTP requests.
 `service` package includes classes that deal with application specific business logic.
 And finally, `repository` contains data access functionality.
+
 From a technical perspective, this separation makes sense.
-This is a widely used approach that is familiar to developers.
-Packages are organized in a fashion that makes it easy to understand where a specific class may be.
+It is a widely used approach that is familiar to developers.
+Packages are grouped in a fashion that makes it easy to understand where a specific class may be.
 But is it a good approach to structure software?
 
 ## Quick recap of packages
