@@ -15,56 +15,72 @@ published: false
 aging: false
 ---
 
-If you look at a typical Spring web application, most likely you have seen the following top level packages (or something similar).
+If you've ever worked on a typical [Spring web application](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html "Spring Web MVC"), most likely you have seen the following top level packages (or something similar).
 
-```
+{% highlight text %}
 .
 ├── controller
 ├── service
 └── repository
-```
+{% endhighlight %}
 
-This clearly indicates that a [three-tiered layered architecture is used](https://en.wikipedia.org/wiki/Multitier_architecture#Three-tier_architecture "Three-tier architecture")
-We have a package for controllers that accept incoming HTTP requests.
-`service` package includes classes that deal with application specific business logic.
+This clearly indicates that a [layered architecture is used](https://en.wikipedia.org/wiki/Multitier_architecture#Three-tier_architecture "Three-tier architecture").
+We have a package for controllers that accept incoming HTTP requests. `service` package includes classes that deal with application specific business logic.
 And finally, `repository` contains data access functionality.
 
+<figure class="align-center">
+  <img src="{{ '/images/2018-05-28-package-structure/groups.jpg' | absolute_url }}" alt="">
+  <figcaption>Classes are grouped like cutlery on a tray. <a href="https://unsplash.com/photos/yw3UaP-5ybM">Image by Jarosław Ceborski</a></figcaption>
+</figure>
+
 From a technical perspective, this separation makes sense.
-It is a widely used approach that is familiar to developers.
+It's a widely used approach that's familiar to developers.
 Packages are grouped in a fashion that makes it easy to understand where a specific class may be.
 But is it a good approach to structure software?
 
 ## Quick recap of packages
 
-In Java we can use [packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html "Creating and Using Packages") to organize classes into logical groups.
-Packages are also used to avoid naming conflicts.
-If we have two types with the same name, we can put them into separate packages which gives them a distinct fully qualified name.
-A third, and in my opinion a less used, function of packages is encapsulation.
-Packages are not just folders on disk that organize classes the way you might organize your photo collection.
+In Java [packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html "Creating and Using Packages") can be used for the following
+
+1. Oranizing classes into logical groups
+2. Avoiding naming conflicts. If we have two types with the same name, we can put them into separate packages which gives them a distinct fully qualified name.
+3. Encapsulation
+
+In my opininion, using packages as a tool to achieve encapsulation is the least used function of the three.
+Packages are more than just folders on disk that organize classes the way you might organize your photo collection.
 They can be used to define boundaries in code and hide classes from other parts of the system that don't need to know about them.
+More on that later.
 
-When designing a class, we need to consider what parts of it to hide and what to make `public`.
-Essentially, we're are creating an [interface](https://en.wikipedia.org/wiki/Interface_(computing)) (in general OO sense) that describes how the class must be used.
-Details of the inner workings of a class are [hidden from the outside world](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
-Programming to the interface reduces coupling between classes because we're not depending on internal implementation details.
-If we honor the interface by not changing it, class' implementation specifics can be changed without having to make modifications to the class' users.
-But why not take this approach a step further and use it with packages?
+## Package by layer
 
-low coupling and high cohesion
+Designing packages by layer is technical in nature and does not reflect the underlying domain.
 
-A layered software architecture defined with packages has one big drawback—all of our classes need to be public.
-If a controller class inside the `controller` package wants to call a method in a service class that's in a `service` package, the latter needs to be public.
-Again, a repository class needs to be public because we want to access it from the service layer.
-What's bad about having a public repository class you might ask?
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">When developers write novels.<br><br>Chapter 1 - Characters<br>Chapter 2 - Locations<br>Chapter 3 - Vehicles<br>Chapter 4 - Relationships<br>Chapter 5 - Plots<br>Chapter 6 - Conclusions<br>Appendix A - Twists <a href="https://t.co/8lcc27WeoA">https://t.co/8lcc27WeoA</a></p>&mdash; Richard Dalton 🇪🇺 (@richardadalton) <a href="https://twitter.com/richardadalton/status/936228404084559872?ref_src=twsrc%5Etfw">November 30, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Whenever a layer above calls a layer below, we're crossing package boundaries.
+To do that, the callee needs to be `public`.
+For example, if a service class inside the `service` package wants to call a method in a repository class that's in the `repository` package, the latter needs to be public.
+What's bad about having a type declared as public you might ask?
 Having it publicly accessible can be beneficial, because there might be other service layer classes that want to operate on the same repository, right?
-Unless you're dealing with a demo application, most of the time, accessing a repository means that other operations need to take place as well.
-You might need to introduce logging, check permissions or start other business specific processes.
-For example, whenever a new user is created, you might want to send them a welcome e-mail.
-If `UserRepository` was publicly accessible, it's easy to bypass all of it without even knowing that you might have done something wrong.
 
-Although it might not make sense to access the repository from anywhere else than a specific service class.
-We have grown accustomed to starting every Java class with `public class ...`.
-We could enforce this by having them in the same package and making the repository package-private.
+I'd like to take a step back and look at this from another angle.
+When we design a class, we need to consider what parts of it to hide and what to make `public`.
+Essentially, we're using access modifiers to [hide the inner workings of a class from the outside world](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
+
+Unless we're dealing with a demo application, most of the time, accessing a repository can be considered *the inner workings* of a larger feature.
+In addition to, say, storing data to a database, you might need to introduce logging, check permissions or start other business specific processes.
+For example, whenever a new user is created, you might want to send them a welcome e-mail.
+If a hypothetical `UserRepository` was publicly accessible to all other classes, it's easy to bypass other domain related checks and processes without even knowing that you might have done something wrong.
+
+Designing packages by layer means that the classes that are used together the most are in different packages.
+This is referred to as [low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science) "Cohesion").
+Our classes *need* to be public, otherwise the layer above cannot call them.
+And when something is public, every other class can call it, meaning that it's easy to introduce architecture violations.
+It's easy to declare a dependency on a class that might just be an *implementation detail*.
+There's a higher risk that the system evolves into something that's difficult to change.
+
+## Package by feature
 
 * Tightly coupled classes belong in the same package
 
@@ -81,7 +97,6 @@ There's a higher likelihood that we break something.
 * http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/
 * https://www.youtube.com/watch?v=tEm0USdF-70/
 
-* Layered approach to separate code is technical in nature and does not reflect the domain
 * On the other hand, this is widely used and understood
 * It's easy to introduce an architecture violation in a monolith with layers, you call some class that you should not have access to
 * Because of layers first approach, our classes need to be public. And because they're public, It's very easy to introduce a dependency we'd like to avoid
