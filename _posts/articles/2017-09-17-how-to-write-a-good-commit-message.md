@@ -2,7 +2,7 @@
 layout: post
 title: "How to write a good commit message"
 excerpt: Version control systems play a vital role in tracking the history of changes in a codebase. Knowing how to write good commit messages is an essential skill if you wish to have your project's history well documented.
-modified: 2017-09-17 19:47:17 +0300
+modified: 2018-09-10 20:47:17 +0300
 categories: articles
 tags: [vcs, git, version control]
 image:
@@ -124,9 +124,11 @@ First of all, [the very first line of the commit message is the subject line](ht
 Use it to briefly describe the changeset.
 The subject line should be followed with a blank line and starting from the third line, you can add a more detailed description of the patch.
 
-Don't use `git commit -m "my commit message"` to write commit messages.
-It won't allow you to write a more detailed description on the third line.
-[Configure Git to open a text editor](https://stackoverflow.com/a/2596835/2928051) to write a commit message.
+<p><strike>Don't use <code>git commit -m "my commit message"</code> to write commit messages.
+It won't allow you to write a more detailed description on the third line.</strike>
+Apparently, I was wrong as was pointed out by <a href="https://twitter.com/homeworkprod/status/1038797032826306560">@homeworkprod</a>.
+According to <a href="https://git-scm.com/docs/git-commit#git-commit---messageltmsggt">Git docs</a>, if multiple <code>-m</code> options are given, their values are concatenated as separate paragraphs.
+You can also <a href="https://stackoverflow.com/a/2596835/2928051">Configure Git to open a text editor</a> to write a commit message.</p>
 
 Git tooling expects that the first line of a commit message is the title.
 Therefore, the first letter should be capitalized and it should not end with a period.
