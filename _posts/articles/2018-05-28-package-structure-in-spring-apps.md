@@ -19,9 +19,9 @@ If you've ever worked on a typical [Spring web application](https://docs.spring.
 
 {% highlight text %}
 .
-├── controller
-├── service
-└── repository
+├── controller - web stuff
+├── service - "business" stuff
+└── repository - database stuff
 {% endhighlight %}
 
 This clearly indicates that a [layered architecture is used](https://en.wikipedia.org/wiki/Multitier_architecture#Three-tier_architecture "Three-tier architecture").
@@ -40,18 +40,25 @@ But is it a good approach to structure software?
 
 ## Quick recap of packages
 
-In Java [packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html "Creating and Using Packages") can be used for the following
+In Java, [packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html "Creating and Using Packages") can be used for the following
 
 1. Oranizing classes into logical groups
-2. Avoiding naming conflicts. If we have two types with the same name, we can put them into separate packages which gives them a distinct fully qualified name.
+2. Namespace classes to avoiding naming conflicts. If we have two types with the same name, we can put them into separate packages which gives them a distinct fully qualified name.
 3. Encapsulation
 
-In my opininion, using packages as a tool to achieve encapsulation is the least used function of the three.
+In my opinion, using packages as a tool to achieve encapsulation is the least used function of the three.
 Packages are more than just folders on disk that organize classes the way you might organize your photo collection.
 They can be used to define boundaries in code and hide classes from other parts of the system that don't need to know about them.
 More on that later.
 
 ## Package by layer
+
+The first chapter of [Patterns of Enterprise Application Architecture by Martin Fowler](https://www.amazon.com/Patterns-Enterprise-Application-Architecture-Martin/dp/0321127420) says that layering is one of the most common techniques that software designers use to break apart a complicated software system.
+They make a complex system easier to reason about.
+In Java, we usually see layers implemented using packages.
+If you have ever worked on a Java based web application, you have probably seen it yourself.
+
+//should we do it?
 
 Designing packages by layer is technical in nature and does not reflect the underlying domain.
 
@@ -66,21 +73,40 @@ Having it publicly accessible can be beneficial, because there might be other se
 
 I'd like to take a step back and look at this from another angle.
 When we design a class, we need to consider what parts of it to hide and what to make `public`.
-Essentially, we're using access modifiers to [hide the inner workings of a class from the outside world](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
+Essentially, we're using [access modifiers](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html "Controlling Access to Members of a Class") to [hide the inner workings of a class from the outside world](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
+We don't want anybody to freely access the private parts of our class because (a) we want to hide complexity and (b) have the freedom the change implementation details without having the entire world know about it.
+Using packages for encapsulation, it is possible to achieve to same goals but on a higher level of abstraction.
 
-Unless we're dealing with a demo application, most of the time, accessing a repository can be considered *the inner workings* of a larger feature.
+Unless we're dealing with a demo application, most of the time, accessing a repository can be considered *an implementation detail* of a larger feature.
 In addition to, say, storing data to a database, you might need to introduce logging, check permissions or start other business specific processes.
-For example, whenever a new user is created, you might want to send them a welcome e-mail.
-If a hypothetical `UserRepository` was publicly accessible to all other classes, it's easy to bypass other domain related checks and processes without even knowing that you might have done something wrong.
+For example, whenever a new user is created in your [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service "Software as a service") product, you might want to send them a welcome e-mail.
+If a hypothetical `UserRepository` was publicly accessible to all other classes, it's easy to bypass important domain related checks and processes without even knowing that you might have done something wrong.
 
 Designing packages by layer means that the classes that are used together the most are in different packages.
-This is referred to as [low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science) "Cohesion").
+This leads to [low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science) "Cohesion").
 Our classes *need* to be public, otherwise the layer above cannot call them.
 And when something is public, every other class can call it, meaning that it's easy to introduce architecture violations.
-It's easy to declare a dependency on a class that might just be an *implementation detail*.
+Without discipline, it's easy to declare a dependency on a class that might just be an *implementation detail*.
 There's a higher risk that the system evolves into something that's difficult to change.
 
+// perhaps layering is another cargo cult? we do it but don't know exactly why, just everybody else is doing it
+Simon Brown - Modular Monoliths - If all java types are public, there's absolutely no use in using packages
+
+> If all types are public, Java packages are about organisation of code rather than encapsulation
+>
+> <footer><strong>Simon Brown</strong> &mdash; <a href="https://www.youtube.com/watch?v=kbKxmEeuvc4">Modular monoliths</a></footer>
+
 ## Package by feature
+
+*If we stop doing package by layer, how should we structure our code?
+Should we stop doing layers completely?*
+
+Taking into account that we lose the benefits of encapsulation when we create packages per layer,
+There's no need to get rid of layers.
+
+
+// DDD - aggregate root -> package
+// Simon Brown - package by component -> poor persons Java 9 module system
 
 * Tightly coupled classes belong in the same package
 
@@ -97,9 +123,6 @@ There's a higher likelihood that we break something.
 * http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/
 * https://www.youtube.com/watch?v=tEm0USdF-70/
 
-* On the other hand, this is widely used and understood
-* It's easy to introduce an architecture violation in a monolith with layers, you call some class that you should not have access to
-* Because of layers first approach, our classes need to be public. And because they're public, It's very easy to introduce a dependency we'd like to avoid
 * Slices first approach - only types that need to be public can be kept public, others can be package private
 * Default visibility for classes generated by IDE's is `public`, although in the Java language the default is `package-private`
 
@@ -119,8 +142,17 @@ There might be business specific processes present that need to be done before s
 
 slices can become bounded context, extracted to a separate maven module, microservices anyone?
 
-
-
-## Software architecture as code (https://www.youtube.com/watch?v=oDpdaXt0HQI)
-
 Abstraction helps us to reason about big/complex software systems (modules, components, layers etc.).
+
+// hexagonal architecture, ports and adapters
+
+Where do I start?
+// Stop making every class public - Simon Brown
+
+Let software design come to life using software cells - Ralf Westphal -> compared the OSI network 7 layers with layered software architecture, OSI layering, each layer adds an additional level of abstraction, software layers are completely separate
+
+Don't try to decompose your system along technical lines, decompose it along the usage/domain
+
+> So what does the architecture of your application scream? When you look at the top level directory structure, and the source files in the highest level package; do they scream: **Health Care System**, or **Accounting System**, or **Inventory Management System**? Or do they scream: **Rails**, or **Spring/Hibernate**, or **ASP**?
+>
+> <footer><strong>Uncle Bob</strong> &mdash; <a href="https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html">Screaming Architecture</a></footer>
