@@ -34,9 +34,12 @@ And finally, `repository` contains data access functionality.
 </figure>
 
 From a technical perspective, this separation makes sense.
-It's a widely used approach that's familiar to developers.
-Packages are grouped in a fashion that makes it easy to understand where a specific class may be.
+It's a widely used approach that's familiar to many software developers.
+Packages are grouped like cutlery on a tray.
+Controllers, services and repositories are in separate packages the same way knives, forks and spoons are in their respective containers.
 But is it a good approach to structure software?
+Should layers in Java be modelled with packages?
+Are there any alternatives?
 
 ## Quick recap of packages
 
@@ -58,8 +61,6 @@ They make a complex system easier to reason about.
 In Java, we usually see layers implemented using packages.
 If you have ever worked on a Java based web application, you have probably seen it yourself.
 
-//should we do it?
-
 Designing packages by layer is technical in nature and does not reflect the underlying domain.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">When developers write novels.<br><br>Chapter 1 - Characters<br>Chapter 2 - Locations<br>Chapter 3 - Vehicles<br>Chapter 4 - Relationships<br>Chapter 5 - Plots<br>Chapter 6 - Conclusions<br>Appendix A - Twists <a href="https://t.co/8lcc27WeoA">https://t.co/8lcc27WeoA</a></p>&mdash; Richard Dalton 🇪🇺 (@richardadalton) <a href="https://twitter.com/richardadalton/status/936228404084559872?ref_src=twsrc%5Etfw">November 30, 2017</a></blockquote>
@@ -70,6 +71,8 @@ To do that, the callee needs to be `public`.
 For example, if a service class inside the `service` package wants to call a method in a repository class that's in the `repository` package, the latter needs to be public.
 What's bad about having a type declared as public you might ask?
 Having it publicly accessible can be beneficial, because there might be other service layer classes that want to operate on the same repository, right?
+
+### Encapsulation
 
 I'd like to take a step back and look at this from another angle.
 When we design a class, we need to consider what parts of it to hide and what to make `public`.
@@ -82,15 +85,16 @@ In addition to, say, storing data to a database, you might need to introduce log
 For example, whenever a new user is created in your [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service "Software as a service") product, you might want to send them a welcome e-mail.
 If a hypothetical `UserRepository` was publicly accessible to all other classes, it's easy to bypass important domain related checks and processes without even knowing that you might have done something wrong.
 
+### Everything public
+
 Designing packages by layer means that the classes that are used together the most are in different packages.
 This leads to [low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science) "Cohesion").
 Our classes *need* to be public, otherwise the layer above cannot call them.
+When you think about it, we've hardwired ourselves to always use the `public` access modifier when creating a new class.
+It does not help that `public` is usually the default option when generating a new class via an IDE.
 And when something is public, every other class can call it, meaning that it's easy to introduce architecture violations.
 Without discipline, it's easy to declare a dependency on a class that might just be an *implementation detail*.
 There's a higher risk that the system evolves into something that's difficult to change.
-
-// perhaps layering is another cargo cult? we do it but don't know exactly why, just everybody else is doing it
-Simon Brown - Modular Monoliths - If all java types are public, there's absolutely no use in using packages
 
 > If all types are public, Java packages are about organisation of code rather than encapsulation
 >
@@ -98,12 +102,12 @@ Simon Brown - Modular Monoliths - If all java types are public, there's absolute
 
 ## Package by feature
 
-*If we stop doing package by layer, how should we structure our code?
-Should we stop doing layers completely?*
+*If we stop doing package by layer, how should we structure our code?*
 
-Taking into account that we lose the benefits of encapsulation when we create packages per layer,
-There's no need to get rid of layers.
+Taking into account that we lose the benefits of encapsulation when we create packages per layer, let's try to fix that first.
+Our goal should be to create more cohesive packages.
 
+Types that are used together, are in the same package - high cohesion
 
 // DDD - aggregate root -> package
 // Simon Brown - package by component -> poor persons Java 9 module system
@@ -144,7 +148,7 @@ slices can become bounded context, extracted to a separate maven module, microse
 
 Abstraction helps us to reason about big/complex software systems (modules, components, layers etc.).
 
-// hexagonal architecture, ports and adapters
+// hexagonal architecture, ports and adapters, even if you have all classes public, they all look the same, basically no architecture
 
 Where do I start?
 // Stop making every class public - Simon Brown
@@ -156,3 +160,5 @@ Don't try to decompose your system along technical lines, decompose it along the
 > So what does the architecture of your application scream? When you look at the top level directory structure, and the source files in the highest level package; do they scream: **Health Care System**, or **Accounting System**, or **Inventory Management System**? Or do they scream: **Rails**, or **Spring/Hibernate**, or **ASP**?
 >
 > <footer><strong>Uncle Bob</strong> &mdash; <a href="https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html">Screaming Architecture</a></footer>
+
+coming up with module boundaries is hard, layered architecture is a simple starting point (M. Fowler)
