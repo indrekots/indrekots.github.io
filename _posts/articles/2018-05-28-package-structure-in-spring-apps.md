@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/photos/ZzApzgh5lxo
 comments: true
 share: true
-published: false
+published: true
 aging: false
 ---
 
@@ -95,6 +95,7 @@ It does not help that `public` is usually the default option when generating a n
 And when something is public, every other class can call it, meaning that it's easy to introduce architecture violations.
 Without discipline, it's easy to declare a dependency on a class that might just be an *implementation detail*.
 There's a higher risk that the system evolves into something that's difficult to change.
+Using a package by layer approach, we intentionally give away the benefits of encapsulation.
 
 > If all types are public, Java packages are about organisation of code rather than encapsulation
 >
@@ -104,24 +105,22 @@ There's a higher risk that the system evolves into something that's difficult to
 
 *If we stop doing package by layer, how should we structure our code?*
 
-Taking into account that we lose the benefits of encapsulation when we create packages per layer, let's try to fix that first.
-Our goal should be to create more cohesive packages.
+Instead of creating a package for each layer (a horizontal slice), what if the top-most level of organization in code was a feature (vertical slice)?
 
-Types that are used together, are in the same package - high cohesion
+// show diagram
 
-// DDD - aggregate root -> package
+Compared to package by layer, classes that are used together the most are now in the same package (high cohesion)
+There's no benefit in making all classes public anymore.
+As a matter of fact, we benefit more from starting to create package private classes.
+Classes and types that are specific to a feature cannot leak outside of their domain.
+Public classes define the API of the feature their part of.
+We have more control over how classes call each other over package boundaries.
+For example, having a repository class package private, nobody from other packages could start using it directly.
+Implementation details for a feature are hidden from the outside world.
+Layered architecture could still exist inside a feature package.
+
+// packges could be designed around DDD - aggregate root -> package
 // Simon Brown - package by component -> poor persons Java 9 module system
-
-* Tightly coupled classes belong in the same package
-
-We use public access modifier all the time because we package our classes by layers.
-We have to possibility to encapsulate classes inside packages.
-Using a layered approach, we intentionally give this benefit away.
-
-When we have everything public, we lose the benefit of encapsulation.
-It becomes hard to enforce what classes can use what other classes.
-The more dependents you have for a class, the harder it becomes to change it.
-There's a higher likelihood that we break something.
 
 ## Whoops, where did my architecture go
 * http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/
