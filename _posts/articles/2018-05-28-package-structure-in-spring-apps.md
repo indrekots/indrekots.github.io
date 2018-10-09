@@ -125,9 +125,10 @@ Layered architecture could still exist inside a package but [layering in general
 > <footer><strong>Uncle Bob</strong> &mdash; <a href="https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html">Screaming Architecture</a></footer>
 
 Packages could be designed around [Domain Driven Design](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215 "Domain-Driven Design: Tackling Complexity in the Heart of Software") [aggregates](https://martinfowler.com/bliki/DDD_Aggregate.html "DDD_Aggregate").
-Vertical slices can become [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html "BoundedContext").
+When it makes sense, vertical slices can become [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html "BoundedContext").
 If you see a need, they could be extracted into a separate Maven module.
-Having well defined APIs in place between packages, theoretically it should be relatively painless to extract a vertical slice into a separate application—a microservice.
+With the advent of [the Java Module System](https://blog.codefx.org/java/java-module-system-tutorial/ "Code-First Java Module System Tutorial"), it is possible to think about domain boundaries at a higher level of abstraction.
+Theoretically it should be relatively painless to extract a vertical slice into a separate application when we have well defined APIs in place between modules.
 
 // Simon Brown - package by component -> poor persons Java 9 module system
 // example of package structure
