@@ -73,9 +73,6 @@ For example, if a service class inside the `service` package wants to call a met
 What's bad about having a type declared as public you might ask?
 Having it publicly accessible can be beneficial, because there might be other service layer classes that want to operate on the same repository, right?
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">When developers write novels.<br><br>Chapter 1 - Characters<br>Chapter 2 - Locations<br>Chapter 3 - Vehicles<br>Chapter 4 - Relationships<br>Chapter 5 - Plots<br>Chapter 6 - Conclusions<br>Appendix A - Twists <a href="https://t.co/8lcc27WeoA">https://t.co/8lcc27WeoA</a></p>&mdash; Richard Dalton 🇪🇺 (@richardadalton) <a href="https://twitter.com/richardadalton/status/936228404084559872?ref_src=twsrc%5Etfw">November 30, 2017</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 ### Encapsulation
 
 I'd like to take a step back and look at this from another angle.
@@ -91,6 +88,9 @@ If a hypothetical `UserRepository` was publicly accessible to all other classes,
 
 ### Everything public
 
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">When developers write novels.<br><br>Chapter 1 - Characters<br>Chapter 2 - Locations<br>Chapter 3 - Vehicles<br>Chapter 4 - Relationships<br>Chapter 5 - Plots<br>Chapter 6 - Conclusions<br>Appendix A - Twists <a href="https://t.co/8lcc27WeoA">https://t.co/8lcc27WeoA</a></p>&mdash; Richard Dalton 🇪🇺 (@richardadalton) <a href="https://twitter.com/richardadalton/status/936228404084559872?ref_src=twsrc%5Etfw">November 30, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 Designing packages by layer means that the classes that are used together the most are in different packages.
 This leads to [low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science) "Cohesion").
 Our classes *need* to be public, otherwise the layer above cannot call them.
@@ -99,7 +99,7 @@ It does not help that `public` is usually the default option when generating a n
 And when something is public, every other class can call it, meaning that it's easy to introduce architecture violations.
 Without discipline, it's easy to declare a dependency on a class that might just be an *implementation detail*.
 There's a higher risk that the system evolves into something that's difficult to change.
-Using a package by layer approach, we intentionally give away the benefits of encapsulation.
+Using a *package-by-layer* approach, we intentionally give away the benefits of encapsulation.
 
 > If all types are public, Java packages are about organisation of code rather than encapsulation
 >
@@ -139,7 +139,7 @@ Theoretically it should be relatively painless to extract a vertical slice into 
 
 ## Summary
 
-Abstraction helps us to reason about big/complex software systems (modules, components, layers etc.).
+Abstraction helps us to reason about big and complex software systems (modules, components, layers etc.).
 
 // hexagonal architecture, ports and adapters, even if you have all classes public, they all look the same, basically no architecture
 
