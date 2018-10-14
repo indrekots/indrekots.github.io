@@ -61,16 +61,20 @@ They make a complex system easier to reason about.
 In Java, we usually see layers implemented using packages.
 If you have ever worked on a Java based web application, you have probably seen it yourself.
 
+<figure class="align-center">
+  <img src="{{ '/images/2018-05-28-package-structure/package_by_layer.png' | absolute_url }}" alt="Layered architecture modelled with packages.">
+  <figcaption>Layered architecture modelled with packages. Types in each layer have to be public.</figcaption>
+</figure>
+
 Designing packages by layer is technical in nature and does not reflect the underlying domain.
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">When developers write novels.<br><br>Chapter 1 - Characters<br>Chapter 2 - Locations<br>Chapter 3 - Vehicles<br>Chapter 4 - Relationships<br>Chapter 5 - Plots<br>Chapter 6 - Conclusions<br>Appendix A - Twists <a href="https://t.co/8lcc27WeoA">https://t.co/8lcc27WeoA</a></p>&mdash; Richard Dalton 🇪🇺 (@richardadalton) <a href="https://twitter.com/richardadalton/status/936228404084559872?ref_src=twsrc%5Etfw">November 30, 2017</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 Whenever a layer above calls a layer below, we're crossing package boundaries.
 To do that, the callee needs to be `public`.
 For example, if a service class inside the `service` package wants to call a method in a repository class that's in the `repository` package, the latter needs to be public.
 What's bad about having a type declared as public you might ask?
 Having it publicly accessible can be beneficial, because there might be other service layer classes that want to operate on the same repository, right?
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">When developers write novels.<br><br>Chapter 1 - Characters<br>Chapter 2 - Locations<br>Chapter 3 - Vehicles<br>Chapter 4 - Relationships<br>Chapter 5 - Plots<br>Chapter 6 - Conclusions<br>Appendix A - Twists <a href="https://t.co/8lcc27WeoA">https://t.co/8lcc27WeoA</a></p>&mdash; Richard Dalton 🇪🇺 (@richardadalton) <a href="https://twitter.com/richardadalton/status/936228404084559872?ref_src=twsrc%5Etfw">November 30, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ### Encapsulation
 
@@ -105,8 +109,6 @@ Using a package by layer approach, we intentionally give away the benefits of en
 
 *If we stop doing package by layer, how should we structure our code?*
 Instead of creating a package for each layer (a horizontal slice), what if the top-most level of organization in code was a feature (vertical slice)?
-
-// show diagram
 
 Compared to the package-by-layer approach, classes that are used together the most are now in the same package, allowing us to design more cohesive modules.
 There's no benefit in making all classes public anymore.
