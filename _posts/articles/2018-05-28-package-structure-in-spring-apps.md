@@ -108,23 +108,23 @@ Using a package by layer approach, we intentionally give away the benefits of en
 ## Package by feature
 
 *If we stop doing package by layer, how should we structure our code?*
-Instead of creating a package for each layer (a horizontal slice), what if the top-most level of organization in code was a feature (vertical slice)?
+Instead of creating a package for each layer (a horizontal slice), what if the top-most level of organization in code was a feature (a vertical slice)?
 
 <figure class="align-center">
   <img src="{{ '/images/2018-05-28-package-structure/package_by_feature.png' | absolute_url }}" alt="Packages representing a domain concept">
   <figcaption>Slicing software vertically with domain specific packages. Layered architecture is still present but hidden from the top level view.</figcaption>
 </figure>
 
-Compared to the package-by-layer approach, classes that are used together the most are now in the same package, allowing us to design more cohesive modules.
+Compared to the *package-by-layer* approach, classes that are used together the most are now in the same package, allowing us to design more cohesive modules.
 There's no benefit in making all classes public anymore.
-As a matter of fact, we gain more from starting to create package-private classes.
+As a matter of fact, we gain more from starting to create [package-private](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html "Controlling Access to Members of a Class") classes.
 Types that are specific to a feature can be made package-private so they don't leak outside of their domain.
-On the other hand, public classes define the API of the domain their part of.
+On the other hand, public classes define the API of the package their part of.
 
 When slicing software vertically, we have better control over how classes call each other over package boundaries.
-For example, a repository class could be made package-private so that nobody from any other packages could call it directly.
-Access to a repository can be encapsulated and users can be forced to go through the public API.
-Therefore, implementation details for a feature are hidden from the outside world.
+For example, a repository class could be made package-private so that nobody from any other package could call it directly.
+Access to a repository can be encapsulated and callers can be forced to go through the public API.
+Therefore, implementation details of a feature are hidden from the outside world.
 Layered architecture could still exist inside a package but [layering in general becomes an implementation detail](http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/ "Whoops! Where did my architecture go").
 
 > So what does the architecture of your application scream? When you look at the top level directory structure, and the source files in the highest level package; do they scream: **Health Care System**, or **Accounting System**, or **Inventory Management System**? Or do they scream: **Rails**, or **Spring/Hibernate**, or **ASP**?
@@ -133,12 +133,9 @@ Layered architecture could still exist inside a package but [layering in general
 
 Packages could be designed around [Domain Driven Design](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215 "Domain-Driven Design: Tackling Complexity in the Heart of Software") [aggregates](https://martinfowler.com/bliki/DDD_Aggregate.html "DDD_Aggregate").
 When it makes sense, vertical slices can become [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html "BoundedContext").
-If you see a need, they could be extracted into a separate Maven module.
+If you see a need, they could be extracted into a separate [Maven module](https://maven.apache.org/guides/mini/guide-multiple-modules.html "Guide to Working with Multiple Modules").
 With the advent of [the Java Module System](https://blog.codefx.org/java/java-module-system-tutorial/ "Code-First Java Module System Tutorial"), it is possible to think about domain boundaries at a higher level of abstraction.
 Theoretically it should be relatively painless to extract a vertical slice into a separate application when we have well defined APIs in place between modules.
-
-// Simon Brown - package by component -> poor persons Java 9 module system
-// example of package structure
 
 ## Summary
 
