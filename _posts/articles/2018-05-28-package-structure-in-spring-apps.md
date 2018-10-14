@@ -110,6 +110,11 @@ Using a package by layer approach, we intentionally give away the benefits of en
 *If we stop doing package by layer, how should we structure our code?*
 Instead of creating a package for each layer (a horizontal slice), what if the top-most level of organization in code was a feature (vertical slice)?
 
+<figure class="align-center">
+  <img src="{{ '/images/2018-05-28-package-structure/package_by_feature.png' | absolute_url }}" alt="Packages representing a domain concept">
+  <figcaption>Slicing software vertically with domain specific packages. Layered architecture is still present but hidden from the top level view.</figcaption>
+</figure>
+
 Compared to the package-by-layer approach, classes that are used together the most are now in the same package, allowing us to design more cohesive modules.
 There's no benefit in making all classes public anymore.
 As a matter of fact, we gain more from starting to create package-private classes.
