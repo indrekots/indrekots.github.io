@@ -139,16 +139,24 @@ Theoretically it should be relatively painless to extract a vertical slice into 
 
 ## Summary
 
-Abstraction helps us to reason about big and complex software systems (modules, components, layers etc.).
+Abstraction helps us to reason about big and complex software systems.
+In Java web applications, we usually see that the first level of abstraction are layers implemented with packages.
+[As the application grows, layers become more complex and further modularization might be needed](https://martinfowler.com/bliki/PresentationDomainDataLayering.html "PresentationDomainDataLayering").
+Creating a package for each layer might not be the best approach anymore because we lose the benefits of encapsulation that packages can provide.
+*Package-by-layer* approach forces us to create public classes.
+As a result it's easy to introduce architecture violations because every part of the system can access public classes.
 
-// hexagonal architecture, ports and adapters, even if you have all classes public, they all look the same, basically no architecture
+Instead of decomposing software systems along technical lines, what if we decomposed software into domain specific modules?
+Creating packages by feature allows us to hide classes from other parts of the system that don't need to know about them.
+We're benefitting from encapsulation and can enforce how modules should talk to each other.
 
-Where do I start?
-// Stop making every class public - Simon Brown
+Coming up with module boundaries is a difficult task where one might have to redraw the boundaries multiple times before settling on a solution that feels right.
+Layered architecture using packages is usually a simpler starting point and perhaps that's one of the reasons we see it more.
+Packages are also not the perfect tool to design modules.
+Hopefully the Java module system can help us here.
 
-Let software design come to life using software cells - Ralf Westphal -> compared the OSI network 7 layers with layered software architecture, OSI layering, each layer adds an additional level of abstraction, software layers are completely separate
+*Where do I start?*
 
-Don't try to decompose your system along technical lines, decompose it along the usage/domain
-
-coming up with module boundaries is hard, layered architecture is a simple starting point (M. Fowler)
-Java 9 modules
+> Stop making every class public
+>
+> <footer><strong>Simon Brown</strong> &mdash; <a href="https://www.youtube.com/watch?v=kbKxmEeuvc4">Modular monoliths</a></footer>
