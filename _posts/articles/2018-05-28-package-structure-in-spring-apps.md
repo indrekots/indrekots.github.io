@@ -15,13 +15,13 @@ published: false
 aging: false
 ---
 
-If you've ever worked on a typical [Spring web application](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html "Spring Web MVC"), most likely you have seen the following top level packages (or something similar).
+If you've ever worked on a typical [Spring web application](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html "Spring Web MVC"), most likely you have seen the following top level packages.
 
 {% highlight text %}
 .
-├── controller - web stuff
-├── service - "business" stuff
-└── repository - database stuff
+├── controller
+├── service
+└── repository
 {% endhighlight %}
 
 This clearly indicates that a [layered architecture is used](https://en.wikipedia.org/wiki/Multitier_architecture#Three-tier_architecture "Three-tier architecture").
@@ -33,13 +33,13 @@ And finally, `repository` contains data access functionality.
   <figcaption>Classes are grouped like cutlery on a tray. <a href="https://unsplash.com/photos/yw3UaP-5ybM">Image by Jarosław Ceborski</a></figcaption>
 </figure>
 
-From a technical perspective, this separation makes sense.
-It's a widely used approach that's familiar to many software developers.
 Packages are grouped like cutlery on a tray.
 Controllers, services and repositories are in separate packages the same way knives, forks and spoons are in their respective containers.
-But is it a good approach to structure software?
-Should layers in Java be modelled with packages?
-Are there any alternatives?
+It's a widely used approach that's familiar to many software developers.
+But have you ever questioned why do we treat layers with such importance that they get a package named after them?
+Perhaps this is a [cargo cult](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo cult programming")?  
+What if layers were moved to the background and the top level structure of our software looked different?
+Let's explore the ideas around layers and packages in this post.
 
 ## Quick recap of packages
 
