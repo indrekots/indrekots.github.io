@@ -38,20 +38,19 @@ It's a widely used approach that's familiar to many software developers.
 But have you ever questioned why do we build applications this way?
 Why do we treat layers with such importance that they get a package named after them?
 Perhaps this is a [cargo cult](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo cult programming")?
-In this post we're going to explore the ideas around what would happen if layers were not the topmost level of organization in an application architecture. 
+In this post we're going to explore the ideas around what would happen if layers were not the topmost level of organization in an application architecture.
 
 ## Quick recap of packages
 
 In Java, [packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html "Creating and Using Packages") can be used for the following
 
 1. Oranizing classes into logical groups
-2. Namespace classes to avoiding naming conflicts. If we have two types with the same name, we can put them into separate packages which gives them a distinct fully qualified name.
+2. Namespace classes to avoiding naming conflicts
 3. Encapsulation
 
 In my opinion, using packages as a tool to achieve encapsulation is the least used function of the three.
 Packages are more than just folders on disk that organize classes the way you might organize your photo collection.
 They can be used to define boundaries in code and hide classes from other parts of the system that don't need to know about them.
-More on that later.
 
 ## Package by layer
 
