@@ -11,7 +11,7 @@ image:
   creditlink: https://unsplash.com/photos/ZzApzgh5lxo
 comments: true
 share: true
-published: false
+published: true
 aging: false
 ---
 
@@ -25,21 +25,20 @@ If you've ever worked on a typical [Spring web application](https://docs.spring.
 {% endhighlight %}
 
 This clearly indicates that a [layered architecture is used](https://en.wikipedia.org/wiki/Multitier_architecture#Three-tier_architecture "Three-tier architecture").
-We have a package for controllers that accept incoming HTTP requests. `service` package includes classes that deal with application specific business logic.
-And finally, `repository` contains data access functionality.
+We have a package for controllers that accept incoming HTTP requests. `service` package includes classes that deal with application logic and finally, `repository` contains data access functionality.
 
 <figure class="align-center">
   <img src="{{ '/images/2018-05-28-package-structure/groups.jpg' | absolute_url }}" alt="">
   <figcaption>Classes are grouped like cutlery on a tray. <a href="https://unsplash.com/photos/yw3UaP-5ybM">Image by Jarosław Ceborski</a></figcaption>
 </figure>
 
-Packages are grouped like cutlery on a tray.
+Classes are grouped like cutlery on a tray.
 Controllers, services and repositories are in separate packages the same way knives, forks and spoons are in their respective containers.
 It's a widely used approach that's familiar to many software developers.
-But have you ever questioned why do we treat layers with such importance that they get a package named after them?
-Perhaps this is a [cargo cult](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo cult programming")?  
-What if layers were moved to the background and the top level structure of our software looked different?
-Let's explore the ideas around layers and packages in this post.
+But have you ever questioned why do we build applications this way?
+Why do we treat layers with such importance that they get a package named after them?
+Perhaps this is a [cargo cult](https://en.wikipedia.org/wiki/Cargo_cult_programming "Cargo cult programming")?
+In this post we're going to explore the ideas around what would happen if layers were not the topmost level of organization in an application architecture. 
 
 ## Quick recap of packages
 
