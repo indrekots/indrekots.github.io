@@ -142,7 +142,7 @@ Abstraction helps us to reason about big and complex software systems.
 In Java web applications, we usually see that the first level of abstraction are layers implemented with packages.
 [As the application grows, layers become more complex and further modularization might be needed](https://martinfowler.com/bliki/PresentationDomainDataLayering.html "PresentationDomainDataLayering").
 Creating a package for each layer might not be the best approach anymore because we lose the benefits of encapsulation that packages can provide.
-*Package-by-layer* approach forces us to create public classes.
+*Package-by-layer* approach forces us to create classes that are public.
 As a result it's easy to introduce architecture violations because every part of the system can access public classes.
 
 Instead of decomposing software systems along technical lines, what if we decomposed software into domain specific modules?
@@ -158,4 +158,4 @@ Hopefully the Java module system can help us here.
 
 > Stop making every class public
 >
-> <footer><strong>Simon Brown</strong> &mdash; <a href="https://www.youtube.com/watch?v=kbKxmEeuvc4">Modular monoliths</a></footer>
+> <footer><strong>Simon Brown</strong> &mdash; <a href="https://youtu.be/kbKxmEeuvc4?t=3054">Modular monoliths</a></footer>
