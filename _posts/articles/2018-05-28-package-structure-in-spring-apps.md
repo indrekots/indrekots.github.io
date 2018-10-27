@@ -107,7 +107,7 @@ Using a *package-by-layer* approach, we intentionally give away the benefits of 
 ## Package by feature
 
 *If we stop doing package by layer, how should we structure our code?*
-Instead of creating a package for each layer (a horizontal slice), what if the top-most level of organization in code was a feature (a vertical slice)?
+Instead of creating a package for each layer (a horizontal slice), what if the topmost level of organization in code was a feature (a vertical slice)?
 
 <figure class="align-center">
   <img src="{{ '/images/2018-05-28-package-structure/package_by_feature.png' | absolute_url }}" alt="Packages representing a domain concept">
