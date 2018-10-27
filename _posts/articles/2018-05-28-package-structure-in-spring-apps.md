@@ -55,7 +55,7 @@ They can be used to define boundaries in code and hide classes from other parts 
 ## Package by layer
 
 The first chapter of [Patterns of Enterprise Application Architecture by Martin Fowler](https://www.amazon.com/Patterns-Enterprise-Application-Architecture-Martin/dp/0321127420) says that layering is one of the most common techniques that software designers use to break apart a complicated software system.
-They make a complex system easier to reason about.
+They make a intricate system easier to reason about.
 In Java, we usually see layers implemented using packages.
 If you have ever worked on a Java based web application, you have probably seen it yourself.
 
@@ -68,12 +68,13 @@ Designing packages by layer is technical in nature and does not reflect the unde
 Whenever a layer above calls a layer below, we're crossing package boundaries.
 To do that, the callee needs to be `public`.
 For example, if a service class inside the `service` package wants to call a method in a repository class that's in the `repository` package, the latter needs to be public.
+
 What's bad about having a type declared as public you might ask?
-Having it publicly accessible can be beneficial, because there might be other service layer classes that want to operate on the same repository, right?
+Having it publicly accessible could be beneficial, because there might be other service layer classes that want to operate on the same repository, right?
+Before giving an answer, I'd like to take a step back and talk about encapsulation.
 
 ### Encapsulation
 
-I'd like to take a step back and look at this from another angle.
 When we design a class, we need to consider what parts of it to hide and what to make `public`.
 Essentially, we're using [access modifiers](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html "Controlling Access to Members of a Class") to [hide the inner workings of a class from the outside world](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
 We don't want anybody to freely access the private parts of our class because (a) we want to hide complexity and (b) have the freedom the change implementation details without having the entire world know about it.
