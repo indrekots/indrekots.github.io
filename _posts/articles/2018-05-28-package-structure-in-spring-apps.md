@@ -95,14 +95,14 @@ This leads to [low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_sc
 Our classes *need* to be public, otherwise the layer above cannot call them.
 When you think about it, we've hardwired ourselves to always use the `public` access modifier when creating a new class.
 It does not help that `public` is usually the default option when generating a new class via an IDE.
-And when something is public, every other class can call it, meaning that it's easy to introduce architecture violations.
-Without discipline, it's easy to declare a dependency on a class that might just be an *implementation detail*.
+And when something is public, every other class can call it.
+Without discipline, it's easy to introduce architecture violations by declaring a dependency on a class that might just be an *implementation detail*.
 There's a higher risk that the system evolves into something that's difficult to change.
 Using a *package-by-layer* approach, we intentionally give away the benefits of encapsulation.
 
 > If all types are public, Java packages are about organisation of code rather than encapsulation
 >
-> <footer><strong>Simon Brown</strong> &mdash; <a href="https://www.youtube.com/watch?v=kbKxmEeuvc4">Modular monoliths</a></footer>
+> <footer><strong>Simon Brown</strong> &mdash; <a href="https://youtu.be/kbKxmEeuvc4?t=1928">Modular monoliths</a></footer>
 
 ## Package by feature
 
