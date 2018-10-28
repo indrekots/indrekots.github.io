@@ -124,7 +124,7 @@ When slicing software vertically, we have better control over how classes call e
 For example, a repository class could be made package-private so that nobody from any other package could call it directly.
 Access to a repository can be encapsulated and callers can be forced to go through the public API.
 Therefore, implementation details of a feature are hidden from the outside world.
-Layered architecture could still exist inside a package but [layering in general becomes an implementation detail](http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/ "Whoops! Where did my architecture go").
+Layered architecture could still exist inside a package but [layering in general becomes an implementation detail](http://www.javapractices.com/topic/TopicAction.do?Id=205 "Package by feature, not layer").
 
 > So what does the architecture of your application scream? When you look at the top level directory structure, and the source files in the highest level package; do they scream: **Health Care System**, or **Accounting System**, or **Inventory Management System**? Or do they scream: **Rails**, or **Spring/Hibernate**, or **ASP**?
 >
