@@ -55,7 +55,7 @@ They can be used to define boundaries in code and hide classes from other parts 
 ## Package by layer
 
 The first chapter of [Patterns of Enterprise Application Architecture by Martin Fowler](https://www.amazon.com/Patterns-Enterprise-Application-Architecture-Martin/dp/0321127420) says that layering is one of the most common techniques that software designers use to break apart a complicated software system.
-They make a intricate system easier to reason about.
+They make an intricate system easier to reason about.
 In Java, we usually see layers implemented using packages.
 If you have ever worked on a Java based web application, you have probably seen it yourself.
 
