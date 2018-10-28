@@ -2,9 +2,9 @@
 layout: post
 title: "Package structure in Spring apps"
 excerpt: Often times in Java web applications we see that the package structure indicates that a layered architecture is used. In this post we're going to explore the ideas around what would happen if layers were not the topmost level of organization in an application architecture.
-modified: 2018-05-28 18:56:18 +0300
+modified: 2018-10-28 18:56:18 +0300
 categories: articles
-tags: [spring, java]
+tags: [java, package, architecture, layer, spring]
 image:
   feature: 2018-05-28-package-structure/cover.jpg
   credit: Rubén Bagüés
