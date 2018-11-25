@@ -6,9 +6,7 @@ modified: 2017-01-14 13:13:48 +0200
 categories: articles
 tags: [java, spring, spring boot, configuration]
 image:
-  feature: 2016-12-31-externalized-configuration-in-spring-boot/cover.jpg
-  credit:
-  creditlink:
+  path: /images/2016-12-31-externalized-configuration-in-spring-boot/cover.jpg
 comments: true
 share: true
 published: true

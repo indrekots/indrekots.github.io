@@ -6,9 +6,8 @@ modified: 2016-08-25 14:39:19 +0300
 categories: articles
 tags: [java, java 8, streams]
 image:
-  feature: 2016-08-25-java-8-streams-an-introduction-the-get-you-up-and-running/cover.jpg
-  credit: Ales Krivec
-  creditlink: https://unsplash.com/photos/tB-1h16ganU
+  path: /images/2016-08-25-java-8-streams-an-introduction-the-get-you-up-and-running/cover.jpg
+  caption: "Photo by [Ales Krivec](https://unsplash.com/photos/tB-1h16ganU)"
 comments: true
 share: true
 published: false

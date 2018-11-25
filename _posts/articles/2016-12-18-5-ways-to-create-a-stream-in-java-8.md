@@ -6,9 +6,8 @@ modified: 2016-12-18 20:18:17 +0200
 categories: articles
 tags: [java, java 8, streams api]
 image:
-    feature: 2016-12-12-5-ways-to-create-a-stream-in-java-8/cover.jpg
-    credit: Ales Krivec
-    creditlink: https://unsplash.com/photos/tB-1h16ganU
+  path: /images/2016-12-12-5-ways-to-create-a-stream-in-java-8/cover.jpg
+  caption: "Photo by [Ales Krivec](https://unsplash.com/photos/tB-1h16ganU)"
 comments: true
 share: true
 published: true

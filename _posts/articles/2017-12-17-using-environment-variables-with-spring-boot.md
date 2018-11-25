@@ -6,9 +6,8 @@ modified: 2017-12-17 07:17:09 +0200
 categories: articles
 tags: [spring, spring boot, java]
 image:
-  feature: 2017-12-17-using-environment-variables-with-spring-boot/cover.jpg
-  credit: Gustavo Quepón
-  creditlink: https://unsplash.com/photos/pF_2lrjWiJE
+  path: /images/2017-12-17-using-environment-variables-with-spring-boot/cover.jpg
+  caption: "Photo by [Gustavo Quepón](https://unsplash.com/photos/pF_2lrjWiJE)"
 comments: true
 share: true
 published: true

@@ -6,9 +6,8 @@ modified: 2015-11-12 18:17:27 +0200
 categories: articles
 tags: [java 8, java, lambda, functional programming]
 image:
-  feature: 2015-11-01-java-8-lambda-expressions/cover.jpg
-  credit: SamReidn
-  creditlink: https://www.reddit.com/r/wallpapers/comments/ydx2p/an_abstract_lambda_wallpaper/
+  path: /images/2015-11-01-java-8-lambda-expressions/cover.jpg
+  caption: "[SamReidn](https://www.reddit.com/r/wallpapers/comments/ydx2p/an_abstract_lambda_wallpaper/)"
 comments: true
 share: true
 published: true

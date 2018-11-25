@@ -6,9 +6,7 @@ modified: 2016-09-20 16:17:38 +0200
 categories: articles
 tags: [ssh, chromium, chrome, git, mtu, ifconfig]
 image:
-  feature: 2016-09-19-err-empty-response-and-ssh-not-working/cover.png
-  credit:
-  creditlink:
+  path: /images/2016-09-19-err-empty-response-and-ssh-not-working/cover.png
 comments: true
 share: true
 published: true

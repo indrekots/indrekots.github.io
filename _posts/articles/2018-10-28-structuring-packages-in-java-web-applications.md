@@ -6,9 +6,8 @@ modified: 2018-10-28 18:56:18 +0300
 categories: articles
 tags: [java, package, architecture, layer, spring]
 image:
-  feature: 2018-05-28-package-structure/cover.jpg
-  credit: Rubén Bagüés
-  creditlink: https://unsplash.com/photos/ZzApzgh5lxo
+  path: /images/2018-05-28-package-structure/cover.jpg
+  caption: "Photo by [Rubén Bagüés](https://unsplash.com/photos/ZzApzgh5lxo)"
 comments: true
 share: true
 published: true

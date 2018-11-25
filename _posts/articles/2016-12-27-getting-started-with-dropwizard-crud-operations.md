@@ -6,16 +6,16 @@ modified: 2016-12-27 20:01:18 +0200
 categories: articles
 tags: [dropwizard, crud, back-end, rest, java, jersey]
 image:
-  feature: 2016-12-27-getting-started-with-dropwizard-crud-operations/cover.jpg
-  credit: Greg Rakozy
-  creditlink: https://unsplash.com/collections/135671/magical?photo=oMpAz-DN-9I
+  path: /images/2016-12-27-getting-started-with-dropwizard-crud-operations/cover.jpg
+  caption: "Photo by [Greg Rakozy](https://unsplash.com/collections/135671/magical?photo=oMpAz-DN-9I)"
 comments: true
 share: true
 published: true
 aging: true
 canonical-url: https://www.sitepoint.com/tutorial-getting-started-dropwizard-crud/
 ---
-*This article was originally published on [SitePoint](https://www.sitepoint.com/tutorial-getting-started-dropwizard-crud/) on December 12, 2016. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").*
+This article was originally published on [SitePoint](https://www.sitepoint.com/tutorial-getting-started-dropwizard-crud/) on December 12, 2016. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").
+{: .notice--info}
 
 [Dropwizard](http://www.dropwizard.io/ "Dropwizard homepage") is a Java framework for building RESTful web services.
 In essence, it is a *glue* framework which bundles together popular and battle-tested Java libraries and frameworks to make it easier to start building new RESTful web services.

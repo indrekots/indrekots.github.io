@@ -6,9 +6,8 @@ modified: 2016-06-08 18:09:12 +0300
 categories: articles
 tags: [ansible, vagrant, provisioning]
 image:
-  feature: 2016-05-28-ansible-skipping-localhost-when-using-vagrant/cover.jpg
-  credit: https://www.vagrantup.com
-  creditlink: https://www.vagrantup.com/assets/images/vagrant_header_background-482a12a7.png
+  path: /images/2016-05-28-ansible-skipping-localhost-when-using-vagrant/cover.jpg
+  caption: "[www.vagrantup.com](https://www.vagrantup.com/assets/images/vagrant_header_background-482a12a7.png)"
 comments: true
 share: true
 published: true

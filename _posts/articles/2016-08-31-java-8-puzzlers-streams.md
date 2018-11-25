@@ -6,9 +6,7 @@ modified: 2016-08-31 18:42:50 +0300
 categories: articles
 tags: [java, java 8, stream, puzzler]
 image:
-  feature: 2016-08-31-java-8-puzzlers-streams/cover.jpg
-  credit:
-  creditlink:
+  path: /images/2016-08-31-java-8-puzzlers-streams/cover.jpg
 comments: true
 share: true
 published: true

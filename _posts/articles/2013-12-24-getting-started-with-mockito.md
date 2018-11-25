@@ -6,9 +6,8 @@ modified: 2013-12-24 13:01:32 +0300
 categories: articles
 tags: [java, mock, stub, mockito, testing, tutorial, maven, gradle]
 image:
-  feature: 2013-12-24-getting-started-with-mockito/cover.jpg
-  credit: http://mockito.org/
-  creditlink: http://mockito.org/
+  path: /images/2013-12-24-getting-started-with-mockito/cover.jpg
+  caption: "[Mockito](http://mockito.org)"
 comments: true
 share: true
 published: true

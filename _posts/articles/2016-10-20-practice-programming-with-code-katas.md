@@ -6,9 +6,8 @@ modified: 2016-10-20 14:05:22 +0200
 categories: articles
 tags: [kata, javascript, binary search, binary tree, algorithm, data structure]
 image:
-  feature: 2016-10-20-practice-programming-with-code-katas/cover.jpg
-  credit: Fervent Jan
-  creditlink: https://unsplash.com/search/martial-art?photo=kKLEgX-Z_O4
+  path: /images/2016-10-20-practice-programming-with-code-katas/cover.jpg
+  caption: "Photo by [Fervent Jan](https://unsplash.com/search/martial-art?photo=kKLEgX-Z_O4)"
 comments: true
 share: true
 published: true

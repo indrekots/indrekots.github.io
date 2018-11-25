@@ -6,9 +6,7 @@ modified: 2016-04-12 21:44:00 +0300
 categories: articles
 tags: [ansible, sugarcrm, configuration management, deployment]
 image:
-  feature: 2016-04-12-using-ansible-with-sugarcrm-7/cover.png
-  credit:
-  creditlink:
+  path: /images/2016-04-12-using-ansible-with-sugarcrm-7/cover.png
 comments: true
 share: true
 published: true

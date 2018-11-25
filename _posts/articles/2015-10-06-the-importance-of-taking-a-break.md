@@ -6,9 +6,8 @@ modified: 2015-10-06 21:31:33 +0300
 categories: articles
 tags: [break, tips, tricks, work, pomodoro, health]
 image:
-  feature: 2015-10-03-the-importance-of-taking-a-break/cover.jpg
-  credit: http://www.zealoptics.com/
-  creditlink: http://www.zealoptics.com/anton-krupicka-1
+  path: /images/2015-10-03-the-importance-of-taking-a-break/cover.jpg
+  caption: "[www.zealoptics.com](http://www.zealoptics.com/anton-krupicka-1)"
 comments: true
 share: true
 published: true

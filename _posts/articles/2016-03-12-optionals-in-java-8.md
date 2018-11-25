@@ -6,9 +6,8 @@ modified: 2018-01-20 07:16:38 +0200
 categories: articles
 tags: [java,java 8,optional,lambda,null reference]
 image:
-  feature: 2016-03-12-optionals-in-java-8/cover.jpg
-  credit: Sebastian Unrau
-  creditlink: https://unsplash.com/photos/CoD2Q92UaEg
+  path: /images/2016-03-12-optionals-in-java-8/cover.jpg
+  caption: "Photo by [Sebastian Unrau](https://unsplash.com/photos/CoD2Q92UaEg)"
 comments: true
 share: true
 published: true

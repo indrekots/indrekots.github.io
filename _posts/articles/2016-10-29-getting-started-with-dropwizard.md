@@ -6,16 +6,16 @@ modified: 2016-10-29 10:36:38 +0300
 categories: articles
 tags: [dropwizard, rest, java, web service, jersey, jackson]
 image:
-  feature: 2016-10-27-getting-started-with-dropwizard/cover.jpg
-  credit: gunshowcomic.com
-  creditlink: http://gunshowcomic.com/316
+  path: /images/2016-10-27-getting-started-with-dropwizard/cover.jpg
+  caption: "[gunshowcomic.com](http://gunshowcomic.com/316)"
 comments: true
 share: true
 published: true
 aging: true
 canonical-url: https://www.sitepoint.com/tutorial-getting-started-dropwizard/
 ---
-*This article was originally published on [SitePoint](https://www.sitepoint.com/tutorial-getting-started-dropwizard/) on October 13, 2016. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").*
+This article was originally published on [SitePoint](https://www.sitepoint.com/tutorial-getting-started-dropwizard/) on October 13, 2016. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").
+{: .notice--info}
 
 [Dropwizard](http://www.dropwizard.io) is a framework for building [RESTful](https://www.sitepoint.com/what-does-restful-really-mean/) web services in Java. In this tutorial we're going to have a look at how to get started with developing a Dropwizard application by building a new service from scratch. This article is going to cover the very basics. The goal is to implement and run a Dropwizard application which is able to respond to an HTTP GET request.
 

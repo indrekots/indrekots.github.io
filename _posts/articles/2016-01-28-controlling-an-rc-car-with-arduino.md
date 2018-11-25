@@ -6,9 +6,7 @@ modified: 2016-01-28 18:12:45 +0200
 categories: articles
 tags: [arduino, python, rc car, electronics, hardware]
 image:
-  feature: 2016-01-23-controlling-an-rc-car-with-arduino/cover.jpg
-  credit:
-  creditlink:
+  path: /images/2016-01-23-controlling-an-rc-car-with-arduino/cover.jpg
 comments: true
 share: true
 published: true

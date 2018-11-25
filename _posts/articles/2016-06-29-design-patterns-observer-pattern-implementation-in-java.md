@@ -6,9 +6,8 @@ modified: 2016-06-29 14:36:56 +0300
 categories: articles
 tags: [design pattern, java, observer, publish-subscribe, loose coupling]
 image:
-  feature: 2016-06-21-design-patterns-observer-pattern-implementation-in-java/cover.jpg
-  credit: suwalls.com
-  creditlink: https://suwalls.com/vector/who-observes-the-observer-28727/
+  path: /images/2016-06-21-design-patterns-observer-pattern-implementation-in-java/cover.jpg
+  caption: "[suwalls.com](https://suwalls.com/vector/who-observes-the-observer-28727/)"
 comments: true
 share: true
 published: true

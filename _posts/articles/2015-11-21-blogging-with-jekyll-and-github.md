@@ -6,9 +6,8 @@ modified: 2015-11-21 10:42:19 +0300
 categories: articles
 tags: [jekyll, github, git, blog, blogging, markdown, ruby, YAML, wordpress]
 image:
-  feature: 2015-11-14-blogging-with-jekyll-and-github/cover.jpg
-  credit: https://jekyllrb.com/
-  creditlink: https://jekyllrb.com/
+  path: /images/2015-11-14-blogging-with-jekyll-and-github/cover.jpg
+  caption: "[jekyllrb.com](https://jekyllrb.com/)"
 comments: true
 share: true
 published: true

@@ -6,9 +6,8 @@ modified: 2015-09-27 19:25:14 +0300
 categories: articles
 tags: [raspberry pi, ssh, linux, rdp, windows server, tunneling, networking]
 image:
-  feature: 2015-09-27-setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi-part-2/cover.jpg
-  credit: http://wallpaperstock.net/
-  creditlink: http://wallpaperstock.net/tunnel-in-zurich_wallpapers_27851_1280x800_1.html
+  path: /images/2015-09-27-setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi-part-2/cover.jpg
+  caption: "[wallpaperstock.net/](http://wallpaperstock.net/tunnel-in-zurich_wallpapers_27851_1280x800_1.html)"
 comments: true
 share: true
 published: true

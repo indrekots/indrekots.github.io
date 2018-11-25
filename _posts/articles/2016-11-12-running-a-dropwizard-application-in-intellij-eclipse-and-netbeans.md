@@ -6,9 +6,8 @@ modified: 2016-11-12 16:33:22 +0200
 categories: articles
 tags: [intellij, eclipse, netbeans, dropwizard, java]
 image:
-  feature: 2016-11-09-running-a-dropwizard-application-inside-intellij-eclipse-and-netbeans/cover.jpg
-  credit: Farzad Nazifi
-  creditlink: https://unsplash.com/photos/p-xSl33Wxyc
+  path: /images/2016-11-09-running-a-dropwizard-application-inside-intellij-eclipse-and-netbeans/cover.jpg
+  caption: "Photo by [Farzad Nazifi](https://unsplash.com/photos/p-xSl33Wxyc)"
 comments: true
 share: true
 published: true

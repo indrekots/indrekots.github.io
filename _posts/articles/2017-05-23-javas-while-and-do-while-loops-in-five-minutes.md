@@ -6,16 +6,16 @@ modified: 2017-05-23 07:34:40 +0300
 categories: articles
 tags: [java, basics, loop]
 image:
-  feature: 2017-05-23-javas-while-and-do-while-loops-in-five-minutes/cover.jpg
-  credit: Claire Satera
-  creditlink: https://unsplash.com/@daisybisley?photo=0lk4hww7pdo
+  path: /images/2017-05-23-javas-while-and-do-while-loops-in-five-minutes/cover.jpg
+  caption: "Photo by [Claire Satera](https://unsplash.com/@daisybisley?photo=0lk4hww7pdo)"
 comments: true
 share: true
 published: true
 aging: false
 canonical-url: https://www.sitepoint.com/javas-while-and-do-while-loops-tutorial/
 ---
-*This article was originally published on [SitePoint](https://www.sitepoint.com/javas-while-and-do-while-loops-tutorial/) on April 26, 2017. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").*
+This article was originally published on [SitePoint](https://www.sitepoint.com/javas-while-and-do-while-loops-tutorial/) on April 26, 2017. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").
+{: .notice--info}
 
 A while loop is a [control flow](https://en.wikipedia.org/wiki/Control_flow) statement that allows us to run a piece of code multiple times. Like loops in general, a `while` loop can be used to repeat an action as long as a condition is met. The structure of Java's while loop is very similar to a conditional statement in the sense that they both check a boolean expression and maybe execute some code.
 

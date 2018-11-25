@@ -6,16 +6,16 @@ modified: 2017-03-23 20:12:07 +0200
 categories: articles
 tags: [java, control flow, conditional]
 image:
-  feature: 2017-03-23-javas-if-statement-in-five-minutes/cover.jpg
-  credit: Martin Sanchez
-  creditlink: https://unsplash.com/@mzeketv?photo=QhnC70oIVWQ
+  path: /images/2017-03-23-javas-if-statement-in-five-minutes/cover.jpg
+  caption: "Photo by [Martin Sanchez](https://unsplash.com/@mzeketv?photo=QhnC70oIVWQ)"
 comments: true
 share: true
 published: true
 aging: false
 canonical-url: https://www.sitepoint.com/javas-if-statement-tutorial/
 ---
-*This article was originally published on [SitePoint](https://www.sitepoint.com/javas-if-statement-tutorial/) on March 8, 2017. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").*
+This article was originally published on [SitePoint](https://www.sitepoint.com/javas-if-statement-tutorial/) on March 8, 2017. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").
+{: .notice--info}
 
 Conditional statements are fundamental for [imperative programming](https://en.wikipedia.org/wiki/Imperative_programming "Imperative programming") languages, including Java. They're used to instruct a program to act differently based on whether something is true or false. Java's `if` statement is the most basic conditional statement - it evaluates a boolean expression and executes code based on its outcome.
 

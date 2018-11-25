@@ -6,9 +6,8 @@ modified: 2018-01-20 19:50:50 +0200
 categories: articles
 tags: [java, java 8, optional, lambda, functional programming]
 image:
-  feature: 2016-03-26-chaining-optionals-in-java-8/cover.jpg
-  credit: http://www.birthinjuryjustice.org/chain-command/
-  creditlink: http://www.birthinjuryjustice.org/wp-content/uploads/2014/11/Chain.jpg
+  path: /images/2016-03-26-chaining-optionals-in-java-8/cover.jpg
+  caption: "[www.birthinjuryjustice.org](http://www.birthinjuryjustice.org/wp-content/uploads/2014/11/Chain.jpg)"
 comments: true
 share: true
 published: true

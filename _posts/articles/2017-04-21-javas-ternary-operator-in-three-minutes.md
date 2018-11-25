@@ -6,16 +6,16 @@ modified: 2017-04-21 08:29:28 +0300
 categories: articles
 tags: [java, conditional, control flow]
 image:
-  feature: 2017-04-21-javas-ternary-operator-in-three-minutes/cover.jpg
-  credit: Scott Webb
-  creditlink: https://unsplash.com/@scottwebb?photo=YBwPrBiccX4
+  path: /images/2017-04-21-javas-ternary-operator-in-three-minutes/cover.jpg
+  caption: "Photo by [Scott Webb](https://unsplash.com/@scottwebb?photo=YBwPrBiccX4)"
 comments: true
 share: true
 published: true
 aging: false
 canonical-url: https://www.sitepoint.com/java-ternary-operator/
 ---
-*This article was originally published on [SitePoint](https://www.sitepoint.com/java-ternary-operator/) on March 22, 2017. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").*
+This article was originally published on [SitePoint](https://www.sitepoint.com/java-ternary-operator/) on March 22, 2017. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").
+{: .notice--info}
 
 The ternary operator is a form of [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar "Syntactic Sugar") for `if`-then-`else` statements.
 It is also known as the conditional operator, which is perhaps a more meaningful name because it evaluates conditions like `if` does.

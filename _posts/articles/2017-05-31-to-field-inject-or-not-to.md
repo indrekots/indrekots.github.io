@@ -6,9 +6,8 @@ modified: 2017-05-31 22:22:57 +0200
 categories: articles
 tags: [java, spring, autowire, inject, dependency injection]
 image:
-  feature: 2017-05-31-to-field-inject-or-not-to/cover.jpg
-  credit: Pauline Tayag
-  creditlink: https://unsplash.com/@3amcoffeebuns?photo=j3SZYtfIjLM
+  path: /images/2017-05-31-to-field-inject-or-not-to/cover.jpg
+  caption: "Photo by [Pauline Tayag](https://unsplash.com/@3amcoffeebuns?photo=j3SZYtfIjLM)"
 comments: true
 share: true
 published: true
