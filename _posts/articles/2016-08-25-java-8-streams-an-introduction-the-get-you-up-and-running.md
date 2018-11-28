@@ -7,6 +7,7 @@ categories: articles
 tags: [java, java 8, streams]
 image:
   path: /images/2016-08-25-java-8-streams-an-introduction-the-get-you-up-and-running/cover.jpg
+  thumbnail: /images/2016-08-25-java-8-streams-an-introduction-the-get-you-up-and-running/cover_thumb.jpg
   caption: "Photo by [Ales Krivec](https://unsplash.com/photos/tB-1h16ganU)"
 comments: true
 share: true

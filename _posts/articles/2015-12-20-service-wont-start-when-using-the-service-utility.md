@@ -7,6 +7,7 @@ categories: articles
 tags: [upstart, system v, service, linux, ubuntu, mule, esb, init]
 image:
   path: /images/2015-12-16-service-wont-start-when-using-the-service-utility/cover.jpg
+  thumbnail: /images/2015-12-16-service-wont-start-when-using-the-service-utility/cover_thumb.jpg
   caption: "[Pronunciation Academy](https://www.youtube.com/watch?v=PX8Ji60zwf4)"
 comments: true
 share: true

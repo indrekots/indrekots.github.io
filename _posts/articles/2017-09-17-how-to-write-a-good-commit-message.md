@@ -7,6 +7,7 @@ categories: articles
 tags: [vcs, git, version control]
 image:
   path: /images/2017-09-03-how-to-write-a-good-commit-message/cover.jpg
+  thumbnail: /images/2017-09-03-how-to-write-a-good-commit-message/cover_thumb.jpg
   caption: "Photo by [Cathryn Lavery](https://unsplash.com/@cathrynlavery?photo=fMD_Cru6OTk)"
 comments: true
 share: true

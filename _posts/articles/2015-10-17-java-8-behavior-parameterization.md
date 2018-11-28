@@ -7,6 +7,7 @@ categories: articles
 tags: [java 8, java, predicate, function, streams, lambda, lambdaj, guava, retrolambda]
 image:
   path: /images/2015-10-17-java-8-behavior-parameterization/cover.jpg
+  thumbnail: /images/2015-10-17-java-8-behavior-parameterization/cover_thumb.jpg
   caption: "[deviantart.com](http://xtom.deviantart.com/art/Lambda-28926886)"
 comments: true
 share: true

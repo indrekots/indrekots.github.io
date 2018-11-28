@@ -7,6 +7,7 @@ categories: articles
 tags: [java, basics, loop]
 image:
   path: /images/2017-05-23-javas-while-and-do-while-loops-in-five-minutes/cover.jpg
+  thumbnail: /images/2017-05-23-javas-while-and-do-while-loops-in-five-minutes/cover_thumb.jpg
   caption: "Photo by [Claire Satera](https://unsplash.com/@daisybisley?photo=0lk4hww7pdo)"
 comments: true
 share: true

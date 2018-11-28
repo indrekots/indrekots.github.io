@@ -7,6 +7,7 @@ categories: articles
 tags: [java, java 8, multithreading, i/0]
 image:
   path: /images/2016-04-04-java-8-completablefuture/cover.jpg
+  thumbnail: /images/2016-04-04-java-8-completablefuture/cover_thumb.jpg
   caption: "[thebraincandypodcast.com](http://thebraincandypodcast.com/episode-3-the-future/)"
 comments: true
 share: true

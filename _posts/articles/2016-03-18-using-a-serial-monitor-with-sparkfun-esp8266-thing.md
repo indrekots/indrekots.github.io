@@ -7,6 +7,7 @@ categories: articles
 tags: [sparkfun, esp8266, IoT, linux, arduino, SoC, gtkterm, dtr]
 image:
   path: /images/2016-03-15-using-a-serial-monitor-with-sparkfun-esp8266-thing/cover.jpg
+  thumbnail: /images/2016-03-15-using-a-serial-monitor-with-sparkfun-esp8266-thing/cover_thumb.jpg
   caption: "[www.openhomeautomation.net](https://www.openhomeautomation.net/wp-content/uploads/2015/07/thing.jpg)"
 comments: true
 share: true

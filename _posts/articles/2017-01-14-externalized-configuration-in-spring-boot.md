@@ -7,6 +7,7 @@ categories: articles
 tags: [spring, spring boot, configuration, java]
 image:
   path: /images/2016-12-31-externalized-configuration-in-spring-boot/cover.jpg
+  thumbnail: /images/2016-12-31-externalized-configuration-in-spring-boot/cover_thumb.jpg
 comments: true
 share: true
 published: true

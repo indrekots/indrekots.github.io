@@ -7,6 +7,7 @@ categories: articles
 tags: [java, unicode, compiler]
 image:
   path: /images/2016-08-11-unicode-escapes/cover.jpg
+  thumbnail: /images/2016-08-11-unicode-escapes/cover_thumb.jpg
   caption: "Photo by [Raphael Schaller](https://unsplash.com/photos/GkinCd2enIY)"
 comments: true
 share: true

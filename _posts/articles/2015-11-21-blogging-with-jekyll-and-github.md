@@ -7,6 +7,7 @@ categories: articles
 tags: [jekyll, github, git, blog, blogging, markdown, ruby, YAML, wordpress]
 image:
   path: /images/2015-11-14-blogging-with-jekyll-and-github/cover.jpg
+  thumbnail: /images/2015-11-14-blogging-with-jekyll-and-github/cover_thumb.jpg
   caption: "[jekyllrb.com](https://jekyllrb.com/)"
 comments: true
 share: true

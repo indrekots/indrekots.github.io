@@ -7,6 +7,7 @@ categories: articles
 tags: [java, package, architecture, layer, spring]
 image:
   path: /images/2018-05-28-package-structure/cover.jpg
+  thumbnail: /images/2018-05-28-package-structure/cover_thumb.jpg
   caption: "Photo by [Rubén Bagüés](https://unsplash.com/photos/ZzApzgh5lxo)"
 comments: true
 share: true

@@ -7,6 +7,7 @@ categories: articles
 tags: [java, java 9, optional]
 image:
   path: /images/2018-01-14-improvements-to-optional-in-java-9/cover.jpg
+  thumbnail: /images/2018-01-14-improvements-to-optional-in-java-9/cover_thumb.jpg
   caption: "Photo by [Matija Mestrovic](https://unsplash.com/photos/D2rJ0RlDZ58)"
 comments: true
 share: true

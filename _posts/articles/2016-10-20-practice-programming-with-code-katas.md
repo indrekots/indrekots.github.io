@@ -7,6 +7,7 @@ categories: articles
 tags: [kata, javascript, binary search, binary tree, algorithm, data structure]
 image:
   path: /images/2016-10-20-practice-programming-with-code-katas/cover.jpg
+  thumbnail: /images/2016-10-20-practice-programming-with-code-katas/cover_thumb.jpg
   caption: "Photo by [Fervent Jan](https://unsplash.com/search/martial-art?photo=kKLEgX-Z_O4)"
 comments: true
 share: true

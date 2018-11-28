@@ -7,6 +7,7 @@ categories: articles
 tags: [ssh, tunneling, raspberry pi, vpn, linux, rdp, windows]
 image:
   path: /images/2015-09-18-setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi/pi_cover.jpg
+  thumbnail: /images/2015-09-18-setting-up-a-reverse-ssh-tunnel-with-a-raspberry-pi/pi_cover_thumb.jpg
   caption: "[www.kahvel.ee](http://kahvel.ee/wp-content/uploads/2013/07/5456b7bac8c8b4f666ba66341e321ec1.jpg)"
 comments: true
 share: true

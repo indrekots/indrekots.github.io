@@ -7,6 +7,7 @@ categories: articles
 tags: [java, control flow, conditional]
 image:
   path: /images/2017-03-23-javas-if-statement-in-five-minutes/cover.jpg
+  thumbnail: /images/2017-03-23-javas-if-statement-in-five-minutes/cover_thumb.jpg
   caption: "Photo by [Martin Sanchez](https://unsplash.com/@mzeketv?photo=QhnC70oIVWQ)"
 comments: true
 share: true

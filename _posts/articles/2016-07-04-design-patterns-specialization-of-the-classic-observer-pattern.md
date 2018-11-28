@@ -7,6 +7,7 @@ categories: articles
 tags: [design pattern, java, java 8, observer, lambda]
 image:
   path: /images/2016-06-21-design-patterns-observer-pattern-implementation-in-java/cover.jpg
+  thumbnail: /images/2016-06-21-design-patterns-observer-pattern-implementation-in-java/cover_thumb.jpg
   caption: "[suwalls.com](https://suwalls.com/vector/who-observes-the-observer-28727/)"
 comments: true
 share: true

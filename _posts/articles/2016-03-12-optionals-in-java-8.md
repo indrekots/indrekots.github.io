@@ -7,6 +7,7 @@ categories: articles
 tags: [java,java 8,optional,lambda,null reference]
 image:
   path: /images/2016-03-12-optionals-in-java-8/cover.jpg
+  thumbnail: /images/2016-03-12-optionals-in-java-8/cover_thumb.jpg
   caption: "Photo by [Sebastian Unrau](https://unsplash.com/photos/CoD2Q92UaEg)"
 comments: true
 share: true

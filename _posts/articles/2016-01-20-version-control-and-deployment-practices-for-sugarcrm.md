@@ -7,6 +7,7 @@ categories: articles
 tags: [sugarcrm, vcs, version control, deployment, configuration management, ansible, php, vagrant]
 image:
   path: /images/2016-01-14-version-control-and-deployment-practices-for-sugarcrm/cover.jpg
+  thumbnail: /images/2016-01-14-version-control-and-deployment-practices-for-sugarcrm/cover_thumb.jpg
   caption: "[www.kinamu.com](http://www.kinamu.com/sites/default/files/media/pimp_my_sugar_crm_300dpi.png)"
 comments: true
 share: true

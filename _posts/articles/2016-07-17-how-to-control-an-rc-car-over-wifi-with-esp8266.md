@@ -7,6 +7,7 @@ categories: articles
 tags: [wifi, arduino, esp8266, IoT, hardware, electronics, python]
 image:
   path: /images/2016-07-11-how-to-control-an-rc-car-over-wifi/cover.jpg
+  thumbnail: /images/2016-07-11-how-to-control-an-rc-car-over-wifi/cover_thumb.jpg
 comments: true
 share: true
 published: true

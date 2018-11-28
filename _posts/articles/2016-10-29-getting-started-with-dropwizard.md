@@ -7,6 +7,7 @@ categories: articles
 tags: [dropwizard, rest, java, web service, jersey, jackson]
 image:
   path: /images/2016-10-27-getting-started-with-dropwizard/cover.jpg
+  thumbnail: /images/2016-10-27-getting-started-with-dropwizard/cover_thumb.jpg
   caption: "[gunshowcomic.com](http://gunshowcomic.com/316)"
 comments: true
 share: true

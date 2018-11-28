@@ -7,6 +7,7 @@ categories: articles
 tags: [java, java 8, optional, lambda, functional programming]
 image:
   path: /images/2016-03-26-chaining-optionals-in-java-8/cover.jpg
+  thumbnail: /images/2016-03-26-chaining-optionals-in-java-8/cover_thumb.jpg
   caption: "[www.birthinjuryjustice.org](http://www.birthinjuryjustice.org/wp-content/uploads/2014/11/Chain.jpg)"
 comments: true
 share: true

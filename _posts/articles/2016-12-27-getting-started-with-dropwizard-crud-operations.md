@@ -7,6 +7,7 @@ categories: articles
 tags: [dropwizard, crud, back-end, rest, java, jersey]
 image:
   path: /images/2016-12-27-getting-started-with-dropwizard-crud-operations/cover.jpg
+  thumbnail: /images/2016-12-27-getting-started-with-dropwizard-crud-operations/cover_thumb.jpg
   caption: "Photo by [Greg Rakozy](https://unsplash.com/collections/135671/magical?photo=oMpAz-DN-9I)"
 comments: true
 share: true

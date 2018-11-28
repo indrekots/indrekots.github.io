@@ -7,6 +7,7 @@ categories: articles
 tags: [java, fork, join, concurrency, concurrent programming, fork/join]
 image:
   path: /images/2016-02-15-the-fork-slash-join-framework-in-java/cover.jpg
+  thumbnail: /images/2016-02-15-the-fork-slash-join-framework-in-java/cover_thumb.jpg
   caption: Photo by John D. Williams
 comments: true
 share: true

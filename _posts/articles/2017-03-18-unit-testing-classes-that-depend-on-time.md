@@ -7,6 +7,7 @@ categories: articles
 tags: [java, java 8, time, clock, testing, dependency injection]
 image:
   path: /images/2017-02-26-unit-testing-classes-that-depend-on-time/cover.jpg
+  thumbnail: /images/2017-02-26-unit-testing-classes-that-depend-on-time/cover_thumb.jpg
   caption: "Photo by [Wil Stewart](https://unsplash.com/@wilstewart3?photo=tB4-ftQ4zyI)"
 comments: true
 share: true

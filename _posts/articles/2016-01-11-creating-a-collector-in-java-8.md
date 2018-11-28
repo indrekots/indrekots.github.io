@@ -7,6 +7,7 @@ categories: articles
 tags: [java, java 8, stream, collector, collect, reduce, fold]
 image:
   path: /images/2015-12-28-creating-a-collector-in-java-8/cover.jpg
+  thumbnail: /images/2015-12-28-creating-a-collector-in-java-8/cover_thumb.jpg
 comments: true
 share: true
 published: true

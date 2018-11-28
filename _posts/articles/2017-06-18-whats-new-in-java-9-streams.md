@@ -7,6 +7,7 @@ categories: articles
 tags: [java, java 9, streams]
 image:
   path: /images/2017-06-02-whats-new-in-java-9-streams/cover.jpg
+  thumbnail: /images/2017-06-02-whats-new-in-java-9-streams/cover_thumb.jpg
   caption: "Photo by [Caleb George](https://unsplash.com/@seemoris?photo=zZzKLzKP24o)"
 comments: true
 share: true

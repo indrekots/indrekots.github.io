@@ -7,6 +7,7 @@ categories: articles
 tags: [java, conditional, control flow]
 image:
   path: /images/2017-04-21-javas-ternary-operator-in-three-minutes/cover.jpg
+  thumbnail: /images/2017-04-21-javas-ternary-operator-in-three-minutes/cover_thumb.jpg
   caption: "Photo by [Scott Webb](https://unsplash.com/@scottwebb?photo=YBwPrBiccX4)"
 comments: true
 share: true

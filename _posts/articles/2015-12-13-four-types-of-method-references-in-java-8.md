@@ -7,6 +7,7 @@ categories: articles
 tags: [java, java 8, method reference, lambda, class, constructor]
 image:
   path: /images/2015-11-28-four-types-of-method-references-in-java-8/cover.jpg
+  thumbnail: /images/2015-11-28-four-types-of-method-references-in-java-8/cover_thumb.jpg
 comments: true
 share: true
 published: true
