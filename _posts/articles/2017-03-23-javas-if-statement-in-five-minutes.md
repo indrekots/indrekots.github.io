@@ -13,7 +13,7 @@ comments: true
 share: true
 published: true
 aging: false
-canonical-url: https://www.sitepoint.com/javas-if-statement-tutorial/
+canonical_url: https://www.sitepoint.com/javas-if-statement-tutorial/
 ---
 This article was originally published on [SitePoint](https://www.sitepoint.com/javas-if-statement-tutorial/) on March 8, 2017. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").
 {: .notice--info}

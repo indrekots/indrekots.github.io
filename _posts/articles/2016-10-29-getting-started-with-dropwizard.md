@@ -13,7 +13,7 @@ comments: true
 share: true
 published: true
 aging: true
-canonical-url: https://www.sitepoint.com/tutorial-getting-started-dropwizard/
+canonical_url: https://www.sitepoint.com/tutorial-getting-started-dropwizard/
 ---
 This article was originally published on [SitePoint](https://www.sitepoint.com/tutorial-getting-started-dropwizard/) on October 13, 2016. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").
 {: .notice--info}
