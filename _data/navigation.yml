@@ -1,7 +1,9 @@
 # Site navigation links
+- title: Home
+  url: /
 
-- title: Articles
-  url: /articles/
+- title: Post Archive
+  url: /posts/
 
 - title: Search
   url: /search/
