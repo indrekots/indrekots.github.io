@@ -5,10 +5,6 @@ excerpt: "You've just installed phpmyadmin from your package manager. Here's wha
 modified: 2013-04-27 19:46:11 +0300
 categories: articles
 tags: [phpmyadmin, php, ubuntu, how-to, apache]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 aging: true

@@ -12,7 +12,6 @@ image:
 comments: true
 share: true
 published: true
-aging: true
 ---
 
 Arguably one of the most noteworthy new features introduced in Java 8 was the [Streams API]({{site.url}}/articles/5-ways-to-create-a-stream-in-java-8/). It allowed developers to declaratively manipulate collections using functional style programming. Since the [release of Java 9](http://www.java9countdown.xyz/ "Countdown to Java 9 Release Date") is just around the corner, let's have a look at two new stream operations in Java 9—`takeWhile` and `dropWhile`.

@@ -5,10 +5,6 @@ excerpt: I was unable to connect to QlikView Access Point from a Linux machine. 
 modified: 2014-10-09 21:01:12 +0300
 categories: articles
 tags: [qlikview, qv, access point, ntlm, linux, ubuntu, windows]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

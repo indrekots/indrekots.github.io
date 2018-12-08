@@ -5,10 +5,6 @@ excerpt: "Here we are going to have a look at how to set up SSL on Apache Tomcat
 modified: 2013-09-03 21:37:14 +0300
 categories: articles
 tags: [SSL, Apache, Tomcat, configuration, how-to]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 aging: true

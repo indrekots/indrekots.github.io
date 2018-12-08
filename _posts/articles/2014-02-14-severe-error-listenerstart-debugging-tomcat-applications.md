@@ -5,10 +5,6 @@ excerpt: "How to debug the dreaded 'Error listenerStart' error message"
 modified: 2014-02-14 21:19:18 +0300
 categories: articles
 tags: [tomcat, java, error, logging, apache, catalina]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

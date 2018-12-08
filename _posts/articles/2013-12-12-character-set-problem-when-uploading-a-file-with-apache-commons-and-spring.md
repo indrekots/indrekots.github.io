@@ -5,10 +5,6 @@ excerpt: "Non-ASCII characters in file name get garbled when uploading a file wi
 modified: 2013-12-12 16:58:01 +0300
 categories: articles
 tags: [spring, java, ascii, apache commons, utf-8]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

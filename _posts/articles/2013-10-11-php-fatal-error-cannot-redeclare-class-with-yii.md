@@ -5,10 +5,6 @@ excerpt: "I am fairly new to PHP and Yii. Lately i struggled with a 'cannot rede
 modified: 2014-06-10 23:37:47 +0300
 categories: articles
 tags: [php, yii, error, codeception]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 aging: true

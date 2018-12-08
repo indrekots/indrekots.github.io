@@ -11,7 +11,6 @@ image:
 comments: true
 share: true
 published: true
-aging: true
 ---
 
 [Spring Boot makes is very easy to read values from an external properties file]({{site.url}}/articles/externalized-configuration-in-spring-boot/ "Externalized configuration in Spring Boot"). Without having to do any configuration, you are able to inject values to instance fields using the `@Value` annotation or using Spring's `Environment` abstraction. But both of these solutions require you to [specify the property value as a string](https://tuhrig.de/why-using-springs-value-annotation-is-bad/ "Why using Spring’s @Value annotation is bad"). Spring Boot also provides a type-safe way to handle configuration by allowing you to create a bean and populating it with property values from your configuration file.

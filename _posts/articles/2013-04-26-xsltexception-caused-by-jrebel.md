@@ -5,10 +5,6 @@ excerpt: "XsltException caused by a seemingly missing stylesheet. Turns out JReb
 modified: 2013-04-26 20:56:49 +0300
 categories: articles
 tags: [java, jrebel, windows, maven, pom.xml, rebel.xml]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 aging: true

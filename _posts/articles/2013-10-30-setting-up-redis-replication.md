@@ -5,10 +5,6 @@ excerpt: "The goal of this post is to install Redis on both of them and set up a
 modified: 2013-10-30 20:41:18 +0300
 categories: articles
 tags: [redis, replication, ubuntu, master, slave, redis-cli, redis-server]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

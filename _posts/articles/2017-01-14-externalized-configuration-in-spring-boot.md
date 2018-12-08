@@ -11,7 +11,6 @@ image:
 comments: true
 share: true
 published: true
-aging: true
 ---
 
 Externalized configuration is essential if you wish to deploy the same deployable unit to different environments without modifying the source code. I'm certain you have aspects in your program that should change based on the execution environment. For starters, common parameters that need adjusting are the database connection strings or some cache specific values. [Spring Boot](https://projects.spring.io/spring-boot/) provides several easy methods of externalizing configuration.

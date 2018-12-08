@@ -5,10 +5,6 @@ excerpt: A client of mine was unable to export data from QlikView Access Point t
 modified: 2014-09-01 21:15:12 +0300
 categories: articles
 tags: [excel, qv, qlikview, xls]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

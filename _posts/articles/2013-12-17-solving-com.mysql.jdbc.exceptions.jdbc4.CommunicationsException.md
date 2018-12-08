@@ -5,10 +5,6 @@ excerpt: "I faced a com.mysql.jdbc.exceptions.jdbc4.CommunicationsException and 
 modified: 2013-12-17 17:23:11 +0300
 categories: articles
 tags: [java, mysql, jdbc, exception, dbcp, spring]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

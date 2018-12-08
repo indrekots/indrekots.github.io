@@ -5,10 +5,6 @@ excerpt: "Downgrading Broadcom's proprietary driver and making sure no updates a
 modified: 2014-10-26 16:57:53 +0300
 categories: articles
 tags: [ubuntu, raring, saucy, apple, macbook, wireless, wifi, broadcom, bcmwl-kernel-source]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

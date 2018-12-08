@@ -11,7 +11,6 @@ image:
 comments: true
 share: true
 published: true
-aging: true
 ---
 
 Some time ago I bought my first Arduino. I have several years of experience as a software developer but my knowledge of electronics is pretty minimal. For my first project I decided to [control a cheap RC car with an Arduino board]({{ site.url }}/articles/controlling-an-rc-car-with-arduino/ "Control an RC car with an Arduino"). This was done by connecting the board to the car's controller and sending commands from my laptop to the Arduino over a serial connection. Basically I made the original controller programmable and the car would still receive the signal over 27MHz radio waves. It was a relatively easy project to start with because I did not have to open up the car itself. The downside is that every time I want to take the car for a spin, I have to connect my laptop to my Arduino and then connect that to the controller. This post is about my next project where I started to control the RC car over WiFi.

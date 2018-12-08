@@ -5,10 +5,6 @@ excerpt: "This article explains how to create an SSL certificate, get it signed 
 modified: 2013-09-19 17:24:19 +0300
 categories: articles
 tags: [apache, ssl, tls, pki, sni, openssl]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

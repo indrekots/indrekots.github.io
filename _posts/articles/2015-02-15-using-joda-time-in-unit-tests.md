@@ -5,10 +5,6 @@ excerpt: Joda-Time is a Java library which provides a quality replacement for th
 modified: 2015-02-15 08:01:33 +0300
 categories: articles
 tags: [java, joda-time, jdk, testing, unittesting]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

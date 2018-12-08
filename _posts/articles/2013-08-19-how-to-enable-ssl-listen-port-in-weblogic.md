@@ -5,10 +5,6 @@ excerpt: "Where to find the option in Weblogic console to enable SSL?"
 modified: 2013-08-19 19:14:10 +0300
 categories: articles
 tags: [weblogic, SSL, how-to]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 aging: true

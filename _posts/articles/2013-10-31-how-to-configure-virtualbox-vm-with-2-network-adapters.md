@@ -5,10 +5,6 @@ excerpt: "This post describes how to create a VM which has a connection to the i
 modified: 2013-10-24 20:43:34 +0300
 categories: articles
 tags: [virtualbox, virtualization, vm, network, ubuntu]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

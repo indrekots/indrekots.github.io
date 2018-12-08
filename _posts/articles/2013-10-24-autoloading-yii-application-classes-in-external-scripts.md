@@ -5,10 +5,6 @@ excerpt: "Sometimes I want to have access to all of my classes in a Yii applicat
 modified: 2013-10-24 20:43:34 +0300
 categories: articles
 tags: [yii, php, autoload, composer, cron]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

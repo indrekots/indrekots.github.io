@@ -5,10 +5,6 @@ excerpt: "Creating a scheduled task in Windows Task Scheduler to run a batch fil
 modified: 2014-07-15 20:55:22 +0300
 categories: articles
 tags: [bat, batch, windows, windows task scheduler, schedule]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

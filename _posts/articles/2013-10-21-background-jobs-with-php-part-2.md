@@ -5,10 +5,6 @@ excerpt: "In this post, as promised, we're going to implement a queue of jobs wi
 modified: 2013-10-21 23:37:47 +0300
 categories: articles
 tags: [background, job, php, php-resque, phpredis, redis, resque, tutorial]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

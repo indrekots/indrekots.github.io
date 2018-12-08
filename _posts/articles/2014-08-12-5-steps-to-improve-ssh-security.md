@@ -5,10 +5,6 @@ excerpt: SSH is something we (developers, sysadmins) use daily to connect to rem
 modified: 2014-08-12 07:53:49 +0300
 categories: articles
 tags: [ssh, linux, security, shell, secure shell, pki]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 published: true

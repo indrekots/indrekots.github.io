@@ -5,10 +5,6 @@ excerpt: "These are not necessarily related to the technical aspects of programm
 modified: 2013-05-28 21:26:12 +0300
 categories: articles
 tags: [programming, tips, tricks, break]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 ---

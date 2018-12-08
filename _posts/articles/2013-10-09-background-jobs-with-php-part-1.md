@@ -5,10 +5,6 @@ excerpt: "A background job is a task that is executed 'behind the scenes' and wi
 modified: 2013-10-09 14:28:17 +0300
 categories: articles
 tags: [php, background processing, cron, unix, composer, redis, resque]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 aging: true

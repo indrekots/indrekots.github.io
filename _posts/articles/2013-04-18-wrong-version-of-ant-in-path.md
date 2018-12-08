@@ -5,10 +5,6 @@ excerpt: "Recently, working on a Windows box, I had a problem where my ANT_HOME 
 modified: 2013-04-18 18:26:17 +0300
 categories: articles
 tags: [ant, path, windows, java, weblogic]
-image:
-  feature:
-  credit:
-  creditlink:
 comments: true
 share: true
 aging: true
