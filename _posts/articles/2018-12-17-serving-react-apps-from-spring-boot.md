@@ -68,17 +68,94 @@ Let's have a look at how to do that.
 
 ## Gradle build script
 
-I'm using Gradle in this example, but the same can be achieved with other build tools.
-The key is to remember to copy the static content to a specific folder in the jar file.
+Before we can put our web app to production, [we must create a minified bundle with `npm run build`](https://github.com/facebook/create-react-app#quick-overview "Create React App Quick Overview").
+To serve the minified bundle with Spring Boot, we have to move it to one of the directories where [Spring Boot serves static content](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-static-content).
+I'm using [Gradle](https://gradle.org/ "Gradle Build Tool") in this example to build and package the Spring Boot application, but the same can be achieved with other build tools.
+The key is to remember that in addition to building the Java code, we must also create the minified bundle of our web app and copy it to the correct directory.
 
-## Dev flow
+*If the minified bundle will be placed in one of the static content directories, where will our React source files live?*
+That's a good question.
+The answer is really up to you.
+In this example, I will put my React source files to `src/main/webapp` directory and use Gradle to create the minified bundle which is then copied to another directory.
 
-During web app development, we benefit from hot reloading.
+To integrate a Gradle build with Node, I'm using the [`gradle-node-plugin`](https://github.com/srs/gradle-node-plugin "Gradle plugin for integrating NodeJS in your build").
+The following are the most interesting parts of my Gradle build script.
+
+```groovy
+// Read more about how to configure the plugin from
+// https://github.com/srs/gradle-node-plugin/blob/master/docs/node.md
+node {
+    download = true
+
+    // Set the work directory for unpacking node
+    workDir = file("${project.buildDir}/nodejs")
+
+    // Set the work directory for NPM
+    npmWorkDir = file("${project.buildDir}/npm")
+
+    // Set the work directory for Yarn
+    yarnWorkDir = file("${project.buildDir}/yarn")
+}
+
+task appNpmInstall(type: NpmTask) {
+    description = "Installs all dependencies from package.json"
+    workingDir = file("${project.projectDir}/src/main/webapp")
+    args = ["install"]
+}
+
+task appNpmBuild(type: NpmTask) {
+    description = "Builds production version of the webapp"
+    workingDir = file("${project.projectDir}/src/main/webapp")
+    args = ["run", "build"]
+}
+
+task copyWebApp(type: Copy) {
+    from 'src/main/webapp/build'
+    into 'build/resources/main/static/.'
+}
+```
+
+`appNpmInstall` is a Gradle task that runs `npm install` in the `webapp` directory.
+Similar to `appNpmInstall`, the build script declares the `appNpmBuild` task that runs `npm run build` to create the minified bundle of the web app.
+Finally, `copyWebApp` is a simple [`Copy`](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.Copy.html) task to copy the minified bundle to the static content directory.
+Feel free to test run these tasks in isolation and see what happens.
+For example, running `gradle appNpmInstall` should install all of our web app dependencies and place them in `src/main/webapp/node_modules/` directory.
+
+## Development flow
+
+During web app development, you should start the web app in development mode.
 Therefore, instead of bundling the web app inside the spring app, let's serve it separately using the dev server.
+Go to the `webapp` directory and run `npm start`.
+This way, your web app will reload automatically if you make any changes in the web app source files.
+At the same time, you should also start the Spring Boot application.
+
+To make the development flow with Spring Boot a little more pleasant, you can also [configure `spring-boot-devtools` and enable automatic restarts](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html#using-boot-devtools-restart "Automatic Restart").
+When configured, the Spring Boot app restarts whenever files on the classpath change.
 
 ## Build for production
 
-When building your back-end for production, build the final jar file and make sure the static content is bundled inside the jar file.
-The static content for the web app is served from the Spring Boot app when you start it with `java -jar`
+To build our application for production, in addition to compiling and packaging our Java code, we must also create a minified bundle of the web app and place it inside the Jar file in the correct directory.
+We already have our build script configured with tasks that can install web app dependencies, create the minified bundle and copy the bundle to the correct location.
+To make the packaging a bit more simpler, we could define some dependencies between the build tasks in our build script.
+
+```groovy
+appNpmBuild.dependsOn appNpmInstall
+copyWebApp.dependsOn appNpmBuild
+compileJava.dependsOn copyWebApp
+```
+
+This makes sure that whenever Java code is compiled, web app dependencies are also installed, minified bundle is created and the bundle is copied to a static content directory.
+When you run `gradle clean build`, you don't have explicitly run any web app specific Gradle tasks.
+Once the build has finished, you can start the application via command-line.
+
+```
+java -jar path/to/web-app.jar
+```
+
+Point your browser to it and you should see the newly created React app running.
 
 ## Summary
+
+We went through how to create a basic React web app and serve it with Spring Boot.
+The key is to configure the build script so that in addition to building and packaging the Java code, we also build and minify the web app and copy it to the Jar file.
+Essentially, the same principles apply if you're using any other build tool (e.g. Maven) or you want to use something else than React (e.g. Angular).
