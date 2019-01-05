@@ -6,12 +6,12 @@ modified: 2018-12-17 18:56:18 +0300
 categories: articles
 tags: [react, web, spring, spring boot, java, gradle]
 image:
-  path:
-  thumbnail:
-  caption:
+  path: /images/2019-01-05-spring-boot-reactjs/cover.jpg
+  thumbnail: /images/2019-01-05-spring-boot-reactjs/cover_thumb.jpg
+  caption: "Photo background by [Samuel Scrimshaw](https://unsplash.com/photos/fkS-me35j7I)"
 comments: true
 share: true
-published: true
+published: false
 aging: true
 ---
 
