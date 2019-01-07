@@ -15,11 +15,10 @@ published: false
 aging: true
 ---
 
-You want to create a web app with React.
-You also want a backend so you picked Spring Boot to do the job.
-It's very easy to start the backend Spring Boot app and the React app separately.
-Spring Boot app's can be easily deployed with a single executable jar file.
-In this post, we're going to take a look how to bundle the React app inside the jar file.
+Let's say you've decided to create a web app with [React](https://reactjs.org/ "A JavaScript library for building user interfaces").
+You also want to build a back end so you've picked [Spring Boot](https://github.com/spring-projects/spring-boot) to do the job.
+There are lots of ways to serve a React app in production.
+In this post, we're going to take a look at how to bundle the React app inside a Spring Boot back end.
 
 ## Spring Boot app
 
