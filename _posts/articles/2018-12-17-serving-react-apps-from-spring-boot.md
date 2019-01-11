@@ -24,9 +24,36 @@ In this post, we're going to take a look at how to bundle the React app inside a
 
 Go to [start.spring.io](https://start.spring.io/ "Spring Initializr") and generate yourself a new Spring Boot app (or use an existing one if you wish).
 Make sure you at least pick the Web dependency.
-You should have the following folder structure:
+You should have the following folder structure (or similar):
 
-// insert folder structure here
+```
+.
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── settings.gradle
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── example
+    │   │           └── demo
+    │   │               └── DemoApplication.java
+    │   └── resources
+    │       ├── application.properties
+    │       ├── static
+    │       └── templates
+    └── test
+        └── java
+            └── com
+                └── example
+                    └── demo
+                        └── DemoApplicationTests.java
+```
 
 ## Create React app
 
@@ -39,7 +66,7 @@ npx create-react-app enter-app-name-here
 
 ## Serve static content with Spring Boot
 
-To serve your frontend web app from within the jar file, we need to first understand how Spring Boot serves [static content](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-static-content).
+To serve our front end web app from within a jar file, we need to first understand how Spring Boot serves [static content](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-static-content).
 
 > By default, Spring Boot serves static content from a directory called `/static` (or `/public` or `/resources` or `/META-INF/resources`) in the classpath or from the root of the `ServletContext`
 
