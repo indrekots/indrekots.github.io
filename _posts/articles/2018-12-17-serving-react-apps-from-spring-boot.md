@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Serving React apps from Spring Boot"
-excerpt:
+excerpt: You've decided to build a wep app with React and want to use Spring Boot for the back end. This post will show you how to serve a React app from Spring Boot.
 modified: 2018-12-17 18:56:18 +0300
 categories: articles
 tags: [react, web, spring, spring boot, java, gradle]
@@ -20,9 +20,9 @@ You also want to build a back end so you've picked [Spring Boot](https://github.
 There are lots of ways to serve a React app in production.
 In this post, we're going to take a look at how to bundle the React app inside a Spring Boot back end.
 
-## Spring Boot app
+## Create a Spring Boot app
 
-Go to [start.spring.io](https://start.spring.io/ "Spring Initializr") and generate yourself a new Spring Boot app (or use an existing one if you wish).
+To get started, go to [start.spring.io](https://start.spring.io/ "Spring Initializr") and generate yourself a new Spring Boot app (or use an existing one if you wish).
 Make sure you at least pick the Web dependency.
 You should have the following folder structure (or similar):
 
@@ -55,18 +55,9 @@ You should have the following folder structure (or similar):
                         └── DemoApplicationTests.java
 ```
 
-## Create React app
+## Serving static content with Spring Boot
 
-It's super easy to get started with React with [`create-react-app`](https://facebook.github.io/create-react-app/ "Create React App").
-If you have the necessary tools installed (e.g. Node, npm), you can just execute this command
-
-```
-npx create-react-app enter-app-name-here
-```
-
-## Serve static content with Spring Boot
-
-To serve our front end web app from within a jar file, we need to first understand how Spring Boot serves [static content](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-static-content).
+To serve our front end web app from a Spring Boot jar file, we need to first understand how Spring Boot handles [static content](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-static-content).
 
 > By default, Spring Boot serves static content from a directory called `/static` (or `/public` or `/resources` or `/META-INF/resources`) in the classpath or from the root of the `ServletContext`
 
@@ -85,12 +76,27 @@ For example, the following is an example `index.html` that we will put into `src
 ```
 
 When we start our Spring Boot app and point our web browser to it (with default configuration the URL should be `localhost:8080`), *Hello World* should be displayed to us.
-Now that we know how to serve static content, it should be relatively easy to place the React app in the same folder.
+Now that we know how to serve static content, it should be relatively easy to serve the React app in a similar manner.
 
-*But wait! Javascript source files have to be built first, CSS minified etc.*
+// look at the build dir and see where the html file was placed
+
+*But wait! Javascript source files have to be built first, CSS minified etc. We can't just put our React source files in the same folder.*
 That's correct.
 We have to build the React app before we can move it into the `/static` directory.
 Let's have a look at how to do that.
+But first, we need to generate a new React app.
+
+## Create a React app
+
+It's super easy to get started with React by using [`create-react-app`](https://facebook.github.io/create-react-app/ "Create React App").
+If you have the necessary tools installed (e.g. `node`, `npm`), you can just execute this command
+
+```
+npx create-react-app enter-app-name-here
+```
+
+You're free to choose where you would like to place the generated web app.
+I'm going to copy them to `src/main/webapp`.
 
 ## Gradle build script
 
@@ -98,11 +104,6 @@ Before we can put our web app to production, [we must create a minified bundle w
 To serve the minified bundle with Spring Boot, we have to move it to one of the directories where [Spring Boot serves static content](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-static-content).
 I'm using [Gradle](https://gradle.org/ "Gradle Build Tool") in this example to build and package the Spring Boot application, but the same can be achieved with other build tools.
 The key is to remember that in addition to building the Java code, we must also create the minified bundle of our web app and copy it to the correct directory.
-
-*If the minified bundle will be placed in one of the static content directories, where will our React source files live?*
-That's a good question.
-The answer is really up to you.
-In this example, I will put my React source files to `src/main/webapp` directory and use Gradle to create the minified bundle which is then copied to another directory.
 
 To integrate a Gradle build with Node, I'm using the [`gradle-node-plugin`](https://github.com/srs/gradle-node-plugin "Gradle plugin for integrating NodeJS in your build").
 The following are the most interesting parts of my Gradle build script.
@@ -144,15 +145,15 @@ task copyWebApp(type: Copy) {
 `appNpmInstall` is a Gradle task that runs `npm install` in the `webapp` directory.
 Similar to `appNpmInstall`, the build script declares the `appNpmBuild` task that runs `npm run build` to create the minified bundle of the web app.
 Finally, `copyWebApp` is a simple [`Copy`](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.Copy.html) task to copy the minified bundle to the static content directory.
-Feel free to test run these tasks in isolation and see what happens.
+Feel free to test run these tasks in isolation and see how they work.
 For example, running `gradle appNpmInstall` should install all of our web app dependencies and place them in `src/main/webapp/node_modules/` directory.
 
 ## Development flow
 
 During web app development, you should start the web app in development mode.
-Therefore, instead of bundling the web app inside the spring app, let's serve it separately using the dev server.
+Therefore, instead of bundling the web app inside the Spring app, let's serve it separately using the dev server.
 Go to the `webapp` directory and run `npm start`.
-This way, your web app will reload automatically if you make any changes in the web app source files.
+This way, your web app will reload automatically if you make any changes in the source files.
 At the same time, you should also start the Spring Boot application.
 
 To make the development flow with Spring Boot a little more pleasant, you can also [configure `spring-boot-devtools` and enable automatic restarts](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html#using-boot-devtools-restart "Automatic Restart").
@@ -160,8 +161,8 @@ When configured, the Spring Boot app restarts whenever files on the classpath ch
 
 ## Build for production
 
-To build our application for production, in addition to compiling and packaging our Java code, we must also create a minified bundle of the web app and place it inside the Jar file in the correct directory.
-We already have our build script configured with tasks that can install web app dependencies, create the minified bundle and copy the bundle to the correct location.
+To build our application for production, in addition to compiling and packaging our Java code, we must also create a minified bundle of the web app and place it inside the Jar file to one of the directories where Spring Boot serves static content.
+We already have our build script configured with tasks that can install our dependencies, create the minified bundle and copy it to the correct location.
 To make the packaging a bit more simpler, we could define some dependencies between the build tasks in our build script.
 
 ```groovy
@@ -183,5 +184,7 @@ Point your browser to it and you should see the newly created React app running.
 ## Summary
 
 We went through how to create a basic React web app and serve it with Spring Boot.
-The key is to configure the build script so that in addition to building and packaging the Java code, we also build and minify the web app and copy it to the Jar file.
-Essentially, the same principles apply if you're using any other build tool (e.g. Maven) or you want to use something else than React (e.g. Angular).
+The key is to configure our Gradle build script so that in addition to building and packaging our Java code, we also build and minify the web app and copy it to the Jar file.
+Essentially, the same principles apply if you're using any other build tool (e.g. [Maven](https://maven.apache.org/)) or you want to use something else than React (e.g. [Angular](https://angular.io/)).
+
+// github source
