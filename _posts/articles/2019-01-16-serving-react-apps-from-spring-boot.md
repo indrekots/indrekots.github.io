@@ -2,7 +2,7 @@
 layout: post
 title: "Serving React apps from Spring Boot"
 excerpt: You've decided to build a wep app with React and want to use Spring Boot for the back end. This post will show you how to serve a React app from Spring Boot.
-modified: 2018-12-17 18:56:18 +0300
+modified: 2019-01-16 18:56:18 +0300
 categories: articles
 tags: [react, web, spring, spring boot, java, gradle]
 image:
