@@ -11,8 +11,8 @@ image:
   caption: "Photo background by [Samuel Scrimshaw](https://unsplash.com/photos/fkS-me35j7I)"
 comments: true
 share: true
-published: false
-aging: true
+published: true
+aging: false
 ---
 
 Let's say you've decided to create a web app with [React](https://reactjs.org/ "A JavaScript library for building user interfaces").
@@ -24,6 +24,7 @@ In this post, we're going to take a look at how to bundle the React app inside a
 
 To get started, go to [start.spring.io](https://start.spring.io/ "Spring Initializr") and generate yourself a new Spring Boot app (or use an existing one if you wish).
 Make sure you at least pick the Web dependency.
+In this example, I'm using Gradle as my build tool.
 You should have the following folder structure (or similar):
 
 ```
@@ -76,11 +77,12 @@ For example, the following is an example `index.html` that we will put into `src
 ```
 
 When we start our Spring Boot app and point our web browser to it (with default configuration the URL should be `localhost:8080`), *Hello World* should be displayed to us.
+Everything in `src/main/resources/static/` is moved to the correct location in the packaged jar file.
 Now that we know how to serve static content, it should be relatively easy to serve the React app in a similar manner.
 
-// look at the build dir and see where the html file was placed
+*But wait! Javascript source files have to be built first, CSS minified etc.
+We can't just put our React source files to `src/main/resources` and expect everything to work.*
 
-*But wait! Javascript source files have to be built first, CSS minified etc. We can't just put our React source files in the same folder.*
 That's correct.
 We have to build the React app before we can move it into the `/static` directory.
 Let's have a look at how to do that.
@@ -96,7 +98,7 @@ npx create-react-app enter-app-name-here
 ```
 
 You're free to choose where you would like to place the generated web app.
-I'm going to copy them to `src/main/webapp`.
+In this example, I'm going to copy it to `src/main/webapp`.
 
 ## Gradle build script
 
@@ -112,33 +114,30 @@ The following are the most interesting parts of my Gradle build script.
 // Read more about how to configure the plugin from
 // https://github.com/srs/gradle-node-plugin/blob/master/docs/node.md
 node {
-    download = true
+  download = true
 
-    // Set the work directory for unpacking node
-    workDir = file("${project.buildDir}/nodejs")
+  // Set the work directory for unpacking node
+  workDir = file("${project.buildDir}/nodejs")
 
-    // Set the work directory for NPM
-    npmWorkDir = file("${project.buildDir}/npm")
-
-    // Set the work directory for Yarn
-    yarnWorkDir = file("${project.buildDir}/yarn")
+  // Set the work directory for NPM
+  npmWorkDir = file("${project.buildDir}/npm")
 }
 
 task appNpmInstall(type: NpmTask) {
-    description = "Installs all dependencies from package.json"
-    workingDir = file("${project.projectDir}/src/main/webapp")
-    args = ["install"]
+  description = "Installs all dependencies from package.json"
+  workingDir = file("${project.projectDir}/src/main/webapp")
+  args = ["install"]
 }
 
 task appNpmBuild(type: NpmTask) {
-    description = "Builds production version of the webapp"
-    workingDir = file("${project.projectDir}/src/main/webapp")
-    args = ["run", "build"]
+  description = "Builds production version of the webapp"
+  workingDir = file("${project.projectDir}/src/main/webapp")
+  args = ["run", "build"]
 }
 
 task copyWebApp(type: Copy) {
-    from 'src/main/webapp/build'
-    into 'build/resources/main/static/.'
+  from 'src/main/webapp/build'
+  into 'build/resources/main/static/.'
 }
 ```
 
@@ -187,4 +186,4 @@ We went through how to create a basic React web app and serve it with Spring Boo
 The key is to configure our Gradle build script so that in addition to building and packaging our Java code, we also build and minify the web app and copy it to the Jar file.
 Essentially, the same principles apply if you're using any other build tool (e.g. [Maven](https://maven.apache.org/)) or you want to use something else than React (e.g. [Angular](https://angular.io/)).
 
-// github source
+The example code presented in this post can be found on [Github](https://github.com/indrekots/static-content-demo).
