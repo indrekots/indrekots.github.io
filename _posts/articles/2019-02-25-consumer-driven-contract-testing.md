@@ -70,3 +70,20 @@ Alice and Bob decided that these kind of tests are not trustworthy and testing i
 
 This is even more difficult when the number of services increases.
 There are different permutations of services that should be tested, services may have downstream services that should be mocked.
+
+## End to end Testing
+
+By end-to-end testing, I mean setting up the entire environment, services, databases etc and exercising the application through public APIs.
+Not saying that these tests aren't valuable, but to test the API of two specific services in a larger system via public APIs is costly.
+The same limitations that are present in integration testing are present in end-to-end testing and are probably even more problematic.
+Setting up the environment is costly, the tests run slowly and the feedback cycle from a commit to verify whether everything is working is long.
+What's more, when end-to-end tests fail, most likely they won't give you a specific reason of the underlying cause.
+
+## Manual Testing
+
+What about manual testing?
+With the increased number of services in a system, this becomes unpractical.
+
+## Consumer Driven Contract Testing with Pact
+
+Alice and Bob learned about CDCT and Pact.
