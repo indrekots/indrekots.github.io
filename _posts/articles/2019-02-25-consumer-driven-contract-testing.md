@@ -86,4 +86,14 @@ With the increased number of services in a system, this becomes unpractical.
 
 ## Consumer Driven Contract Testing with Pact
 
-Alice and Bob learned about CDCT and Pact.
+Alice and Bob learned about consumer driven contract testing (CDCT) and Pact (they went to a conference, conference driven development).
+Pact is a contract testing tool.
+Essentially, two services enter into contract on how to communicate with each other and Pact verifies whether both sides honor the agreement.
+In Pact terminology, the contract is referred to as a pact.
+
+What makes it *consumer-driven* is the fact that a client of an API (e.g. Alice's Billing service) sets expectations on the provider of the API (e.g. Bob's Customer service) on how to behave.
+Expectations are set by examples.
+For instance, if a GET request is sent to `/customers/17`, the Customer service should respond with HTTP 200 and with the customer data belonging to the given customer.
+A collection of these interactions are encoded into a JSON document called a pact file.
+
+Now that the interactions between Billing and Customer service are defined, Pact can check whether both sides of the contract behave as agreed upon.
