@@ -76,11 +76,28 @@ There are different permutations of services that should be tested, services may
 
 ## End to end Testing
 
-By end-to-end testing, I mean setting up the entire environment, services, databases etc and exercising the application through public APIs.
+By end-to-end testing, I mean setting up the entire environment, services, databases etc. and exercising the application through public APIs.
 Not saying that these tests aren't valuable, but to test the API of two specific services in a larger system via public APIs is costly.
 The same limitations that are present in integration testing are present in end-to-end testing and are probably even more problematic.
-Setting up the environment is costly, the tests run slowly and the feedback cycle from a commit to verify whether everything is working is long.
-What's more, when end-to-end tests fail, most likely they won't give you a specific reason of the underlying cause.
+Although, end-to-end tests cover a big chunk of a system and give us much confidence that the system is in working order if they pass, there are some notable disadvantages.
+
+Setting up the environment where to run end-to-end tests is costly.
+When Bob makes a change to Billing service, should he run tests together with the production version of Customer service?
+What if Alice has made changes to Customer service as well?
+Should Bob create another environment where the latest Billing service is tested together with the latest Customer service?
+
+Compared to unit tests, end-to-end tests run slowly.
+Depending on the size of the system, the feedback cycle from a commit until we know we did not break any consumers of our API can be hours.
+What's more, the more moving parts we have in our tests, the more brittle and flaky they are.
+There's a higher the chance that they fail not because of broken functionality but rather because of some unrelated reason (e.g. network glitch, invalid test data in DB).
+
+In his book, [Building Microservices](https://samnewman.io/books/building_microservices/), [Sam Newman](https://twitter.com/samnewman) had the following to say about flaky tests.
+
+> Flaky tests are the enemy. When they fail, they don’t tell us much. We re-run our CI builds in the hope that they will pass again later, only to see check-ins pile up, and suddenly we find ourselves with a load of broken functionality.
+>
+> When we detect flaky tests, it is essential that we do our best to remove them. Otherwise, we start to lose faith in a test suite that “always fails like that.” A test suite with flaky tests can become a victim of what [Diane Vaughan](https://en.wikipedia.org/wiki/Diane_Vaughan) calls the *normalization of deviance*—the idea that over time we can become so accustomed to things being wrong that we start to accept them as being normal and not a problem.
+>
+> <footer><strong>Sam Newman</strong> &mdash; <a href="https://samnewman.io/books/building_microservices/">Building Microservices</a></footer>
 
 ## Manual Testing
 
@@ -89,8 +106,10 @@ With the increased number of services in a system, this becomes unpractical.
 
 ## Consumer Driven Contract Testing with Pact
 
-Alice and Bob went to a conference learned about consumer driven contract testing (CDCT) and Pact.
+Alice and Bob thought that it would be good if they could verify the API between Customer and Billing service with tests that are as cheap to maintain and fast to run as unit tests.
+As luck would have it, they went to a conference and learned about consumer driven contract testing (CDCT) with Pact.
 [They were inspired](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22 "Hype Driven Development") and immediately started to dig into it more to understand whether it could be applied to their situation.
+
 Pact is a contract testing tool.
 Essentially, two services enter into contract on how to communicate with each other and Pact verifies whether both sides honor the agreement.
 In Pact terminology, the contract is referred to as a *pact*.
