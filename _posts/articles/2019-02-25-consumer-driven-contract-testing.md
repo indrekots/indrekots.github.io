@@ -6,6 +6,9 @@ modified: 2019-01-16 18:56:18 +0300
 categories: articles
 tags: [pact, cdct, testing]
 image:
+  path: /images/2019-02-25-consumer-driven-contract-testing/cover.jpg
+  thumbnail: /images/2019-02-25-consumer-driven-contract-testing/cover_thumb.jpg
+  caption: "Photo by [Photo by rawpixel](https://unsplash.com/photos/YqwOX6Ks9k8)"
 comments: true
 share: true
 published: false
@@ -86,14 +89,72 @@ With the increased number of services in a system, this becomes unpractical.
 
 ## Consumer Driven Contract Testing with Pact
 
-Alice and Bob learned about consumer driven contract testing (CDCT) and Pact (they went to a conference, conference driven development).
+Alice and Bob went to a conference learned about consumer driven contract testing (CDCT) and Pact.
+[They were inspired](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22 "Hype Driven Development") and immediately started to dig into it more to understand whether it could be applied to their situation.
 Pact is a contract testing tool.
 Essentially, two services enter into contract on how to communicate with each other and Pact verifies whether both sides honor the agreement.
-In Pact terminology, the contract is referred to as a pact.
+In Pact terminology, the contract is referred to as a *pact*.
 
 What makes it *consumer-driven* is the fact that a client of an API (e.g. Alice's Billing service) sets expectations on the provider of the API (e.g. Bob's Customer service) on how to behave.
 Expectations are set by examples.
 For instance, if a GET request is sent to `/customers/17`, the Customer service should respond with HTTP 200 and with the customer data belonging to the given customer.
 A collection of these interactions are encoded into a JSON document called a pact file.
 
-Now that the interactions between Billing and Customer service are defined, Pact can check whether both sides of the contract behave as agreed upon.
+Now that the interactions between Billing and Customer service have been defined, Pact uses the pact file to check whether both sides of the contract behave as agreed upon.
+To do that, Alice has to write some tests that exercise Billing service's code.
+But instead of sending requests to a real Customer service (i.e. an integration test), Pact starts up a mock HTTP server that intercepts all requests and records them.
+If a request matches to a request in the pact file, the mock server will respond with the response encoded in the pact file.
+But if the incoming request is not in the pact file, the test will fail, indicating that the consumer (in this case Alice's Billing service) does something that was not defined in the contract.
+
+When the consumer of an API has defined a pact and ensured that it complies with it, it is time for the provider side of an API to verify it.
+Bob received a pact file from Alice and immediately started to modify Customer service's build process.
+He included a pact verification step that starts up a Pact mock HTTP server and the Customer service.
+Pact's mock server will take all the requests from the pact file and play them against a running instance of a Customer service.
+Then it observes how Customer service responds and compares the responses to the ones in the pact file.
+If they don't match, the test will fail and Customer service is not compatible with Billing service.
+
+Looking at the bigger picture, Pact allowed Alice and Bob to verify whether Customer and Billing service speak the same language without having to spin up both services and writing classical integration tests.
+
+## Sharing pacts
+
+After consumer build has generated a pact file, the provider should have access to it in order to verify the pact.
+Pact files can be [shared in multiple ways](https://docs.pact.io/getting_started/sharing_pacts#alternative-approaches).
+
+### Store pact files in VCS repository
+
+If the consumer and provider live in the same repository, pact files could be stored in the same repository.
+Once the consumer CI build has finished, it could commit the generated pact file into the same repository.
+
+### Consumer CI build commits pact file to provider codebase
+
+This is relatively similar to the previous option.
+Once your consumer CI build has generated the pact file, add an extra step that commits the file to the provider repository.
+
+### Consumer CI build publishes pact files as build artifacts
+
+In addition to storing the consumer application as a build artifact in an artifact repository, the CI build could also publish pacts as build artifacts.
+On the provider side, you would need to figure out how to construct the URL that points to the latest pact file in your artifact repository to access it.
+
+### Store pacts on a network file share or AWS S3
+
+Consumer CI build could store generated pacts on a shared storage that's accessible to the provider build.
+You could use your in-house system of upload pacts to AWS S3 for example.
+[Retreaty](https://github.com/fairfaxmedia/pact-retreaty "Easily share pacts via S3") is a Ruby gem that provides a ultra light mechanism for pushing these contracts to S3 from a consumer, and later pulling them down to a provider for verification.
+
+## Pact Broker
+
+The recommended way to share pacts is to use the Pact Broker.
+Although, sharing pacts via AWS S3 or VCS repositories gets the work done, Pact Broker provides some additional features that are definitely worth considering.
+
+tags, can-i-deploy
+
+## Remaining backwards compatible
+
+In a microservices environment, it is important to make sure changes to a single application don't break its dependants (otherwise lock-step releases).
+Coming back to the example in the beginning of this post where Bob modified the response payload of Customer service is an example of breaking backwards compatibility.
+Although Bob caught the issue with tests, these tests only reflected his assumptions on how the API is used.
+
+When Customer service's build has access to the latest pact file, Bob can always verify whether backwards compatibility has been broken or not by running the build locally.
+There's no need to set up an integration testing environment and orchestrate multiple services to spin up.
+
+## Implementing backwards compatible changes
