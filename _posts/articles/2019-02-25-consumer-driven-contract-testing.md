@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Consumer Driven Contract Testing"
-excerpt:
+excerpt: "Consumer driven contract testing is a method of verifying that services speak the same language. It is an alternative to traditional integration testing that gives you faster feedback "
 modified: 2019-01-16 18:56:18 +0300
 categories: articles
 tags: [pact, cdct, testing]
@@ -14,6 +14,13 @@ share: true
 published: false
 aging: false
 ---
+
+Consumer driven contract testing is a method of verifying that services (e.g. API consumer and an API provider) speak the same language.
+By providing examples, API consumers set expectations on providers on how they should behave on specific inputs.
+A set of expectations forms a contract that's produced by consumers and is shared with providers.
+Contract obligations are verified by providers with tests that can be run in isolation, without having to set up integration testing environments.
+That lets them evolve independently and get immediate feedback when they've broken any of their API consumers.
+Contract testing can be used anywhere where you have two services that need to communicate with each other but becomes especially useful in environments with many services (e.g. microservice architecture).
 
 Every story needs a hero.
 Meet our heroes, [Alice and Bob](https://en.wikipedia.org/wiki/Alice_and_Bob), who are predominantly known for being the protagonists in many cryptography examples.
@@ -119,7 +126,7 @@ Expectations are set by examples.
 For instance, if a GET request is sent to `/customers/17`, the Customer service should respond with HTTP 200 and with the customer data belonging to the given customer.
 A collection of these interactions are encoded into a JSON document called a pact file.
 
-Now that the interactions between Billing and Customer service have been defined, Pact uses the pact file to check whether both sides of the contract behave as agreed upon.
+Now that the interactions between Billing and Customer service have been defined, the pact file can be used to check whether both sides of the contract behave as agreed upon.
 To do that, Alice has to write some tests that exercise Billing service's code.
 But instead of sending requests to a real Customer service (i.e. an integration test), Pact starts up a mock HTTP server that intercepts all requests and records them.
 If a request matches to a request in the pact file, the mock server will respond with the response encoded in the pact file.
@@ -130,7 +137,7 @@ Bob received a pact file from Alice and immediately started to modify Customer s
 He included a pact verification step that starts up a Pact mock HTTP server and the Customer service.
 Pact's mock server will take all the requests from the pact file and play them against a running instance of a Customer service.
 Then it observes how Customer service responds and compares the responses to the ones in the pact file.
-If they don't match, the test will fail and Customer service is not compatible with Billing service.
+If they don't match, the test will fail and Customer service is deemed not compatible with Billing service.
 
 Looking at the bigger picture, Pact allowed Alice and Bob to verify whether Customer and Billing service speak the same language without having to spin up both services and writing classical integration tests.
 
@@ -147,7 +154,7 @@ Once the consumer CI build has finished, it could commit the generated pact file
 ### Consumer CI build commits pact file to provider codebase
 
 This is relatively similar to the previous option.
-Once your consumer CI build has generated the pact file, add an extra step that commits the file to the provider repository.
+Once your consumer CI build has generated the pact file, add an extra step that commits the file to the provider's repository.
 
 ### Consumer CI build publishes pact files as build artifacts
 
@@ -162,12 +169,47 @@ You could use your in-house system of upload pacts to AWS S3 for example.
 
 ## Pact Broker
 
-The recommended way to share pacts is to use the Pact Broker.
-Although, sharing pacts via AWS S3 or VCS repositories gets the work done, Pact Broker provides some additional features that are definitely worth considering.
+The recommended way to share pacts is to use the [Pact Broker](https://github.com/pact-foundation/pact_broker).
+Although, sharing pacts via AWS S3 or VCS repositories gets the work done, you are generally only verifying that the head versions of your services play nice with each other.
+To be able to [deploy services independently](https://www.rea-group.com/blog/enter-the-pact-matrix-or-how-to-decouple-the-release-cycles-of-your-microservices/ "Enter the Pact Matrix. Or, how to decouple the release cycles of your microservices"), we need to also know whether a change to a service is compatible with its collaborators in a production environment.
 
-tags, can-i-deploy
 
-## Remaining backwards compatible
+|                    | Customer (`latest`) | Customer (`prod`) |
+|--------------------|---------------------|-------------------|
+| Billing (`latest`) |        ✅           |        ?          |
+| Billing (`prod`)   |        ?            |       ✅          |
+
+Alice's head version billing service and Bob's head version of customer service have been verified to be compatible with each other.
+The same can be said for the production version of these services because at some point in time, they were also the head versions that were verified together and then deployed to prod together.
+If Alice decided to deploy the latest version of billing service into production, she may run into the risk of breaking the API between billing and customer services because the latest version of billing has never been verified against the production version of customer service.
+
+Here's where Pact Broker really starts to shine.
+In addition to being a tool to share pact files, it will keep track of your consumer and provider versions and pact verifications between them in what is called ["The Matrix"](https://github.com/pact-foundation/pact_broker/wiki/Overview#the-matrix).
+Every time Alice's billing service changes, it can publish a pact to the broker and a new entry will be added to the matrix.
+Customer service's build can fetch the latest pact to verify that it is compatible with the latest changes in Billing. But the build could also fetch the pact published by the `prod` version of Billing service to ensure that latest version of Customer service is backwards compatible with `prod` billing service.
+
+|                    | Customer (`latest`) | Customer (`prod`) |
+|--------------------|---------------------|-------------------|
+| Billing (`latest`) |        ✅           |        ?          |
+| Billing (`prod`)   |        ❌           |       ✅          |
+
+In this example, we can see that the latest version of Customer service is not compatible with the production version of Billing service.
+Essentially, it would be unwise to go ahead and deploy the latest customer service to production since it would introduce a breaking change.
+
+Similarly, when we'd like to deploy the latest Billing service to prod, we're unsure whether we're introducing a breaking change.
+We would need to first check-out the `prod` version of Customer service and verify it against the latest Billing service.
+
+|                    | Customer (`latest`) | Customer (`prod`) |
+|--------------------|---------------------|-------------------|
+| Billing (`latest`) |        ✅           |        ✅          |
+| Billing (`prod`)   |        ❌           |        ✅          |
+
+After running the verification, we can see from the Pact Matrix that latest billing service is compatible with production version of customer service.
+No breaking changes were introduced and we can feel free to deploy our changes in Billing service to production.
+
+tags, can-i-deploy, version tracking, allowing to deploy services independently, see who uses who, webhooks
+
+## Breaking changes and backwards compatibility
 
 In a microservices environment, it is important to make sure changes to a single application don't break its dependants (otherwise lock-step releases).
 Coming back to the example in the beginning of this post where Bob modified the response payload of Customer service is an example of breaking backwards compatibility.
@@ -177,3 +219,9 @@ When Customer service's build has access to the latest pact file, Bob can always
 There's no need to set up an integration testing environment and orchestrate multiple services to spin up.
 
 ## Implementing backwards compatible changes
+
+
+
+Trust and teams inside the same org, different orgs, sometimes does not make sense to do CDCT when you don't trust the other party.
+
+## Pact nirvana, workflow
