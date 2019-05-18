@@ -168,7 +168,7 @@ Increasing the number of services in play would make the situation even more com
 The more moving parts we have in our tests, the more brittle and flaky they are.
 There's a higher chance that they will fail not because of broken functionality but rather because of a network glitch for example.
 
-In his book, [Building Microservices](https://samnewman.io/books/building_microservices/), [Sam Newman](https://twitter.com/samnewman) had the following to say about flaky tests.
+In his book, [Building Microservices](https://amzn.to/2Ej0ZGq), [Sam Newman](https://twitter.com/samnewman) had the following to say about flaky tests.
 
 > Flaky tests are the enemy. When they fail, they don’t tell us much. We re-run our CI builds in the hope that they will pass again later, only to see check-ins pile up, and suddenly we find ourselves with a load of broken functionality.
 >
@@ -177,7 +177,7 @@ In his book, [Building Microservices](https://samnewman.io/books/building_micros
 > <footer><strong>Sam Newman</strong> &mdash; <a href="https://samnewman.io/books/building_microservices/">Building Microservices</a></footer>
 
 [Diane Vaughan](https://en.wikipedia.org/wiki/Diane_Vaughan) is a sociologist and a professor at the Columbia University.
-She coined the phrase ["normalization of deviance"](https://en.wikibooks.org/wiki/Professionalism/Diane_Vaughan_and_the_normalization_of_deviance "Diane Vaughan and the normalization of deviance") in her book [The Challenger Launch Decision](https://www.amazon.com/Challenger-Launch-Decision-Technology-Deviance/dp/0226851761 "The Challenger Launch Decision: Risky Technology, Culture, and Deviance at NASA"), where she analysed the processes inside NASA that eventually lead up to the [Space Shuttle Challenger disaster](https://en.wikipedia.org/wiki/Space_Shuttle_Challenger_disaster "Space Shuttle Challenger disaster"). Over time an unsafe practice grew into something that was considered normal since it did not cause an immediate catastrophe. And then BOOM!
+She coined the phrase ["normalization of deviance"](https://en.wikibooks.org/wiki/Professionalism/Diane_Vaughan_and_the_normalization_of_deviance "Diane Vaughan and the normalization of deviance") in her book [The Challenger Launch Decision](https://amzn.to/2Q8AwAi "The Challenger Launch Decision: Risky Technology, Culture, and Deviance at NASA"), where she analysed the processes inside NASA that eventually lead up to the [Space Shuttle Challenger disaster](https://en.wikipedia.org/wiki/Space_Shuttle_Challenger_disaster "Space Shuttle Challenger disaster"). Over time an unsafe practice grew into something that was considered normal since it did not cause an immediate catastrophe. And then BOOM!
 
 <figure class="align-center">
   <img src="{{ '/images/2019-04-20-challenges-of-testing-microservices/challenger.jpg' | absolute_url }}" alt="">
