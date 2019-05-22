@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Consumer Driven Contract Testing"
-excerpt: "Consumer driven contract testing is a method of verifying that services speak the same language. It is an alternative to traditional integration testing that gives you faster feedback "
-modified: 2019-01-16 18:56:18 +0300
+title: "Consumer Driven Contract Testing with Pact"
+excerpt: "Consumer driven contract testing is a method of verifying that services speak the same language. It is an alternative to traditional integration testing that gives you faster feedback."
+modified: 2019-05-05 18:56:18 +0300
 categories: articles
 tags: [pact, cdct, testing]
 image:
@@ -22,134 +22,6 @@ A set of expectations forms a contract that's produced by consumers and is share
 Contract obligations are verified by providers with tests that can be run in isolation, without having to set up integration testing environments.
 That lets them evolve independently and get immediate feedback when they've broken any of their API consumers.
 Contract testing can be used anywhere where you have two services that need to communicate with each other but becomes especially useful in environments with many services (e.g. microservice architecture).
-
-## Story time
-
-Every story needs a hero.
-Meet our fictional heroes, [Alice and Bob](https://en.wikipedia.org/wiki/Alice_and_Bob), who are predominantly known for being the protagonists in many cryptography examples.
-In our case, Alice and Bob got fed up of sending encrypted messages to each other.
-After careful consideration, they became software engineers and with all the hype around microservices, they've decided to ride the bandwagon.
-
-Alice was responsible for creating the Billing service.
-Bob was tasked with building the Customer service.
-Billing service needs to access customer information to bill them.
-To do that, it queries the `/customers/{id}` HTTP endpoint.
-
-```
-> GET /customers/12
-
-< HTTP/1.1 200 OK
-< {
-<   "costumerId": 12,
-<   "name": "John Doe",
-<   ...
-< }
-```
-
-One evening Bob discovered that the API response payload had a typo.
-Instead of returning [`costumerId`, it should be `customerId`](https://kathleenwcurry.wordpress.com/2015/09/08/easily-confused-words-costumer-vs-customer/ "Easily Confused Words: Costumer vs. Customer").
-Being meticulous, Bob decided to immediately fix the humorous error and call it a day.
-
-The next morning Bob was confronted by Alice.
-"You broke the Billing service!" she said.
-Suddenly Bob realised, that he never tested the output of customer service with a running instance of the Billing service.
-
-## Testing
-
-Why didn't Customer service's tests catch this error?
-Turns out they did.
-Bob had created a test that verified the response of the `/customers/{id}` endpoint.
-It failed after Bob's change but was fixed immediately.
-
-Essentially, the test verified how the API should be consumed but not how the Billing service consumes it.
-These kind of tests are cheap to maintain and fast to run.
-If they fail, they pinpoint the underlying cause extremely well.
-On the other hand, they're not trustworthy when it comes to testing integrations.
-If the API changes, it's not immediately clear, whether API clients still continue to work.
-
-Conversely, the same is true on the Billing service side.
-It uses a mock Customer service that responds with dummy data.
-The problem with tests that mock dependencies is that they make assumptions on how the real counterpart behaves.
-But there's nothing there to actually verify this assumption.
-Once the dependency has changed, the assumption is not valid anymore.
-
-Having only two services—Customer and Billing—is a fairly trivial example.
-Bob should have known, that Billing service uses Customer service.
-But in a larger system, perhaps with hundreds of services, it's not immediately clear who the consumers of an API are.
-
-## Integration testing
-
-Testing Billing and Customer services together seems like an integration problem.
-Spinning up both services and exercising the communication between them should have caught the integration error.
-Unfortunately Alice and Bob didn't have anything like that set up.
-
-Integration testing was considered but in the end it was decided not to implement them because it was not clear how well they would scale if the number of services is increased.
-Classical integration testing works well in environments with fewer components.
-Modern microservice architectures, on the other hand, have many moving parts.
-
-<figure class="align-center">
-  <img src="{{ '/images/2019-02-25-consumer-driven-contract-testing/architecture.png' | absolute_url }}" alt="">
-  <figcaption>Modern architecture has evolved to have more moving parts. Image by <a href="https://medium.com/@benorama/the-evolution-of-software-architecture-bd6ea674c477">Benoit Hediard</a></figcaption>
-</figure>
-
-Setting up two services in a controlled environment and running the tests was deemed too costly, especially when a single service has to be tested together with multiple collaborators.
-The time it takes for a CI build to finish was also taken into account.
-Integration tests are definitely slower that testing against mocked dependencies.
-
-Questions were also raised about independent deployability.
-If service A and service B are tested together, does it mean they have to be deployed together as well?
-Do services have to be tested with older collaborator versions to ensure backwards compatibility?
-
-## Testing pyramid
-
-Now is probably a good time to look at the testing pyramid.
-
-<figure class="align-center">
-  <img src="{{ '/images/2019-02-25-consumer-driven-contract-testing/unit-testing-pyramid.jpg' | absolute_url }}" alt="">
-  <figcaption><a href="https://manifesto.co.uk/unit-testing-best-practices-java/">Testing pyramid</a></figcaption>
-</figure>
-
-It states that you should have a good balance of tests—unit tests, integration tests, end-to-end tests.
-More focus should be put on the base of the pyramid.
-Unit tests are the cheapest ones to create and maintain, they're the most targeted and fastest to run.
-Moving higher towards the top of the pyramid, the slower and more costly the tests become.
-
-## End to end Testing
-
-Setting up all services and exercising the application through public APIs could have caught the integration issue between Billing and Customer services.
-Unfortunately, Alice and Bob referred to the testing pyramid and did not put much focus on these types of tests.
-
-The same limitations that are present in integration testing are present in end-to-end testing and are probably even more problematic.
-Although, a single end-to-end test covers a big chunk of the system and can give us much confidence that the system is in working order, there are some notable disadvantages.
-
-Setting up the environment where to run end-to-end tests is costly.
-Compared to integration testing, all other collaborators would have to be configured and instantiated as well.
-
-Compared to other types of tests, these are the slowest.
-Therefore developers would have to wait a significant amount of time to get feedback whether their changes broke anything.
-Although our example deals with only two services, in bigger systems it could take hours to finally find out whether everything is okay.
-
-When a change is made to the Billing service, should it be tested together with the latest version of Customer service?
-If Alice and Bob want to deploy Billing service independently from Customer service, they would have to set up another environment where the latest Billing service is tested with the Customer service that's currently present in the production environment.
-Increasing the number of services in play would make the situation even more complex and costly to operate.
-
-What's more, the more moving parts we have in our tests, the more brittle and flaky they are.
-There's a higher the chance that they fail not because of broken functionality but rather because of a network glitch for example.
-
-In his book, [Building Microservices](https://samnewman.io/books/building_microservices/), [Sam Newman](https://twitter.com/samnewman) had the following to say about flaky tests.
-
-> Flaky tests are the enemy. When they fail, they don’t tell us much. We re-run our CI builds in the hope that they will pass again later, only to see check-ins pile up, and suddenly we find ourselves with a load of broken functionality.
->
-> When we detect flaky tests, it is essential that we do our best to remove them. Otherwise, we start to lose faith in a test suite that “always fails like that.” A test suite with flaky tests can become a victim of what [Diane Vaughan](https://en.wikipedia.org/wiki/Diane_Vaughan) calls the *normalization of deviance*—the idea that over time we can become so accustomed to things being wrong that we start to accept them as being normal and not a problem.
->
-> <footer><strong>Sam Newman</strong> &mdash; <a href="https://samnewman.io/books/building_microservices/">Building Microservices</a></footer>
-
-// normalization of deviance challenger
-
-## Manual Testing
-
-What about manual testing?
-With the increased number of services in a system, this becomes unpractical.
 
 ## Consumer Driven Contract Testing with Pact
 
