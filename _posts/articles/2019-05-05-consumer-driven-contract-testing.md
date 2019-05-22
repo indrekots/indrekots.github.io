@@ -45,25 +45,57 @@ Pact is a consumer driven contract testing tool originally written by a developm
 Essentially, two services enter into contract on how to communicate with each other and Pact verifies whether both sides honor the agreement.
 In Pact terminology, the contract is referred to as a *pact*.
 
-What makes it *consumer-driven* is the fact that a client of an API (e.g. Alice's Billing service) sets expectations on the provider of the API (e.g. Bob's Customer service) on how to behave.
-Expectations are set by examples.
-For instance, if a GET request is sent to `/customers/17`, the Customer service should respond with HTTP 200 and with the customer data belonging to the given customer.
+What makes it *consumer-driven* is the fact that a client of an API sets expectations on the provider of the API on how to behave.
+In [the previous post](({{site.url}}/articles/challenges-of-testing-microservices/ "The Challenges of Testing Microservices") we looked at an example scenario where we had a Billing service and a Customer service.
+To recap, Customer service provides an API that the Billing service needs to consume.
+Therefore, since the Billing service is the consumer, it should start setting expectations on the Customer service.
+
+Contract expectations are set by examples.
+For instance, if the Billing service sends a GET request to `/customers/17`, the Customer service should respond with HTTP 200 and with the customer data belonging to the given customer.
 A collection of these interactions are encoded into a JSON document called a pact file.
 
+```
+  "consumer": {
+    "name": "billing"
+  },
+  "provider": {
+    "name": "customer"
+  },
+  "interactions": [
+    {
+      "description": "fetch customer",
+      "request": {
+        "method": "GET",
+        "path": "/customers/12",
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "costumerId": 12,
+          "name": "John Doe"
+        }
+      }
+    }
+    ...
+```
+
 Now that the interactions between Billing and Customer service have been defined, the pact file can be used to check whether both sides of the contract behave as agreed upon.
-To do that, Alice has to write some tests that exercise Billing service's code.
+To do that, we would first have to write some tests that exercise Billing service's code.
 But instead of sending requests to a real Customer service (i.e. an integration test), Pact starts up a mock HTTP server that intercepts all requests and records them.
-If a request matches to a request in the pact file, the mock server will respond with the response encoded in the pact file.
-But if the incoming request is not in the pact file, the test will fail, indicating that the consumer (in this case Alice's Billing service) does something that was not defined in the contract.
+If a request matches to a request in the pact file, the mock server will respond with the response encoded in the JSON document.
+But if the incoming request is not in the pact file, the test will fail, indicating that the consumer (in this case the Billing service) does something that was  not defined in the contract.
 
 When the consumer of an API has defined a pact and ensured that it complies with it, it is time for the provider side of an API to verify it.
-Bob received a pact file from Alice and immediately started to modify Customer service's build process.
-He included a pact verification step that starts up a Pact mock HTTP server and the Customer service.
-Pact's mock server will take all the requests from the pact file and play them against a running instance of a Customer service.
-Then it observes how Customer service responds and compares the responses to the ones in the pact file.
-If they don't match, the test will fail and Customer service is deemed not compatible with Billing service.
+The goal of the verification process is to understand whether the provider behaves as described in the contract.
+To do that we first need to start up a Customer service and give Pact the generated pact file.
+Pact framework starts up an HTTP client that reads all the requests from the pact file and plays them against a running instance of Customer service.
+Then it observes how the Customer service behaves and compares the HTTP responses to the ones in the pact file.
+If they don't match, the verification will fail and Customer service is deemed not compatible with Billing service.
 
-Looking at the bigger picture, Pact allowed Alice and Bob to verify whether Customer and Billing service speak the same language without having to spin up both services and writing classical integration tests.
+Looking at the bigger picture, Pact allowed us to verify whether Customer and Billing service speak the same language without having to spin up both services and writing classical integration tests.
 
 ## Sharing pacts
 
