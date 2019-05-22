@@ -174,7 +174,7 @@ In his book, [Building Microservices](https://amzn.to/2Ej0ZGq), [Sam Newman](htt
 >
 > When we detect flaky tests, it is essential that we do our best to remove them. Otherwise, we start to lose faith in a test suite that “always fails like that.” A test suite with flaky tests can become a victim of what [Diane Vaughan](https://en.wikipedia.org/wiki/Diane_Vaughan) calls the *normalization of deviance*—the idea that over time we can become so accustomed to things being wrong that we start to accept them as being normal and not a problem.
 >
-> <footer><strong>Sam Newman</strong> &mdash; <a href="https://samnewman.io/books/building_microservices/">Building Microservices</a></footer>
+> <footer><strong>Sam Newman</strong> &mdash; <a href="https://amzn.to/2Ej0ZGq">Building Microservices</a></footer>
 
 [Diane Vaughan](https://en.wikipedia.org/wiki/Diane_Vaughan) is a sociologist and a professor at the Columbia University.
 She coined the phrase ["normalization of deviance"](https://en.wikibooks.org/wiki/Professionalism/Diane_Vaughan_and_the_normalization_of_deviance "Diane Vaughan and the normalization of deviance") in her book [The Challenger Launch Decision](https://amzn.to/2Q8AwAi "The Challenger Launch Decision: Risky Technology, Culture, and Deviance at NASA"), where she analysed the processes inside NASA that eventually lead up to the [Space Shuttle Challenger disaster](https://en.wikipedia.org/wiki/Space_Shuttle_Challenger_disaster "Space Shuttle Challenger disaster"). Over time an unsafe practice grew into something that was considered normal since it did not cause an immediate catastrophe. And then BOOM!
