@@ -90,7 +90,7 @@ There's no need for a detailed description on how a patch was implemented.
 That's what source code is for.
 But what if the code is not clear enough?
 Then I think you might have bigger problems.
-Read [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by Robert C. Martin.
+Read [Clean Code](https://amzn.to/2WDA1UF) by Robert C. Martin.
 
 It's also good to compare the current implementation to how things were before the change.
 This usually gives enough context so the reader can understand why the change was necessary.
@@ -214,4 +214,4 @@ Consistency is better than having [each participant use their own style](https:/
 This should apply to the commit log as well.
 Project's commit history is a valuable artifact, so let's treat it as we treat our code.
 
-If you're interested in Git, how to use it and its internals, then I suggest you to read [Pro Git](https://git-scm.com/book/en/v2).
+If you're interested in Git, how to use it and its internals, then I suggest you to read [Pro Git](https://amzn.to/2Wo5een).

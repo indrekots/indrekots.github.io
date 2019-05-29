@@ -12,7 +12,7 @@ image:
 comments: true
 share: true
 published: true
-aging: true
+aging: false
 ---
 
 Spring Boot applications [can be easily configured via property files]({{site.url}}/articles/externalized-configuration-in-spring-boot/ "Externalized configuration in Spring Boot").

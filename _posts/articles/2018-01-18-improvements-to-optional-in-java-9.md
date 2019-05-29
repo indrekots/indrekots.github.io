@@ -12,7 +12,7 @@ image:
 comments: true
 share: true
 published: true
-aging: true
+aging: false
 ---
 [Optionals were introduced to Java in version 8]({{site.url}}/articles/optionals-in-java-8/).
 If used correctly, they can help you avoid unintentional `NullPointerException`s.
