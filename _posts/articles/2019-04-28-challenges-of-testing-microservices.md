@@ -202,6 +202,6 @@ In addition, to be able to deploy services independently, we would also have to 
 This can result in long build queues and slow feedback loops.
 The same is true for end-to-end testing.
 
-Luckily there's a technique called Consumer Driven Contract Testing (CDCT) that can fix it.
+Luckily, there's a technique called [Consumer Driven Contract Testing (CDCT)]({{site.url}}/articles/consumer-driven-contract-testing/ "Consumer Driven Contract Testing with Pact") that can fix it.
 It's like testing services in isolation but it guarantees that your stubs will never get out of date.
-Stay tuned for the next post to learn about CDCT.
+Feel free to read about [Consumer Driven Contract testing from the next post]({{site.url}}/articles/consumer-driven-contract-testing/ "Consumer Driven Contract Testing with Pact").

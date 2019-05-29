@@ -53,6 +53,37 @@ If they don't match, the test will fail and Customer service is deemed not compa
 
 Looking at the bigger picture, Pact allowed Alice and Bob to verify whether Customer and Billing service speak the same language without having to spin up both services and writing classical integration tests.
 
+
+## Sharing pacts
+
+We saw that a consumer of an API is responsible for setting expectations and generating the pact file.
+Once that's done, the provider should have access to it in order to verify its validity.
+How can this be done?
+Ideally, we should automate it somehow.
+Otherwise, it's very easy to forget to do it.
+A change in the contract might never be picked up by a provider, defeating the entire purpose of consumer driven contract testing.
+
+Pact files can be [shared in multiple ways](https://docs.pact.io/getting_started/sharing_pacts#alternative-approaches).
+If our consumer and provider lived in the same repository, pact files could be stored there as well.
+Once the consumer CI build has finished, it could commit the generated pact file into the same repository.
+A similar strategy could work also when both projects have their dedicated repository.
+Once the consumer CI build has generated the pact file, an extra step can be added that commits the file to the provider's repository.
+
+In addition to storing the consumer application as a build artifact in an artifact repository, the CI build could also publish pacts as build artifacts.
+On the provider side, you would need to figure out how to construct the URL that points to the latest pact file in your artifact repository to access it.
+
+### Store pacts on a network file share or AWS S3
+
+Consumer CI build could store generated pacts on a shared storage that's accessible to the provider build.
+You could use your in-house system of upload pacts to AWS S3 for example.
+[Retreaty](https://github.com/fairfaxmedia/pact-retreaty "Easily share pacts via S3") is a Ruby gem that provides a ultra light mechanism for pushing these contracts to S3 from a consumer, and later pulling them down to a provider for verification.
+
+## Pact Broker
+
+The recommended way to share pacts is to use the [Pact Broker](https://github.com/pact-foundation/pact_broker).
+Although, sharing pacts via AWS S3 or VCS repositories gets the job done, you are generally only verifying that the head versions of your services play nice with each other.
+To be able to [deploy services independently](https://www.rea-group.com/blog/enter-the-pact-matrix-or-how-to-decouple-the-release-cycles-of-your-microservices/ "Enter the Pact Matrix. Or, how to decouple the release cycles of your microservices"), we need to also know whether a change to a service is compatible with its collaborators that are in the production environment.
+
 ## Sharing pacts
 
 After consumer build has generated a pact file, the provider should have access to it in order to verify the pact.
