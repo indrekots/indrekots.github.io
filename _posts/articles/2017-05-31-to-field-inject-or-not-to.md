@@ -41,7 +41,7 @@ As [Oliver Gierke put in his blog](http://olivergierke.de/2013/11/why-field-inje
 
 **The problem with field injection is that you are allowed to instantiate a class in an invalid state**. The class does not enforce invariants. I personally feel that objects should be ready to be worked with after construction. Everything the object needs to do its job should be provided via the constructor. If the object needs a dependency to behave correctly, it seems only logical that it publicly advertises it as one of the required constructor parameters. It's like making a promise. As long as *you* provide me the required tools to work with, *I* make sure the job is done.
 
-In [Growing Object-Oriented Software, Guided by Tests](https://www.goodreads.com/book/show/4268826-growing-object-oriented-software-guided-by-tests "Growing Object-Oriented Software, Guided by Tests"), the authors [Steve Freeman](http://higherorderlogic.com/ "Higher order logic") & [Nat Price](http://www.natpryce.com/) have this to say:
+In [Growing Object-Oriented Software, Guided by Tests](https://amzn.to/2JPxIrr "Growing Object-Oriented Software, Guided by Tests"), the authors [Steve Freeman](http://higherorderlogic.com/ "Higher order logic") & [Nat Price](http://www.natpryce.com/) have this to say:
 
 >Partially creating an object and then finishing it off by setting properties is brittle because the programmer has to remember to set all the dependencies. When the object changes to add new dependencies, the existing client code will still compile even though it no longer constructs a valid instance. At best this will cause a `NullPointerException`, at worst it will fail misleadingly.
 
@@ -51,7 +51,7 @@ If we're talking about the Spring Framework, you might be thinking that there's 
 
 When you use field injection, you're essentially [hiding dependencies](https://twitter.com/olivergierke/status/314704198908403713). Without looking at the source code, you don't really know what collaborators a class needs when you instantiate it. This job is left for the DI container. Now, whether this is a good thing or not, is another question.
 
-I'm going to reference [Code Complete](https://www.goodreads.com/book/show/4845.Code_Complete "Code Complete"). [Steve McConnell](https://en.wikipedia.org/wiki/Steve_McConnell "Steve McConnell") wrote the following on formalizing class contracts.
+I'm going to reference [Code Complete](https://amzn.to/2Wiz1FZ "Code Complete"). [Steve McConnell](https://en.wikipedia.org/wiki/Steve_McConnell "Steve McConnell") wrote the following on formalizing class contracts.
 
 > At a more detailed level, thinking of each class's interface as a contract with the rest of the program can yield good insights. Typically, the contract is something like "If you promise to provide data x, y and z and you promise they'll have characteristics a, b and c, I promise to perform operations 1, 2 and 3 within constraints 8, 9 and 10." The promises the clients of the class make to the class are typically called "preconditions," and the promises the object makes to its clients are called the "postconditions."
 
@@ -71,7 +71,7 @@ Meaning that if a class as multiple responsibilities, it also has multiple reaso
 
 > [You want to really cure the pain, not blindly apply pain killers to it, don’t you?](http://olivergierke.de/2013/11/why-field-injection-is-evil/)
 
-[Steve McConnell](https://en.wikipedia.org/wiki/Steve_McConnell "Steve McConnell"), in his book [Code Complete](https://www.goodreads.com/book/show/4845.Code_Complete "Code Complete"), mentions low-to-medium [fan-out](http://it.toolbox.com/blogs/enterprise-solutions/design-principles-fanin-vs-fanout-16088 "Design Principles: Fan-In vs Fan-Out") as a desirable characteristic of a design.
+[Steve McConnell](https://en.wikipedia.org/wiki/Steve_McConnell "Steve McConnell"), in his book [Code Complete](https://amzn.to/2Wiz1FZ "Code Complete"), mentions low-to-medium [fan-out](http://it.toolbox.com/blogs/enterprise-solutions/design-principles-fanin-vs-fanout-16088 "Design Principles: Fan-In vs Fan-Out") as a desirable characteristic of a design.
 
 > Low-to-medium fan-out means having a given class use a low-to-medium number of other classes. High fan-out (more than about seven) indicates that a class uses a large number of other classes and may therefore be overly complex.
 
@@ -79,7 +79,7 @@ Seeing a big constructor is a sign that your class has too many collaborators an
 
 ## Declaring instance fields `final`
 
-In his book [Effective Java](https://www.goodreads.com/book/show/105099.Effective_Java_Programming_Language_Guide "Effective Java 2nd Edition"), [Joshua Bloch](https://twitter.com/joshbloch) recommends to favor immutable classes.
+In his book [Effective Java](https://amzn.to/2Wep7Fn "Effective Java 3rd Edition"), [Joshua Bloch](https://twitter.com/joshbloch) recommends to favor immutable classes.
 
 > Classes should be immutable unless there's a very good reason to make them mutable....If a class cannot be made immutable, limit its mutability as much as possible.
 

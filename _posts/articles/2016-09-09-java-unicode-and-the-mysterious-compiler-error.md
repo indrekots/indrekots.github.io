@@ -232,7 +232,7 @@ Windows path names use backslashes to separate directory names. But if one of th
 
 ## Taking it to the extreme
 
-We have looked at several examples where Unicode escapes can cause harm. Your eye should be trained enough to spot most of them by now. For the next example I'm going to show you a piece of code that I first saw when I read the book [Java Puzzlers](http://www.javapuzzlers.com/ "Java Puzzlers book") by Joshua Bloch and Neal Gafter.
+We have looked at several examples where Unicode escapes can cause harm. Your eye should be trained enough to spot most of them by now. For the next example I'm going to show you a piece of code that I first saw when I read the book [Java Puzzlers](https://amzn.to/2I8ojIc "Java Puzzlers: Traps, Pitfalls, and Corner Cases") by Joshua Bloch and Neal Gafter.
 
 {% highlight java %}
 \u0070\u0075\u0062\u006c\u0069\u0063\u0020\u0020\u0020\u0020
