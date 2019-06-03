@@ -2,7 +2,7 @@
 layout: post
 title: "Structuring packages in Java web applications"
 excerpt: Often times in Java web applications we see that the package structure indicates that a layered architecture is used. In this post we're going to explore the ideas around what would happen if layers were not the topmost level of organization in an application architecture.
-modified: 2018-10-28 18:56:18 +0300
+modified: 2019-06-03 18:56:18 +0300
 categories: articles
 tags: [java, package, architecture, layer, spring]
 image:
@@ -135,6 +135,10 @@ When it makes sense, vertical slices can become [bounded contexts](https://marti
 If you see a need, they could be extracted into a separate [Maven module](https://maven.apache.org/guides/mini/guide-multiple-modules.html "Guide to Working with Multiple Modules").
 With the advent of [the Java Module System](https://blog.codefx.org/java/java-module-system-tutorial/ "Code-First Java Module System Tutorial"), it is possible to think about domain boundaries at a higher level of abstraction.
 Theoretically it should be relatively painless to extract a vertical slice into a separate application when we have well defined APIs in place between modules.
+
+In [Release It!](https://amzn.to/2W6Jpvu "Release It!: Design and Deploy Production-Ready Software"), the author [Michael T. Nygard](https://www.michaelnygard.com/) writes about the benefits of vertical slices.
+
+> What happens if we rotate the barriers [horizontal slices] 90 degrees? We get something like component-based architecture. Instead of worrying about how to isolate the domain layer from the database, we isolate components from each other. Components are only allowed narrow, formal interfaces between each other. If you squint, they look like microservice instances that happen to run in the same process.
 
 ## Summary
 
