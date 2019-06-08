@@ -2,7 +2,7 @@
 layout: post
 title: "How to write a good commit message"
 excerpt: Version control systems play a vital role in tracking the history of changes in a codebase. Knowing how to write good commit messages is an essential skill if you wish to have your project's history well documented.
-modified: 2018-09-10 20:47:17 +0300
+modified: 2019-06-08 20:47:17 +0300
 categories: articles
 tags: [vcs, git, version control]
 image:
@@ -72,6 +72,12 @@ includes why the change was introduced and also explains the peculiarities of th
 
 If you're like me, you'd choose the third option. The main takeaway is that commit messages should be
 written for other developers—or for the future you—so they could understand why you introduced these changes.
+
+Unfortunately, often times we find ourselves faced with the first option.
+This becomes even more aggravating when we're under a tight deadline while trying to fix an obscure bug in production.
+Jez Humble and David Farley, the authors of [Continuous Delivery](https://amzn.to/2MvKfSP "Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation"), had the following to say about commit messages.
+
+> There is no prize for writing the shortest commit message. A Couple of medium-to-long sentences with an overview of what you were doing will often save you many times the effort later on.
 
 Writing code is a team effort.
 Even your hobby project has at least two developers working on it—you and the future you.
@@ -215,3 +221,4 @@ This should apply to the commit log as well.
 Project's commit history is a valuable artifact, so let's treat it as we treat our code.
 
 If you're interested in Git, how to use it and its internals, then I suggest you to read [Pro Git](https://amzn.to/2Wo5een).
+And finally, keep in mind to [write every commit message like the next person who reads it is an axe-wielding maniac who knows where you live](https://www.troyhunt.com/10-commandments-of-good-source-control/ "The 10 commandments of good source control management").
