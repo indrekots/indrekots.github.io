@@ -146,4 +146,4 @@ CDCT provides teams more autonomy in how they evolve their API.
 When the contract has been breached, teams are immediately aware of it and can start a discussion around how to solve the issues before anything is deployed to production.
 
 This post covered CDCT on a high level and intentionally left out implementation details.
-In the next post we're going to look at how to build a rock-solid consumer driven contract testing workflow with Pact that helps you remain backwards compatible, automatically find out when contract verification fails and stop you from deploying to production when there's an incompatibility between consumers and providers.
+[In the next post we're going to look at how to build a rock-solid consumer driven contract testing workflow with Pact]({{site.url}}/articles/pact-workflow/ "Rock-solid Consumer Driven Contract Testing Workflow With Pact") that helps you remain backwards compatible, automatically find out when contract verification fails and stop you from deploying to production when there's an incompatibility between consumers and providers.
