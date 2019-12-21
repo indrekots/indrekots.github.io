@@ -244,7 +244,7 @@ List<Optional<Cat>> users = ... // fetch cats
 
 When we have a list of cat objects, most likely we're going to iterate trough them and do something with each element.
 But if each element is an `Optional`, we would first have to unwrap it and process it only when it is present.
-A much simpler approach would be to not include Optionals in collection types at all and keep our collections clear of [Schrödinger's cats](https://en.wikipedia.org/wiki/Schr%C3%B6dinger%27s_cat)—cats that are simultaneously both there and not until we check for their presence.
+A much simpler approach would be to not include Optionals in collection types at all and keep our collections clean of [Schrödinger's cats](https://en.wikipedia.org/wiki/Schr%C3%B6dinger%27s_cat)—cats that are simultaneously both there and not until we check for their presence.
 
 <figure class="align-center">
   <img src="{{ '/images/2019-08-12-misusing-java-optional/cat.jpg' | absolute_url }}" alt="">
