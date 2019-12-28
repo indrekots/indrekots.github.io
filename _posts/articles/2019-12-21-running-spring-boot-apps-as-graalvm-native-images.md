@@ -11,7 +11,7 @@ image:
   caption: "Photo by [Alexander Sinn](https://unsplash.com/photos/KgLtFCgfC28)"
 comments: true
 share: true
-published: false
+published: true
 aging: true
 ---
 
@@ -24,11 +24,12 @@ In this post we're going to focus on how to create native binaries of Spring app
 ## GraalVM native image 101
 
 Java applications are compiled into bytecode using `javac`.
-During application runtime, the JVM loads class files into memory and when deemed necessary, the *just-in-time* (JIT) compiler kicks in and compiles certain parts of the application into native machine code.
-[JIT compilation requires processor time and memory](https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/ "Understanding JIT compiler") which affects the startup time of the application.
+During application runtime, the JVM loads class files into memory and analyzes the program's performance for [hot spots](https://en.wikipedia.org/wiki/Hot_spot_(computer_programming)); hence the name "[HotSpot JVM](https://en.wikipedia.org/wiki/HotSpot)".
+The *just-in-time* (JIT) compiler kicks in and compiles parts of the application which are executed repeatedly into native machine code.
+[JIT compilation, however, requires processor time and memory](https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/ "Understanding JIT compiler") which affects the startup time of the application.
 
-GraalVM native image allows us to fully *ahead-of-time* (AOT) compile our Java application to machine code.
-It will statically analyze application bytecode, find all classes that will ever be executed and compile them into a native executable.
+GraalVM native image allows us to *ahead-of-time* compile our JVM application into machine code.
+It statically analyzes application's bytecode, finds all classes and methods that will be called and compiles them into a native executable.
 The output is a platform specific executable binary of your application.
 
 ```
@@ -36,13 +37,18 @@ The output is a platform specific executable binary of your application.
 ./my-application
 ```
 
+// example of hello world
+
+## What's supported and what doesn't work
+
 The inherent nature of JVM is that the runtime is dynamic.
-Applications can load new classes during runtime, classes that perhaps were not available during build time.
-We can reflectively access classes and execute methods that static analyzers cannot know about.
-GraalVM native image does support reflection but we need to help it out a bit by supplying some metadata.
+Applications can load new classes at runtime, classes which perhaps were not available during compilation.
+We can reflectively access classes and execute methods unknown to static analyzers.
+Spring applications make heavy use of dynamic proxies for example.
+GraalVM native images need to know everything about the running application ahead of time.
+Thus, not all Java applications are suitable for native image generation.
+GraalVM native image does support reflection but we need to give it a hand by supplying some metadata.
 
-
-## What's supported and what does not work
 -- table
 
 Problem with Spring Boot in containers, slow startup, high memory usage, high CPU usage.
