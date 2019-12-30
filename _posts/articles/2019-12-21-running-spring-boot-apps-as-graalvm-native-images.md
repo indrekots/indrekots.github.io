@@ -21,7 +21,7 @@ However, running applications inside a JVM [comes with a cost](https://aboullait
 Another interesting feature GraalVM brings to the table is its ability to create *ahead-of-time* (AOT) compiled native images of JVM applications which promise faster startup times and lower memory footprint.
 In this post we're going to focus on how to create native binaries of Spring applications.
 
-## GraalVM native image 101
+## GraalVM Native Image 101
 
 Java applications are compiled into bytecode using `javac`.
 During application runtime, the JVM loads class files into memory and analyzes the program's performance for [hot spots](https://en.wikipedia.org/wiki/Hot_spot_(computer_programming)); hence the name "[HotSpot JVM](https://en.wikipedia.org/wiki/HotSpot)".
@@ -29,7 +29,7 @@ The *just-in-time* (JIT) compiler kicks in and compiles parts of the application
 [JIT compilation, however, requires processor time and memory](https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/ "Understanding JIT compiler") which affects the startup time of the application.
 
 GraalVM native image allows us to *ahead-of-time* compile our JVM application into machine code.
-It statically analyzes application's bytecode, finds all classes and methods that will be called and compiles them into a native executable.
+It statically analyzes application's bytecode, finds all classes and methods that are ever reachable and compiles them into a native executable.
 The output is a platform specific executable binary of your application.
 
 ```
@@ -39,19 +39,37 @@ The output is a platform specific executable binary of your application.
 
 // example of hello world
 
-## What's supported and what doesn't work
+## Native Image Java Limitations
 
-The inherent nature of JVM is that the runtime is dynamic.
-Applications can load new classes at runtime, classes which perhaps were not available during compilation.
-We can reflectively access classes and execute methods unknown to static analyzers.
-Spring applications make heavy use of dynamic proxies for example.
-GraalVM native images need to know everything about the running application ahead of time.
-Thus, not all Java applications are suitable for native image generation.
-GraalVM native image does support reflection but we need to give it a hand by supplying some metadata.
+GraalVM native image static analysis requires a closed-world assumption.
+It needs to know all classes and bytecode that is ever reachable ahead of time during image generation.
+Thus, [not all Java features are supported](https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md "Native Image Java Limitations") or they require configuration.
 
--- table
+For example, dynamic class loading/unloading is not supported.
+Reflection requires configuration.
+CGLIB proxies don't work with native images.
+On the other hand, JDK proxies are supported but require configuration.
+Additionally, you need to tell native image about all resource accesses.
 
-Problem with Spring Boot in containers, slow startup, high memory usage, high CPU usage.
+Configuration is supplied in a form of a JSON document.
+For instance, to configure reflection, you create the following file and use the `insert reflection conf flag here` command line flag to specify the file location to native image.
+
+```json
+{
+  "example of json": "configuration"
+}
+```
+
+Similar files have to be created to configure dynamic proxies, JNI and resource accesses.
+Doing all this by hand is a lot of work though, especially when we're dealing with a large application.
+Fortunately, there's a [Java agent that can generate the configuration](Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration "Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration").
+It observes the behavior of the application running in a JVM and produces configuration files needed for native image generation.
+
+To get a complete set of configuration files, you would need to exercise all code paths in your application.
+A tests suite with 100% coverage would do the trick but in reality, test suites never test all paths.
+Therefore, manual modification of these configuration files might be needed as well.
+
+## Native Image and Spring
 
 ## Reflection
 
