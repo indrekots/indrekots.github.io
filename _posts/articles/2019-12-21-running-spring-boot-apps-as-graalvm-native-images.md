@@ -32,12 +32,26 @@ GraalVM native image allows us to *ahead-of-time* compile our JVM application in
 It statically analyzes application's bytecode, finds all classes and methods that are ever reachable and compiles them into a native executable.
 The output is a platform specific executable binary of your application.
 
-```
-# start my application
-./my-application
+For instance, let's build a native image from the following "Hello World" program.
+```java
+class HelloWorld {
+  public static void main(String[] args) {
+    System.out.println("Hello World");
+  }
+}
 ```
 
-// example of hello world
+First, we need to compile the Java code with `javac` and then use `native-image` to build the binary from the class file.
+```
+javac HelloWorld.java
+native-image HelloWorld
+```
+
+`native-image` builds an executable binary.
+```
+$ ./helloworld
+Hello World
+```
 
 ## Native Image Java Limitations
 
@@ -52,12 +66,14 @@ On the other hand, JDK proxies are supported but require configuration.
 Additionally, you need to tell native image about all resource accesses.
 
 Configuration is supplied in a form of a JSON document.
-For instance, to configure reflection, you create the following file and use the `insert reflection conf flag here` command line flag to specify the file location to the `native-image` command.
+For instance, to configure reflection, you create the following file and use the `-H:ReflectionConfigurationFiles` command line flag to specify the file location to the `native-image` command.
 
 ```json
-{
-  "example of json": "configuration"
-}
+[
+  { "name":"java.lang.Object" },
+  { "name":"org.apache.naming.factory.ResourceFactory", "methods" : [{"name": "<init>","parameterTypes":[]}] },
+  ...
+]
 ```
 
 Similar files have to be created to configure dynamic proxies, JNI and resource accesses.
