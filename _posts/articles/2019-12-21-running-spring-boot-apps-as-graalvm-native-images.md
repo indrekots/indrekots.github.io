@@ -95,20 +95,43 @@ Starting from Spring Framework 5.1, [initial support for GraalVM native images w
 ## Example Spring Boot Application
 
 [The `spring-graal-native` Github repository](https://github.com/spring-projects-experimental/spring-graal-native "Graal feature for building native images of Spring applications") contains examples of how to build a native image from a Spring Boot application.
-The project implements a [GraalVM `Feature`](https://www.graalvm.org/sdk/javadoc/index.html?org/graalvm/nativeimage/hosted/Feature.html) which does the heavy lifting when it comes to configuring reflection, proxies etc.
+The project implements a [Graal `Feature`](https://www.graalvm.org/sdk/javadoc/index.html?org/graalvm/nativeimage/hosted/Feature.html) which does the heavy lifting when it comes to configuring reflection, proxies etc.
 
 > Features allow clients to intercept the native image generation and run custom initialization code at various stages. All code within feature classes is executed during native image generation, and never at run time.
 
 Let's focus on a *hello-world-level* Spring Boot example—[Spring MVC with Tomcat](https://github.com/spring-projects-experimental/spring-graal-native/tree/master/spring-graal-native-samples/springmvc-tomcat).
 Keep in mind, as of writing this, the example expects that you're using GraalVM 19.2.1 and you have the `native-image` plugin installed.
 
-// example commands
-// first, let's build the Feature
-// then build image
-// takes time, longer than a regular maven build
-// additionally, it likes to eat all the RAM
+Before building the example, we need to compile the Spring Graal Feature.
+The [root of the repository](https://github.com/indrekots/spring-graal-native) has a bash script to do that.
 
-// compare startup times
+```
+$ ./build-feature.sh
+```
+
+Once that's finished, let's move to the [Spring MVC example folder](https://github.com/indrekots/spring-graal-native/tree/master/spring-graal-native-samples/springmvc-tomcat) and execute `compile.sh`.
+It builds the Spring app using Maven and then generates a GraalVM native image.
+Be warned that native image generation takes considerably longer than a regular Maven build
+Also, the process will use a lot of RAM.
+Eventually, when the process has finished, a native binary should be present in the `target` folder.
+
+```
+$ ./springmvc-tomcat
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::
+
+...
+
+INFO: Started TomcatApplication in 0.054 seconds (JVM running for 0.057)
+```
+
+Notice the fast startup time of 0.054 seconds.
+Just for comparison, running the app in a JVM with `java -jar ...` the reported startup time is 1.455 seconds.
 
 ## Summary
 
