@@ -16,16 +16,15 @@ aging: true
 ---
 
 [GraalVM](https://www.graalvm.org/ "High-performance polyglot VM") is a high-performance polyglot virtual machine for running applications written in JavaScript, JVM-based languages, LLVM-based languages and [others](https://www.graalvm.org/docs/ "GraalVM Docs").
-For Java workloads we can use it as a regular JVM.
-However, running applications inside a JVM [comes with a cost](https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/ "Understanding JIT compiler").
-Another interesting feature GraalVM brings to the table is its ability to create *ahead-of-time* (AOT) compiled native images of JVM applications which promise faster startup times and lower memory footprint.
-In this post we're going to focus on how to create native binaries of Spring applications.
+For Java workloads it's used as a regular JVM [but with performance advantages](https://www.youtube.com/watch?v=pR5NDkIZBOA "Twitter's quest for a wholly Graal runtime").
+An interesting feature that GraalVM brings to the table is its ability to create *ahead-of-time* (AOT) compiled native images of JVM applications which promise faster startup times and lower memory footprint.
+In this post we're going to focus on how to create native binaries from Spring applications.
 
 ## GraalVM Native Image 101
 
 Java applications are compiled into bytecode using `javac`.
 During application runtime, the JVM loads class files into memory and analyzes the program's performance for [hot spots](https://en.wikipedia.org/wiki/Hot_spot_(computer_programming)); hence the name "[HotSpot JVM](https://en.wikipedia.org/wiki/HotSpot)".
-The *just-in-time* (JIT) compiler kicks in and compiles parts of the application which are executed repeatedly into native machine code.
+The *just-in-time* (JIT) compiler compiles parts of the application which are executed repeatedly into native machine code.
 [JIT compilation, however, requires processor time and memory](https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/ "Understanding JIT compiler") which affects the startup time of the application.
 
 GraalVM native image allows us to *ahead-of-time* compile our JVM application into machine code.
@@ -41,13 +40,17 @@ class HelloWorld {
 }
 ```
 
-First, we need to compile the Java code with `javac` and then use `native-image` to build the binary from the class file.
+First, we need to compile the Java code with `javac`
 ```
-javac HelloWorld.java
-native-image HelloWorld
+$ javac HelloWorld.java
 ```
 
-`native-image` builds an executable binary.
+and then use `native-image` to build an executable binary from the class file.
+```
+$ native-image HelloWorld
+```
+
+To start the application, simply
 ```
 $ ./helloworld
 Hello World
@@ -56,7 +59,7 @@ Hello World
 ## Native Image Java Limitations
 
 GraalVM native image static analysis requires a closed-world assumption.
-It needs to know all classes and bytecode that is ever reachable ahead of time during image generation.
+It needs to know all the bytecode that's ever reachable ahead of time during image generation.
 Thus, [not all Java features are supported](https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md "Native Image Java Limitations") or they require configuration.
 
 For example, dynamic class loading/unloading is not supported.
@@ -79,7 +82,7 @@ For instance, to configure reflection, you create the following file and use the
 Similar files have to be created to configure dynamic proxies, JNI and resource accesses.
 Doing all this by hand is a lot of work though, especially when we're dealing with a large application.
 Fortunately, there's a [Java agent that can generate the configuration](Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration "Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration").
-It observes the behavior of the application running in a JVM and produces configuration files needed for native image generation.
+It observes the behavior of an application running in a JVM and produces configuration files needed for native image generation.
 
 To get a complete set of configuration files, you would need to exercise all code paths in your application.
 A tests suite with 100% coverage would do the trick but in reality, test suites never test all paths.
@@ -94,13 +97,13 @@ Starting from Spring Framework 5.1, [initial support for GraalVM native images w
 
 ## Example Spring Boot Application
 
-[The `spring-graal-native` Github repository](https://github.com/spring-projects-experimental/spring-graal-native "Graal feature for building native images of Spring applications") contains examples of how to build a native image from a Spring Boot application.
+[The `spring-graal-native` Github repository](https://github.com/spring-projects-experimental/spring-graal-native "Graal feature for building native images of Spring applications") has examples of how to build a native image from a Spring Boot application.
 The project implements a [Graal `Feature`](https://www.graalvm.org/sdk/javadoc/index.html?org/graalvm/nativeimage/hosted/Feature.html) which does the heavy lifting when it comes to configuring reflection, proxies etc.
 
 > Features allow clients to intercept the native image generation and run custom initialization code at various stages. All code within feature classes is executed during native image generation, and never at run time.
 
-Let's focus on a *hello-world-level* Spring Boot example—[Spring MVC with Tomcat](https://github.com/spring-projects-experimental/spring-graal-native/tree/master/spring-graal-native-samples/springmvc-tomcat).
-Keep in mind, as of writing this, the example expects that you're using GraalVM 19.2.1 and you have the `native-image` plugin installed.
+Let's focus on a hello-world-level Spring Boot example—[Spring MVC with Tomcat](https://github.com/indrekots/spring-graal-native/tree/master/spring-graal-native-samples/springmvc-tomcat).
+Keep in mind, as of writing this, the example expects you're using GraalVM 19.2.1 and you have the `native-image` plugin installed.
 
 Before building the example, we need to compile the Spring Graal Feature.
 The [root of the repository](https://github.com/indrekots/spring-graal-native) has a bash script to do that.
@@ -109,11 +112,12 @@ The [root of the repository](https://github.com/indrekots/spring-graal-native) h
 $ ./build-feature.sh
 ```
 
-Once that's finished, let's move to the [Spring MVC example folder](https://github.com/indrekots/spring-graal-native/tree/master/spring-graal-native-samples/springmvc-tomcat) and execute `compile.sh`.
+Once that's finished, let's move to the [Spring MVC example folder](https://github.com/indrekots/spring-graal-native/tree/master/spring-graal-native-samples/springmvc-tomcat) and execute [`compile.sh`](https://github.com/indrekots/spring-graal-native/blob/master/spring-graal-native-samples/springmvc-tomcat/compile.sh).
 It builds the Spring app using Maven and then generates a GraalVM native image.
-Be warned that native image generation takes considerably longer than a regular Maven build
-Also, the process will use a lot of RAM.
-Eventually, when the process has finished, a native binary should be present in the `target` folder.
+The `native-image` command is supplied with the location of the Spring Graal Feature and various configuration files.
+Be warned that native image generation takes considerably longer than a regular Maven build.
+Also, the process likes to use a lot of RAM.
+When finished, a native binary should be present in the `target` folder.
 
 ```
 $ ./springmvc-tomcat
@@ -131,56 +135,13 @@ INFO: Started TomcatApplication in 0.054 seconds (JVM running for 0.057)
 ```
 
 Notice the fast startup time of 0.054 seconds.
-Just for comparison, running the app in a JVM with `java -jar ...` the reported startup time is 1.455 seconds.
+For comparison, when running the app in a JVM, the reported startup time for me was 1.455 seconds.
 
 ## Summary
-
-## Reflection
-
-When doing reflection, you need to warn native-image that you're doing it.
-Static configuration file via JSON.
-Otherwise you'll get method/class not found during runtime.
-
-## Resource access
-
-e.g. application.properties, application.yml
-
-When calling Class.getResource(), native-image needs to know about it ahead of time.
-Resources need to be put into the image.
-Otherwise, during runtime you'll find yourself with a missing resource.
-Supply another json file.
-
-## Dynamic proxies
-
-CGLIB not supported. JDK proxies are supported.
-We need to provide ahead of time the proxies that need to be baked into the image.
-
-Spring Boot 2.2 can work without CGLIB proxies (`@SpringBootApplication(proxyBeanMethods=false)`)
-
-## Class initialization
-
-Static initializers can be run during image build time, or runtime.
-If you had an expensive operation that was done during class initialization, it could be done during image build time.
-This would improve the startup time of your application.
-
-Crafting json files is painful. Build run test loop.
-native image agent, perhaps you have to run all your test cases as well to exercise your app through all possible code paths.
-
-## Dynamic configuration with Spring Boot GraalVM feature
-native-image finds your `@AutomaticFeature` from class path during image build time.
-
-Github repo spring-graal-native
-
-JIT vs AOC
-
-Download GraalVM, download native-image command
-
-fully self contained executable
 
 Future of container workloads
 Comparison of startup time, comparison of container size, comparison of memory usage
 
 Faster startup time, lots of work is done during image build time, no longer needed to scan classpath during startup for configuration etc.
 Startup times comparable to native languages (e.g. Go).
-
-Spring Boot roadmap, what does not work yet
+Quarkus, Micronaut, Helidon
