@@ -139,9 +139,16 @@ For comparison, when running the app in a JVM, the reported startup time for me 
 
 ## Summary
 
-Future of container workloads
-Comparison of startup time, comparison of container size, comparison of memory usage
+GraalVM native image enables us to build ahead-of-time compiled JVM applications that start very fast and use less memory.
+That's good for short lived processes, especially in the serverless scene where you're billed by the millisecond.
 
-Faster startup time, lots of work is done during image build time, no longer needed to scan classpath during startup for configuration etc.
-Startup times comparable to native languages (e.g. Go).
-Quarkus, Micronaut, Helidon
+Due to classpath scanning and auto-configuration, Spring Boot apps are [very CPU hungry during startup](https://stackoverflow.com/q/47270059/2928051).
+When starting multiple Spring Boot apps simultaneously on a shared host, they start to compete for CPU and the startup time increases.
+Orchestration tools could even kill the processes [because they didn't start fast enough](https://github.com/kubernetes/kubernetes/issues/3312).
+Fast-starting ahead-of-time compiled Spring Boot apps could be the answer to the problem.
+
+Containerized Spring Boot applications have something to gain as well.
+Since a native binary has everything it needs to function, there's no need to bake an entire JRE into the container, resulting in [smaller Docker images](https://blog.softwaremill.com/small-fast-docker-images-using-graalvms-native-image-99c0bc92e70b "Small & fast Docker images using GraalVM’s native-image").
+
+Several microservice-focused frameworks already make use of the native image feature (e.g. [Quarkus](https://quarkus.io/), [Micronaut](https://micronaut.io/), [Helidon](https://helidon.io/)).
+Although, Spring Boot does not yet fully support native image generation, I think it will be a significant addition to the framework.
