@@ -29,7 +29,7 @@ The *just-in-time* (JIT) compiler compiles parts of the application which are ex
 
 GraalVM native image allows us to *ahead-of-time* compile our JVM application into machine code.
 It statically analyzes application's bytecode, finds all classes and methods that are ever reachable and compiles them into a native executable.
-The output is a platform specific executable binary of your application.
+The output is a platform specific executable binary.
 
 For instance, let's build a native image from the following "Hello World" program.
 ```java
