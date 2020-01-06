@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Running Spring Boot apps as GraalVM native images"
-excerpt: ""
-modified: 2019-12-21 18:56:18 +0300
+excerpt: "GraalVM is a high-performance polyglot virtual machine. It's ability to create ahead-of-time compiled native images considerably speed up Spring Boot startup times."
+modified: 2020-01-06 18:56:18 +0300
 categories: articles
 tags: [java, graalvm, native image, containers]
 image:
