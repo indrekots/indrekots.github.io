@@ -81,7 +81,7 @@ For instance, to configure reflection, you create the following file and use the
 
 Similar files have to be created to configure dynamic proxies, JNI and resource accesses.
 Doing all this by hand is a lot of work though, especially when we're dealing with a large application.
-Fortunately, there's a [Java agent that can generate the configuration](Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration "Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration").
+Fortunately, there's a [Java agent that can generate the configuration](https://medium.com/graalvm/introducing-the-tracing-agent-simplifying-graalvm-native-image-configuration-c3b56c486271 "Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration").
 It observes the behavior of an application running in a JVM and produces configuration files needed for native image generation.
 
 To get a complete set of configuration files, you would need to exercise all code paths in your application.
