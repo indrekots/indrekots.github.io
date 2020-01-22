@@ -33,12 +33,12 @@ layout: default
           {% include social-share.html %}
         {% endif %}
 
-        {% if page.amazon_links %}
-          {% include affiliate-link-notice.html %}
-        {% endif %}
-
         {% if site.disqus.shortname %}
           {% include disqus-comments.html %}
+        {% endif %}
+        
+        {% if page.amazon_links %}
+          {% include affiliate-link-notice.html %}
         {% endif %}
 
         {% include page-pagination.html %}
