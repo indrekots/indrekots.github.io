@@ -13,6 +13,7 @@ comments: true
 share: true
 published: true
 aging: false
+amazon_links: true
 ---
 
 Whether you're a new to [Spring Framework](https://projects.spring.io/spring-framework/ "Spring Framework") or have been using it for some time, you're probably familiar with one of it's most notable features—[dependency injection](https://martinfowler.com/articles/injection.html "Inversion of Control Containers and the Dependency Injection pattern"). Nearly all Spring projects that I have worked with make heavy use of field injection, that is using `@Autowired`/`@Inject` annotation on an instance field. I guess this is a popular approach because it is concise and reads well. But have you ever considered the [downsides of field injection](https://softwareengineering.stackexchange.com/questions/300706/dependency-injection-field-injection-vs-constructor-injection "Dependency Injection: Field Injection vs Constructor Injection?")?

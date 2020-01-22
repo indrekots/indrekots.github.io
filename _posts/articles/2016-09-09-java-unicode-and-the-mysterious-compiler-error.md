@@ -14,6 +14,7 @@ share: true
 published: true
 aging: true
 canonical_url: https://www.sitepoint.com/java-unicode-mysterious-compile-error/
+amazon_links: true
 ---
 This article was originally published on [SitePoint](https://www.sitepoint.com/java-unicode-mysterious-compile-error/) on August 25, 2016. For more interesting content about Java, check out [SitePoint's Java channel](https://www.sitepoint.com/java/ "Java channel at SitePoint").
 {: .notice--info}

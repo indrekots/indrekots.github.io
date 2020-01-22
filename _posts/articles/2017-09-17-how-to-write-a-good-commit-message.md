@@ -13,6 +13,7 @@ comments: true
 share: true
 published: true
 aging: false
+amazon_links: true
 ---
 A [version control system](https://en.wikipedia.org/wiki/Version_control "Version Control") is an essential collaboration tool used in software engineering.
 I think for most developers, it is a tool for sharing work in a co-operative manner.

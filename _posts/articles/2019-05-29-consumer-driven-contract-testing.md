@@ -13,6 +13,7 @@ comments: true
 share: true
 published: true
 aging: false
+amazon_links: true
 ---
 
 In the previous post, we had a look at [different ways of testing microservices]({{site.url}}/articles/challenges-of-testing-microservices/ "The Challenges of Testing Microservices") and learned that *classical* testing methods might not work well in distributed environments.

@@ -13,6 +13,7 @@ comments: true
 share: true
 published: true
 aging: false
+amazon_links: true
 ---
 
 [Optionals were introduced to Java](https://blog.indrek.io/articles/optionals-in-java-8/ "Optionals in Java 8") in version 8.
