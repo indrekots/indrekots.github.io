@@ -13,6 +13,7 @@ comments: true
 share: true
 published: true
 aging: false
+amazon_links: true
 ---
 
 When looking at many of the leading software engineering conferences out there, you'll immediately see that *microservices* are a topic that's discussed everywhere.

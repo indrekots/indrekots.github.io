@@ -13,6 +13,7 @@ comments: true
 share: true
 published: true
 aging: false
+amazon_links: true
 ---
 
 If you've ever worked on a typical [Spring web application](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html "Spring Web MVC"), most likely you have seen the following top level packages.

@@ -12,6 +12,7 @@ image:
 comments: true
 share: true
 published: true
+amazon_links: true
 ---
 
 Introduced in Java 7, the fork/join framework is used to divide a parallelizable task into smaller ones and afterwards combine the intermediate results to get the end result. It is an implementation of the `ExecutorService` interface. In this post we're going to look at how to use the fork/join framework. We will create subtasks and submit them to the thread pool.
