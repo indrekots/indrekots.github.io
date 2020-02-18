@@ -52,8 +52,10 @@ Records, on the other hand, provide a syntax to declare only the parts that are 
 record Point(double x, double y) {}
 ```
 
-No need to declare a constructor and worry about whether `equals` and `hashCode` are implemented correctly.
-That's all done for you.
+No need to declare a constructor and worry whether `equals` and `hashCode` are implemented correctly.
+We only need to provide a name and a *state description*.
+That is, the *components* of a record.
+
 
 ## It's not only about boilerplate
 
@@ -106,12 +108,49 @@ If you have a need to modify a record, you need to create a new one.
 
 ## Static methods
 
-## Methods
+Records can contain static methods.
+For example, we could include a static factory method to our `Point` record that creates a point in the origin.
 
-## limitations
+```java
+record Point(double x, double y) {
+  public static Point origin() {
+    return new Point(0, 0);
+  }
+}
+```
+
+## Instance Methods
+
+Besides static methods, we can also include instance methods to records.
+Let's say, we would like to know the distance to another point on a Cartesian plane.
+The formula for finding the distance between two points is:
+
+\\[ \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2} \\]
+
+Implementing it as an instance method on the `Point` record looks as follows.
+
+```java
+record Point(double x, double y) {
+  public double distanceTo(Point point) {
+    return Math.sqrt(Math.pow(point.x - this.x, 2) + Math.pow(point.y - this.y, 2));
+  }
+}
+```
+
+## Limitations
+
+Due to the intended purpose of records, there are some limitations we have to take into account.
+Records cannot extend any other class and cannot declare instance fields that aren't part of its state description.
+This is to ensure that the state description of a record alone defines its representation.
+
+Since immutability is at the core of a record, the *components* of a record are implicitly final.
 
 ## Summary
 
-Records in other languages
-Preview feature, could change
-Enable preview feature
+Records introduce a new syntax to the Java language, allowing to declare immutable data classes.
+While on the outset, the biggest benefit seems to be the reduction of boilerplate code, there's also a semantic difference.
+Records *model data as data* and provide a clear indication to the reader that they're dealing with a data class.
+
+Keep in mind, that records in Java 14 are a [preview feature](https://openjdk.java.net/jeps/12 "JEP 12: Preview Language and VM Features").
+The implementation could change and evolve in the upcoming releases.
+To unlock records, use the `--enable-preview` command line flag for `javac` and `java`.
