@@ -2,7 +2,7 @@
 layout: post
 title: "Java 14 Records"
 excerpt: "Java 14 introduces a new preview feature to the language—Records—with a goal to provide a compact syntax for declaring containers of shallowly immutable data."
-modified: 2020-02-15 18:56:18 +0300
+modified: 2020-02-22 18:56:18 +0300
 categories: articles
 tags: [java, records]
 image:
