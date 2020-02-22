@@ -105,7 +105,7 @@ These are immutable objects that model a value that's only distinguishable by it
 If you need to edit a record, you need to create a new one.
 
 {: .notice}
-📖You can read more about value objects and DDD form the book that started it all: [Domain-Driven Design: Tackling Complexity in the Heart of Software](https://amzn.to/320l3Z5 "Domain-Driven Design: Tackling Complexity in the Heart of Software")
+📖 You can read more about value objects and DDD form the book that started it all: [Domain-Driven Design: Tackling Complexity in the Heart of Software](https://amzn.to/320l3Z5 "Domain-Driven Design: Tackling Complexity in the Heart of Software")
 
 ## Static methods
 
