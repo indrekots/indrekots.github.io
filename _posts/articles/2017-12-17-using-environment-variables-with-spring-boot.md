@@ -2,7 +2,7 @@
 layout: post
 title: "Using environment variables with Spring Boot"
 excerpt: This post will cover how you can use OS environment variables to pass configuration values to a Spring Boot application.
-modified: 2017-12-17 07:17:09 +0200
+modified: 2020-02-23 07:17:09 +0200
 categories: articles
 tags: [spring, spring boot, java]
 image:
@@ -13,6 +13,7 @@ comments: true
 share: true
 published: true
 aging: false
+amazon_links: true
 ---
 
 Spring Boot applications [can be easily configured via property files]({{site.url}}/articles/externalized-configuration-in-spring-boot/ "Externalized configuration in Spring Boot").
@@ -58,3 +59,6 @@ SPRING_APPLICATION_JSON='{"ec2":{"public":{"url":"http://mydomain.com"}}}'
 
 To get a more thorough overview of all the ways Spring Boot allows you to configure applications, you should definitely look at [the official docs](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html).
 You can find an example Sprint Boot application from [Github](https://github.com/indrekots/spring-boot-envvariables) that demonstrates the approaches covered in this post.
+
+{: .notice}
+📖 **Book Recommendation!** If you'd like to learn more about Spring Boot, check out [Learning Spring Boot 2.0](https://amzn.to/2HMNznJ "Learning Spring Boot 2.0 - Second Edition: Simplify the development of lightning fast applications based on microservices and reactive programming") by Greg L. Turnquist.
