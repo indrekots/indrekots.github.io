@@ -58,7 +58,7 @@ System.out.println(person.name.firstName);
 ```
 
 From the error message we can infer that either `person` or `name` was `null`.
-If the issue is reproducible and we have access to the source code we could debug the problem by attaching a debugger or creating intermediate local variables.
+If the issue is reproducible and we have access to the source code we could debug the problem by attaching a debugger or create intermediate local variables.
 However, when the error is found from logs from a production server, we don't have a clear indication which variable was `null`.
 
 ## New and improved NPE error messages
