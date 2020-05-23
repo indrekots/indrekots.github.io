@@ -195,27 +195,29 @@ In a way, operations are also customers for developers.
 ## 3. Principles of Continual Learning
 
 The third way is about creating a culture of continual learning and experimentation.
-We saw that fast feedback enables us to learn from our mistakes.
+Fast feedback enables us to learn from our mistakes.
 But that's only part of the solution.
-We want to constantly learn, improve, experiment and create new knowledge in the entire organization.
+We want to constantly improve, experiment and create new knowledge in the entire organization.
 After all, organizations that are able to learn quicker than others have a competitive advantage.
 
-Work environments where incidents are followed by the *name, shame, blame* pattern most likely have systematic quality issues.
-If you're punished for your mistakes, you're incentivized to stay in your comfort zone; that happy little place where you're less likely to make mistakes.
-This, however, prevents organizational learning.
-Fear of mistakes creates a culture where instead of admitting failure, it's perhaps more convenient to hide it under the covers.
-People are less likely to speak up when problems are found.
-They're also less likely to propose novel solutions to problems because the last time it resulted in a failure.
+In low trust work environments, incidents are often followed by the *name, shame, blame* pattern.
+This, however, obstructs individuals and the entire organization from learning.
+Getting punished for mistakes incentivizes you to stay in your comfort zone; that happy little place where you're less likely to cause problems.
+You're discouraged from experimenting and trying out new things.
+Instead of taking responsibility, it's more convenient to hide failures under the covers.
+People are less likely to speak up and propose novel solutions to existing problems.
+Due to low trust, those who try to innovate are met with resistance.
 
-When small failure signals are withheld, they accumulate until a major catastrophe happens.
-This usually results in more processes and approvals.
-As discussed previously, this can lead to lower throughput and longer lead times.
+When small failure signals are continually withheld, they accumulate, until a major catastrophe happens.
+The immediate response from management is to add extra processes and approvals to avoid a future disaster.
+But as was discussed previously, this results in lower throughput and longer lead times.
+It doesn't solve the underlying problem.
 
 Ron Westrum, [in his 2004 paper titled "A Typology of Organisational Cultures"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1765804/), describes this as having a pathological organization culture.
 
 > When things go wrong, pathological climates encourage finding a scapegoat [...] Pathological environments will discourage taking responsibility, and can be expected to conceal their problems.
 
-Westrum defines three dominant culture types - pathological, bureaucratic, and generative.
+Westrum defines three dominant culture types—pathological, bureaucratic, and generative.
 On the opposite side to pathological, we have *generative organizations*.
 
 > Generative organisations require empowerment for maximum performance. Individuals’ minds are harnessed to fulfill the organisation’s goals through a culture of conscious inquiry. They are encouraged to speak up, think outside the box, and to act as fully conscious participants in a great cooperative enterprise.
@@ -225,10 +227,10 @@ Learning is actively promoted.
 Everybody is encouraged to run experiments to learn how to improve both processes and the products and services they build.
 Instead of blaming humans for errors, they look into ways to redesign the system to prevent another one.
 And when failures do happen, they're treated as learning opportunities.
-[Blameless post-mortems](https://www.atlassian.com/incident-management/postmortem/blameless "How to run a blameless postmortem") are held to create organizational learning from incidents.
+When faced with incidents, [blameless post-mortems](https://www.atlassian.com/incident-management/postmortem/blameless "How to run a blameless postmortem") are held to create organizational learning.
 
 > By removing blame, you remove fear; by removing fear, you enable honesty; and honesty enables prevention
-> <footer><strong>Bethany Marci</strong></footer>
+> <footer><strong>Bethany Marci</strong> &mdash; <a href="https://vimeo.com/77206751">Morgue: Helping Better Understand Events by Building a Post Mortem Tool</a></footer>
 
  Institutionalize the improvement of daily work
   * reserve time for improvement and learning
