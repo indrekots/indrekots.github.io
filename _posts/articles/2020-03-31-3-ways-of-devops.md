@@ -49,7 +49,7 @@ This is the amount of work that has been started but is not yet completed.
 A high amount of WIP could be sign of multitasking.
 Context switching (citation needed) is expensive and dramatically hinders the flow of work.
 
-// Stop starting, start finishing.
+### Stop starting, start finishing
 
 To constrain WIP, we should reduce batch sizes.
 The idea originates from [Lean Manufacturing](https://en.wikipedia.org/wiki/Lean_manufacturing "Lean manufacturing").
@@ -200,10 +200,12 @@ But that's only part of the solution.
 We want to constantly improve, experiment and create new knowledge in the entire organization.
 After all, organizations that are able to learn quicker than others have a competitive advantage.
 
+### 3.1. Generative Organizations
+
 In low trust work environments, incidents are often followed by the *name, shame, blame* pattern.
 This, however, obstructs individuals and the entire organization from learning.
 Getting punished for mistakes incentivizes you to stay in your comfort zone; that happy little place where you're less likely to cause problems.
-You're discouraged from experimenting and trying out new things.
+You're discouraged from experimenting, trying out new things and asking _"what-if"_ questions.
 Instead of taking responsibility, it's more convenient to hide failures under the covers.
 People are less likely to speak up and propose novel solutions to existing problems.
 Due to low trust, those who try to innovate are met with resistance.
@@ -227,32 +229,24 @@ Learning is actively promoted.
 Everybody is encouraged to run experiments to learn how to improve both processes and the products and services they build.
 Instead of blaming humans for errors, they look into ways to redesign the system to prevent another one.
 And when failures do happen, they're treated as learning opportunities.
-When faced with incidents, [blameless post-mortems](https://www.atlassian.com/incident-management/postmortem/blameless "How to run a blameless postmortem") are held to create organizational learning.
+When faced with incidents, [blameless post-mortems](https://www.atlassian.com/incident-management/postmortem/blameless "How to run a blameless postmortem") are held.
+Results are shared with the entire organization to transform local discoveries into global improvements.
 
 > By removing blame, you remove fear; by removing fear, you enable honesty; and honesty enables prevention
 > <footer><strong>Bethany Marci</strong> &mdash; <a href="https://vimeo.com/77206751">Morgue: Helping Better Understand Events by Building a Post Mortem Tool</a></footer>
 
- Institutionalize the improvement of daily work
-  * reserve time for improvement and learning
-  * Toyota kata
-  * Teams that are not able to improve their daily work, not only will they continue to suffer, the suffering increases due to chaos and entropy, processes degrade over time.
-  * In Tech: relying on daily workarounds, tech debt increases, increases cycle time and productivity
-  * Lean IT: Even more important than daily work is the improvement of daily work
-  * Reserve time in every iteration to pay down technical debt.
-* Transform local discoveries into global improvements
-  * When new learnings are discovered locally, the entire org should know about it
-  * E.g. blameless post-mortems public and searchable
-* Inject resilience patterns into our daily work to force improvement
-  * Continually introduce tension to the system to improve performance and resilience - chaos engineering, antifragile systems
-  * Tech value stream, find ways to reduce deployment lead time, increase test coverage, decrease test execution times, re-architect systems
+### 3.2. Continuous Improvement
 
-Paul O'Neill, CEO, Alcoa, started to be notified about accident near-misses in addition to actual accidents. Find and detect ever weaker failure signals and act upon them, before they result in a catastrophic failure.
+Teams that are too busy to improve their daily work and regularly rely on workarounds, increase their technical debt.
+Not only will they continue to suffer but the suffering increases over time.
+Processes degrade, productivity plummets and throughput decreases.
 
-space shuttle Columbia disaster, foam dislodgement, weak failure signal that was not taken seriously
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Are you too busy to improve <a href="http://t.co/O9Gmel3ICB">pic.twitter.com/O9Gmel3ICB</a></p>&mdash; Shayne 👨🏿‍💻 UXD (@shaynecuffy) <a href="https://twitter.com/shaynecuffy/status/499473730046001152?ref_src=twsrc%5Etfw">August 13, 2014</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-improvement blitz, kaizen blitz, improvement of daily work over daily work itself
-
-!!the only way to master something is to practice a lot, frequent deployments, if you do something a lot, you get really good at it
+Improvement shouldn't be viewed as an optional activity, something you do when you have extra time.
+It should be continuous, part of the daily routine of every team.
+Time should be consciously reserved to pay down technical debt, to run experiments, improve workflows and create new knowledge.
+[In a continuous improvement culture, improving the way we work is more important than doing the work!](https://mikeorzen.com/change-fatigue-psychological-safety-and-the-leadership-void-why-most-ci-initiatives-dont-last/ "Change Fatigue, Psychological Safety and the Leadership Void: Why Most CI Initiatives Don’t Last")
 
 ## Summary
 
@@ -260,3 +254,5 @@ Set of principles and practices, org culture
 The principles behind DevOps work patterns are the same that transformed manufacturing (lean)
 busy/wait time
 four key metrics
+
+!!the only way to master something is to practice a lot, frequent deployments, if you do something a lot, you get really good at it
