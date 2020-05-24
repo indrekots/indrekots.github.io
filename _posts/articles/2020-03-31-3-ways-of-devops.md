@@ -35,6 +35,8 @@ Instead, in this post, I'm going to summarize the three core principles of DevOp
 
 The first principle is about creating a smooth flow of work through the different functional areas of an organization.
 Emphasis should be put on the global goals of the entire system, not on the local goals of individual departments.
+
+### 1.1 Make Work Visible
 In technology organizations however, a lot of work is invisible.
 To prioritize work in the context of global goals, work should be made visible.
 For starters, this can be achieved with Kanban boards.
@@ -47,9 +49,9 @@ For starters, this can be achieved with Kanban boards.
 Kanban boards help visualize *work-in-progress* (WIP).
 This is the amount of work that has been started but is not yet completed.
 A high amount of WIP could be sign of multitasking.
-Context switching (citation needed) is expensive and dramatically hinders the flow of work.
+Context switching is expensive and hinders the flow of work.
 
-### Stop starting, start finishing
+### 1.2 Reduce Batch Size
 
 To constrain WIP, we should reduce batch sizes.
 The idea originates from [Lean Manufacturing](https://en.wikipedia.org/wiki/Lean_manufacturing "Lean manufacturing").
@@ -114,6 +116,8 @@ A hand-off requires communication and coordination.
 Unfortunately, even under the best circumstances, some knowledge gets lost.
 This is a potential spot where errors can creep in and work can pile up, disrupting the flow and increasing deployment lead times.
 
+### 1.3 Eliminate Constraints
+
 Continually identifying and eliminating constraints in our work is key to improve throughput and reduce lead times.
 In [Beyond the Goal: Theory of Constraints](https://amzn.to/2yDMvRD), the author Dr. Goldratt states
 
@@ -141,6 +145,8 @@ Even the smallest of changes can have catastrophic consequences.
 Without fast feedback, we distance the cause and effect.
 Errors can slip in undetected, only to be discovered later when the cost and effort to fix them is higher.
 
+### 2.1 Importance of Fast Feedback
+
 Ideally, we'd like to discover problems as they occur.
 If you've written any code in an IDE or text editor that points out issues as you type them, then you know what I'm talking about.
 Ah, the *red squiggly line*.
@@ -166,6 +172,8 @@ Not only are issues more difficult to fix, we also increase *work-in-progress* a
 While developers are waiting for work to be tested, most likely new work is being introduced.
 This can lead to a downward spiral of ever increasing lead times.
 Fast feedback, on the other hand, prevents the start of new work which is more likely to introduce new errors since it's built on top of the previous error.
+
+### 2.2 Push Quality Closer To The Source
 
 It seems counterintuitive, but adding more inspection steps and approval processes increases the likelihood of failures.
 Surely, having more eyes on the problem should produce better results, right?
