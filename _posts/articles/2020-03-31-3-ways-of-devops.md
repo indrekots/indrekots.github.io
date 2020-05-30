@@ -33,26 +33,13 @@ Instead, in this post, I'm going to summarize the three core principles of DevOp
 
 // define value stream
 
-The first principle is about creating a smooth flow of work through the different functional areas of an organization.
+The first principle is about creating a smooth flow of work through the different functional areas in an organization.
 Emphasis should be put on the global goals of the entire system, not on the local goals of individual departments.
 
-### 1.1 Make Work Visible
-In technology organizations however, a lot of work is invisible.
-To prioritize work in the context of global goals, work should be made visible.
-For starters, this can be achieved with Kanban boards.
+### 1.1 Reduce Batch Size
 
-<figure class="align-center">
-  <img src="{{ '/images/2020-04-01-3-ways-of-devops/kanban.png' | absolute_url }}" alt="">
-  <figcaption>Example of a Kanban board from <a href="https://trello.com/">Trello</a>. Work is visualized and moves from left to right.</figcaption>
-</figure>
-
-Kanban boards help visualize *work-in-progress* (WIP).
-This is the amount of work that has been started but is not yet completed.
-A high amount of WIP could be sign of multitasking.
-Context switching is expensive and hinders the flow of work.
-
-### 1.2 Reduce Batch Size
-
+*Work-in-progress (WIP)* is the amount of work that has been started but is not yet completed.
+[A high amount of WIP is sign of multitasking](https://medium.com/@Adrien_Liard/why-you-should-limit-work-in-progress-and-stop-multitasking-ba7ecd4670f "Why you should limit work in progress and stop multitasking") and can hinder the flow of work.
 To constrain WIP, we should reduce batch sizes.
 The idea originates from [Lean Manufacturing](https://en.wikipedia.org/wiki/Lean_manufacturing "Lean manufacturing").
 It was common in manufacturing to produce components in large batches.
@@ -61,11 +48,10 @@ Therefore, it was considered practical to produce as many parts as possible once
 
 For example, a car production plant would produce a lot of body panels at a time to reduce the number of changeovers.
 This, however, creates a large amount of WIP.
-The variability in the flow of work cascades through the entire manufacturing plant, resulting in long lead times.
-It doesn't improve quality as well.
-Imagine, what would happen if a flaw was found in the produced body panels when they're being assembled?
+[The variability in the flow of work cascades through the entire manufacturing plant, resulting in long lead times](https://guillermo-roman.com/my-holiday-card-pipeline-a-visual-representation-of-the-effects-of-work-in-progress/ "A Visual Representation of the Effects of Work In Progress").
+Now imagine, what would happen if a flaw was found in the produced body panels when they're being assembled?
 Most likely, the entire batch has to be discarded and redone.
-Producing large batches delays feedback.
+Producing large batches delays feedback and gives errors a chance to creep in.
 
 The same ideas apply to software development.
 However, instead of machinery and body panels, we're dealing with code.
@@ -77,11 +63,7 @@ Every commit into version control increases the batch size, creates WIP and vari
 A classic example is an annual production deployment schedule.
 If a deployment is done once a year, the batch size is huge; a year's worth of work being deployed in a single step.
 Similarly to the car plant, if anything goes wrong, the entire batch has to be rolled back.
-We must find and fix issues in it, test it and redeploy it.
-These kinds of events are disruptive to the flow of work.
-Not only do we have to deal with unplanned work, but we have to deal with work that moves from *right to left* in the value stream.
-Because of delayed feedback, it's more time consuming to resolve the issues that caused the failure.
-The time between when the error was made and when it was discovered is long and naturally, knowledge fades over time, making it more difficult to fix the issues.
+Naturally, knowledge fades over time, making it more difficult to find the fix the issues that caused the failure.
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/large-batch.png' | absolute_url }}" alt="">
@@ -103,20 +85,14 @@ These factors are disruptive to the flow of work and increase deployment lead ti
 
 To improve deployment lead times, batch sizes need to be made smaller.
 Long-lived feature branches are discouraged.
-In order to get faster feedback, it's better to integrate early and often.
+In order to get faster feedback, it's better to integrate early and often and deploy software in smaller increments.
 If we continue to reduce the batch size, we eventually arrive at a _single piece flow_, where every commit to version control flows through the entire software development value stream.
 Once all automated checks have passed, changes end up in production.
 
 Teams that are able to pull that off make use of practices such as [trunk-based development](https://trunkbaseddevelopment.com/), [continuous integration](https://martinfowler.com/articles/continuousIntegration.html), [continuous delivery](https://martinfowler.com/bliki/ContinuousDelivery.html) and [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment).
 They've invested in test automation and have designed their software for low-risk releases.
-They have also organised themselves so that the number of required hand-offs is reduced.
 
-Every time work needs to be handed off to another team, we increase deployment lead times.
-A hand-off requires communication and coordination.
-Unfortunately, even under the best circumstances, some knowledge gets lost.
-This is a potential spot where errors can creep in and work can pile up, disrupting the flow and increasing deployment lead times.
-
-### 1.3 Eliminate Constraints
+### 1.2 Eliminate Constraints
 
 Continually identifying and eliminating constraints in our work is key to improve throughput and reduce lead times.
 In [Beyond the Goal: Theory of Constraints](https://amzn.to/2yDMvRD), the author Dr. Goldratt states
@@ -132,13 +108,10 @@ What's worse, WIP is increased.
 New builds pile up even faster now, waiting to be deployed to the test environment.
 Since environment creation is blocking new work form passing through, steps that should happen after are starved of work.
 We should find the _single_ constraint in our value stream and deal with it.
-When it comes to environment creation, it should be automated and on-demand.
-
-We should keep our eyes open for anything that doesn't add value to the customer and eliminate it from the _flow_.
-_The first way_ was about work that moves from left to right, whereas the next principle we're going to look at is about feedback that moves from right to left in the value stream.
 
 ## 2. Principles of Feedback
 
+_The first way_ was about work that moves from left to right, whereas the next principle we're going to look at is about feedback that moves from right to left in the value stream.
 *The second way* of DevOps is about creating fast feedback loops that allow us to build safer systems.
 Whether you like it or not, software is complicated.
 Even the smallest of changes can have catastrophic consequences.
@@ -151,22 +124,22 @@ Ideally, we'd like to discover problems as they occur.
 If you've written any code in an IDE or text editor that points out issues as you type them, then you know what I'm talking about.
 Ah, the *red squiggly line*.
 This type of real-time feedback allows us to fix issues when it is cheap and easy to do so.
-Additionally, we get to learn from our failures quickly.
+Additionally, we get to learn from our mistakes immediately.
 
 > "It is impossible for a developer to learn anything when someone yells at them for something they broke six months ago - that is why we need to provide feedback to everyone as quickly as possible, in minutes, not months." - Gary Gruver
 
 Unfortunately, we don't have a *red squiggly line* in our editors for future production issues.
 Nor do we have them for features customers don't like.
-The next best thing is to reduce the time between when the issue is introduced and when it is detected as much as possible.
+The next best thing is to reduce the time between when an issue is introduced and when it is detected.
 
 In environments, where quality is [*somebody else's problem*](https://en.wikipedia.org/wiki/Somebody_else%27s_problem), we involuntarily delay feedback.
 For instance, if QA is in charge for the correctness of the work produced by developers or operations is solely responsible for the software in production, quality is moved further from the source.
 Feedback is received by handing over work to the next work center in the value stream.
-As was discussed before, handovers potentially create delays.
+As was discussed earlier, handovers can create delays.
 Work can pile up because, say, QA is busy testing something else or operations doesn't have time to provision a testing environment.
 Feedback is delayed.
 
-As we saw when discussing *the principles of flow*, if we don't get immediate feedback, there's a risk of passing on defects to downstream work centers.
+If we don't get immediate feedback, there's a risk of passing on defects to downstream work centers.
 This creates disruptions in the flow of work.
 Not only are issues more difficult to fix, we also increase *work-in-progress* and batch size.
 While developers are waiting for work to be tested, most likely new work is being introduced.
@@ -178,10 +151,10 @@ Fast feedback, on the other hand, prevents the start of new work which is more l
 It seems counterintuitive, but adding more inspection steps and approval processes increases the likelihood of failures.
 Surely, having more eyes on the problem should produce better results, right?
 That might be true if everybody is fully informed of the work at hand.
-But as we start to push decision making further from where the work is performed, the effectiveness of approval processes decreases.
+But as we start to push decision-making further from where the work is performed, the effectiveness of approval processes decreases.
+
 Getting approvals from people who are distant from the work has several issues.
-First of all, they don't have the most up to date information.
-It could lead to mistakes.
+First of all, they don't have the most up-to-date information.
 Secondly, they might be busy with other work.
 Approvals can start to pile up, creating delays.
 Under pressure, they could rubber stamp decisions.
@@ -196,9 +169,10 @@ Preventing the introduction of new work enables CI and CD, a single-piece flow.
 
 Quality should be everyone's responsibility.
 We should build software for customers and also for downstream work centers.
-For instance, dev should build great software for end users but they should also optimize it for operations.
+For instance, developers should build great software for end users but they should also optimize it for operations.
 monitoring, logging, deployments
 In a way, operations are also customers for developers.
+// technical empathy
 
 ## 3. Principles of Continual Learning
 
