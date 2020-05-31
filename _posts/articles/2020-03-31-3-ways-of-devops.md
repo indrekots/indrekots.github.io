@@ -31,10 +31,9 @@ Instead, in this post, I'm going to summarize the three core principles of DevOp
 
 ## 1. Principles of Flow
 
-// define value stream
-
-The first principle is about creating a smooth flow of work through the different functional areas in an organization.
-Emphasis should be put on the global goals of the entire system, not on the local goals of individual departments.
+*The First Way* is about creating a smooth flow of work through the different functional areas in an organization; from requirements gathering to operating software in production.
+Emphasis is put on the global goals of the entire system, not on the local goals of individual departments.
+To make the concept more clear, let's have a look at a couple of key takeaways.
 
 ### 1.1 Reduce Batch Size
 
@@ -49,13 +48,13 @@ Therefore, it was considered practical to produce as many parts as possible once
 For example, a car production plant would produce a lot of body panels at a time to reduce the number of changeovers.
 This, however, creates a large amount of WIP.
 [The variability in the flow of work cascades through the entire manufacturing plant, resulting in long lead times](https://guillermo-roman.com/my-holiday-card-pipeline-a-visual-representation-of-the-effects-of-work-in-progress/ "A Visual Representation of the Effects of Work In Progress").
-Now imagine, what would happen if a flaw was found in the produced body panels when they're being assembled?
+Now imagine, what would happen if a flaw was found in the body panels when a car was being assembled?
 Most likely, the entire batch has to be discarded and redone.
-Producing large batches delays feedback and gives errors a chance to creep in.
+Producing large batches delays feedback and in case of errors, more work has to be redone.
 
 The same ideas apply to software development.
 However, instead of machinery and body panels, we're dealing with code.
-Every commit into version control increases the batch size, creates WIP and variability in flow in the software development value stream.
+Every commit into version control increases the batch size, creates WIP and variability in flow in the [software development value stream](https://www.atlassian.com/continuous-delivery/principles/value-stream-mapping).
 
 > The batch size is the unit at which work-products move between stages in a development process.
 > <footer><strong>Eric Ries</strong> &mdash; <a href="http://www.startuplessonslearned.com/2009/02/work-in-small-batches.html">StartUp Lessons Learned</a></footer>
@@ -63,7 +62,10 @@ Every commit into version control increases the batch size, creates WIP and vari
 A classic example is an annual production deployment schedule.
 If a deployment is done once a year, the batch size is huge; a year's worth of work being deployed in a single step.
 Similarly to the car plant, if anything goes wrong, the entire batch has to be rolled back.
-Naturally, knowledge fades over time, making it more difficult to find the fix the issues that caused the failure.
+Additional effort is then put into redoing work that was considered to be already done.
+Naturally, knowledge fades over time.
+It's difficult to find and fix the issues that caused the deployment to fail if they were introduced, say, 6 months ago.
+// higher change for errors during deployment
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/large-batch.png' | absolute_url }}" alt="">
@@ -83,7 +85,7 @@ These factors are disruptive to the flow of work and increase deployment lead ti
   <figcaption>Smaller batch size, less changes over time. <a href="https://www.slideshare.net/jallspaw/ops-metametrics-the-currency-you-pay-for-change-4608108">Ops Meta-Metrics by John Allspaw</a></figcaption>
 </figure>
 
-To improve deployment lead times, batch sizes need to be made smaller.
+To improve deployment lead times, batch sizes have to be made smaller.
 Long-lived feature branches are discouraged.
 In order to get faster feedback, it's better to integrate early and often and deploy software in smaller increments.
 If we continue to reduce the batch size, we eventually arrive at a _single piece flow_, where every commit to version control flows through the entire software development value stream.
@@ -91,6 +93,7 @@ Once all automated checks have passed, changes end up in production.
 
 Teams that are able to pull that off make use of practices such as [trunk-based development](https://trunkbaseddevelopment.com/), [continuous integration](https://martinfowler.com/articles/continuousIntegration.html), [continuous delivery](https://martinfowler.com/bliki/ContinuousDelivery.html) and [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment).
 They've invested in test automation and have designed their software for low-risk releases.
+// hand-offs?
 
 ### 1.2 Eliminate Constraints
 
@@ -99,14 +102,14 @@ In [Beyond the Goal: Theory of Constraints](https://amzn.to/2yDMvRD), the author
 
 > In any value stream, there is always a direction of flow, and there is always one and only one constraint; any improvement not made at that constraint is an illusion.
 
-An example from a technology value stream is _environment creation_.
-If it takes hours to set up a testing environment, any improvements we do to work that happens before it in a value stream is an illusion.
+An example from a technology value stream is *environment creation*.
+If it takes hours to set up a testing environment, any improvements we do to work that happens before it in a value stream is an illusion. // draw diagram
 For instance, if we reduce our build time from 10 to 3 minutes, we get faster builds.
 But nothing gets done faster overall.
 Environment creation is still a blocker.
 What's worse, WIP is increased.
 New builds pile up even faster now, waiting to be deployed to the test environment.
-Since environment creation is blocking new work form passing through, steps that should happen after are starved of work.
+Since environment creation is blocking new work form passing through, steps that should happen after are starved of work (image of a dam).
 We should find the _single_ constraint in our value stream and deal with it.
 
 ## 2. Principles of Feedback
