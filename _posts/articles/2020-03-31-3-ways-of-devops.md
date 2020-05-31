@@ -52,6 +52,11 @@ Now imagine, what would happen if a flaw was found in the body panels when a car
 Most likely, the entire batch has to be discarded and redone.
 Producing large batches delays feedback and in case of errors, more work has to be redone.
 
+<figure class="align-center">
+  <img src="{{ '/images/2020-04-01-3-ways-of-devops/car_assembly.jpg' | absolute_url }}" alt="">
+  <figcaption>Cars being assembled in an assembly line. <a href="https://unsplash.com/photos/QMjCzOGeglA">Image by Carlos Aranda.</a></figcaption>
+</figure>
+
 The same ideas apply to software development.
 However, instead of machinery and body panels, we're dealing with code.
 Every commit into version control increases the batch size, creates WIP and variability in flow in the [software development value stream](https://www.atlassian.com/continuous-delivery/principles/value-stream-mapping).
