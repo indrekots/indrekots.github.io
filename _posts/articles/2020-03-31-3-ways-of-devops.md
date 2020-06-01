@@ -67,18 +67,16 @@ Every commit into version control increases the batch size, creates WIP and vari
 A classic example is an annual production deployment schedule.
 If a deployment is done once a year, the batch size is huge; a year's worth of work being deployed in a single step.
 Similarly to the car plant, if anything goes wrong, the entire batch has to be rolled back.
-Additional effort is then put into redoing work that was considered to be already done.
-Naturally, knowledge fades over time.
+Extra effort must then be put into redoing work that was considered done.
+Furthermore, knowledge fades over time.
 It's difficult to find and fix the issues that caused the deployment to fail if they were introduced, say, 6 months ago.
-// higher change for errors during deployment
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/large-batch.png' | absolute_url }}" alt="">
   <figcaption>Large batch size, lots of changes over time. <a href="https://www.slideshare.net/jallspaw/ops-metametrics-the-currency-you-pay-for-change-4608108">Ops Meta-Metrics by John Allspaw</a></figcaption>
 </figure>
 
-Large batches create issues not only in deployments.
-For example, let's look at long-lived feature branches.
+Similarly, let's have a brief look at long-lived [feature branches](https://martinfowler.com/bliki/FeatureBranch.html).
 The longer a branch stays isolated and the more changes it sees, the larger the batch size.
 Over time, it becomes increasingly difficult to integrate it back to mainline.
 The potential for merge conflicts high.
@@ -93,22 +91,30 @@ These factors are disruptive to the flow of work and increase deployment lead ti
 To improve deployment lead times, batch sizes have to be made smaller.
 Long-lived feature branches are discouraged.
 In order to get faster feedback, it's better to integrate early and often and deploy software in smaller increments.
-If we continue to reduce the batch size, we eventually arrive at a _single piece flow_, where every commit to version control flows through the entire software development value stream.
+If we continue to reduce the batch size, we eventually arrive at a [_single piece flow_](https://dzone.com/articles/pattern-of-the-month-single-piece-flow "Pattern of the Month: Single Piece Flow"), where every commit to version control flows through the entire software development value stream.
 Once all automated checks have passed, changes end up in production.
 
 Teams that are able to pull that off make use of practices such as [trunk-based development](https://trunkbaseddevelopment.com/), [continuous integration](https://martinfowler.com/articles/continuousIntegration.html), [continuous delivery](https://martinfowler.com/bliki/ContinuousDelivery.html) and [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment).
 They've invested in test automation and have designed their software for low-risk releases.
-// hand-offs?
+They have also organised themselves so that the number of required hand-offs is minimized.
+A hand-off requires communication and coordination.
+Unfortunately, even under the best circumstances, some knowledge gets lost.
+This is a potential spot where errors can creep in and work can pile up, disrupting the flow and increasing deployment lead times.
 
 ### 1.2 Eliminate Constraints
 
-Continually identifying and eliminating constraints in our work is key to improve throughput and reduce lead times.
+Continually identifying and eliminating constraints in our work is key to improving throughput and reducing lead times.
 In [Beyond the Goal: Theory of Constraints](https://amzn.to/2yDMvRD), the author Dr. Goldratt states
 
 > In any value stream, there is always a direction of flow, and there is always one and only one constraint; any improvement not made at that constraint is an illusion.
 
 An example from a technology value stream is *environment creation*.
-If it takes hours to set up a testing environment, any improvements we do to work that happens before it in a value stream is an illusion. // draw diagram
+If it takes hours to set up a testing environment, any improvements we do to work that happens before it in a value stream is an illusion.
+
+<figure class="align-center">
+  <img src="{{ '/images/2020-04-01-3-ways-of-devops/value-stream.png' | absolute_url }}" alt="Image of a deployment pipeline with three steps: build, create test environment and run integration tests">
+</figure>
+
 For instance, if we reduce our build time from 10 to 3 minutes, we get faster builds.
 But nothing gets done faster overall.
 Environment creation is still a blocker.
