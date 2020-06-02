@@ -120,8 +120,13 @@ But nothing gets done faster overall.
 Environment creation is still a blocker.
 What's worse, WIP is increased.
 New builds pile up even faster now, waiting to be deployed to the test environment.
-Since environment creation is blocking new work form passing through, steps that should happen after are starved of work (image of a dam).
-We should find the _single_ constraint in our value stream and deal with it.
+Since environment creation is blocking new work from passing through, steps that should happen after are starved of work.
+We should find the constraint in our value stream and deal with it.
+
+<figure class="align-center">
+  <img src="{{ '/images/2020-04-01-3-ways-of-devops/dam.jpg' | absolute_url }}" alt="Hoover Dam">
+  <figcaption>A constraint is like a dam. It blocks work from passing through, collecting it up upstream. Downstream is starved of work.</figcaption>
+</figure>
 
 ## 2. Principles of Feedback
 
