@@ -125,12 +125,11 @@ We should find the constraint in our value stream and deal with it.
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/dam.jpg' | absolute_url }}" alt="Hoover Dam">
-  <figcaption>A constraint is like a dam. It blocks work from passing through, collecting it up upstream. Downstream is starved of work.</figcaption>
+  <figcaption>A constraint is like a dam. It blocks work from passing through, collecting it up upstream. Downstream, on the other hand, is starved of work.</figcaption>
 </figure>
 
 ## 2. Principles of Feedback
 
-_The first way_ was about work that moves from left to right, whereas the next principle we're going to look at is about feedback that moves from right to left in the value stream.
 *The second way* of DevOps is about creating fast feedback loops that allow us to build safer systems.
 Whether you like it or not, software is complicated.
 Even the smallest of changes can have catastrophic consequences.
@@ -140,12 +139,13 @@ Errors can slip in undetected, only to be discovered later when the cost and eff
 ### 2.1 Importance of Fast Feedback
 
 Ideally, we'd like to discover problems as they occur.
-If you've written any code in an IDE or text editor that points out issues as you type them, then you know what I'm talking about.
+If you've written any code in an IDE or a text editor that points out issues as you type them, then you know what I'm talking about.
 Ah, the *red squiggly line*.
 This type of real-time feedback allows us to fix issues when it is cheap and easy to do so.
 Additionally, we get to learn from our mistakes immediately.
 
-> "It is impossible for a developer to learn anything when someone yells at them for something they broke six months ago - that is why we need to provide feedback to everyone as quickly as possible, in minutes, not months." - Gary Gruver
+> It is impossible for a developer to learn anything when someone yells at them for something they broke six months ago - that is why we need to provide feedback to everyone as quickly as possible, in minutes, not months
+> <footer><strong>Gary Gruver</strong></footer>
 
 Unfortunately, we don't have a *red squiggly line* in our editors for future production issues.
 Nor do we have them for features customers don't like.
@@ -154,13 +154,13 @@ The next best thing is to reduce the time between when an issue is introduced an
 In environments, where quality is [*somebody else's problem*](https://en.wikipedia.org/wiki/Somebody_else%27s_problem), we involuntarily delay feedback.
 For instance, if QA is in charge for the correctness of the work produced by developers or operations is solely responsible for the software in production, quality is moved further from the source.
 Feedback is received by handing over work to the next work center in the value stream.
-As was discussed earlier, handovers can create delays.
+Handovers can create delays.
 Work can pile up because, say, QA is busy testing something else or operations doesn't have time to provision a testing environment.
 Feedback is delayed.
 
 If we don't get immediate feedback, there's a risk of passing on defects to downstream work centers.
 This creates disruptions in the flow of work.
-Not only are issues more difficult to fix, we also increase *work-in-progress* and batch size.
+Not only are issues more difficult to fix, we also increase *work-in-progress*.
 While developers are waiting for work to be tested, most likely new work is being introduced.
 This can lead to a downward spiral of ever increasing lead times.
 Fast feedback, on the other hand, prevents the start of new work which is more likely to introduce new errors since it's built on top of the previous error.
