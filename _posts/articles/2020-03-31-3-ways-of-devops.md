@@ -164,7 +164,7 @@ Not only are issues more difficult to fix when they're detected later in a value
 For example, if an acceptance tests suite on a CI server takes several hours to complete, nobody in their right mind is going to wait for it to finish.
 Instead, developers are going to work on something else.
 If acceptance tests fail, developers have to multitask between old and new work.
-Fast feedback, on the other hand, prevents the start of new work and gets us closer to [a single piece flow](https://dzone.com/articles/pattern-of-the-month-single-piece-flow "Pattern of the Month: Single Piece Flow").
+Fast feedback, on the other hand, prevents the start of new work and gets us closer to [a single-piece flow](https://dzone.com/articles/pattern-of-the-month-single-piece-flow "Pattern of the Month: Single Piece Flow").
 
 ### 2.2 Push Quality Closer To The Source
 
@@ -179,20 +179,18 @@ Secondly, they might be busy with other work.
 Approvals can start to pile up, creating delays.
 Under pressure, they could rubber stamp decisions.
 These kind of quality control measures can give you a false sense of security.
-To receive faster and more effective feedback, we should instead push quality closer to the source.
+To receive faster and more effective feedback, we should instead [push quality closer to the source](https://smartbear.com/learn/automated-testing/shifting-left-in-testing/ "What The Shift Left in Testing Means").
 
-In tech value streams, fast feedback can be achieved with build automation, automated testing, continuous integration, automated deploys, production telemetry and alerting.
-Fast feedback loops enable quick detection and recovery of problems.
-It also informs us on how to prevent these problems in the future.
-It prevents the work center to start new work which is likely to produce new errors
-Preventing the introduction of new work enables CI and CD, a single-piece flow.
+In technology value streams, fast feedback can be achieved with build automation, automated testing, continuous integration, automated deploys, production telemetry and alerting.
+These techniques enable us to quicly detect problems and recover from them.
+They also teach us how to prevent these issues in the future.
 
 Quality should be everyone's responsibility.
 We should build software for customers and also for downstream work centers.
-For instance, developers should build great software for end users but they should also optimize it for operations.
-monitoring, logging, deployments
-In a way, operations are also customers for developers.
-// technical empathy
+For instance, developers should optimize software for operations by making it easy to deploy, monitor and extract logs from.
+
+>When we think about the people who will encounter our work, we are practicing empathy.
+> <footer><strong>Andrea Goulet</strong> &mdash; <a href="https://www.infoq.com/articles/empathy-technical-skill/">Empathy is a Technical Skill</a></footer>
 
 ## 3. Principles of Continual Learning
 
