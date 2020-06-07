@@ -125,7 +125,7 @@ We should find the constraint in our value stream and deal with it.
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/dam.jpg' | absolute_url }}" alt="Hoover Dam">
-  <figcaption>A constraint is like a dam. It blocks work from passing through, collecting it up upstream. Downstream, on the other hand, is starved of work.</figcaption>
+  <figcaption>A constraint is like a dam. It blocks work from passing through, collecting it up upstream. Downstream, on the other hand, is starved of work. <a href="https://unsplash.com/photos/Ul-1-YbuyX4">Image by Cédric Dhaenens</a></figcaption>
 </figure>
 
 ## 2. Principles of Feedback
