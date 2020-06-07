@@ -208,18 +208,17 @@ Getting punished for mistakes incentivizes you to stay in your comfort zone; tha
 You're discouraged from experimenting, trying out new things and asking _"what-if"_ questions.
 Instead of taking responsibility, it's more convenient to hide failures under the covers.
 People are less likely to speak up and propose novel solutions to existing problems.
-Due to low trust, those who try to innovate are met with resistance.
+Those who try to innovate are met with resistance.
 
 When small failure signals are continually withheld, they accumulate, until a major catastrophe happens.
 The immediate response from management is to add extra processes and approvals to avoid a future disaster.
-But as was discussed previously, this results in lower throughput and longer lead times.
-It doesn't solve the underlying problem.
+This results in lower throughput and longer lead times but doesn't solve the underlying problem.
 
 Ron Westrum, [in his 2004 paper titled "A Typology of Organisational Cultures"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1765804/), describes this as having a pathological organization culture.
 
 > When things go wrong, pathological climates encourage finding a scapegoat [...] Pathological environments will discourage taking responsibility, and can be expected to conceal their problems.
 
-Westrum defines three dominant culture types—pathological, bureaucratic, and generative.
+Westrum defines three dominant types of organization culture—pathological, bureaucratic, and generative.
 On the opposite side to pathological, we have *generative organizations*.
 
 > Generative organisations require empowerment for maximum performance. Individuals’ minds are harnessed to fulfill the organisation’s goals through a culture of conscious inquiry. They are encouraged to speak up, think outside the box, and to act as fully conscious participants in a great cooperative enterprise.
