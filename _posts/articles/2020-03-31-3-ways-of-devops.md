@@ -181,16 +181,14 @@ Under pressure, they could rubber stamp decisions.
 These kind of quality control measures can give you a false sense of security.
 To receive faster and more effective feedback, we should instead [push quality closer to the source](https://smartbear.com/learn/automated-testing/shifting-left-in-testing/ "What The Shift Left in Testing Means").
 
-In technology value streams, fast feedback can be achieved with build automation, automated testing, continuous integration, automated deploys, production telemetry and alerting.
-These techniques enable us to quicly detect problems and recover from them.
+In technology value streams, fast feedback close to the source can be achieved with build automation, automated testing, continuous integration, automated deploys, production telemetry and alerting.
+These techniques enable us to quickly detect problems and recover from them.
 They also teach us how to prevent these issues in the future.
 
 Quality should be everyone's responsibility.
-We should build software for customers and also for downstream work centers.
+Software shouldn't be built only for customers but also for downstream work centers.
 For instance, developers should optimize software for operations by making it easy to deploy, monitor and extract logs from.
-
->When we think about the people who will encounter our work, we are practicing empathy.
-> <footer><strong>Andrea Goulet</strong> &mdash; <a href="https://www.infoq.com/articles/empathy-technical-skill/">Empathy is a Technical Skill</a></footer>
+After all, [when we think about the people who will encounter our work, we are practicing empathy](https://www.infoq.com/articles/empathy-technical-skill/).
 
 ## 3. Principles of Continual Learning
 
