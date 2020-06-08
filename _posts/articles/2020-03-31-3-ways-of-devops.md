@@ -210,7 +210,7 @@ Those who try to innovate are met with resistance.
 
 When small failure signals are continually withheld, they accumulate, until a major catastrophe happens.
 The immediate response from management is to add extra processes and approvals to avoid a future disaster.
-This results in lower throughput and longer lead times but doesn't solve the underlying problem.
+This results in lower throughput, longer lead times and doesn't solve the underlying problem.
 
 Ron Westrum, [in his 2004 paper titled "A Typology of Organisational Cultures"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1765804/), describes this as having a pathological organization culture.
 
