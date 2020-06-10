@@ -177,18 +177,21 @@ Getting approvals from people who are distant from the work has several issues.
 First of all, they don't have the most up-to-date information.
 Secondly, they might be busy with other work.
 Approvals can start to pile up, creating delays.
-Under pressure, they could rubber stamp decisions.
-These kind of quality control measures can give you a false sense of security.
+Under time pressure, decisions can be rubber-stamped.
+These quality control measures give you a false sense of security.
 To receive faster and more effective feedback, we should instead [push quality closer to the source](https://smartbear.com/learn/automated-testing/shifting-left-in-testing/ "What The Shift Left in Testing Means").
 
-In technology value streams, fast feedback close to the source can be achieved with build automation, automated testing, continuous integration, automated deploys, production telemetry and alerting.
-These techniques enable us to quickly detect problems and recover from them.
-They also teach us how to prevent these issues in the future.
+Quality shouldn't be exclusively QA's responsibility.
+Everybody should find and fix issues in their area of control.
+In technology value streams, fast feedback close to the source can be achieved with automation.
+This includes for example build automation, automated testing, automated security and vulnerability checking, automated deploys, production telemetry and alerting.
+Automation enable us to quickly detect problems, recover from them and learn how to prevent them in the future.
 
-Quality should be everyone's responsibility.
-Software shouldn't be built only for customers but also for downstream work centers.
-For instance, developers should optimize software for operations by making it easy to deploy, monitor and extract logs from.
-After all, [when we think about the people who will encounter our work, we are practicing empathy](https://www.infoq.com/articles/empathy-technical-skill/).
+In addition to end users, [we should have empathy](https://www.infoq.com/articles/empathy-technical-skill/) for [our internal customers](https://www.greycampus.com/opencampus/lean-six-sigma-green-belt/about-internal-customers).
+Designing software with testability in mind makes the job of QA more effective.
+It shouldn't be the responsibility of operations to figure out how to effectively configure, deploy and monitor the software.
+And we shouldn't forget the goals of information security, sales and marketing.
+By thinking about these concerns early on, we create quality closer to the source.
 
 ## 3. Principles of Continual Learning
 
