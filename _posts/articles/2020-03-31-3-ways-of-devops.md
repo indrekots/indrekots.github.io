@@ -201,7 +201,7 @@ But that's only part of the solution.
 We want to constantly improve, experiment and create new knowledge in the entire organization.
 After all, organizations that are able to learn quicker than others have a competitive advantage.
 
-### 3.1. Generative Organizations
+### 3.1. High-trust Culture
 
 In low trust work environments, incidents are often followed by the *name, shame, blame* pattern.
 This, however, obstructs individuals and the entire organization from learning.
