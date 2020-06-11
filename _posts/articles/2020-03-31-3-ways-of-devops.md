@@ -138,21 +138,21 @@ Errors can slip in undetected, only to be discovered later when the cost and eff
 
 ### 2.1 Importance of Fast Feedback
 
-Ideally, we'd like to discover problems as they occur.
+Ideally, we'd like to see problems as they occur.
 If you've written any code in an IDE or a text editor that points out issues as you type them, then you know what I'm talking about.
 Ah, the *red squiggly line*.
-It's ieasier to fix issues when they're discovered shortly after they've been created.
-Additionally, we get to learn from our mistakes.
+It's easy to fix issues when they're discovered shortly after they've been created.
+Additionally, we get to learn from them.
 
 > It is impossible for a developer to learn anything when someone yells at them for something they broke six months ago - that is why we need to provide feedback to everyone as quickly as possible, in minutes, not months
 > <footer><strong>Gary Gruver</strong></footer>
 
 Unfortunately, we don't have a *red squiggly line* in our editors for future production issues.
-Nor do we have them for unwanted features.
+Nor do we have them for unwanted or badly designed features.
 The next best thing is to reduce the time between when an issue is introduced and when it is detected.
 
 In environments, where quality is [*somebody else's problem*](https://en.wikipedia.org/wiki/Somebody_else%27s_problem), we involuntarily delay feedback.
-For instance, if QA is in charge for the correctness of the work produced by developers or operations is solely responsible for the software in production, quality is moved further away from the source.
+For instance, if QA is exlusively in charge for the correctness of the work produced by developers or operations is solely responsible for the software in production, quality is moved further away from the source.
 Feedback is received by handing over work to the next work center in the value stream.
 Unfortunately, handovers create delays.
 Work can pile up because, say, QA is busy testing something else or operations doesn't have time to provision a testing environment.
@@ -160,10 +160,10 @@ Feedback gets delayed.
 
 Without immediate feedback, we risk passing on defects to downstream work centers.
 Consequently, this can create disruptions in the flow of work.
-Not only are issues more difficult to fix when they're detected later in a value stream, we also run the risk of increasing *work-in-progress*.
-For example, if an acceptance tests suite on a CI server takes several hours to complete, nobody in their right mind is going to wait for it to finish.
-Instead, developers are going to work on something else.
-If acceptance tests fail, developers have to multitask between old and new work.
+Not only are issues more difficult and time-consuming to fix when they're detected later in a value stream, we also run the risk of increasing *work-in-progress*.
+For example, if QA is available to test your work starting from, say, tomorrow, you're not going to wait for them to finish. 
+Instead, you're going to work on something else.
+However, if any issues are found, you're going to have to multitask between old and new work.
 Fast feedback, on the other hand, prevents the start of new work and gets us closer to [a single-piece flow](https://dzone.com/articles/pattern-of-the-month-single-piece-flow "Pattern of the Month: Single Piece Flow").
 
 ### 2.2 Push Quality Closer To The Source
