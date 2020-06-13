@@ -250,10 +250,11 @@ Time should be consciously reserved to pay down technical debt, to run experimen
 
 ## Summary
 
-The Devops Handbook lays out three core principles.
+[The Devops Handbook](https://amzn.to/3bAWtC0) lays out three core principles.
 In short, they are:
 
-1. Smooth flow of work development to operations to customers
+1. Smooth flow of work from development to operations to customers
 2. Amplification of feedback loops so that corrections and improvements can be continuously made
 3. Creation of a high-trust culture that encourages experimentation and learning from failure
 
+The book goes on to describe various practices that enable smooth flow of work, create fast feedback loops and promote a learning culture.
