@@ -250,9 +250,10 @@ Time should be consciously reserved to pay down technical debt, to run experimen
 
 ## Summary
 
-Set of principles and practices, org culture
-The principles behind DevOps work patterns are the same that transformed manufacturing (lean)
-busy/wait time
-four key metrics
+The Devops Handbook lays out three core principles.
+In short, they are:
 
-!!the only way to master something is to practice a lot, frequent deployments, if you do something a lot, you get really good at it
+1. Smooth flow of work development to operations to customers
+2. Amplification of feedback loops so that corrections and improvements can be continuously made
+3. Creation of a high-trust culture that encourages experimentation and learning from failure
+
