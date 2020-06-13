@@ -16,7 +16,7 @@ aging: false
 amazon_links: true
 ---
 
-If you ask three persons to describe DevOps, you'll get four different answers.
+If you ask three people to describe DevOps, you'll get four different answers.
 Sometimes, developers doing operations work is branded as DevOps.
 Others say it's about automation of infrastructure and deployments.
 Occasionally, you can see that DevOps is a modern title for sysadmins.
@@ -78,8 +78,8 @@ It's difficult to find and fix the issues that caused the deployment to fail if 
 
 Similarly, let's have a brief look at long-lived [feature branches](https://martinfowler.com/bliki/FeatureBranch.html).
 The longer a branch stays isolated and the more changes it sees, the larger the batch size.
-Over time, it becomes increasingly difficult to integrate it back to mainline.
-The potential for merge conflicts high.
+Over time, it becomes increasingly difficult to integrate it back to the mainline.
+The potential for merge conflicts is high.
 Since feedback is delayed, the potential for rework is high.
 These factors are disruptive to the flow of work and increase deployment lead times.
 
@@ -152,7 +152,7 @@ Nor do we have them for unwanted or badly designed features.
 The next best thing is to reduce the time between when an issue is introduced and when it is detected.
 
 In environments, where quality is [*somebody else's problem*](https://en.wikipedia.org/wiki/Somebody_else%27s_problem), we involuntarily delay feedback.
-For instance, if QA is exlusively in charge for the correctness of the work produced by developers or operations is solely responsible for the software in production, quality is moved further away from the source.
+For instance, if QA is exclusively in charge for the correctness of the work produced by developers or operations is solely responsible for the software in production, quality is moved further away from the source.
 Feedback is received by handing over work to the next work center in the value stream.
 Unfortunately, handovers create delays.
 Work can pile up because, say, QA is busy testing something else or operations doesn't have time to provision a testing environment.
@@ -185,7 +185,7 @@ Quality shouldn't be exclusively QA's responsibility.
 Everybody should find and fix issues in their area of control.
 In technology value streams, fast feedback close to the source can be achieved with automation.
 This includes for example build automation, automated testing, automated security and vulnerability checking, automated deploys, production telemetry and alerting.
-Automation enable us to quickly detect problems, recover from them and learn how to prevent them in the future.
+Automation enables us to quickly detect problems, recover from them and learn how to prevent them in the future.
 
 In addition to end users, [we should have empathy](https://www.infoq.com/articles/empathy-technical-skill/) for [our internal customers](https://www.greycampus.com/opencampus/lean-six-sigma-green-belt/about-internal-customers).
 Designing software with testability in mind makes the job of QA more effective.
