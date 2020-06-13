@@ -181,11 +181,15 @@ Under time pressure, decisions can be rubber-stamped.
 These quality control measures give you a false sense of security.
 To receive faster and more effective feedback, we should instead [push quality closer to the source](https://smartbear.com/learn/automated-testing/shifting-left-in-testing/ "What The Shift Left in Testing Means").
 
+<figure class="align-center">
+  <img src="{{ '/images/2020-04-01-3-ways-of-devops/pile-of-documents.jpg' | absolute_url }}" alt="Image of a pile of documents">
+  <figcaption>Approvals pile up and create delays. Flow of work is disturbed. <a href="https://unsplash.com/photos/tn57JI3CewI">Image by Sharon McCutcheon</a></figcaption>
+</figure>
+
 Quality shouldn't be exclusively QA's responsibility.
 Everybody should find and fix issues in their area of control.
-In technology value streams, fast feedback close to the source can be achieved with automation.
-This includes for example build automation, automated testing, automated security and vulnerability checking, automated deploys, production telemetry and alerting.
-Automation enables us to quickly detect problems, recover from them and learn how to prevent them in the future.
+In technology value streams, fast feedback close to the source can be achieved with for example build automation, automated testing, automated security and vulnerability checking, automated deploys, production telemetry and alerting.
+Automation helps us to quickly detect problems, recover from them and learn how to prevent them in the future.
 
 In addition to end users, [we should have empathy](https://www.infoq.com/articles/empathy-technical-skill/) for [our internal customers](https://www.greycampus.com/opencampus/lean-six-sigma-green-belt/about-internal-customers).
 Designing software with testability in mind makes the job of QA more effective.
