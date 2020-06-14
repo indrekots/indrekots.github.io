@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Three Ways of DevOps"
-excerpt: "If you ask three people to describe DevOps, you’ll get four different answers. This post tries to shed some light on the meanign of DevOps by summarizing the key principles from The DevOps Handbook."
+excerpt: "If you ask three people to describe DevOps, you’ll get four different answers. This post tries to shed some light on the meaning of DevOps by summarizing the key principles from The DevOps Handbook."
 modified: 2020-06-14 18:56:18 +0300
 categories: articles
 tags: [devops]
@@ -23,11 +23,11 @@ Occasionally, you can see that DevOps is a modern title for sysadmins.
 We can see that the term has a *buzzword* status.
 So what's the truth then?
 What is DevOps?
-In this post, I'll try to shed some light on the meaing by summarizing the three core principles of DevOps—*the three ways*—according to the [*The DevOps Handbook*](https://amzn.to/3bAWtC0).
+In this post, I'll try to shed some light on the meaning by summarizing the three core principles of DevOps—*the three ways*—according to the [*The DevOps Handbook*](https://amzn.to/3bAWtC0).
 
 ## 1. Principles of Flow
 
-*The First Way* of DevOps is about creating a smooth flow of work through the different functional areas in an organization; from requirements gathering to operating software in production.
+*The First Way* of DevOps is about creating a smooth flow of work through the different functional areas in an organization; from gathering requirements to operating software in production.
 Emphasis is put on the global goals of the entire system, not on the local goals of individual departments.
 To make the concept more clear, let's have a look at a couple of key takeaways.
 
@@ -155,7 +155,7 @@ Work can pile up because, say, QA is busy testing something else or operations d
 Without immediate feedback, we risk passing on defects to downstream work centers.
 Consequently, this can create disruptions in the flow of work.
 Not only are issues more difficult and time-consuming to fix when they're detected later in a value stream, we also run the risk of increasing *work-in-progress*.
-For example, if QA is available to test your work starting from, say, tomorrow, you're not going to wait for them to finish. 
+For example, if QA is available to test your work starting from, say, tomorrow, you're not going to wait for them to finish.
 Instead, you're going to work on something else.
 However, if any issues are found, you're going to have to multitask between old and new work.
 Fast feedback, on the other hand, prevents the start of new work and gets us closer to [a single-piece flow](https://dzone.com/articles/pattern-of-the-month-single-piece-flow "Pattern of the Month: Single Piece Flow").
@@ -187,7 +187,7 @@ Automation helps us to quickly detect problems, recover from them and learn how 
 
 In addition to end users, [we should have empathy](https://www.infoq.com/articles/empathy-technical-skill/) for our internal customers.
 Designing software with testability in mind makes the job of QA more effective.
-It shouldn't be the responsibility of operations to figure out how to effectively configure, deploy and monitor the software.
+It shouldn't be the responsibility of operations to figure out how to configure, deploy and monitor the software.
 And we shouldn't forget the goals of information security, sales and marketing.
 By thinking about these concerns early on, we create quality closer to the source.
 
@@ -222,7 +222,7 @@ On the opposite side to pathological, we have *generative organizations*.
 
 > Generative organisations require empowerment for maximum performance. Individuals’ minds are harnessed to fulfill the organisation’s goals through a culture of conscious inquiry. They are encouraged to speak up, think outside the box, and to act as fully conscious participants in a great cooperative enterprise.
 
-[The 2014 State of Devops Report](https://www.researchgate.net/publication/263198947_2014_State_of_DevOps_Report) goes on to say that in generative environments, it is understood that continuous improvement leads to ever-higher levels of throughput and stability.
+[The 2014 State of DevOps Report](https://www.researchgate.net/publication/263198947_2014_State_of_DevOps_Report) goes on to say that in generative environments, it is understood that continuous improvement leads to ever-higher levels of throughput and stability.
 Learning is actively promoted.
 Everybody is encouraged to run experiments to learn how to improve both processes and the products and services they build.
 Instead of blaming humans for errors, they look into ways to redesign the system to prevent another one.
@@ -248,7 +248,7 @@ Time should be consciously reserved to pay down technical debt, to run experimen
 
 ## Summary
 
-[The Devops Handbook](https://amzn.to/3bAWtC0) lays out three core principles.
+[The DevOps Handbook](https://amzn.to/3bAWtC0) lays out three core principles.
 In short, they are:
 
 1. Smooth flow of work from development to operations to customers
@@ -257,4 +257,4 @@ In short, they are:
 
 This post covered what I found most important.
 But the book goes into more details about various practices that go along with the principles.
-It is a reccomended read for everyone who's interested in DevOps.
+It is a recommended read for everyone who's interested in DevOps.
