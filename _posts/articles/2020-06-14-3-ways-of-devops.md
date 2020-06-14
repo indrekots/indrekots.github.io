@@ -71,7 +71,7 @@ And to add insult to injury, it's difficult to find and fix the issues that caus
   <figcaption>Large batch size, lots of changes over time. <a href="https://www.slideshare.net/jallspaw/ops-metametrics-the-currency-you-pay-for-change-4608108">Ops Meta-Metrics by John Allspaw</a></figcaption>
 </figure>
 
-Similarly, let's have a brief look at long-lived [feature branches](https://martinfowler.com/bliki/FeatureBranch.html).
+Similar issues can be seen when long-lived [feature branches](https://martinfowler.com/bliki/FeatureBranch.html) are used.
 The longer a branch stays isolated and the more changes it sees, the larger the batch size.
 Over time, it becomes increasingly difficult to integrate it back to the mainline.
 The potential for merge conflicts is high.
@@ -116,7 +116,7 @@ Environment creation is still a blocker.
 What's worse, WIP is increased.
 New builds pile up even faster now, waiting to be deployed to the test environment.
 Since environment creation is blocking new work from passing through, steps that should happen after are starved of work.
-We should find the single constraint in our value stream and eliminate it.
+We should find the constraint in our value stream, eliminate it and then find the next one.
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/dam.jpg' | absolute_url }}" alt="Hoover Dam">
@@ -158,7 +158,7 @@ Not only are issues more difficult and time-consuming to fix when they're detect
 For example, if QA is available to test your work starting from, say, tomorrow, you're not going to wait for them to finish.
 Instead, you're going to work on something else.
 However, if any issues are found, you're going to have to multitask between old and new work.
-Fast feedback, on the other hand, prevents the start of new work and gets us closer to [a single-piece flow](https://dzone.com/articles/pattern-of-the-month-single-piece-flow "Pattern of the Month: Single Piece Flow").
+Fast feedback, on the other hand, prevents the start of new work and gets us closer to [the single-piece flow](https://dzone.com/articles/pattern-of-the-month-single-piece-flow "Pattern of the Month: Single Piece Flow").
 
 ### 2.2 Push Quality Closer To The Source
 
@@ -211,7 +211,7 @@ Those who try to innovate are met with resistance.
 
 When small failure signals are continually withheld, they accumulate, until a major catastrophe happens.
 The immediate response from management is to add extra processes and approvals to avoid a future disaster.
-This results in lower throughput, longer lead times and doesn't solve the underlying problem.
+This results in lower throughput and longer lead times but doesn't solve the underlying problem.
 
 Ron Westrum, [in his 2004 paper titled "A Typology of Organisational Cultures"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1765804/), describes this as having a pathological organization culture.
 
