@@ -20,14 +20,10 @@ If you ask three people to describe DevOps, you'll get four different answers.
 Sometimes, developers doing operations work is branded as DevOps.
 Others say it's about automation of infrastructure and deployments.
 Occasionally, you can see that DevOps is a modern title for sysadmins.
+We can see that the term has a *buzzword* status.
 So what's the truth then?
 What is DevOps?
-We can clearly see that the term has a *buzzword* status.
-It has a different meaning in different contexts, kind of like *agile* did years ago.
-
-I don't consider myself an expert or an authority in the field to give a definitive description of DevOps.
-The fact is, [words change meaning over time](https://ideas.ted.com/20-words-that-once-meant-something-very-different/).
-Instead, in this post, I'm going to summarize the three core principles of DevOps—*the three ways*—according to the book [*The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations*](https://amzn.to/3bAWtC0).
+In this post, I'll try to shed some light on the meaing by summarizing the three core principles of DevOps—*the three ways*—according to the [*The DevOps Handbook*](https://amzn.to/3bAWtC0).
 
 ## 1. Principles of Flow
 
