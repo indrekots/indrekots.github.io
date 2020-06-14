@@ -2,7 +2,7 @@
 layout: post
 title: "The Three Ways of DevOps"
 excerpt: "If you ask three people to describe DevOps, you’ll get four different answers. This post tries to shed some light on the meanign of DevOps by summarizing the key principles from The DevOps Handbook."
-modified: 2020-03-31 18:56:18 +0300
+modified: 2020-06-14 18:56:18 +0300
 categories: articles
 tags: [devops]
 image:
