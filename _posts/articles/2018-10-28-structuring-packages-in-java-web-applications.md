@@ -79,7 +79,7 @@ Before giving an answer, I'd like to take a step back and talk about encapsulati
 When we design a class, we need to consider what parts of it to hide and what to make `public`.
 Essentially, we're using [access modifiers](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html "Controlling Access to Members of a Class") to [hide the inner workings of a class from the outside world](https://en.wikipedia.org/wiki/Information_hiding "Information hiding").
 We don't want anybody to freely access the private parts of our class because (a) we want to hide complexity and (b) have the freedom the change implementation details without having the entire world know about it.
-Using packages for encapsulation, it is possible to achieve to same goals but on a higher level of abstraction.
+Using packages for encapsulation, it is possible to achieve the same goals but on a higher level of abstraction.
 
 Unless we're dealing with a demo application, most of the time, accessing a repository can be considered *an implementation detail* of a larger feature.
 In addition to, say, storing data to a database, you might need to introduce logging, check permissions or start other business specific processes.
