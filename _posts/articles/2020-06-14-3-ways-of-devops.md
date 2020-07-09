@@ -23,22 +23,22 @@ Occasionally, you can see that DevOps is a modern title for sysadmins.
 We can see that the term has a *buzzword* status.
 So what's the truth then?
 What is DevOps?
-In this post, I'll try to shed some light on the meaning by summarizing the three core principles of DevOps—*the three ways*—according to the [*The DevOps Handbook*](https://amzn.to/3bAWtC0).
+In this post, I'll try to shed some light on the meaning by summarizing the three core principles of DevOps—*the three ways*—according to [*The DevOps Handbook*](https://amzn.to/3bAWtC0).
 
 ## 1. Principles of Flow
 
-*The First Way* of DevOps is about creating a smooth flow of work through the different functional areas in an organization; from gathering requirements to operating software in production.
-Emphasis is put on the global goals of the entire system, not on the local goals of individual departments.
+*The First Way* of DevOps is about creating a smooth flow of work through the different functional areas in an organization, from gathering requirements to operating software in production.
+Emphasis is put on the global goals of the entire system, not on the local objectives of individual departments.
 To make the concept more clear, let's have a look at a couple of key takeaways.
 
 ### 1.1 Reduce Batch Size
 
 *Work-in-progress (WIP)* is the amount of work that has been started but is not yet completed.
-[A high amount of WIP is sign of multitasking](https://medium.com/@Adrien_Liard/why-you-should-limit-work-in-progress-and-stop-multitasking-ba7ecd4670f "Why you should limit work in progress and stop multitasking") and can hinder the flow of work.
+[A high amount of WIP is a sign of multitasking](https://medium.com/@Adrien_Liard/why-you-should-limit-work-in-progress-and-stop-multitasking-ba7ecd4670f "Why you should limit work in progress and stop multitasking") and can hinder the flow of work.
 To constrain WIP, we should reduce batch sizes.
 The idea originates from [Lean Manufacturing](https://en.wikipedia.org/wiki/Lean_manufacturing "Lean manufacturing").
 It was common in manufacturing to produce components in large batches.
-Setting up new machinery and switching between jobs was costly and time consuming.
+Setting up new machinery and switching between jobs was costly and time-consuming.
 Therefore, it was considered practical to produce as many parts as possible once machinery had been set up.
 
 For example, a car production plant would produce a lot of body panels at a time to reduce the number of changeovers.
