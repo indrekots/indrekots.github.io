@@ -18,7 +18,7 @@ amazon_links: true
 
 If you ask three people to describe DevOps, you'll get four different answers.
 Sometimes, developers doing operations work is branded as DevOps.
-Others say it's about automation of infrastructure and deployments.
+Others say it's about the automation of infrastructure and deployments.
 Occasionally, you can see that DevOps is a modern title for sysadmins.
 We can see that the term has a *buzzword* status.
 So what's the truth then?
@@ -39,14 +39,14 @@ To constrain WIP, we should reduce batch sizes.
 The idea originates from [Lean Manufacturing](https://en.wikipedia.org/wiki/Lean_manufacturing "Lean manufacturing").
 It was common in manufacturing to produce components in large batches.
 Setting up new machinery and switching between jobs was costly and time-consuming.
-Therefore, it was considered practical to produce as many parts as possible once machinery had been set up.
+Therefore, it was considered practical to create as many parts as possible once machinery had been set up.
 
-For example, a car production plant would produce a lot of body panels at a time to reduce the number of changeovers.
+For example, a car production plant would produce a lot of body panels to reduce the number of changeovers.
 This, however, creates a large amount of WIP.
 [The variability in the flow of work cascades through the entire manufacturing plant, resulting in longer lead times](https://guillermo-roman.com/my-holiday-card-pipeline-a-visual-representation-of-the-effects-of-work-in-progress/ "A Visual Representation of the Effects of Work In Progress").
-Now imagine, what would happen if a flaw was found in the body panels when a car was being assembled?
+Imagine what would happen if a flaw was found in the body panels when a car was being assembled?
 Most likely, the entire batch has to be discarded and redone.
-Producing large batches delays feedback and in case of errors, more work has to be redone.
+Producing large batches delays feedback, and in case of errors, more work has to be redone.
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/car_assembly.jpg' | absolute_url }}" alt="">
@@ -61,10 +61,10 @@ Every commit into version control increases the batch size in the [software deve
 > <footer><strong>Eric Ries</strong> &mdash; <a href="http://www.startuplessonslearned.com/2009/02/work-in-small-batches.html">StartUp Lessons Learned</a></footer>
 
 A classic example is an annual production deployment schedule.
-If a deployment is done once a year, the batch size is huge; a year's worth of work being deployed in a single step.
+If a deployment is done once a year, the batch size is enormous; a year's worth being is deployed in a single step.
 Similarly to the car plant, if anything goes wrong, the entire batch has to be rolled back.
 Extra effort must then be put into redoing work that was considered done.
-And to add insult to injury, it's difficult to find and fix the issues that caused the deployment to fail if they were introduced, say, 6 months ago.
+And to add insult to injury, it's challenging to find and fix the issues that caused the deployment to fail if introduced, say, 6 months ago.
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/large-batch.png' | absolute_url }}" alt="Diagram depicting time on the x-axis and number of changes on the y-axis. The more time passes, the larger the batch size.">
@@ -80,25 +80,25 @@ These factors are disruptive to the flow of work and increase deployment lead ti
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/small-batch.png' | absolute_url }}" alt="Diagram depicting time on the x-axis and number of changes on the y-axis. Doing deployments more frequently means that each each deployment contains a smaller amount of changes.">
-  <figcaption>Smaller batch size, less changes over time. <a href="https://www.slideshare.net/jallspaw/ops-metametrics-the-currency-you-pay-for-change-4608108">Ops Meta-Metrics by John Allspaw</a></figcaption>
+  <figcaption>Smaller batch size, fewer changes over time. <a href="https://www.slideshare.net/jallspaw/ops-metametrics-the-currency-you-pay-for-change-4608108">Ops Meta-Metrics by John Allspaw</a></figcaption>
 </figure>
 
-To improve deployment lead times, batch sizes have to be made smaller.
+To improve deployment lead times, we have to make batch sizes smaller.
 Long-lived feature branches are discouraged.
-In order to get faster feedback, it's better to integrate early and often and deploy software in smaller increments.
+We can get faster feedback if we integrated early and often and deployed software in smaller increments.
 If we continue to reduce the batch size, we eventually arrive at a [_single piece flow_](https://dzone.com/articles/pattern-of-the-month-single-piece-flow "Pattern of the Month: Single Piece Flow"), where every commit flows through the entire software development value stream.
 Once all automated checks have passed, changes end up in production.
 
-Teams that are able to pull that off make use of practices such as [trunk-based development](https://trunkbaseddevelopment.com/), [continuous integration](https://martinfowler.com/articles/continuousIntegration.html), [continuous delivery](https://martinfowler.com/bliki/ContinuousDelivery.html) and [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment).
+Teams that can pull that off make use of practices such as [trunk-based development](https://trunkbaseddevelopment.com/), [continuous integration](https://martinfowler.com/articles/continuousIntegration.html), [continuous delivery](https://martinfowler.com/bliki/ContinuousDelivery.html), and [continuous deployment](https://en.wikipedia.org/wiki/Continuous_deployment).
 They've invested in test automation and have designed their software for low-risk releases.
-They've also organised themselves so that the number of required hand-offs is minimized.
-A hand-off requires communication and coordination.
+They've also organized themselves so that the number of required hand-offs is minimized.
+Hand-offs require communication and coordination.
 Unfortunately, even under the best circumstances, some knowledge gets lost.
-This is a potential spot where errors can creep in and work can pile up, disrupting the flow and increasing deployment lead times.
+This is a potential spot where errors can creep in, and work can pile up, disrupting the flow and increasing deployment lead times.
 
 ### 1.2 Eliminate Constraints
 
-Continually identifying and eliminating constraints in our work is key to improving throughput and reducing lead times.
+Continually identifying and eliminating constraints in our work is the key to improving throughput and reducing lead times.
 In [Beyond the Goal: Theory of Constraints](https://amzn.to/2yDMvRD), the author Dr. Goldratt states
 
 > In any value stream, there is always a direction of flow, and there is always one and only one constraint; any improvement not made at that constraint is an illusion.
