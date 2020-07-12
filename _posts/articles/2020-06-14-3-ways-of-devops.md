@@ -45,7 +45,7 @@ For example, a car production plant would produce a lot of body panels to reduce
 This, however, creates a large amount of WIP.
 [The variability in the flow of work cascades through the entire manufacturing plant, resulting in longer lead times](https://guillermo-roman.com/my-holiday-card-pipeline-a-visual-representation-of-the-effects-of-work-in-progress/ "A Visual Representation of the Effects of Work In Progress").
 Imagine what would happen if a flaw was found in the body panels when a car was being assembled?
-Most likely, the entire batch has to be discarded and redone.
+Most likely, the entire batch has to be discarded and reproduced.
 Producing large batches delays feedback, and in case of errors, more work has to be redone.
 
 <figure class="align-center">
@@ -114,9 +114,9 @@ For instance, if we reduce our build time from 10 to 3 minutes, we get faster bu
 But nothing gets done faster overall.
 Environment creation is still a blocker.
 What's worse, WIP is increased.
-New builds pile up even faster now, waiting to be deployed to the test environment.
-Since environment creation is blocking new work from passing through, steps that should happen after are starved of work.
-We should find the constraint in our value stream, eliminate it and then find the next one.
+New builds pile up even more quickly now, waiting to be deployed to the test environment.
+Since environment creation blocks new work from passing through, steps that should happen after are starved of work.
+We should find the constraint in our value stream, eliminate it, and then find the next one.
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/dam.jpg' | absolute_url }}" alt="Hoover Dam">
@@ -136,7 +136,7 @@ Errors can slip in undetected, only to be discovered later when the cost and eff
 Ideally, we'd like to see problems as they occur.
 If you've written any code in an IDE or a text editor that points out issues as you type them, then you know what I'm talking about.
 Ah, the *red squiggly line*.
-It's easy to fix issues when they're discovered shortly after they've been created.
+It's easy to fix problems when they're discovered shortly after they've been created.
 Additionally, we get to learn from them.
 
 > It is impossible for a developer to learn anything when someone yells at them for something they broke six months ago—that is why we need to provide feedback to everyone as quickly as possible, in minutes, not months
@@ -144,17 +144,17 @@ Additionally, we get to learn from them.
 
 Unfortunately, we don't have a *red squiggly line* in our editors for future production issues.
 Nor do we have them for unwanted or badly designed features.
-The next best thing is to reduce the time between when an issue is introduced and when it is detected.
+The next best thing is to reduce the time between when a problem is introduced and when it is detected.
 
-In environments, where quality is [*somebody else's problem*](https://en.wikipedia.org/wiki/Somebody_else%27s_problem), we involuntarily delay feedback.
-For instance, if QA is exclusively in charge for the correctness of the work produced by developers or operations is solely responsible for the software in production, quality is moved further away from the source.
+In environments where quality is [*somebody else's problem*](https://en.wikipedia.org/wiki/Somebody_else%27s_problem), we involuntarily delay feedback.
+For instance, if QA is exclusively in charge of the correctness of the work produced by developers or operations is solely responsible for the software in production, quality is moved further away from the source.
 Feedback is received by handing over work to the next work center in the value stream.
 Unfortunately, handovers create delays.
 Work can pile up because, say, QA is busy testing something else or operations doesn't have time to provision a testing environment.
 
 Without immediate feedback, we risk passing on defects to downstream work centers.
 Consequently, this can create disruptions in the flow of work.
-Not only are issues more difficult and time-consuming to fix when they're detected later in a value stream, we also run the risk of increasing *work-in-progress*.
+Not only are issues more difficult and time-consuming to fix when they're detected later in a value stream, but we also run the risk of increasing *work-in-progress*.
 For example, if QA is available to test your work starting from, say, tomorrow, you're not going to wait for them to finish.
 Instead, you're going to work on something else.
 However, if any issues are found, you're going to have to multitask between old and new work.
