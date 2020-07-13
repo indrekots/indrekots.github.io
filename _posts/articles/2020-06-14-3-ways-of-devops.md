@@ -162,7 +162,7 @@ Fast feedback, on the other hand, prevents the start of new work and gets us clo
 
 ### 2.2 Push Quality Closer To The Source
 
-It seems counterintuitive, but adding more inspection steps and approval processes increases the likelihood of failures.
+It seems counterintuitive, but adding more inspection steps and approval processes increase the likelihood of failures.
 Surely, having more eyes on the problem should produce better results, right?
 That might be true if everybody is fully informed of the work at hand.
 But as we start to push decision-making further from where the work is performed, the effectiveness of approval processes decreases.
@@ -173,22 +173,22 @@ Secondly, they might be busy with other work.
 Approvals can start to pile up, creating delays.
 Under time pressure, decisions can be rubber-stamped.
 These quality control measures give you a false sense of security.
-To receive faster and more effective feedback, we should instead push quality closer to the source.
+To receive faster and more useful feedback, we should instead push quality closer to the source.
 
 <figure class="align-center">
   <img src="{{ '/images/2020-04-01-3-ways-of-devops/pile-of-documents.jpg' | absolute_url }}" alt="Image of a pile of documents">
-  <figcaption>Approvals pile up and create delays. Flow of work is disturbed. <a href="https://unsplash.com/photos/tn57JI3CewI">Image by Sharon McCutcheon</a></figcaption>
+  <figcaption>Approvals pile up and create delays. The flow of work is disturbed. <a href="https://unsplash.com/photos/tn57JI3CewI">Image by Sharon McCutcheon</a></figcaption>
 </figure>
 
 Quality shouldn't be exclusively QA's responsibility.
 Everybody should find and fix issues in their area of control.
-In technology value streams, fast feedback close to the source can be achieved with, for example, build automation, automated testing, automated security and vulnerability checking, automated deploys, production telemetry and alerting.
-Automation helps us to quickly detect problems, recover from them and learn how to prevent them in the future.
+In technology value streams, fast feedback close to the source can be achieved with, for example, build automation, automated testing, automated security and vulnerability checking, automated deploys, production telemetry, and alerting.
+Automation helps us quickly detect problems, recover from them, and learn how to prevent them.
 
-In addition to end users, [we should have empathy](https://www.infoq.com/articles/empathy-technical-skill/) for our internal customers.
+In addition to end-users, [we should have empathy](https://www.infoq.com/articles/empathy-technical-skill/) for our internal customers.
 Designing software with testability in mind makes the job of QA more effective.
-It shouldn't be the responsibility of operations to figure out how to configure, deploy and monitor the software.
-And we shouldn't forget the goals of information security, sales and marketing.
+It shouldn't be the responsibility of operations to figure out how to configure, deploy, and monitor the software.
+And we shouldn't forget the goals of information security, sales, and marketing.
 By thinking about these concerns early on, we create quality closer to the source.
 
 ## 3. Principles of Continual Learning
@@ -196,15 +196,15 @@ By thinking about these concerns early on, we create quality closer to the sourc
 The third way is about creating a culture of continual learning and experimentation.
 Fast feedback enables us to learn from our mistakes.
 But that's only part of the solution.
-We want to constantly improve, experiment and create new knowledge in the entire organization.
-After all, organizations that are able to learn quicker than others have a competitive advantage.
+We want to continually improve, experiment, and create new knowledge in the entire organization.
+After all, organizations that can learn quicker than others have a competitive advantage.
 
 ### 3.1. High-trust Culture
 
 In low trust work environments, incidents are often followed by the *name, shame, blame* pattern.
 This, however, obstructs individuals and the entire organization from learning.
 Getting punished for mistakes incentivizes you to stay in your comfort zone; that happy little place where you're less likely to cause problems.
-You're discouraged from experimenting, trying out new things and asking _"what-if"_ questions.
+You're discouraged from experimenting, trying out new things, and asking _"what-if"_ questions.
 Instead of taking responsibility, it's more convenient to hide failures under the covers.
 People are less likely to speak up and propose novel solutions to existing problems.
 Those who try to innovate are met with resistance.
@@ -235,15 +235,15 @@ Results are shared with the entire organization to transform local discoveries i
 
 ### 3.2. Continuous Improvement
 
-Teams that are too busy to improve their daily work and regularly rely on workarounds, increase their technical debt.
-Not only will they continue to suffer but the suffering increases over time.
-Processes degrade, productivity plummets and throughput decreases.
+Teams that are too busy to improve their daily work, and regularly rely on workarounds, increase their technical debt.
+Not only will they continue to suffer, but the suffering increases over time.
+Processes degrade, productivity plummets, and throughput decreases.
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Are you too busy to improve <a href="http://t.co/O9Gmel3ICB">pic.twitter.com/O9Gmel3ICB</a></p>&mdash; Shayne 👨🏿‍💻 UXD (@shaynecuffy) <a href="https://twitter.com/shaynecuffy/status/499473730046001152?ref_src=twsrc%5Etfw">August 13, 2014</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Improvement shouldn't be viewed as an optional activity, something you do when you have extra time.
 It should be continuous, part of the daily routine of every team.
-Time should be consciously reserved to pay down technical debt, to run experiments, improve workflows and create new knowledge.
+Time should be consciously reserved to pay down technical debt, run experiments, improve workflows, and create new knowledge.
 [In a continuous improvement culture, improving the way we work is more important than doing the work!](https://mikeorzen.com/change-fatigue-psychological-safety-and-the-leadership-void-why-most-ci-initiatives-dont-last/ "Change Fatigue, Psychological Safety and the Leadership Void: Why Most CI Initiatives Don’t Last")
 
 ## Summary
@@ -255,6 +255,6 @@ In short, they are:
 2. Amplification of feedback loops so that corrections and improvements can be continuously made
 3. Creation of a high-trust culture that encourages experimentation and learning from failure
 
-This post covered what I found most important.
-But the book goes into more details about various practices that go along with the principles.
-It is a recommended read for everyone who's interested in DevOps.
+This post covered what I found most valuable.
+But the book goes into more detail about various practices that go along with the principles.
+It is a recommended read for everyone interested in DevOps.
