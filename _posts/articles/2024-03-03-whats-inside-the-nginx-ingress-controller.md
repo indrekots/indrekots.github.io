@@ -40,7 +40,7 @@ Let's exec into a pod and explore.
 $ kubectl exec --stdin --tty -n ingress-nginx ingress-nginx-controller-7dcdbcff84-bf6sn -- /bin/bash
 ```
 At `/etc/nginx` we can find a file called `nginx.conf`.
-The file name should be familiar if you’ve ever set up an Nginx reverse proxy
+The file name should be familiar if you’ve ever set up an Nginx reverse proxy.
 This is the main configuration file for the Nginx web server.
 
 The default configuration file is pretty dense.
@@ -66,7 +66,7 @@ http {
 ```
 
 * The `http` block configures the HTTP server
-* Each `server` block represents a virtual server that listens for HTTP requests on a specific IP address and port
+* Each `server` block represents a virtual server that listens for HTTP requests on a specific host name and port
 * The `location` block is used to define how the server should handle different URLs within a given server block
 
 In the grand scheme of things, the configuration's structure is fairly similar to the ingress resource rules where we define hosts and paths. 
