@@ -5,5 +5,5 @@
 {% assign post_time = post_time | plus: 0 %}
 {% assign age = site_time | minus: post_time %}
 {% if age >= year %}
-  <p class="notice--danger"><strong>Notice!</strong> This post is more than a year old. It may be outdated.</p>
+  <p class="notice--danger"><i class="fas fa-exclamation-circle"> </i><strong> Notice!</strong> This post is more than a year old. It may be outdated.</p>
 {% endif %}
