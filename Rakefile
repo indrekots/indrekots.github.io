@@ -74,3 +74,42 @@ task :preview do
 
   Jekyll::Commands::Serve.process(options)
 end
+
+desc 'create a new draft post'
+task :post do
+  title = ENV['TITLE']
+  slug = "#{Date.today}-#{title.downcase.gsub(/[^\w]+/, '-')}"
+
+  file = File.join(
+    File.dirname(__FILE__),
+    '_posts/articles',
+    slug + '.md'
+  )
+
+  File.open(file, "w") do |f|
+    f << <<-EOS.gsub(/^    /, '')
+    ---
+    layout: post
+    title: #{title}
+    excerpt: ""
+    modified: #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}
+    categories: articles
+    tags: []
+    image:
+      path: /images/#{slug}/cover.jpg
+      thumbnail: /images/#{slug}/cover_thumb.jpg
+      caption: "Photo by []()"
+    comments: true
+    share: true
+    published: false
+    aging: false
+    amazon_links: false
+    ---
+
+    EOS
+  end
+
+  Dir.mkdir "images/#{slug}"
+
+  system ("#{ENV['EDITOR']} #{file}")
+end
