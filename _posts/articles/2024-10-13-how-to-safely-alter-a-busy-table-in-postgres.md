@@ -56,7 +56,7 @@ As mentioned earlier, the `AccessExclusiveLock` guarantees that the holder of th
 This also means that when there are existing locks on the table, the transaction has to wait until all existing locks on the table are released.
 
 In this scenario, the `accounts` table receives a lot of transactions.
-The following simulates the next query from the application.
+In a new database session, let's simulate another query from the application.
 
 ```sql
 select * from accounts;
@@ -70,6 +70,11 @@ The `ALTER TABLE` transaction isn't able to proceed.
 It joined a wait queue.
 The `AccessShareLock` required by the final select query is incompatible with `AccessExclusiveLock`.
 Therefore the final select query also has to join the wait queue.
+
+<figure>
+	<a href="{{ site.url}}/images/2024-10-13-how-to-safely-alter-a-busy-table-in-postgres/diagram.png" class="image-popup"><img src="{{ site.url}}/images/2024-10-13-how-to-safely-alter-a-busy-table-in-postgres/diagram.png" alt="Diagram displaying the transactions in the wait queue"></a>
+	<figcaption>Alter table statement is blocked by the ongoing transaction. A select from the accounts table is blocked by the alter table statement.</figcaption>
+</figure>
 
 To sum up, in a busy table, it may be very difficult to acquire an `AccessExclusiveLock` that's required by `ALTER TABLE` commands.
 It's surprisingly easy to accidentally bring your application to a grinding halt.
