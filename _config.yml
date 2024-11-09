@@ -16,7 +16,7 @@
 theme: jekyll-theme-so-simple
 # remote_theme: mmistakes/so-simple-theme
 locale: en-US
-title: "That which inspires awe"
+title: "That Which Inspires Awe"
 description: "A software development blog"
 baseurl: # the subpath of your site, e.g. "/blog"
 url: https://blog.indrek.io
