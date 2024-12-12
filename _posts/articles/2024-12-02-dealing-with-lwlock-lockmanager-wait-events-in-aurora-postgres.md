@@ -236,7 +236,7 @@ This allows for greater concurrency.
 Only the partition where the acquired lock falls into needs to be locked and not the entire hash table.
 
 <figure class="align-center">
-	<a href="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/hash-table.png" class="image-popup"><img src="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/hash-table.png" alt="Diagram displaying the lock manager hash that's divided into 16 partitions"></a>
+	<a href="{{ site.url}}/images/2024-12-02-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/hash-table.png" class="image-popup"><img src="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/hash-table.png" alt="Diagram displaying the lock manager hash that's divided into 16 partitions"></a>
 	<figcaption>Lock manager's hash table is divided into 16 partitions to improve concurrency</figcaption>
 </figure>
 
@@ -254,7 +254,7 @@ My goal is to run many concurrent threads and process a large amount of database
 Since `LWLock:LockManager` wait event is a sign of lock manager contention, I'm hoping that a high amount of parallelism makes it easier to reproduce the issue. 
 
 <figure class="align-center">
-	<a href="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/scenario.png" class="image-popup"><img src="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/scenario.png" alt="Architecture diagram showing pgbench running on an EC2 instance and it's making queries to an Aurora Postgres 15 database"></a>
+	<a href="{{ site.url}}/images/2024-12-02-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/scenario.png" class="image-popup"><img src="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/scenario.png" alt="Architecture diagram showing pgbench running on an EC2 instance and it's making queries to an Aurora Postgres 15 database"></a>
 	<figcaption>Test scenario setup. EC2 instance running pgbench will execute sql queries against an Aurora Postgres database.</figcaption>
 </figure>
 
@@ -288,7 +288,7 @@ pgbench -f test.sql -T 240 -c 800 -j 40 -U postgres \
 Looking at RDS Performance Insights after the experiment, we can clearly see the presence of `LWLock:LockManager` wait events.
 
 <figure class="align-center">
-	<a href="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/test_results.png" class="image-popup"><img src="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/test_results.png" alt="A diagram from RDS Performance Insights. It depicts a graph where CPU time is spent. Some time is spent on LWLock:LockManager wait events"></a>
+	<a href="{{ site.url}}/images/2024-12-02-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/test_results.png" class="image-popup"><img src="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/test_results.png" alt="A diagram from RDS Performance Insights. It depicts a graph where CPU time is spent. Some time is spent on LWLock:LockManager wait events"></a>
 	<figcaption>LWLock:LockManager wait events depicted in purple. Max vCPUs equals 16.</figcaption>
 </figure>
 
@@ -307,7 +307,7 @@ This should ensures that fast-path locking is always used.
 When rerunning the test, my expectation is that `LWLock:LockManager` wait events should disappear because lock manager isn't used anymore to keep track of lock acquisitions.
 
 <figure class="align-center">
-	<a href="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/test_with_fast_path_locking.png" class="image-popup"><img src="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/test_with_fast_path_locking.png" alt="A diagram from RDS Performance Insights. It depicts a graph where CPU time is spent. Some time is spent on LWLock:LockManager wait events"></a>
+	<a href="{{ site.url}}/images/2024-12-02-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/test_with_fast_path_locking.png" class="image-popup"><img src="{{ site.url}}/images/2024-11-01-dealing-with-lwlock-lockmanager-wait-events-in-aurora-postgres/test_with_fast_path_locking.png" alt="A diagram from RDS Performance Insights. It depicts a graph where CPU time is spent. Some time is spent on LWLock:LockManager wait events"></a>
 	<figcaption>No more LWLockManager wait events when only fast-path locking is used</figcaption>
 </figure>
 
