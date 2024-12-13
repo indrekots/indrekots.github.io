@@ -275,7 +275,7 @@ commit;
 
 It performs a transaction during which all tables get selected.
 We learned previously that we have 16 fast-path locks per transaction.
-Acquiring more than 16 locks should cause a situation where some lock have to be acquired via the lock manager.
+Acquiring more than 16 locks should cause a situation where some locks have to be acquired via the lock manager.
 
 During the test, pgbench will run for 240 seconds, creating 40 threads and 800 database connections.
 These threads will repeatedly run the SQL script, simulating a high-concurrency workload.
